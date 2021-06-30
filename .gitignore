@@ -1,0 +1,5 @@
+#.gitignore
+#git commit(백업)에서 제외할 대상을 지정
+bin/
+*.class
+*.exe
