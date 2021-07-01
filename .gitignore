@@ -1,5 +1,3 @@
-#.gitignore
-#git commit(백업)에서 제외할 대상을 지정
 
 # Created by https://www.gitignore.io/api/java,linux,macos,gradle,windows,eclipse,java-web,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=java,linux,macos,gradle,windows,eclipse,java-web,visualstudiocode
