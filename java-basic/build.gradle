@@ -1,0 +1,14 @@
+plugins {
+    id 'java' 
+    id 'eclipse'
+}
+
+repositories {
+    mavenCentral() // https://repo.maven.apache.org/maven2/ 사이트에서 다운로드 받는다.
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+    implementation 'com.google.guava:guava:30.1-jre'
+}
+

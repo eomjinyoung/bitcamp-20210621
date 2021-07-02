@@ -1,0 +1,3 @@
+// 루트 프로젝트의 이름 설정
+// => 배포 파일을 만들 때 이 이름을 사용한다.
+rootProject.name = 'java-basic'

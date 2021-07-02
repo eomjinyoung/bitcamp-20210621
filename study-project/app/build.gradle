@@ -2,6 +2,22 @@
 plugins {
     //id 'java'  // 자바 애플리케이션 빌드 관련 작업들을 추가한다.
     id 'application' // = 'java' 플러그인 + 애플리케이션 관련 작업 
+    id 'eclipse' // 이클립스 IDE 관련 작업
+    // eclipseProject : .project 파일 생성
+    // eclipseClasspath : .classpath 파일 생성
+    // eclipseJdt : JDT 관련 파일 생성(.settings/ 폴더 및 파일 생성)
+    // eclipse : = eclipseProject + eclipseClasspath + eclipseJdt
+    // cleanEclipseProject : .project 파일 제거
+    // cleanEclipseClasspath : .class 파일 제거
+    // cleanEclipseJdt : .settings 폴더 및 파일 제거
+    // cleanEclipse : = cleanEclipseProject + cleanEclipseClasspath + cleanEclipseJdt
+}
+
+// eclipse 프로젝트 이름을 설정하기
+eclipse {
+    project {
+        name = "study-project"
+    }
 }
 
 // 프로젝트에서 외부의 라이브러리를 사용한다면
