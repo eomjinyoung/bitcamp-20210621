@@ -144,7 +144,7 @@
 		- `git remote origin 서버저장소URL`
 	- 로컬 저장소의 내용을 서버에 올리기
 		- `git push`
-- 자바 기초 문법(eomcs-java)
+- 자바 기초 문법(eomcs-java/com.eomcs.lang)
 	- ex01
 		- 패키지 다루기
 		- 자바 소스 파일과 클래스 블록
@@ -158,3 +158,28 @@
 	- 01-b : 프로젝트 준비하기 : `이클립스 IDE`로 임포트
 
 ## 6일차(2021-07-05,월)
+- 프로그래밍 도구 준비(계속)
+	- VSCode Live 확장 팩 플러그인 추가
+	- 라이브 코딩 작업 테스트
+- 자바 기초 문법(eomcs-java/com.eomcs.lang)
+	- ex99
+		- 콘솔 출력 다루기: print(), println(), printf()
+	- ex03
+		- 리터럴 표기법 요약 정리
+		- 값을 메모리에 저장하는 방법: RAM, HDD
+		- 10진수, 8진수, 2진수, 16진수 표기법
+		- 정수를 2진수로 저장하는 방법
+		- 메모리 크기에 따른 값의 범위
+
+## 7일차(2021-07-06,화)
+- 프로그래밍 도구 준비(계속)
+	- VSCode Hex Editor 플러그인 추가
+	- .class 파일을 16진수 값으로 보기 : 부동소수점이 2진수로 표현됐을 때의 2진수 값 확인
+- 자바 기초 문법(eomcs-java/com.eomcs.lang)
+	- ex03
+		- 부동소수점을 2진수로 표현하는 방법: IEEE 754 명세
+		- 문자를 2진수로 표현하는 방법: ASCII, ISO-8859-2, EUC-KR, 조합형, Unicode, UTF-8 문자 집합 소개
+		- 이스케이프 문자를 다루는 방법
+		- Raster 폰트(그림)과 Vector 폰트(그림) 비교 
+		- 줄바꿈 코드: 0D(Carrage Return; CR), 0A(Line Feed; LF)
+		
