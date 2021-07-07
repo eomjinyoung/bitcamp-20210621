@@ -194,6 +194,6 @@
 		- 변수와 변수 선언: 데이터 타입과 변수명
 		- primitive data type: byte, short, int, long, float, double, boolean
 	- ex99
-		- Scanner 를 이용하여 키보 입력 다루기
+		- Scanner 를 이용하여 키보드 입력 다루기
 - 실전 프로젝트(eomcs-java-project-2021)
 	- 02-b. 값 다루기 : 변수와 키보드 입력
