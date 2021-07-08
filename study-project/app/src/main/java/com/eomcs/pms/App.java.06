@@ -9,14 +9,12 @@ import java.util.Scanner;
 //4) 반복문 적용 : for 문
 //5) 여러 문장에서 반복해서 사용하는 값은 변수에 담아서 사용한다.
 //6) 조회용으로만 사용할 변수라면 상수로 선언한다.
-//7) 특정 조건에 따라 반복을 멈춘다.
-//8) 날짜의 출력형식을 "yyyy-MM-dd"로 변경한다.
 public class App {
 
   public static void main(String[] args) {
     System.out.println("[회원]");
 
-    final int MAX_LENGTH = 100;
+    final int MAX_LENGTH = 3;
 
     int[] no = new int[MAX_LENGTH];
     String[] name = new String[MAX_LENGTH];
@@ -27,8 +25,6 @@ public class App {
     Date[] registeredDate = new Date[MAX_LENGTH];
 
     Scanner keyboardScan = new Scanner(System.in);
-
-    int size = 0;
 
     for (int i = 0; i < MAX_LENGTH; i = i + 1) {
       System.out.print("번호? ");
@@ -44,14 +40,6 @@ public class App {
       System.out.print("전화? ");
       tel[i] = keyboardScan.nextLine();
       registeredDate[i] = new Date();
-      size = size + 1;
-      System.out.println();
-
-      System.out.print("계속 입력하시겠습니까? (y/N) ");
-      String input = keyboardScan.nextLine();
-      if (input.equalsIgnoreCase("N") || input.equals("")) {
-        break;
-      }
       System.out.println();
     }
 
@@ -59,13 +47,15 @@ public class App {
 
     System.out.println("--------------------------------");
 
-    for (int i = 0; i < size; i = i + 1) {
-      System.out.printf("%d, %s, %s, %s, %tY-%5$tm-%5$td\n", 
-          no[i],
-          name[i],
-          email[i],
-          tel[i],
-          registeredDate[i]);
+    for (int i = 0; i < MAX_LENGTH; i = i + 1) {
+      System.out.println("번호: " + no[i]);
+      System.out.println("이름: " + name[i]);
+      System.out.println("이메일: " + email[i]);
+      System.out.printf("암호: %s\n", password[i]);
+      System.out.printf("사진: %s\n", photo[i]);
+      System.out.printf("전화: %s\n", tel[i]);
+      System.out.printf("가입일: %s\n", registeredDate[i]);
+      System.out.println();
     }
   }
 }
