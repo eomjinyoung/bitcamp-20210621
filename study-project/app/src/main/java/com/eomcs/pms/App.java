@@ -1,6 +1,5 @@
 package com.eomcs.pms;
 
-import java.util.Date;
 import java.util.Scanner;
 
 //1) 배열 사용 전
@@ -16,56 +15,47 @@ public class App {
   public static void main(String[] args) {
     System.out.println("[회원]");
 
-    final int MAX_LENGTH = 100;
-
-    int[] no = new int[MAX_LENGTH];
-    String[] name = new String[MAX_LENGTH];
-    String[] email = new String[MAX_LENGTH];
-    String[] password = new String[MAX_LENGTH];
-    String[] photo = new String[MAX_LENGTH]; 
-    String[] tel = new String[MAX_LENGTH];
-    Date[] registeredDate = new Date[MAX_LENGTH];
-
+    // Scanner?
+    // 키보드에서 사용자가 입력한 값을 읽어서
+    // 문자열이나 정수, 부동소수점 등으로 리턴하는 역할
     Scanner keyboardScan = new Scanner(System.in);
 
-    int size = 0;
+    System.out.print("번호? ");
+    String no = keyboardScan.nextLine();
 
-    for (int i = 0; i < MAX_LENGTH; i = i + 1) {
-      System.out.print("번호? ");
-      no[i] = Integer.parseInt(keyboardScan.nextLine());
-      System.out.print("이름? ");
-      name[i] = keyboardScan.nextLine();
-      System.out.print("이메일? ");
-      email[i] = keyboardScan.nextLine();
-      System.out.print("암호? ");
-      password[i] = keyboardScan.nextLine();
-      System.out.print("사진? ");
-      photo[i] = keyboardScan.nextLine();
-      System.out.print("전화? ");
-      tel[i] = keyboardScan.nextLine();
-      registeredDate[i] = new Date();
-      size = size + 1;
-      System.out.println();
+    System.out.print("이름? ");
+    String name = keyboardScan.nextLine();
 
-      System.out.print("계속 입력하시겠습니까? (y/N) ");
-      String input = keyboardScan.nextLine();
-      if (input.equalsIgnoreCase("N") || input.equals("")) {
-        break;
-      }
-      System.out.println();
-    }
+    System.out.print("이메일? ");
+    String email = keyboardScan.nextLine();
+
+    System.out.print("암호? ");
+    String password = keyboardScan.nextLine();
+
+    System.out.print("사진? ");
+    String photo = keyboardScan.nextLine();
+
+    System.out.print("전화? ");
+    String tel = keyboardScan.nextLine();
+
+    // 현재 일시 알아내기
+    java.sql.Date now = new java.sql.Date(System.currentTimeMillis());
+    // System.currentTimeMillis()
+    //   - 1970년 1월 1일 0시 0분 0초부터 현재까지 경과된 시간을 밀리초로 리턴한다.
+    // new java.sql.Date(밀리초)
+    //  - 넘겨 받은 밀리초를 가지고 년,월,일,시,분,초를 계산한다.
 
     keyboardScan.close(); // 데이터 입출력이 끝났으면 도구를 닫는다.
 
     System.out.println("--------------------------------");
 
-    for (int i = 0; i < size; i = i + 1) {
-      System.out.printf("%d, %s, %s, %s, %tY-%5$tm-%5$td\n", 
-          no[i],
-          name[i],
-          email[i],
-          tel[i],
-          registeredDate[i]);
-    }
+    System.out.println("번호: " + no);
+    System.out.println("이름: " + name);
+    System.out.println("이메일: " + email);
+    System.out.printf("암호: %s\n", password);
+    System.out.printf("사진: %s\n", photo);
+    System.out.printf("전화: %s\n", tel);
+    System.out.printf("가입일: %s\n", now);
   }
 }
+
