@@ -197,3 +197,16 @@
 		- Scanner 를 이용하여 키보드 입력 다루기
 - 실전 프로젝트(eomcs-java-project-2021)
 	- 02-b. 값 다루기 : 변수와 키보드 입력
+
+## 9일차(2021-07-08,목)
+- 자바 기초 문법(eomcs-java)
+	- com.eomcs.basic.ex10
+		- java.util.Date 클래스 사용법
+		- java.sql.Date 클래스 사용법
+	- com.eomcs.lang.ex04
+		- 배열 다루기
+	- com.eomcs.lang.ex06
+		- if, if ~ else 
+		- while, for
+- 실전 프로젝트(eomcs-java-project-2021)
+	- 02-c. 값 다루기 : 배열과 흐름 제어문 활용
