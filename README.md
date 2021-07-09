@@ -210,3 +210,13 @@
 		- while, for
 - 실전 프로젝트(eomcs-java-project-2021)
 	- 02-c. 값 다루기 : 배열과 흐름 제어문 활용
+
+## 10일차(2021-07-09,금)
+- 자바 기초 문법(eomcs-java)
+	- com.eomcs.lang.ex04
+		- 배열 다루기(계속)
+	- com.eomcs.lang.ex06
+		- if, if ~ else 
+		- while, for
+- 실전 프로젝트(eomcs-java-project-2021)
+	- 02-c. 값 다루기 : 배열과 흐름 제어문 활용
