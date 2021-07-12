@@ -1,30 +1,14 @@
 package com.eomcs.pms;
 
+import java.sql.Date;
 import java.util.Scanner;
 
-//1) 변경 준비 
-//2) 사용자에게 명령 프롬프트 출력
-//3) 사용자의 명령을 입력 받아 출력
-//4) 명령을 입력 받아 출력하는 것을 무한 반복
-//5) exit나 quit 명령을 입력하면 반복 실행 중지
 public class App {
 
   public static void main(String[] args) {
-    Scanner keyboardScan = new Scanner(System.in);
-
-    while (true) {
-      System.out.print("명령> ");
-
-      String input = keyboardScan.nextLine();
-
-      if (input.equals("exit") || input.equals("quit")) {
-        break;
-      }
-
-      System.out.println(input);
-    }
-    /*
     System.out.println("[회원]");
+
+    Scanner keyboardScan = new Scanner(System.in);
 
     // 최대 입력 개수
     final int LENGTH = 100;
@@ -71,6 +55,7 @@ public class App {
       System.out.println(); // 빈 줄 출력
     }
 
+    keyboardScan.close();
 
     System.out.println("--------------------------------");
 
@@ -79,7 +64,5 @@ public class App {
       System.out.printf("%d, %s, %s, %s, %s\n", // 출력 형식 지정
           no[i], name[i], email[i], tel[i], registeredDate[i]);
     }
-     */
-    keyboardScan.close();
   }
 }
