@@ -215,8 +215,21 @@
 - 자바 기초 문법(eomcs-java)
 	- com.eomcs.lang.ex04
 		- 배열 다루기(계속)
+	- com.eomcs.lang.ex05
+		- 연산자 사용법
+
+## 10일차(2021-07-09,금)
+- 자바 기초 문법(eomcs-java)
+	- com.eomcs.lang.ex04
+		- 배열 다루기(계속): 배열 레퍼런스와 오프셋 주소
+	- com.eomcs.lang.ex05
+		- 연산자 사용법
+
+## 11일차(2021-07-12,월)
+- 자바 기초 문법(eomcs-java)
+	- com.eomcs.lang.ex05
+		- 연산자 사용법(계속) : 비트 이동 연산자
 	- com.eomcs.lang.ex06
-		- if, if ~ else 
-		- while, for
+		- 조건문, 반복문
 - 실전 프로젝트(eomcs-java-project-2021)
-	- 02-c. 값 다루기 : 배열과 흐름 제어문 활용
+	- 03-a. 메서드 사용법 : 프로그램의 시작점(entry point), `main()`, 조건문, 반복문
