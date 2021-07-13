@@ -88,7 +88,9 @@
 #### 작업 파일
 
 - com.eomcs.pms.App 클래스 변경
-  - 백업: App_g.java
+  - 백업: App.java.07 : void prompt()
+  - 백업: App.java.08 : void prompt(String)
+  - 백업: App.java.09 : String prompt(String)
 
 ### 8단계 - prompt()를 목적에 따라 더 세분화하여 분리한다
 
@@ -100,6 +102,8 @@
 #### 작업 파일
 
 - com.eomcs.pms.App 클래스 변경
+  - 백업: App.java.10 : promptString(), promptInt(), promptDate()
+  - 백업: App.java.11 : promptInt(), promptDate() 코드 정리
 
 ## 실습 결과
 

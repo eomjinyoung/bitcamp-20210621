@@ -25,11 +25,6 @@ import java.util.Scanner;
 //   => prompt()는 호출할 때 넘어온 프롬프트 메시지 값을 파라미터로 받는다.
 //9) prompt() 가 작업한 결과를 클래스 변수에 담지 말고 호출자에게 리턴한다.
 //   => prompt()를 실행한 후 사용자가 입력한 문자열을 리턴한다.
-//10) prompt()의 기능을 더 세분화한다.
-//   => promptString() : 사용자로부터 문자열을 입력 받아 리턴한다.
-//   => promptInt() : 사용자로부터 숫자를 입력 받아 리턴한다.
-//   => promptDate() : 사용자로부터 날짜를 입력 받아 리턴한다.
-//11) promtString(), promptInt(), promptDate() 메서드의 코드를 정리한다.
 public class App {
 
   static Scanner keyboardScan = new Scanner(System.in);
@@ -68,7 +63,7 @@ public class App {
   public static void main(String[] args) {
 
     while (true) {
-      String input = promptString("명령> ");
+      String input = prompt("명령> ");
 
       if (input.equals("exit") || input.equals("quit")) {
         System.out.println("안녕!");
@@ -108,12 +103,12 @@ public class App {
     //    String input = prompt("번호? ");
     //    no[size] = Integer.parseInt(input);
 
-    no[size] = promptInt("번호? ");
-    name[size] = promptString("이름? ");
-    email[size] = promptString("이메일? ");
-    password[size] = promptString("암호? ");
-    photo[size] = promptString("사진? ");
-    tel[size] = promptString("전화? ");
+    no[size] = Integer.parseInt(prompt("번호? "));
+    name[size] = prompt("이름? ");
+    email[size] = prompt("이메일? ");
+    password[size] = prompt("암호? ");
+    photo[size] = prompt("사진? ");
+    tel[size] = prompt("전화? ");
     registeredDate[size] = new Date(System.currentTimeMillis());
 
     size++;
@@ -131,13 +126,13 @@ public class App {
   static void addProject() {
     System.out.println("[프로젝트 등록]");
 
-    pNo[pSize] = promptInt("번호? ");
-    pTitle[pSize] = promptString("프로젝트명? ");
-    pContent[pSize] = promptString("내용? ");
-    pStartDate[pSize] = promptDate("시작일? ");
-    pEndDate[pSize] = promptDate("종료일? ");
-    pOwner[pSize] = promptString("만든이? ");
-    pMembers[pSize] = promptString("팀원? ");
+    pNo[pSize] = Integer.valueOf(prompt("번호? "));
+    pTitle[pSize] = prompt("프로젝트명? ");
+    pContent[pSize] = prompt("내용? ");
+    pStartDate[pSize] = Date.valueOf(prompt("시작일? "));
+    pEndDate[pSize] = Date.valueOf(prompt("종료일? "));
+    pOwner[pSize] = prompt("만든이? ");
+    pMembers[pSize] = prompt("팀원? ");
 
     pSize++;
   }
@@ -154,16 +149,16 @@ public class App {
   static void addTask() {
     System.out.println("[작업 등록]");
 
-    tNo[tSize] = promptInt("번호? ");
-    tContent[tSize] = promptString("내용? ");
-    tDeadline[tSize] = promptDate("마감일? ");
+    tNo[tSize] = Integer.parseInt(prompt("번호? "));
+    tContent[tSize] = prompt("내용? ");
+    tDeadline[tSize] = Date.valueOf(prompt("마감일? "));
 
     System.out.println("상태?");
     System.out.println("0: 신규");
     System.out.println("1: 진행중");
     System.out.println("2: 완료");
-    tStatus[tSize] = promptInt("> ");
-    tOwner[tSize] = promptString("담당자? ");
+    tStatus[tSize] = Integer.valueOf(prompt("> "));
+    tOwner[tSize] = prompt("담당자? ");
 
     tSize++;
   }
@@ -189,20 +184,17 @@ public class App {
     }
   }
 
-  // 사용자로부터 문자열을 입력 받아 리턴한다.
-  static String promptString(String title) {
+  // prompt();
+  // - 사용자로부터 문자열을 입력 받는 기능을 수행한다.
+  // - 파라미터:
+  //     title - 프롬프트의 메시지
+  // - 리턴 값:
+  //     String - 사용자가 입력한 문자열
+  // 
+  static String prompt(String title) {
     System.out.print(title);
-    return keyboardScan.nextLine();
-  }
-
-  // 사용자로부터 숫자를 입력 받아 리턴한다.
-  static int promptInt(String title) {
-    return Integer.parseInt(promptString(title));
-  }
-
-  // 사용자로부터 날짜를 입력 받아 리턴한다.
-  static Date promptDate(String title) {
-    return Date.valueOf(promptString(title));
+    String input = keyboardScan.nextLine();
+    return input;
   }
 
 }

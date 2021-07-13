@@ -29,7 +29,6 @@ import java.util.Scanner;
 //   => promptString() : 사용자로부터 문자열을 입력 받아 리턴한다.
 //   => promptInt() : 사용자로부터 숫자를 입력 받아 리턴한다.
 //   => promptDate() : 사용자로부터 날짜를 입력 받아 리턴한다.
-//11) promtString(), promptInt(), promptDate() 메서드의 코드를 정리한다.
 public class App {
 
   static Scanner keyboardScan = new Scanner(System.in);
@@ -197,12 +196,14 @@ public class App {
 
   // 사용자로부터 숫자를 입력 받아 리턴한다.
   static int promptInt(String title) {
-    return Integer.parseInt(promptString(title));
+    System.out.print(title);
+    return Integer.parseInt(keyboardScan.nextLine());
   }
 
   // 사용자로부터 날짜를 입력 받아 리턴한다.
   static Date promptDate(String title) {
-    return Date.valueOf(promptString(title));
+    System.out.print(title);
+    return Date.valueOf(keyboardScan.nextLine());
   }
 
 }
