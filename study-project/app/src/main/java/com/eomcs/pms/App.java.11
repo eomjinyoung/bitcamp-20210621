@@ -14,7 +14,6 @@ import java.util.Scanner;
 //9) /project/add  명령 처리
 //10) /project/list 명령 처리
 //11) /task/add 명령 처리
-//12) /task/list 명령 처리
 public class App {
 
   public static void main(String[] args) {
@@ -146,26 +145,6 @@ public class App {
         tOwner[tSize] = keyboardScan.nextLine();
 
         tSize++;
-
-      }  else if (input.equals("/task/list")) {
-        System.out.println("[작업 목록]");
-
-        for (int i = 0; i < tSize; i++) {
-          String stateLabel = null;
-          switch (tStatus[i]) {
-            case 1:
-              stateLabel = "진행중";
-              break;
-            case 2:
-              stateLabel = "완료";
-              break;
-            default:
-              stateLabel = "신규";
-          }
-          // 번호, 작업명, 마감일, 프로젝트, 상태, 담당자
-          System.out.printf("%d, %s, %s, %s, %s\n", // 출력 형식 지정
-              tNo[i], tContent[i], tDeadline[i], stateLabel, tOwner[i]);
-        }
 
       } else {
         System.out.println("실행할 수 없는 명령입니다.");

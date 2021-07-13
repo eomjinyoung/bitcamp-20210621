@@ -104,6 +104,14 @@ public class App {
 
         pSize++;
 
+      }  else if (input.equals("/project/list")) {
+        System.out.println("[프로젝트 목록]");
+        for (int i = 0; i < pSize; i++) {
+          // 번호, 프로젝트명, 시작일, 종료일, 만든이
+          System.out.printf("%d, %s, %s, %s, %s\n", // 출력 형식 지정
+              pNo[i], pTitle[i], pStartDate[i], pEndDate[i], pOwner[i]);
+        }
+
       } else {
         System.out.println("실행할 수 없는 명령입니다.");
       }
