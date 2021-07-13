@@ -12,7 +12,6 @@ import java.util.Scanner;
 //7) /member/add 명령 처리
 //8) /member/list 명령 처리
 //9) /project/add  명령 처리
-//10) /project/list 명령 처리
 public class App {
 
   public static void main(String[] args) {
