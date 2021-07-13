@@ -12,6 +12,12 @@ eclipse {
     }
 }
 
+// 자바 소스를 컴파일 할 때 적용할 옵션
+tasks.withType(JavaCompile) {
+    // $javac -encoding UTF-8 ...
+    options.encoding = 'UTF-8';
+}
+
 // 프로젝트에서 외부의 라이브러리를 사용한다면
 // 그 라이브러리 파일(.jar)을 다운로드 받을 서버 정보를 설정하라!
 repositories {
