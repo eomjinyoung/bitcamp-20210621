@@ -242,3 +242,7 @@
 - 자바 기초 문법(eomcs-java)
 	- com.eomcs.lanng.ex07
 		- 메서드 활용
+		- call by value 와 call by reference
+		- JVM이 메모리 영역: Method Area, JVM Stack, Heap
+		- 클래스의 인스턴스 메모리
+		
