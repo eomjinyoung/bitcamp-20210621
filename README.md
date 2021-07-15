@@ -240,9 +240,18 @@
 
 ## 13일차(2021-07-14,수)
 - 자바 기초 문법(eomcs-java)
-	- com.eomcs.lanng.ex07
+	- com.eomcs.lang.ex07
 		- 메서드 활용
 		- call by value 와 call by reference
-		- JVM이 메모리 영역: Method Area, JVM Stack, Heap
+		- JVM의 메모리 영역: Method Area, JVM Stack, Heap
 		- 클래스의 인스턴스 메모리
 		
+## 14일차(2021-07-15,목)
+- 자바 기초 문법(eomcs-java)
+	- com.eomcs.lang.ex07
+		- 메서드에서 new 연산자를 사용하여 변수를 만들기: Heap 영역
+		- 재귀호출과 스택 오버플로우
+		- main() 메서드와 프로그램 아규먼트
+		- JVM 아규먼트
+	- com.eomcs.algorithm.quiz
+		- Test001 ~ Test004
