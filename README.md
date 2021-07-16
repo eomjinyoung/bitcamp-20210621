@@ -255,3 +255,7 @@
 		- JVM 아규먼트
 	- com.eomcs.algorithm.quiz
 		- Test001 ~ Test004
+
+## 15일차(2021-07-16,금)
+- 실전 프로젝트(eomcs-java-project-2021)
+	- 03-b. 메서드 사용법 : 메서드 활용
