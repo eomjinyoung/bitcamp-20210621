@@ -32,6 +32,7 @@
 
 #### 작업 파일
 
+- com.eomcs.pms.Member 클래스 생성
 - com.eomcs.pms.MemberHandler  클래스 변경
   - add(), list() 변경
 
@@ -43,6 +44,7 @@
 
 #### 작업 파일
 
+- com.eomcs.pms.Project 클래스 생성
 - com.eomcs.pms.ProjectHandler  클래스 변경
   - add(), list() 변경
 
@@ -54,11 +56,15 @@
 
 #### 작업 파일
 
+- com.eomcs.pms.Task 클래스 생성
 - com.eomcs.pms.TaskHandler 클래스 변경
   - add(), list() 변경
 
 ## 실습 결과
 
+- src/main/java/com/eomcs/pms/Member.java 추가
+- src/main/java/com/eomcs/pms/Project.java 추가
+- src/main/java/com/eomcs/pms/Task.java 추가
 - src/main/java/com/eomcs/pms/MemberHandler.java 변경
 - src/main/java/com/eomcs/pms/ProjectHandler.java 변경
 - src/main/java/com/eomcs/pms/TaskHandler.java 변경

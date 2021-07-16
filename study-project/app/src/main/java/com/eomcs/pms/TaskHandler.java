@@ -1,40 +1,36 @@
 package com.eomcs.pms;
 
-import java.sql.Date;
-
 public class TaskHandler {
 
-  static final int TASK_LENGTH = 100;
-  static int[] tNo = new int[TASK_LENGTH];
-  static String[] tContent = new String[TASK_LENGTH];
-  static Date[] tDeadline = new Date[TASK_LENGTH];
-  static String[] tOwner = new String[TASK_LENGTH];
-  static int[] tStatus = new int[TASK_LENGTH];
-  static int tSize = 0;
+  static final int MAX_LENGTH = 5;
+  static Task[] tasks = new Task[MAX_LENGTH];
+  static int size = 0;
 
   static void add() {
     System.out.println("[작업 등록]");
 
-    tNo[tSize] = Prompt.inputInt("번호? ");
-    tContent[tSize] = Prompt.inputString("내용? ");
-    tDeadline[tSize] = Prompt.inputDate("마감일? ");
+    Task task = new Task();
+
+    task.no = Prompt.inputInt("번호? ");
+    task.content = Prompt.inputString("내용? ");
+    task.deadline = Prompt.inputDate("마감일? ");
 
     System.out.println("상태?");
     System.out.println("0: 신규");
     System.out.println("1: 진행중");
     System.out.println("2: 완료");
-    tStatus[tSize] = Prompt.inputInt("> ");
-    tOwner[tSize] = Prompt.inputString("담당자? ");
+    task.status = Prompt.inputInt("> ");
+    task.owner = Prompt.inputString("담당자? ");
 
-    tSize++;
+    tasks[size++] = task;
   }
 
   static void list() {
     System.out.println("[작업 목록]");
 
-    for (int i = 0; i < tSize; i++) {
+    for (int i = 0; i < size; i++) {
       String stateLabel = null;
-      switch (tStatus[i]) {
+      switch (tasks[i].status) {
         case 1:
           stateLabel = "진행중";
           break;
@@ -46,7 +42,11 @@ public class TaskHandler {
       }
 
       System.out.printf("%d, %s, %s, %s, %s\n",
-          tNo[i], tContent[i], tDeadline[i], stateLabel, tOwner[i]);
+          tasks[i].no, 
+          tasks[i].content, 
+          tasks[i].deadline, 
+          stateLabel, 
+          tasks[i].owner);
     }
   }
 
