@@ -1,11 +1,10 @@
 package com.eomcs.pms;
 
-//1) 사용자로부터 입력 받는 일을 하는 메서드를 별도의 클래스로 분류한다. 
-//2) 회원 정보를 다루는 메서드를 별도의 클래스로 분류한다.
-//3) 프로젝트 정보를 다루는 메서드를 별도의 클래스로 분류한다.
-//4) 작업 정보를 다루는 메서드를 별도의 클래스로 분류한다.
-//5) 키보드 스캐너를 닫는 일은 그 스캐너를 갖고 있는 클래스에서 수행한다.
-//   => GRASP 에서 Information Expert 설계 기법 적용
+import com.eomcs.pms.handler.MemberHandler;
+import com.eomcs.pms.handler.ProjectHandler;
+import com.eomcs.pms.handler.TaskHandler;
+import com.eomcs.util.Prompt;
+
 public class App {
 
   public static void main(String[] args) {
