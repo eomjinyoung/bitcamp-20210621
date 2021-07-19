@@ -45,6 +45,7 @@
 #### 작업 파일
 
 - com.eomcs.pms.domain.Board 클래스 추가
+  - 백업: Board.java.01
 - com.eomcs.pms.handler.BoardHandler  클래스 추가
   - 백업: BoardHandler.java.01
 - com.eomcs.pms.App 변경
@@ -73,11 +74,13 @@
 
 - com.eomcs.pms.handler.BoardHandler.Board 중첩 클래스 변경
   - 등록일 과 조회수를 저장할 필드를 추가한다
+  - 백업: Board.java.02
 - com.eomcs.pms.handler.BoardHandler 클래스 변경
   - add() 메서드 변경
   - list() 메서드 추가
+  - 백업: BoardHandler.java.02
 - com.eomcs.pms.App 변경
-  - 백업: App_b.java
+  - 백업: App.java.02
 
 
 ### 3단계 - 새 게시판을 추가한다.
@@ -90,36 +93,51 @@
 
 ```
 명령> /board2/add
+[새 게시글2]
 번호? 1
-내용? 게시글1
-저장하였습니다.
+제목? 제목입니다.
+내용? 내용입니다.
+작성자? 홍길동
+게시글을 등록하였습니다.
 
 명령> /board2/add
+[새 게시글2]
 번호? 2
-내용? 게시글2
-저장하였습니다.
+제목? 제목입니다.
+내용? 내용입니다.
+작성자? 홍길동2
+게시글을 등록하였습니다.
 
-명령> /board/add
-번호? 100
-내용? 게시글100
-저장하였습니다.
+명령> /board2/add
+[새 게시글2]
+번호? 3
+제목? 제목입니다.
+내용? 내용입니다.
+작성자? 홍길동3
+게시글을 등록하였습니다.
 
 명령> /board2/list
-1, 게시글1                  , 2019-01-01, 0
-2, 게시글2                  , 2019-01-01, 0
+[게시글 목록]
+1, 제목, 홍길동1, 2020-01-10, 0
+2, 제목, 홍길동2, 2020-01-20, 12
+3, 제목, 홍길동3, 2020-01-20, 12
 
 명령> /board/list
-100, 게시글100              , 2019-01-01, 0
+[게시글 목록2]
+1, 제목1, 홍길동, 2020-01-10, 0
+2, 제목2, 임꺽정, 2020-01-20, 12
+3, 제목3, 유관순, 2020-01-30, 7
 ```
 
 - `BoardHandler`를 복제하여 `BoardHandler2` 클래스를 정의한다.
+  - "[새 게시글2]", "[게시글 목록2]" 로 실행 제목을 변경한다.
 - `/board2/add`와 `/board2/list` 명령을 처리하도록 App 클래스를 변경한다.
 
 #### 작업 파일
 
 - com.eomcs.pms.handler.BoardHandler2 클래스 추가
 - com.eomcs.pms.App 변경
-  - 백업: App_c.java
+  - 백업: App.java.03
 
 ### 4단계 - 새 게시판을 4개 더 추가한다.
 
@@ -152,45 +170,20 @@
 - com.eomcs.pms.handler.BoardHandler6 클래스 추가
 - com.eomcs.pms.App 변경
 
-### 5단계 - 여러 BoardHandler에서 중복으로 작성하는 Board 클래스를 별도의 파일로 뽑아낸다.
 
-- 여러 클래스에서 공통으로 사용하는 클래스라면 패키지 멤버로 선언하여 중복 작성을 없앤다.
-  - Board 패키지 클래스 생성
-- 또한 클래스를 관리하기 쉽게 별도의 패키지로 분류한다.
-  - com.eomcs.pms.domain 패키지 생성
-  - Board 클래스를 이 패키지로 옮긴다.
-- 기본의 BoardHandler 클래스에서 Board 클래스를 제거한다.
-  - 대신 별도로 정의한 Board 클래스를 사용한다.
-
-#### 작업 파일
-
-- com.eomcs.pms.domain 패키지 생성
-- com.eomcs.pms.domain.Board 클래스 생성
-  - 백업: com.eomcs.pms.domain.Board_a
-- com.eomcs.pms.handler.BoardHandler 클래스 변경
-  - 백업: com.eomcs.pms.handler.BoardHandler_b
-- com.eomcs.pms.handler.BoardHandler2 클래스 변경
-  - 백업: com.eomcs.pms.handler.BoardHandler_b
-- com.eomcs.pms.handler.BoardHandler3 클래스 변경
-  - 백업: com.eomcs.pms.handler.BoardHandler_b
-- com.eomcs.pms.handler.BoardHandler4 클래스 변경
-  - 백업: com.eomcs.pms.handler.BoardHandler_b
-- com.eomcs.pms.handler.BoardHandler5 클래스 변경
-  - 백업: com.eomcs.pms.handler.BoardHandler_b
-- com.eomcs.pms.handler.BoardHandler6 클래스 변경
-  - 백업: com.eomcs.pms.handler.BoardHandler_b
-
-### 6단계 - 모든 게시판에 좋아요 수를 출력한다.
+### 5단계 - 모든 게시판에 좋아요 수를 출력한다.
 
 다음과 같이 동작하도록 클래스를 변경한다.
 
 ```
 명령> /board2/list
-1, 게시글1                  , 2019-01-01, 0, 10
-2, 게시글2                  , 2019-01-01, 0, 11
+[게시글 목록2]
+1, 제목1, 홍길동, 2020-01-10, 0, 10
+2, 제목2, 임꺽정, 2020-01-20, 12, 12
+3, 제목3, 유관순, 2020-01-30, 7, 2
 ```
 
-- 각 Board 클래스에 좋아요 수를 저장할 인스턴스 변수를 추가한다.
+- Board 클래스에 좋아요 수를 저장할 인스턴스 변수(like)를 추가한다.
 - 좋아요 수를 출력하기 위해 각 BoardHandler의 list()를 변경한다.
 - 문제점!
   - 게시판을 추가할 때 BoardHandler 클래스를 복제하는 방식으로 처리했다.
@@ -206,6 +199,7 @@
 #### 작업 파일
 
 - com.eomcs.pms.domain.Board 클래스 변경
+  - like 변수 추가
 - com.eomcs.pms.handler.BoardHandler 클래스 변경
 - com.eomcs.pms.handler.BoardHandler2 클래스 변경
 - com.eomcs.pms.handler.BoardHandler3 클래스 변경

@@ -1,5 +1,6 @@
 package com.eomcs.pms.handler;
 
+import java.sql.Date;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
 
@@ -20,10 +21,23 @@ public class BoardHandler {
     board.title = Prompt.inputString("제목? ");
     board.content = Prompt.inputString("내용? ");
     board.writer = Prompt.inputString("작성자? ");
+    board.registeredDate = new Date(System.currentTimeMillis());
+    //    board.viewCount = 0; // 인스턴스 변수는 생성되는 순간 기본 값이 0으로 설정된다.
 
     boards[size++] = board;
   }
 
+  public static void list() {
+    System.out.println("[게시글 목록]");
+    for (int i = 0; i < size; i++) {
+      System.out.printf("%d, %s, %s, %s, %d\n", 
+          boards[i].no, 
+          boards[i].title, 
+          boards[i].writer,
+          boards[i].registeredDate,
+          boards[i].viewCount);
+    }
+  }
 }
 
 
