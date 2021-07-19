@@ -33,7 +33,18 @@ public class ProjectHandler {
       System.out.println("등록된 회원이 아닙니다.");
     }
 
-    project.members = Prompt.inputString("팀원? ");
+    String members = "";
+    while (true) {
+      String member = Prompt.inputString("팀원?(완료: 빈 문자열) ");
+      if (MemberHandler.exist(member)) {
+        members += "," + member;
+        continue;
+      } else if (member.length() == 0) {
+        break;
+      } 
+      System.out.println("등록된 회원이 아닙니다.");
+    }
+    project.members = members;
 
     projects[size++] = project;
   }
