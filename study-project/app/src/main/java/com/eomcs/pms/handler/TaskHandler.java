@@ -24,7 +24,18 @@ public class TaskHandler {
     System.out.println("1: 진행중");
     System.out.println("2: 완료");
     task.status = Prompt.inputInt("> ");
-    task.owner = Prompt.inputString("담당자? ");
+
+    while (true) {
+      String owner = Prompt.inputString("담당자?(취소: 빈 문자열) ");
+      if (owner.length() == 0) {
+        System.out.println("작업 등록을 취소합니다.");
+        return; // 현재 메서드의 실행을 멈추고 리턴한다.
+      } else if (MemberHandler.exist(owner)) {
+        task.owner = owner;
+        break;
+      }
+      System.out.println("등록된 회원이 아닙니다.");
+    }
 
     tasks[size++] = task;
   }
