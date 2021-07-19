@@ -44,10 +44,11 @@
 
 #### 작업 파일
 
+- com.eomcs.pms.domain.Board 클래스 추가
 - com.eomcs.pms.handler.BoardHandler  클래스 추가
-  - 백업: BoardHandler_a.java
+  - 백업: BoardHandler.java.01
 - com.eomcs.pms.App 변경
-  - 백업: App_a.java
+  - 백업: App.java.01
 
 
 ### 2단계 - 게시글 목록 출력을 처리한다.
