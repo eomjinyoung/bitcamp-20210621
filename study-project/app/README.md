@@ -1,224 +1,225 @@
-# 04-d. 클래스 사용법 : 의존 관계
+# 05-a. 인스턴스 사용법 : 클래스 필드와 클래스 메서드의 한계
 
-소스 코드 관리를 위해 메서드를 여러 클래스로 분리하게 되면
-반드시 클래스 간에 **의존 관계(dependency relationship)** 를 형성하게 된다.
-즉, 메서드를 사용하는 클래스(client)와 메서드를 제공하는 클래스(supplier)가 생겨난다.
-예를 들면, `App` 클래스에서 `MemberHandler` 클래스로 회원 데이터 처리와 관련된 메서드를 분리하는 순간
-`App` 클래스와 `MemberHandler` 클래스는 의존 관계를 맺게 된다.
-`App` 은 회원 데이터를 처리하기 위해 `MemberHandler` 의 메서드를 사용하는 클라이언트 입장이 되고,
-`MemberHandler` 는 `App`에게 필요 메서드를 공급하는 공급자 입장이 된다.
+**클래스 필드(스태틱 필드)** 는 클래스를 로딩할 때 생성된다.
+클래스는 최초 사용 시점에 **한 번만 로딩** 되기 때문에
+스태틱 필드도 **한 번만 생성** 된다.
 
-이번 훈련에서는 *클래스 간의 의존 관계* 를 연습할 것이다.
-겸사겸사하여 조건문과 반복문의 사용법도 연습해 보자.
+이번 훈련에서는 이런 스태틱 필드의 구동 특성을 이해하고
+그에 따른 한계가 무엇인지 알아 볼 것이다.
 
 ## 훈련 목표
 
-- 클래스 간의 의존 관계가 무엇인지 이해한다.
-- 의존 관계에서 클라이언트 역할과 공급자 역할을 이해한다.
-- 조건문, 반복문 등 기본 문법을 활용하여 명령의 흐름을 제어하는 것을 연습한다.
+- 클래스 필드의 한계를 이해한다.
+- 클래스 필드 상태에서 기능을 확장하는 방법과 그 문제점을 확인한다.
 
 ## 훈련 내용
 
-- 프로젝트 생성자와 팀원을 등록할 때 회원 정보를 조회하여 등록한다.
-- 작업 담당자를 등록할 때 회원 정보를 조회하여 등록한다.
+- 프로젝트 참여자들이 의견을 나눌 게시판을 추가한다.
+  - 게시글을 등록하고 목록을 조회한다.
+- 여러 개의 게시판을 추가한다.
+  - 질문/답변 게실판, 일반 게시판, 공지사항 등
 
 ## 실습
 
-### 1단계 - 프로젝트 정보를 등록할 때 만든이 이름을 회원 정보에서 조회한다.
+### 1단계 - 게시글 입력을 처리한다
 
-다음과 같이 *만든이* 의 이름이 유효할 경우에는 다음 입력으로 넘어간다.
-
-```console
-명령> /project/add
-[프로젝트 등록]
-번호? 11
-프로젝트명? 미니 프로젝트 관리 시스템
-내용? 소규모 팀에서 사용하기 편한 프로젝트 관리 시스템
-시작일? 2020-1-1
-종료일? 2020-2-2
-만든이? hong
-팀원?
-```
-
-다음과 같이 *만든이* 의 이름이 무효할 경우에는 오류를 알리고 다시 입력 받는다.
+다음과 같이 게시글을 입력하는 기능을 추가한다.
 
 ```console
-명령> /project/add
-[프로젝트 등록]
-번호? 11
-프로젝트명? 미니 프로젝트 관리 시스템
-내용? 소규모 팀에서 사용하기 편한 프로젝트 관리 시스템
-시작일? 2020-1-1
-종료일? 2020-2-2
-만든이? hong
-등록된 회원이 아닙니다.
-만든이?
-
-```
-
-- `MemberHandler`에 이름으로 회원 정보를 찾는 exist() 메서드를 추가한다.
-- `ProjectHandler.add()`에서 `MemberHandler.exist()` 메서드를 사용하여 이름의 유효 여부를 검사한다.
-
-#### 작업 파일
-
-- com.eomcs.pms.handler.MemberHandler 클래스 변경
-  - exist(String) 메서드 추가
-- com.eomcs.pms.handler.ProjectHandler 클래스 변경
-  - add() 변경
-  - 백업: ProjectHandler.java.01
-
-
-### 2단계 - 프로젝트의 *만든이* 이름을 입력하지 않으면 프로젝트 등록을 취소한다.
-
-다음과 같이 *만든이* 의 이름을 입력하지 않고 엔터키를 치면 프로젝트 정보 등록을 취소한다.
-
-```console
-명령> /project/add
-[프로젝트 등록]
-번호? 11
-프로젝트명? 미니 프로젝트 관리 시스템
-내용? 소규모 팀에서 사용하기 편한 프로젝트 관리 시스템
-시작일? 2020-1-1
-종료일? 2020-2-2
-만든이?(취소: 빈 문자열)
-프로젝트 등록을 취소합니다.
+명령> /board/add
+[새 게시글]
+번호? 1
+제목? 제목입니다.
+내용? 내용입니다.
+작성자? 홍길동
+게시글을 등록하였습니다.
 
 명령>
 ```
 
-- *만든이* 의 이름이 빈 문자열인지 여부를 검사하는 조건문을 추가한다.
+- 게시글 관리 작업을 수행할 클래스 `BoardHandler`를 만든다.
+- 게시글 데이터를 위한 새 데이터 타입 `Board`을 정의한다.
+- 게시글 입력을 처리할 메서드 `add()`를 정의한다.
+- App 클래스에 *게시글 입력 명령* `/board/add`에 대한 처리를 추가한다.
 
 #### 작업 파일
 
-- com.eomcs.pms.handler.ProjectHandler 클래스 변경
-  - add() 변경
-  - 백업: ProjectHandler.java.02
+- com.eomcs.pms.handler.BoardHandler  클래스 추가
+  - 백업: BoardHandler_a.java
+- com.eomcs.pms.App 변경
+  - 백업: App_a.java
 
 
-### 3단계 - 프로젝트 팀원을 등록할 때 회원 정보에서 조회한다.
+### 2단계 - 게시글 목록 출력을 처리한다.
 
-다음과 같이 각각의 팀원 이름을 입력 받고, 등록된 회원이 아니면 오류를 알린다.
-팀원 등록을 완료하고 싶으면 빈 문자열을 입력한다.
+다음과 같이 게시물(번호, 제목, 등록일, 작성자, 조회수) 목록을 출력하는 기능을 추가한다.
 
-```console
-명령> /project/add
-[프로젝트 등록]
-번호? 11
-프로젝트명? 미니 프로젝트 관리 시스템
-내용? 소규모 팀에서 사용하기 편한 프로젝트 관리 시스템
-시작일? 2020-1-1
-종료일? 2020-2-2
-만든이?(취소: 빈 문자열) 홍길동
-팀원?(완료: 빈 문자열) 임꺽정
-팀원?(완료: 빈 문자열) 유관순
-팀원?(완료: 빈 문자열) 주윤발
-등록된 회원이 아닙니다.
-팀원?(완료: 빈 문자열)
 
-명령>
+```
+명령> /board/list
+[게시글 목록]
+1, 제목1, 홍길동, 2020-01-10, 0
+2, 제목2, 임꺽정, 2020-01-20, 12
+3, 제목3, 유관순, 2020-01-30, 7
 ```
 
-- *팀원* 의 이름이 유효한 경우 팀원 이름을 추가한다.
-- *팀원* 의 이름이 무효하면 오류를 알린다.
-- *팀원* 의 이름이 빈 문자열이면 팀원 입력을 완료한다.
+- 게시글에 등록일 `registeredDate`과 조회수 `viewCount` 필드를 추가한다.
+- `add()`에서 게시글을 입력을 처리할 때 등록일과 조회수를 설정한다.
+- 게시글 목록을 처리할 메서드 `list()`를 정의한다.
+- App 클래스에 *게시글 목록 조회 명령* `/board/list`에 대한 처리를 추가한다.
 
 #### 작업 파일
 
-- com.eomcs.pms.handler.ProjectHandler 클래스 변경
-  - add() 변경
-  - 백업: ProjectHandler.java.03
+- com.eomcs.pms.handler.BoardHandler.Board 중첩 클래스 변경
+  - 등록일 과 조회수를 저장할 필드를 추가한다
+- com.eomcs.pms.handler.BoardHandler 클래스 변경
+  - add() 메서드 변경
+  - list() 메서드 추가
+- com.eomcs.pms.App 변경
+  - 백업: App_b.java
 
 
-### 4단계 - 프로젝트 목록을 출력할 때 팀원 이름도 포함한다.
+### 3단계 - 새 게시판을 추가한다.
 
-다음과 같이 프로젝트의 *만든이* 항목 옆에 팀원의 이름을 출력한다.
+`BoardHandler`의 `Board[]` 배열은 클래스 필드(스태틱 필드)이기 때문에
+한 개 게시판의 게시물 목록만 관리할 수 있다.
+다른 게시판을 만들려면 새로 `BoardHandler`와 똑 같은 클래스를 만들어야 한다.
 
-```console
-명령> /project/list
-[프로젝트 목록]
-11, 프로젝트1, 2020-01-01, 2020-02-02, hong, [kim,lee,park]
-12, 프로젝트2, 2020-01-15, 2020-02-15, leem, [lee,park]
+다음과 같이 동작하도록 새 클래스를 정의한다.
 
-명령>
 ```
+명령> /board2/add
+번호? 1
+내용? 게시글1
+저장하였습니다.
 
-- `list()`에서 프로젝트 목록 출력할 때 팀원 항목을 추가한다.
+명령> /board2/add
+번호? 2
+내용? 게시글2
+저장하였습니다.
 
-#### 작업 파일
-
-- com.eomcs.pms.handler.ProjectHandler 클래스 변경
-  - list() 변경
-
-
-### 5단계 - 작업 정보를 등록할 때 *담당자* 이름을 회원 정보에서 조회한다.
-
-다음과 같이 *담당자* 의 이름이 유효할 경우에는 다음 입력으로 넘어간다.
-
-```console
-명령> /task/add
-[작업 등록]
+명령> /board/add
 번호? 100
-내용? 작업입니다.
-마감일? 2020-2-2
-상태?
-0: 신규
-1: 진행중
-2: 완료
-> 2
-담당자?(취소: 빈 문자열) hong
+내용? 게시글100
+저장하였습니다.
 
-명령>
+명령> /board2/list
+1, 게시글1                  , 2019-01-01, 0
+2, 게시글2                  , 2019-01-01, 0
+
+명령> /board/list
+100, 게시글100              , 2019-01-01, 0
 ```
 
-다음과 같이 *담당자* 의 이름이 무효할 경우에는 오류를 알리고 다시 입력 받는다.
-
-```console
-명령> /task/add
-[작업 등록]
-번호? 100
-내용? 작업입니다.
-마감일? 2020-2-2
-상태?
-0: 신규
-1: 진행중
-2: 완료
-> 2
-담당자?(취소: 빈 문자열) hong
-등록된 회원이 아닙니다.
-담당자?(취소: 빈 문자열)
-
-```
-
-
-다음과 같이 *담당자* 의 이름이 빈 문자열일 경우에는 등록을 취소한다.
-
-```console
-명령> /task/add
-[작업 등록]
-번호? 100
-내용? 작업입니다.
-마감일? 2020-2-2
-상태?
-0: 신규
-1: 진행중
-2: 완료
-> 2
-담당자?(취소: 빈 문자열)     <=== 입력 없이 엔터키 친다.
-작업 등록을 취소합니다.
-
-명령>
-```
-
-- `TaskHandler.add()`에서 `MemberHandler.exist()` 메서드를 사용하여 이름의 유효 여부를 검사한다.
+- `BoardHandler`를 복제하여 `BoardHandler2` 클래스를 정의한다.
+- `/board2/add`와 `/board2/list` 명령을 처리하도록 App 클래스를 변경한다.
 
 #### 작업 파일
 
-- com.eomcs.pms.handler.TaskHandler 클래스 변경
-  - add() 변경
+- com.eomcs.pms.handler.BoardHandler2 클래스 추가
+- com.eomcs.pms.App 변경
+  - 백업: App_c.java
 
+### 4단계 - 새 게시판을 4개 더 추가한다.
+
+다음과 같이 동작하도록 새 클래스를 정의한다.
+
+```
+명령> /board3/add
+...
+명령> /board4/add
+...
+명령> /board5/add
+...
+명령> /board6/add
+...
+명령> /board3/list
+...
+명령> /board4/list
+...
+명령> /board5/list
+...
+명령> /board6/list
+...
+```
+
+#### 작업 파일
+
+- com.eomcs.pms.handler.BoardHandler3 클래스 추가
+- com.eomcs.pms.handler.BoardHandler4 클래스 추가
+- com.eomcs.pms.handler.BoardHandler5 클래스 추가
+- com.eomcs.pms.handler.BoardHandler6 클래스 추가
+- com.eomcs.pms.App 변경
+
+### 5단계 - 여러 BoardHandler에서 중복으로 작성하는 Board 클래스를 별도의 파일로 뽑아낸다.
+
+- 여러 클래스에서 공통으로 사용하는 클래스라면 패키지 멤버로 선언하여 중복 작성을 없앤다.
+  - Board 패키지 클래스 생성
+- 또한 클래스를 관리하기 쉽게 별도의 패키지로 분류한다.
+  - com.eomcs.pms.domain 패키지 생성
+  - Board 클래스를 이 패키지로 옮긴다.
+- 기본의 BoardHandler 클래스에서 Board 클래스를 제거한다.
+  - 대신 별도로 정의한 Board 클래스를 사용한다.
+
+#### 작업 파일
+
+- com.eomcs.pms.domain 패키지 생성
+- com.eomcs.pms.domain.Board 클래스 생성
+  - 백업: com.eomcs.pms.domain.Board_a
+- com.eomcs.pms.handler.BoardHandler 클래스 변경
+  - 백업: com.eomcs.pms.handler.BoardHandler_b
+- com.eomcs.pms.handler.BoardHandler2 클래스 변경
+  - 백업: com.eomcs.pms.handler.BoardHandler_b
+- com.eomcs.pms.handler.BoardHandler3 클래스 변경
+  - 백업: com.eomcs.pms.handler.BoardHandler_b
+- com.eomcs.pms.handler.BoardHandler4 클래스 변경
+  - 백업: com.eomcs.pms.handler.BoardHandler_b
+- com.eomcs.pms.handler.BoardHandler5 클래스 변경
+  - 백업: com.eomcs.pms.handler.BoardHandler_b
+- com.eomcs.pms.handler.BoardHandler6 클래스 변경
+  - 백업: com.eomcs.pms.handler.BoardHandler_b
+
+### 6단계 - 모든 게시판에 좋아요 수를 출력한다.
+
+다음과 같이 동작하도록 클래스를 변경한다.
+
+```
+명령> /board2/list
+1, 게시글1                  , 2019-01-01, 0, 10
+2, 게시글2                  , 2019-01-01, 0, 11
+```
+
+- 각 Board 클래스에 좋아요 수를 저장할 인스턴스 변수를 추가한다.
+- 좋아요 수를 출력하기 위해 각 BoardHandler의 list()를 변경한다.
+- 문제점!
+  - 게시판을 추가할 때 BoardHandler 클래스를 복제하는 방식으로 처리했다.
+  - 새 게시판을 추가할 때는 편했다.
+  - 문제는 게시판의 기능을 변경하거나 삭제, 추가하는 경우 모든 클래스를 변경해야 한다.
+  - 변경하는 어떤 클래스는 누락되는 경우도 있을 것이다.
+  - 이 방식은 유지보수를 매우 힘들게 한다.
+- 해결책!
+  - 코드 중복을 없앤다.
+  - 즉 add(), list() 메서드를 공유한다.
+  - 다음 단계에서...!!!
+
+#### 작업 파일
+
+- com.eomcs.pms.domain.Board 클래스 변경
+- com.eomcs.pms.handler.BoardHandler 클래스 변경
+- com.eomcs.pms.handler.BoardHandler2 클래스 변경
+- com.eomcs.pms.handler.BoardHandler3 클래스 변경
+- com.eomcs.pms.handler.BoardHandler4 클래스 변경
+- com.eomcs.pms.handler.BoardHandler5 클래스 변경
+- com.eomcs.pms.handler.BoardHandler6 클래스 변경
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/pms/handler/MemberHandler.java 변경
-- src/main/java/com/eomcs/pms/handler/ProjectHandler.java 변경
-- src/main/java/com/eomcs/pms/handler/TaskHandler.java 변경
+- src/main/java/com/eomcs/pms/domain 패키지 생성
+- src/main/java/com/eomcs/pms/domain/Board.java 추가
+- src/main/java/com/eomcs/pms/handler/BoardHandler.java 추가
+- src/main/java/com/eomcs/pms/handler/BoardHandler2.java 추가
+- src/main/java/com/eomcs/pms/handler/BoardHandler3.java 추가
+- src/main/java/com/eomcs/pms/handler/BoardHandler4.java 추가
+- src/main/java/com/eomcs/pms/handler/BoardHandler5.java 추가
+- src/main/java/com/eomcs/pms/handler/BoardHandler6.java 추가
+- src/main/java/com/eomcs/pms/App.java 변경
