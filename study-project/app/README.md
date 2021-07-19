@@ -126,7 +126,7 @@
 
 - com.eomcs.pms.handler.ProjectHandler 클래스 변경
   - add() 변경
-  - 백업: ProjectHandler_c.java
+  - 백업: ProjectHandler.java.03
 
 
 ### 4단계 - 프로젝트 목록을 출력할 때 팀원 이름도 포함한다.
