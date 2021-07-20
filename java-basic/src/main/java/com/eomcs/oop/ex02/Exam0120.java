@@ -30,7 +30,7 @@ public class Exam0120 {
   }
 
   public static void main(String[] args) {
-    
+
     Score s = new Score();
     s.name = "홍길동";
     s.kor = 100;
@@ -40,7 +40,7 @@ public class Exam0120 {
     // 다음은 Score의 값을 다루는 연산자가 없을 때의 예이다.
     // core.sum = score.kor + score.eng + score.math; 
     // score.average = score.sum / 3f;
-    
+
     // 사용자 정의 데이터 타입의 값을 연산자를 사용하여 다뤄보자!
     Score.calculate(s);
 

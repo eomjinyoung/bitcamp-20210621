@@ -1,4 +1,4 @@
-# 05-b. 인스턴스 사용법 : 인스턴스 필드가 필요한 이유와 사용법
+# 05-c. 인스턴스 사용법 : 인스턴스 메서드가 필요한 이유와 사용법
 
 **인스턴스 필드(non-static field)** 는 new 명령을 통해 Heap 영역에 생성된다.
 개별적으로 다뤄야 할 값이라면 인스턴스 필드로 선언하라.
@@ -24,39 +24,38 @@
 
 ## 실습
 
-### 1단계 - 게시글 목록 데이터를 보관하는 레퍼런스 배열을 인스턴스 변수로 전환한다.
+### 1단계 - BoardHandler의 메서드를 인스턴스 메서드로 전환한다.
 
-- com.eomcs.pms.handler.BoardHandler 클래스 변경
-  - 게시판 마다 다른 게시글을 보관할 수 있도록 boards, size 변수를 인스턴스 변수로 전환한다.
-  - add(), list() 메서드가 인스턴스 변수를 다룰 수 있도록 파라미터로 인스턴스 주소를 받는다.
-
-#### 작업 파일
-- com.eomcs.pms.handler.BoardHandler 클래스 변경
-  - 백업: BoardHandler.java.01
-- com.eomcs.pms.handler.BoardHandlerX 클래스 삭제
-  - BoardHandler2 ~ BoardHandler6 클래스 삭제
-
-
-### 2단계 - BoardHandler의 인스턴스를 사용하여 각각의 게시판 데이터를 관리한다.
-
+- add(), list() 메서드를 인스턴스 메서드로 전환한다.
+  -  BoardHandler의 인스턴스 주소를 파라미터로 받지 않고 내장 변수 this로 받는다.
 - App 클래스 변경
-  - 6 개의 게시판 데이터를 저장할 인스턴스를 준비한다.
-  - 게시글을 추가하거나 조회할 때 BoardHandler의 인스턴스를 사용하여 구분한다.
+  - BoardHandler의 add(), list() 호출할 때 인스턴스 주소를 지정한다.
 
 #### 작업 파일
+- com.eomcs.pms.handler.BoardHandler 클래스 변경
+  - add(), list() 메서드 변경
 - com.eomcs.pms.App 클래스 변경
-- com.eomcs.pms.handler.BoardHandler2 클래스 삭제
-- com.eomcs.pms.handler.BoardHandler3 클래스 삭제
-- com.eomcs.pms.handler.BoardHandler4 클래스 삭제
-- com.eomcs.pms.handler.BoardHandler5 클래스 삭제
-- com.eomcs.pms.handler.BoardHandler6 클래스 삭제
+
+### 2단계 - MemberHandler, ProjectHandler, TaskHandler 클래스도 BoardHandler처럼 패키지 멤버 클래스와 인스턴스 필드, 인스턴스 메서드를 적용한다.
+
+당장은 한 개의 목록을 유지하면 되지만,
+나중에 여러 개의 목록을 유지할 경우를 대비해서
+미리 도메인 클래스를 별도의 패키지로 분류하고,
+목록을 다루는 배열도 인스턴스 배열로 전환한다.
+
+
+#### 작업 파일
+- com.eomcs.pms.handler.MemberHandler 클래스 변경
+- com.eomcs.pms.handler.ProjectHandler 클래스 변경
+- com.eomcs.pms.handler.TaskHandler 클래스 변경
 
 ## 실습 결과
 
+- src/main/java/com/eomcs/pms/domain/Member.java 추가
+- src/main/java/com/eomcs/pms/domain/Project.java 추가
+- src/main/java/com/eomcs/pms/domain/Task.java 추가
 - src/main/java/com/eomcs/pms/handler/BoardHandler.java 변경
-- src/main/java/com/eomcs/pms/handler/BoardHandler2.java 삭제
-- src/main/java/com/eomcs/pms/handler/BoardHandler3.java 삭제
-- src/main/java/com/eomcs/pms/handler/BoardHandler4.java 삭제
-- src/main/java/com/eomcs/pms/handler/BoardHandler5.java 삭제
-- src/main/java/com/eomcs/pms/handler/BoardHandler6.java 삭제
+- src/main/java/com/eomcs/pms/handler/MemberHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/ProjectHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/TaskHandler.java 변경
 - src/main/java/com/eomcs/pms/App.java 변경
