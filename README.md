@@ -199,38 +199,33 @@
 	- 02-b. 값 다루기 : 변수와 키보드 입력
 
 ## 9일차(2021-07-08,목)
-- 자바 기초 문법(eomcs-java)
-	- com.eomcs.basic.ex10
-		- java.util.Date 클래스 사용법
-		- java.sql.Date 클래스 사용법
+- 자바 기초 문법(eomcs-java/com.eomcs.lang)
 	- com.eomcs.lang.ex04
 		- 배열 다루기
 	- com.eomcs.lang.ex06
 		- if, if ~ else 
 		- while, for
+- 자바 기본 클래스(eomcs-java/com.eomcs.basic)		
+	- com.eomcs.basic.ex10
+		- java.util.Date 클래스 사용법
+		- java.sql.Date 클래스 사용법
 - 실전 프로젝트(eomcs-java-project)
 	- 02-c. 값 다루기 : 배열과 흐름 제어문 활용
 
 ## 10일차(2021-07-09,금)
-- 자바 기초 문법(eomcs-java)
-	- com.eomcs.lang.ex04
-		- 배열 다루기(계속)
-	- com.eomcs.lang.ex05
-		- 연산자 사용법
+- 자바 기초 문법(eomcs-java/com.eomcs.lang)
+	- ex04: 배열 다루기(계속)
+	- ex05: 연산자 사용법
 
 ## 10일차(2021-07-09,금)
-- 자바 기초 문법(eomcs-java)
-	- com.eomcs.lang.ex04
-		- 배열 다루기(계속): 배열 레퍼런스와 오프셋 주소
-	- com.eomcs.lang.ex05
-		- 연산자 사용법
+- 자바 기초 문법(eomcs-java/com.eomcs.lang)
+	- ex04: 배열 다루기(계속): 배열 레퍼런스와 오프셋 주소
+	- ex05: 연산자 사용법
 
 ## 11일차(2021-07-12,월)
-- 자바 기초 문법(eomcs-java)
-	- com.eomcs.lang.ex05
-		- 연산자 사용법(계속) : 비트 이동 연산자
-	- com.eomcs.lang.ex06
-		- 조건문, 반복문
+- 자바 기초 문법(eomcs-java/com.eomcs.lang)
+	- ex05: 연산자 사용법(계속) : 비트 이동 연산자
+	- ex06: 조건문, 반복문
 - 실전 프로젝트(eomcs-java-project)
 	- 03-a. 메서드 사용법 : 프로그램의 시작점(entry point), `main()`, 조건문, 반복문
 
@@ -239,22 +234,22 @@
 	- 03-b. 메서드 사용법 : 메서드 활용
 
 ## 13일차(2021-07-14,수)
-- 자바 기초 문법(eomcs-java)
-	- com.eomcs.lang.ex07
+- 자바 기초 문법(eomcs-java/com.eomcs.lang)
+	- ex07
 		- 메서드 활용
 		- call by value 와 call by reference
 		- JVM의 메모리 영역: Method Area, JVM Stack, Heap
 		- 클래스의 인스턴스 메모리
 		
 ## 14일차(2021-07-15,목)
-- 자바 기초 문법(eomcs-java)
-	- com.eomcs.lang.ex07
+- 자바 기초 문법(eomcs-java/com.eomcs.lang)
+	- ex07
 		- 메서드에서 new 연산자를 사용하여 변수를 만들기: Heap 영역
 		- 재귀호출과 스택 오버플로우
 		- main() 메서드와 프로그램 아규먼트
 		- JVM 아규먼트
-	- com.eomcs.algorithm.quiz
-		- Test001 ~ Test004
+- 알고리즘 (com.eomcs.algorithm)
+	- quiz: Test001 ~ Test004
 
 ## 15일차(2021-07-16,금)
 - 실전 프로젝트(eomcs-java-project)
@@ -267,3 +262,7 @@
 	- 04-d. 클래스 사용법 : 의존 관계
 	- 05-a. 인스턴스 사용법 : 클래스 필드와 클래스 메서드의 한계
 	- 05-b. 인스턴스 사용법 : 인스턴스 필드가 필요한 이유와 사용법
+
+## 17일차(2021-07-20,화)
+- 자바 객체지향 문법(eomcs-java/com.eomcs.oop)
+	- 스태틱 필드, 인스턴스 필드, 로컬 변수 비교
