@@ -1,0 +1,11 @@
+~> mkdir git
+~> cd git
+~/git> git clone https://github.com/bitcamp/study
+~/git> cd study
+~/git/study> mkdir myproject
+~/git/study> cd myproject
+~/git/study/myproject> gradle init
+~/git/study/myproject> cd ..
+~/git/study> git add .
+~/git/study> git commit -m "myproject 생성"
+~/git/study> git push
