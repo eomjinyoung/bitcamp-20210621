@@ -45,6 +45,9 @@ public class App {
       }  else if (input.equals("/board/list")) {
         boardHandler.list();
 
+      }  else if (input.equals("/board/detail")) {
+        boardHandler.detail();
+
       } else {
         System.out.println("실행할 수 없는 명령입니다.");
       }
