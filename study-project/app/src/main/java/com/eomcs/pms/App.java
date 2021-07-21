@@ -11,6 +11,9 @@ public class App {
   public static void main(String[] args) {
 
     // 각 게시판의 게시글을 담을 메모리(boards 레퍼런스 배열과 size)를 준비한다.
+    // new BoardHandler()
+    //   - BoardHandler가 작업할 때 사용할 변수를 준비한다. 
+    //   - BoardHandler는 게시글을 다루는 작업을 한다.
     BoardHandler boardHandler = new BoardHandler();
     BoardHandler boardHandler2 = new BoardHandler();
     BoardHandler boardHandler3 = new BoardHandler();
@@ -43,46 +46,40 @@ public class App {
         TaskHandler.list();
 
       }  else if (input.equals("/board/add")) {
-        // BoardHandler의 add()를 실행할 때 
-        // add()에서 사용할 게시글 배열이 있는 인스턴스 주소를 넘겨준다.
-        BoardHandler.add(boardHandler);
+        boardHandler.add();
 
       }  else if (input.equals("/board/list")) {
-        // BoardHandler의 list()를 실행할 때 
-        // list()에서 사용할 게시글 배열이 있는 인스턴스 주소를 넘겨준다.
-        BoardHandler.list(boardHandler);
+        boardHandler.list();
 
       }  else if (input.equals("/board2/add")) {
-        // BoardHandler의 add()를 실행할 때 
-        // add()에서 사용할 게시글 배열이 있는 인스턴스 주소를 넘겨준다.
-        BoardHandler.add(boardHandler2);
+        boardHandler2.add();
 
       }  else if (input.equals("/board2/list")) {
-        BoardHandler.list(boardHandler2);
+        boardHandler2.list();
 
       }  else if (input.equals("/board3/add")) {
-        BoardHandler.add(boardHandler3);
+        boardHandler3.add();
 
       }  else if (input.equals("/board3/list")) {
-        BoardHandler.list(boardHandler3);
+        boardHandler3.list();
 
       }  else if (input.equals("/board4/add")) {
-        BoardHandler.add(boardHandler4);
+        boardHandler4.add();
 
       }  else if (input.equals("/board4/list")) {
-        BoardHandler.list(boardHandler4);
+        boardHandler4.list();
 
       }  else if (input.equals("/board5/add")) {
-        BoardHandler.add(boardHandler5);
+        boardHandler5.add();
 
       }  else if (input.equals("/board5/list")) {
-        BoardHandler.list(boardHandler5);
+        boardHandler5.list();
 
       }  else if (input.equals("/board6/add")) {
-        BoardHandler.add(boardHandler6);
+        boardHandler6.add();
 
       }  else if (input.equals("/board6/list")) {
-        BoardHandler.list(boardHandler6);
+        boardHandler6.list();
 
       } else {
         System.out.println("실행할 수 없는 명령입니다.");

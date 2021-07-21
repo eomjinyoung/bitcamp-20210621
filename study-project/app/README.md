@@ -40,7 +40,6 @@
 
 당장은 한 개의 목록을 유지하면 되지만,
 나중에 여러 개의 목록을 유지할 경우를 대비해서
-미리 도메인 클래스를 별도의 패키지로 분류하고,
 목록을 다루는 배열도 인스턴스 배열로 전환한다.
 
 
@@ -51,9 +50,6 @@
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/pms/domain/Member.java 추가
-- src/main/java/com/eomcs/pms/domain/Project.java 추가
-- src/main/java/com/eomcs/pms/domain/Task.java 추가
 - src/main/java/com/eomcs/pms/handler/BoardHandler.java 변경
 - src/main/java/com/eomcs/pms/handler/MemberHandler.java 변경
 - src/main/java/com/eomcs/pms/handler/ProjectHandler.java 변경
