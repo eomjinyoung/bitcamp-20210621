@@ -67,6 +67,42 @@ public class BoardHandler {
     System.out.printf("등록일: %s\n", board.registeredDate);
     System.out.printf("조회수: %d\n", ++board.viewCount);
   }
+
+  public void update() {
+    System.out.println("[게시글 변경]");
+    int no = Prompt.inputInt("번호? ");
+
+    Board board = null;
+
+    for (int i = 0; i < this.size; i++) {
+      if (boards[i].no == no) {
+        board = boards[i];
+        break;
+      }
+    }
+
+    if (board == null) {
+      System.out.println("해당 번호의 게시글이 없습니다.");
+      return;
+    }
+
+    String label = String.format("제목(%s)? ", board.title);
+    String title = Prompt.inputString(label);
+
+    label = String.format("내용(%s)? ", board.content);
+    String content = Prompt.inputString(label);
+
+    String input = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
+    if (input.equalsIgnoreCase("n") || input.length() == 0) {
+      System.out.println("게시글 변경을 취소하였습니다.");
+      return;
+    }
+
+    board.title = title;
+    board.content = content;
+    System.out.println("게시글을 변경하였습니다.");
+  }
+
 }
 
 
