@@ -86,11 +86,8 @@ public class BoardHandler {
       return;
     }
 
-    String label = String.format("제목(%s)? ", board.title);
-    String title = Prompt.inputString(label);
-
-    label = String.format("내용(%s)? ", board.content);
-    String content = Prompt.inputString(label);
+    String title = Prompt.inputString(String.format("제목(%s)? ", board.title));
+    String content = Prompt.inputString(String.format("내용(%s)? ", board.content));
 
     String input = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (input.equalsIgnoreCase("n") || input.length() == 0) {
