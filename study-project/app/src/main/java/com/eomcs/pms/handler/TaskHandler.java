@@ -6,11 +6,12 @@ import com.eomcs.util.Prompt;
 public class TaskHandler {
 
   static final int MAX_LENGTH = 5;
-  static Task[] tasks = new Task[MAX_LENGTH];
-  static int size = 0;
+
+  Task[] tasks = new Task[MAX_LENGTH];
+  int size = 0;
 
   //다른 패키지에 있는 App 클래스가 다음 메서드를 호출할 수 있도록 공개한다.
-  public static void add() {
+  public void add(MemberHandler memberHandler) {
     System.out.println("[작업 등록]");
 
     Task task = new Task();
@@ -30,21 +31,21 @@ public class TaskHandler {
       if (owner.length() == 0) {
         System.out.println("작업 등록을 취소합니다.");
         return; // 현재 메서드의 실행을 멈추고 리턴한다.
-      } else if (MemberHandler.exist(owner)) {
+      } else if (memberHandler.exist(owner)) {
         task.owner = owner;
         break;
       }
       System.out.println("등록된 회원이 아닙니다.");
     }
 
-    tasks[size++] = task;
+    this.tasks[this.size++] = task;
   }
 
   //다른 패키지에 있는 App 클래스가 다음 메서드를 호출할 수 있도록 공개한다.
-  public static void list() {
+  public void list() {
     System.out.println("[작업 목록]");
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < this.size; i++) {
       String stateLabel = null;
       switch (tasks[i].status) {
         case 1:
@@ -58,11 +59,11 @@ public class TaskHandler {
       }
 
       System.out.printf("%d, %s, %s, %s, %s\n",
-          tasks[i].no, 
-          tasks[i].content, 
-          tasks[i].deadline, 
+          this.tasks[i].no, 
+          this.tasks[i].content, 
+          this.tasks[i].deadline, 
           stateLabel, 
-          tasks[i].owner);
+          this.tasks[i].owner);
     }
   }
 

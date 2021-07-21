@@ -21,6 +21,12 @@ public class App {
     BoardHandler boardHandler5 = new BoardHandler();
     BoardHandler boardHandler6 = new BoardHandler();
 
+    MemberHandler memberHandler = new MemberHandler();
+
+    ProjectHandler projectHandler = new ProjectHandler();
+
+    TaskHandler taskHandler = new TaskHandler();
+
     while (true) {
       String input = Prompt.inputString("명령> ");
 
@@ -28,22 +34,22 @@ public class App {
         System.out.println("안녕!");
         break;
       } else if (input.equals("/member/add")) {
-        MemberHandler.add();
+        memberHandler.add();
 
       } else if (input.equals("/member/list")) {
-        MemberHandler.list();
+        memberHandler.list();
 
       }  else if (input.equals("/project/add")) {
-        ProjectHandler.add();
+        projectHandler.add(memberHandler);
 
       }  else if (input.equals("/project/list")) {
-        ProjectHandler.list();
+        projectHandler.list();
 
       }  else if (input.equals("/task/add")) {
-        TaskHandler.add();
+        taskHandler.add(memberHandler);
 
       }  else if (input.equals("/task/list")) {
-        TaskHandler.list();
+        taskHandler.list();
 
       }  else if (input.equals("/board/add")) {
         boardHandler.add();
