@@ -126,10 +126,11 @@ public class BoardHandler {
       return;
     }
 
-    for (int i = boardIndex; i < this.size; i++) {
-      this.boards[i] = this.boards[i + 1];
+    for (int i = boardIndex + 1; i < this.size; i++) {
+      this.boards[i - 1] = this.boards[i];
     }
-    this.size--;
+    this.boards[--this.size] = null;
+
     System.out.println("게시글을 삭제하였습니다.");
   }
 
