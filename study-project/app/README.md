@@ -143,20 +143,16 @@
 #### 작업 파일
 
 - com.eomcs.pms.handler.BoardHandler 클래스 변경
-  - 백업: BoardHandler_a.java
 - com.eomcs.pms.App 클래스 변경
 
-### 4단계 - 게시글의 삭제 후 목록 조회, 상세 조회, 변경할 때 발생하는 예외를 처리한다.
-
-- 게시글을 삭제할 때 해당 배열의 항목을 null 로 설정하였다.
-- 따라서 게시글을 출력할 때 인스턴스 주소가 없는 경우를 처리해야 한다.
+### 4단계 - 게시글 CRUD를 참고하여 회원, 프로젝트, 작업에 대해서도 CRUD를 완성한다.
 
 #### 작업 파일
 
-- com.eomcs.pms.handler.BoardHandler 클래스 변경
-  - 배열에서 게시글 인스턴스의 주소가 삭제된 항목은 출력에서 제외한다.
-  - list(), detail(), update(), delete() 변경
-  - 백업: BoardHandler_b.java
+- com.eomcs.pms.handler.MemberHandler 클래스 변경
+- com.eomcs.pms.handler.ProjectHandler 클래스 변경
+- com.eomcs.pms.handler.TaskHandler 클래스 변경
+- com.eomcs.pms.App 클래스 변경
 
 ### 5단계 - 리팩토링
 
@@ -171,43 +167,6 @@
   - 게시글을 리턴하는 `findByNo(int)` 메서드를 추가한다.
     - detail(), update() 메서드에 적용
   - 백업: BoardHandler_c.java
-
-### 6단계 - 배열 항목 삭제할 때 메모리 절약하기
-
-- 기존 방식은 삭제한 항목의 주소를 null로 설정하였다.
-- 문제?
-  - 삭제할 때 마다 배열에서 해당 항목을 사용할 수 없어 메모리가 낭비되는 문제가 있었다.
-- 해결책?
-  - 항목을 삭제하면 그 항목 뒤에 값을 앞으로 당긴다.
-
-#### 작업 파일
-
-- com.eomcs.pms.handler.BoardHandler 클래스 변경
-  - delete() 메서드 변경
-    - 항목을 삭제할 때 뒷 항목의 값을 앞으로 당긴다.
-  - indexOf() 메서드 변경
-    - 배열 중간에 비어있는 항목이 없기 때문에 조건 검사에서 제외한다.
-
-
-### 7단계 - 게시글 CRUD를 참고하여 회원, 프로젝트, 작업에 대해서도 CRUD를 완성한다.
-
-#### 작업 파일
-
-- com.eomcs.pms.handler.MemberHandler 클래스 변경
-- com.eomcs.pms.handler.ProjectHandler 클래스 변경
-  - 백업: ProjectHandler_a.java
-- com.eomcs.pms.handler.TaskHandler 클래스 변경
-  - 백업: TaskHandler_a.java
-- com.eomcs.pms.App 클래스 변경
-
-### 8단계 - 리팩토링 II
-
-- 중복되는 코드를 메서드를 추출한다.
-
-#### 작업 파일
-
-- com.eomcs.pms.handler.ProjectHandler 클래스 변경
-- com.eomcs.pms.handler.TaskHandler 클래스 변경
 
 ## 실습 결과
 
