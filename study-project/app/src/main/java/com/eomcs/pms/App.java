@@ -52,7 +52,7 @@ public class App {
         boardHandler.update();
 
       }  else if (input.equals("/board/delete")) {
-        BoardHandler.delete();
+        boardHandler.delete();
 
       } else {
         System.out.println("실행할 수 없는 명령입니다.");

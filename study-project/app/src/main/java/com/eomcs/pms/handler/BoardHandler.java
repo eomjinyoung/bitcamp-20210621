@@ -50,8 +50,8 @@ public class BoardHandler {
     Board board = null;
 
     for (int i = 0; i < this.size; i++) {
-      if (boards[i].no == no) {
-        board = boards[i];
+      if (this.boards[i].no == no) {
+        board = this.boards[i];
         break;
       }
     }
@@ -75,8 +75,8 @@ public class BoardHandler {
     Board board = null;
 
     for (int i = 0; i < this.size; i++) {
-      if (boards[i].no == no) {
-        board = boards[i];
+      if (this.boards[i].no == no) {
+        board = this.boards[i];
         break;
       }
     }
@@ -98,6 +98,39 @@ public class BoardHandler {
     board.title = title;
     board.content = content;
     System.out.println("게시글을 변경하였습니다.");
+  }
+
+  public void delete() {
+    System.out.println("[게시글 삭제]");
+    int no = Prompt.inputInt("번호? ");
+
+    int boardIndex = -1;
+
+    // Board 인스턴스가 들어 있는 배열을 뒤져서
+    // 게시글 번호와 일치하는 Board 인스턴스를 찾는다. 
+    for (int i = 0; i < this.size; i++) {
+      if (this.boards[i].no == no) {
+        boardIndex = i;
+        break;
+      }
+    }
+
+    if (boardIndex == -1) {
+      System.out.println("해당 번호의 게시글이 없습니다.");
+      return;
+    }
+
+    String input = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
+    if (input.equalsIgnoreCase("n") || input.length() == 0) {
+      System.out.println("게시글 삭제를 취소하였습니다.");
+      return;
+    }
+
+    for (int i = boardIndex; i < this.size; i++) {
+      this.boards[i] = this.boards[i + 1];
+    }
+    this.size--;
+    System.out.println("게시글을 삭제하였습니다.");
   }
 
 }
