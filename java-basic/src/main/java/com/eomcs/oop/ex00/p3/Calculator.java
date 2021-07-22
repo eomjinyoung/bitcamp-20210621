@@ -6,6 +6,7 @@ public class Calculator {
 
   static void plus(Calculator that, int value) {
     that.result += value;
+
   }
 
   static void minus(Calculator that, int value) {
