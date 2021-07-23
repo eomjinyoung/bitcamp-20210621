@@ -27,11 +27,29 @@ public class App {
       } else if (input.equals("/member/list")) {
         memberHandler.list();
 
+      } else if (input.equals("/member/detail")) {
+        memberHandler.detail();
+
+      } else if (input.equals("/member/update")) {
+        memberHandler.update();
+
+      } else if (input.equals("/member/delete")) {
+        memberHandler.delete();
+
       }  else if (input.equals("/project/add")) {
         projectHandler.add(memberHandler);
 
       }  else if (input.equals("/project/list")) {
         projectHandler.list();
+
+      }  else if (input.equals("/project/detail")) {
+        projectHandler.detail();
+
+      }  else if (input.equals("/project/update")) {
+        projectHandler.update(memberHandler);
+
+      }  else if (input.equals("/project/delete")) {
+        projectHandler.delete();
 
       }  else if (input.equals("/task/add")) {
         taskHandler.add(memberHandler);
