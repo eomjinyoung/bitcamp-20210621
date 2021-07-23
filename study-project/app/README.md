@@ -57,6 +57,8 @@
 - 작업 번호와 일치하는 Task 인스턴스를 찾는 코드를 메서드로 분리한다.
   - `findByNo(int)`: detail(), update() 메서드에 적용
   - `indexOf(int)`: delete() 메서드에 적용
+- 작업 상태 번호의 라벨을 설정하는 코드를 메서드로 추출한다.
+  - `getStatusLabel(int)` : detail(), list()에 적용
 - 작업 담당자를 입력하는 코드를 메서드로 분리한다.
   - `promptOwner(MemberHandler,String)`: add(), upate() 메서드에 적용
 

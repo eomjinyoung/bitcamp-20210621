@@ -47,23 +47,11 @@ public class TaskHandler {
     System.out.println("[작업 목록]");
 
     for (int i = 0; i < this.size; i++) {
-      String stateLabel = null;
-      switch (tasks[i].status) {
-        case 1:
-          stateLabel = "진행중";
-          break;
-        case 2:
-          stateLabel = "완료";
-          break;
-        default:
-          stateLabel = "신규";
-      }
-
       System.out.printf("%d, %s, %s, %s, %s\n",
           this.tasks[i].no, 
           this.tasks[i].content, 
           this.tasks[i].deadline, 
-          stateLabel, 
+          getStatusLabel(this.tasks[i].status), 
           this.tasks[i].owner);
     }
   }
@@ -72,15 +60,7 @@ public class TaskHandler {
     System.out.println("[작업 상세보기]");
     int no = Prompt.inputInt("번호? ");
 
-    Task task = null;
-
-    for (int i = 0; i < this.size; i++) {
-      if (this.tasks[i].no == no) {
-        task = this.tasks[i];
-        break;
-      }
-    }
-
+    Task task = findByNo(no);
     if (task == null) {
       System.out.println("해당 번호의 작업이 없습니다.");
       return;
@@ -88,20 +68,7 @@ public class TaskHandler {
 
     System.out.printf("내용: %s\n", task.content);
     System.out.printf("마감일: %s\n", task.deadline);
-
-    String stateLabel = null;
-    switch (task.status) {
-      case 1:
-        stateLabel = "진행중";
-        break;
-      case 2:
-        stateLabel = "완료";
-        break;
-      default:
-        stateLabel = "신규";
-    }
-    System.out.printf("상태: %s\n", stateLabel);
-
+    System.out.printf("상태: %s\n", getStatusLabel(task.status));
     System.out.printf("담당자: %s\n", task.owner);
   }
 
@@ -109,15 +76,7 @@ public class TaskHandler {
     System.out.println("[작업 변경]");
     int no = Prompt.inputInt("번호? ");
 
-    Task task = null;
-
-    for (int i = 0; i < this.size; i++) {
-      if (this.tasks[i].no == no) {
-        task = this.tasks[i];
-        break;
-      }
-    }
-
+    Task task = findByNo(no);
     if (task == null) {
       System.out.println("해당 번호의 작업이 없습니다.");
       return;
@@ -175,15 +134,7 @@ public class TaskHandler {
     System.out.println("[작업 삭제]");
     int no = Prompt.inputInt("번호? ");
 
-    int index = -1;
-
-    for (int i = 0; i < this.size; i++) {
-      if (this.tasks[i].no == no) {
-        index = i;
-        break;
-      }
-    }
-
+    int index = indexOf(no);
     if (index == -1) {
       System.out.println("해당 번호의 작업이 없습니다.");
       return;
@@ -202,4 +153,36 @@ public class TaskHandler {
 
     System.out.println("작업를 삭제하였습니다.");
   }
+
+  private Task findByNo(int no) {
+    for (int i = 0; i < this.size; i++) {
+      if (this.tasks[i].no == no) {
+        return this.tasks[i];
+      }
+    }
+    return null;
+  }
+
+  private int indexOf(int no) {
+    for (int i = 0; i < this.size; i++) {
+      if (this.tasks[i].no == no) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  private String getStatusLabel(int status) {
+    switch (status) {
+      case 1: return "진행중";
+      case 2: return "완료";
+      default: return "신규";
+    }
+  }
+
 }
+
+
+
+
+
