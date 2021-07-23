@@ -36,8 +36,33 @@
 
 #### 작업 파일
 
-- com.eomcs.pms.handler.BoardHandler 클래스 변경
+- com.eomcs.pms.handler.MemberHandler 클래스 변경
 
+### 3단계 - ProjectHandler 클래스에서 중복되는 코드를 메서드로 추출한다.
+
+- 프로젝트 번호와 일치하는 Project 인스턴스를 찾는 코드를 메서드로 분리한다.
+  - `findByNo(int)`: detail(), update() 메서드에 적용
+  - `indexOf(int)`: delete() 메서드에 적용
+- 프로젝트 관리자를 입력하는 코드를 메서드로 분리한다.
+  - `promptOwner(MemberHandler,String)`: add(), upate() 메서드에 적용
+- 프로젝트 팀원을 입력하는 코드를 메서드로 분리한다.
+  - `promptMembers(MemberHandler,String)`: add(), upate() 메서드에 적용
+
+#### 작업 파일
+
+- com.eomcs.pms.handler.ProjectHandler 클래스 변경
+
+### 4단계 - TaskHandler 클래스에서 중복되는 코드를 메서드로 추출한다.
+
+- 작업 번호와 일치하는 Task 인스턴스를 찾는 코드를 메서드로 분리한다.
+  - `findByNo(int)`: detail(), update() 메서드에 적용
+  - `indexOf(int)`: delete() 메서드에 적용
+- 작업 담당자를 입력하는 코드를 메서드로 분리한다.
+  - `promptOwner(MemberHandler,String)`: add(), upate() 메서드에 적용
+
+#### 작업 파일
+
+- com.eomcs.pms.handler.ProjectHandler 클래스 변경
 
 ## 실습 결과
 
