@@ -61,10 +61,12 @@
   - `getStatusLabel(int)` : detail(), list()에 적용
 - 작업 담당자를 입력하는 코드를 메서드로 분리한다.
   - `promptOwner(MemberHandler,String)`: add(), upate() 메서드에 적용
+- 작업 상태 정보를 입력 받는 코드를 메서드로 분리한다.
+  - `promptStatus(int)` : add(), update() 메서드에 적용
 
 #### 작업 파일
 
-- com.eomcs.pms.handler.ProjectHandler 클래스 변경
+- com.eomcs.pms.handler.TaskHandler 클래스 변경
 
 ## 실습 결과
 

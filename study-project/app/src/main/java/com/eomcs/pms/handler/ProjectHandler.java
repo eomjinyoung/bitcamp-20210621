@@ -164,12 +164,12 @@ public class ProjectHandler {
     }
   }
 
-  private String promptMembers(MemberHandler memberHandler, String members) {
-    String newMembers = "";
+  private String promptMembers(MemberHandler memberHandler, String oldMembers) {
+    String members = "";
     while (true) {
       String member = Prompt.inputString(String.format(
           "팀원%s?(완료: 빈 문자열) ",
-          members != null ? "(" + members + ")" : ""));
+          oldMembers != null ? "(" + oldMembers + ")" : ""));
       if (memberHandler.exist(member)) {
         if (members.length() > 0) {
           members += ",";
@@ -181,7 +181,7 @@ public class ProjectHandler {
       } 
       System.out.println("등록된 회원이 아닙니다.");
     }
-    return newMembers;
+    return members;
   }
 
 }
