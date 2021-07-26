@@ -1,24 +1,10 @@
-# 07-a. 의존 객체 다루기 : 인스턴스 필드에 직접 주입
-
-**의존 객체(dependency object)** 란,
-
-- 작업을 수행하기 위해 사용하는 객체다.
-- 즉 작업할 때 의존하는 객체라고 해서 **의존 객체** 라 부른다.
-- 의존 객체가 사용되는 경우에 따라 *일시적인 의존 관계* 와 *지속적인 의존 관계*로 설정할 수 있다.
-
-**일시적인 의존 관계(dependency)**
-- 특정 메서드에서만 사용되는 경우
-- 보통 파라미터나 로컬 변수로 사용한다.
-
-**지속적인 의존 관계(association)**
-- 여러 메서드에서 사용되는 경우
-- 보통 인스턴스 필드로 사용한다.
-
+# 07-b. 의존 객체 다루기 : 생성자로 주입
 
 **생성자(constructor)** 는 인스턴스를 사용하는데 문제가 없도록,
 
 - 인스턴스 필드를 **유효한 값** 으로 초기화시키는 일을 한다.
-- 필요하다면 **의존 객체** 를 주입하는 일을 한다.
+- **의존 객체** 주입을 강제할 수 있다.
+
 
 **의존 객체 주입(DI; Dependency Injection)** 이란,
 
@@ -42,22 +28,25 @@
 
 ## 실습
 
-### 1단계 - ProjectHandler 가 사용할 의존 객체를 파라미터로 받는 대신 인스턴스 필드로 받는다.
+### 1단계 - 생성자를 이용하여 ProjectHandler의 의존 객체 주입을 강제시킨다.
 
 - com.eomcs.pms.handler.ProjectHandler 클래스 변경
-  - `MemberHandler` 객체를 저장할 인스턴스 필드를 선언한다.
-  - add()와 update() 메서드 변경
-  - promptOwner()와 promptMembers() 메서드 변경
-- com.eomcs.pms.App 클래스 변경
-  - ProjectHandler의 memberHandler 변수에 의존 객체를 주입한다.
+  - `ProjectHandler` 의 인스턴스를 생성할 때 의존 객체를 반드시 주입하도록 생성자를 선언한다.
+  - 인스턴스 필드를 전체 공개에서 패키지 멤버에게만 공개하는 모드로 바꾼다.
 
-### 2단계 - TaskHandler 가 사용할 의존 객체를 파라미터로 받는 대신 인스턴스 필드로 받는다.
 
-- com.eomcs.pms.handler.TaskHandler 클래스 변경
-  - `MemberHandler` 객체를 저장할 인스턴스 필드를 선언한다.
-   - add()와 update() 메서드 변경
+### 2단계 - 생성자를 이용하여 TaskHandler의 의존 객체 주입을 강제시킨다.
+
+- com.eomcs.pms.handler.TaskHandler의 클래스 변경
+  - `TaskHandler` 의 인스턴스를 생성할 때 의존 객체를 반드시 생성자를 선언한다.   
+  - 인스턴스 필드를 전체 공개에서 패키지 멤버에게만 공개하는 모드로 바꾼다.
+
+
+### 3단계 - 객체를 생성할 때 생성자 파라미터로 의존 객체를 주입한다.
+
 - com.eomcs.pms.App 클래스 변경
-  - TaskHandler의 memberHandler 변수에 의존 객체를 주입한다.
+  - `ProjectHandler` 객체를 생성할 때, 생성자 파라미터에 의존 객체를 넘겨준다.
+  - `TaskHandler` 객체를 생성할 때, 생성자 파라미터에 의존 객체를 넘겨준다.
 
 
 ## 실습 결과

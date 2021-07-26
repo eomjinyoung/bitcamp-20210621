@@ -11,10 +11,20 @@ public class TaskHandler {
   Task[] tasks = new Task[MAX_LENGTH];
   int size = 0;
 
-  // TaskHandler의 여러 메서드에서 지속적으로 사용할 의존 객체를 
-  // 인스턴스 필드에 미리 주입 받는다.
-  // 다른 패키지의 클래스에서 이 변수를 사용할 수 있도록 접근 모두는 공개한다.
-  public MemberHandler memberHandler;
+  // 이제 의존 객체는 생성자를 통해 주입 받기 때문에 
+  // 외부에서 인스턴스 변수에 직접 접근할 이유가 없다.
+  // 따라서 전체 공개 모드에서 패키지 멤버에게만 공개하는 모드로 전환한다. 
+  MemberHandler memberHandler;
+
+
+  // TaskHandler의 의존 객체를 반드시 주입하도록 강제하고 싶다면,
+  // 생성자를 선언할 때 파라미터로 지정하라.
+  // 즉 TaskHandler의 인스턴스를 생성할 때 필요한 값이 있다면,
+  // 생성자의 파라미터를 이용해서 받을 수 있다.
+  public TaskHandler(MemberHandler memberHandler) {
+    this.memberHandler = memberHandler;
+  }
+
 
   // add()에서 사용할 MemberHandler는 메서드를 호출하기 전에 
   // 인스턴스 변수에 미리 주입되어 있어야 한다.
