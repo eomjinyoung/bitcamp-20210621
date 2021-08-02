@@ -312,3 +312,6 @@
 - 자바 객체지향 문법(eomcs-java/com.eomcs.oop)
 	- ex06: c ~ * : 다형성(다형적 변수, 오버로딩, 오버라이딩)(계속)
 	- ex08: a ~ b : 캡슐화(private, (default), protected, public)
+- 실전 프로젝트(eomcs-java-project)
+	- 07-a. 의존 객체 다루기 : 인스턴스 필드에 직접 주입
+	- 07-b. 의존 객체 다루기 : 생성자로 주입
