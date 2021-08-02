@@ -1,4 +1,4 @@
-# 08-a. 08-a. `Composite` 디자인 패턴 : 적용 전
+# 08-a. `Composite` 디자인 패턴 : 적용 전
 
 사용자가 직접 명령어를 입력하는 대신에 메뉴를 통해 명령을 실행하도록 변경해 보자.
 
@@ -14,10 +14,10 @@
 
 ## 실습
 
-### 1단계 - 직접 명령을 입력하는 대신에 메뉴에서 원하는 기능을 선택하도록 변경한다.
+### 1단계 - 메인 메뉴를 출력하고 번호를 입력 받는다.
 
 - `App`을 실행하면 다음과 같이 메인 메뉴를 출력한다.
-- 메뉴 번호를 입력하면 해당 기능을 처리하는 객체에 실행을 위임한다.
+- 0 번을 입력하면 `quit` 명령을 실행한다.
 
 ```
 [메인]
@@ -29,6 +29,15 @@
 메인> 0     <--- 사용자가 메뉴 번호를 입력
 안녕!       <--- 출력 후 프로그램 실행 종료
 ```
+#### 작업 파일
+
+- com.eomcs.pms.App 클래스 변경
+  - 백업: App.java.01
+
+### 2단계 - 게시판 메뉴를 출력하고 번호를 입력 받는다.
+
+- 입력 받은 번호에 따라 명령어를 설정하여 처리한다.
+- 0 번을 입력하면 이전 메뉴로 간다.
 
 ```
 [메인]
@@ -42,10 +51,10 @@
 [메인/게시판]
 1. 등록
 2. 목록
-3. 상세 보기
+3. 상세보기
 4. 변경
 5. 삭제
-0. 이전 메뉴
+0. 이전메뉴
 게시판> 0
 
 [메인]
@@ -60,55 +69,38 @@
 #### 작업 파일
 
 - com.eomcs.pms.App 클래스 변경
+  - 백업: App.java.02
 
 
-### 2단계 - `BoardHandler`에 메뉴 출력 기능을 추가한다.
 
-- 사용자가 메인 메뉴에서 게시판 메뉴를 선택하면 그 하위 메뉴를 출력한다.
-- 다음과 같이 사용자가 입력한 메뉴 번호에 따라 기능을 수행한다.
+### 3단계 - 회원/프로젝트/작업 메뉴를 출력하고 번호를 입력 받는다.
 
-
-```
-메인 / 게시판 ---------------------------------
-1. 등록
-2. 목록
-3. 상세 보기
-4. 변경
-5. 삭제
-0. 이전 메뉴
-게시판> 1   <--- 사용자가 메뉴 번호를 입력
-
-[게시글 등록]
-번호? 1
-제목? aaa
-내용? bbb
-작성자? ok
-게시글을 등록하였습니다.
-```
+- 입력 받은 번호에 따라 명령어를 설정하여 처리한다.
+- 0 번을 입력하면 이전 메뉴로 간다.
 
 #### 작업 파일
 
-- com.eomcs.pms.handler.BoardHandler 클래스 변경
 - com.eomcs.pms.App 클래스 변경
+  - 백업: App.java.03
 
+### 4단계 - 메뉴 번호를 입력했을 때 해당 기능을 바로 실행하게 한다.
 
-### 3단계 - `MemberHandler`, `ProjectHandler`, `TaskHandler` 에 메뉴 출력 기능을 추가한다.
-
-- BoardHandler와 같이 사용자에게 하위 메뉴를 출력하도록 변경한다.
-- 또한 사용자가 입력한 메뉴 번호에 따라 기능을 수행하도록 변경한다.
+- 번호를 입력하면 핸들러를 이용하여 해당 번호의 명령을 바로 처리한다.
 
 #### 작업 파일
 
-- com.eomcs.pms.handler.BoardHandler 클래스 변경
-- com.eomcs.pms.handler.MemberHandler 클래스 변경
-- com.eomcs.pms.handler.ProjectHandler 클래스 변경
-- com.eomcs.pms.handler.TaskHandler 클래스 변경
 - com.eomcs.pms.App 클래스 변경
+  - 백업: App.java.04
+
+### 5단계 - 각각의 메인 메뉴를 다루는 코드를 별도의 메서드로 추출한다.
+
+- 각 명령을 처리하는 코드를 분리하여 메서드로 정의한다.
+
+#### 작업 파일
+
+- com.eomcs.pms.App 클래스 변경
+  - 백업: App.java.05
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/pms/handler/BoardHandler.java 변경
-- src/main/java/com/eomcs/pms/handler/MemberHandler.java 변경
-- src/main/java/com/eomcs/pms/handler/ProjectHandler.java 변경
-- src/main/java/com/eomcs/pms/handler/TaskHandler.java 변경
 - src/main/java/com/eomcs/pms/App.java 변경
