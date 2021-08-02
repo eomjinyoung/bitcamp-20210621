@@ -12,7 +12,8 @@ import com.eomcs.util.Prompt;
 //    - 사용자가 입력한 메뉴 번호에 따라 실행할 명령어를 설정한다.
 // 3) 회원/프로젝트/작업 메뉴를 출력하고 번호를 입력 받는다.
 //    - 사용자가 입력한 메뉴 번호에 따라 실행할 명령어를 설정한다.
-//
+// 4) 메뉴 번호를 입력했을 때 해당 기능을 바로 실행하게 한다.
+// 
 public class App {
 
   public static void main(String[] args) {
@@ -23,9 +24,7 @@ public class App {
     TaskHandler taskHandler = new TaskHandler(memberHandler);
 
     MAIN_LOOP: while (true) {
-
-      String input = null;
-
+      System.out.println();
       System.out.println("[메인]");
       System.out.println("1. 게시판");
       System.out.println("2. 회원");
@@ -33,14 +32,13 @@ public class App {
       System.out.println("4. 작업");
       System.out.println("0. 종료");
       int menuNo = Prompt.inputInt("메인> ");
+      System.out.println();
 
-      // 사용자가 명령어를 직접 입력하는 대신에 
-      // 제시된 메뉴의 번호를 선택하면 실행할 명령어를 변수에 설정한다.
       if (menuNo == 0) {
-        input = "quit";
+        break;
 
       } else if (menuNo == 1) {
-        LOOP: while (true) {
+        while (true) {
           System.out.println("[메인/게시판]");
           System.out.println("1. 등록");
           System.out.println("2. 목록");
@@ -51,11 +49,11 @@ public class App {
 
           menuNo = Prompt.inputInt("게시판> ");
           switch (menuNo) {
-            case 1: input = "/board/add"; break LOOP;
-            case 2: input = "/board/list"; break LOOP;
-            case 3: input = "/board/detail"; break LOOP;
-            case 4: input = "/board/update"; break LOOP;
-            case 5: input = "/board/delete"; break LOOP;
+            case 1: boardHandler.add(); break;
+            case 2: boardHandler.list(); break;
+            case 3: boardHandler.detail(); break;
+            case 4: boardHandler.update(); break;
+            case 5: boardHandler.delete(); break;
             case 0: continue MAIN_LOOP;
             default:
               System.out.println("무효한 메뉴 번호입니다.");
@@ -63,7 +61,7 @@ public class App {
           System.out.println();
         }
       } else if (menuNo == 2) {
-        LOOP: while (true) {
+        while (true) {
           System.out.println("[메인/회원]");
           System.out.println("1. 등록");
           System.out.println("2. 목록");
@@ -74,11 +72,11 @@ public class App {
 
           menuNo = Prompt.inputInt("회원> ");
           switch (menuNo) {
-            case 1: input = "/member/add"; break LOOP;
-            case 2: input = "/member/list"; break LOOP;
-            case 3: input = "/member/detail"; break LOOP;
-            case 4: input = "/member/update"; break LOOP;
-            case 5: input = "/member/delete"; break LOOP;
+            case 1: memberHandler.add(); break;
+            case 2: memberHandler.list(); break;
+            case 3: memberHandler.detail(); break;
+            case 4: memberHandler.update(); break;
+            case 5: memberHandler.delete(); break;
             case 0: continue MAIN_LOOP;
             default:
               System.out.println("무효한 메뉴 번호입니다.");
@@ -86,7 +84,7 @@ public class App {
           System.out.println();
         } 
       } else if (menuNo == 3) {
-        LOOP: while (true) {
+        while (true) {
           System.out.println("[메인/프로젝트]");
           System.out.println("1. 등록");
           System.out.println("2. 목록");
@@ -97,11 +95,11 @@ public class App {
 
           menuNo = Prompt.inputInt("프로젝트> ");
           switch (menuNo) {
-            case 1: input = "/project/add"; break LOOP;
-            case 2: input = "/project/list"; break LOOP;
-            case 3: input = "/project/detail"; break LOOP;
-            case 4: input = "/project/update"; break LOOP;
-            case 5: input = "/project/delete"; break LOOP;
+            case 1: projectHandler.add(); break;
+            case 2: projectHandler.list(); break;
+            case 3: projectHandler.detail(); break;
+            case 4: projectHandler.update(); break;
+            case 5: projectHandler.delete(); break;
             case 0: continue MAIN_LOOP;
             default:
               System.out.println("무효한 메뉴 번호입니다.");
@@ -109,7 +107,7 @@ public class App {
           System.out.println();
         }
       } else if (menuNo == 4) {
-        LOOP: while (true) {
+        while (true) {
           System.out.println("[메인/작업]");
           System.out.println("1. 등록");
           System.out.println("2. 목록");
@@ -120,11 +118,11 @@ public class App {
 
           menuNo = Prompt.inputInt("작업> ");
           switch (menuNo) {
-            case 1: input = "/task/add"; break LOOP;
-            case 2: input = "/task/list"; break LOOP;
-            case 3: input = "/task/detail"; break LOOP;
-            case 4: input = "/task/update"; break LOOP;
-            case 5: input = "/task/delete"; break LOOP;
+            case 1: taskHandler.add(); break;
+            case 2: taskHandler.list(); break;
+            case 3: taskHandler.detail(); break;
+            case 4: taskHandler.update(); break;
+            case 5: taskHandler.delete(); break;
             case 0: continue MAIN_LOOP;
             default:
               System.out.println("무효한 메뉴 번호입니다.");
@@ -134,90 +132,8 @@ public class App {
       } else {
         continue; // 옳지 않은 번호를 입력한 경우에는 다시 메뉴를 출력한다.
       }
-
-      if (input.equals("exit") || input.equals("quit")) {
-        System.out.println("안녕!");
-        break;
-      } else if (input.equals("/member/add")) {
-        memberHandler.add();
-
-      } else if (input.equals("/member/list")) {
-        memberHandler.list();
-
-      } else if (input.equals("/member/detail")) {
-        memberHandler.detail();
-
-      } else if (input.equals("/member/update")) {
-        memberHandler.update();
-
-      } else if (input.equals("/member/delete")) {
-        memberHandler.delete();
-
-      }  else if (input.equals("/project/add")) {
-        // add() 메서드가 사용할 의존 객체를 미리 주입했기 때문에
-        // 이제 파라미터로 전달할 필요가 없다.
-        //        projectHandler.add(memberHandler); // 이전 코드 
-        projectHandler.add();
-
-      }  else if (input.equals("/project/list")) {
-        projectHandler.list();
-
-      }  else if (input.equals("/project/detail")) {
-        projectHandler.detail();
-
-      }  else if (input.equals("/project/update")) {
-        // update() 메서드가 사용할 의존 객체를 미리 주입했기 때문에
-        // 이제 파라미터로 전달할 필요가 없다.
-        //        projectHandler.update(memberHandler); // 이전 코드
-        projectHandler.update();
-
-      }  else if (input.equals("/project/delete")) {
-        projectHandler.delete();
-
-      }  else if (input.equals("/task/add")) {
-        // add() 메서드가 사용할 의존 객체를 미리 주입했기 때문에
-        // 이제 파라미터로 전달할 필요가 없다.
-        //        taskHandler.add(memberHandler); // 이전 코드
-        taskHandler.add();
-
-      }  else if (input.equals("/task/list")) {
-        taskHandler.list();
-
-      }  else if (input.equals("/task/detail")) {
-        taskHandler.detail();
-
-      }  else if (input.equals("/task/update")) {
-        // update() 메서드가 사용할 의존 객체를 미리 주입했기 때문에
-        // 이제 파라미터로 전달할 필요가 없다.
-        //        taskHandler.update(memberHandler); // 이전 코드
-        taskHandler.update();
-
-      }  else if (input.equals("/task/delete")) {
-        taskHandler.delete();
-
-      }  else if (input.equals("/board/add")) {
-        boardHandler.add();
-
-      }  else if (input.equals("/board/list")) {
-        boardHandler.list();
-
-      }  else if (input.equals("/board/detail")) {
-        boardHandler.detail();
-
-      }  else if (input.equals("/board/update")) {
-        boardHandler.update();
-
-      }  else if (input.equals("/board/delete")) {
-        boardHandler.delete();
-
-      } else {
-        System.out.println("실행할 수 없는 명령입니다.");
-      }
-
-      System.out.println();
     }
 
-    // Prompt 가 소유하고 관리하고 있는 자원을 닫으라고 명령한다. 
     Prompt.close();
   }
 }
