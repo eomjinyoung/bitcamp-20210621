@@ -30,6 +30,17 @@
 
 - com.eomcs.pms.menu.MenuItem 클래스 추가
   - execute() 구현 : 메뉴 이름을 출력한다.
+  - 백업: MenuItem.java.01
+- com.eomcs.pms.menu.MenuTest 클래스 추가
+  - Menu, MenuGroup, MenuItem 클래스의 동작을 테스트한다.
+
+### 4단계 - 특정 메뉴(`MenuItem`)를 선택했을 때 실행할 객체의 메서드 호출 규칙을 정의한다.
+
+- com.eomcs.pms.menu.ActionListener 인터페이스 추가
+
+### 5단계 - `MenuItem` 객체를 실행할 때 `ActionListener` 규칙에 따라 작업 객체를 실행하도록 변경한다.
+
+- com.eomcs.pms.menu.MenuItem 클래스 변경
 
 ## 실습 결과
 
