@@ -24,8 +24,12 @@
 
 - com.eomcs.pms.menu.MenuGroup 클래스 추가
   - execute() 구현 : 메뉴를 출력하고 사용자로부터 번호를 입력 받는 일을 한다.
-  - 하위 메뉴를 다룰 수 있도록 add()/remove()/getChild() 메서드를 추가한다.
+  - 하위 메뉴를 다룰 수 있도록 add()/remove()/getMenu()/indexOf() 메서드를 추가한다.
 
+### 3단계 - `Leaf` 역할을 정의한다.
+
+- com.eomcs.pms.menu.MenuItem 클래스 추가
+  - execute() 구현 : 메뉴 이름을 출력한다.
 
 ## 실습 결과
 
