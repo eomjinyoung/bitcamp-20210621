@@ -40,6 +40,17 @@
 
 - com.eomcs.pms.App 클래스 변경
 
+### 5단계 - 나머지 메뉴에 대해 `Leaf` 역할을 정의한다.
+
+회원, 프로젝트, 작업의 각 메뉴 항목을 정의한다. 
+
+- com.eomcs.pms.menu.MemberXxxMenu 클래스 추가
+- com.eomcs.pms.menu.ProjectXxxMenu 클래스 추가
+- com.eomcs.pms.menu.TaskXxxMenu 클래스 추가
+- com.eomcs.pms.App 클래스 변경
+  - 회원, 프로젝트, 작업 메뉴를 등록한다.
+
+
 
 
 
