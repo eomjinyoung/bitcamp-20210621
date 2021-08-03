@@ -10,20 +10,24 @@ import com.eomcs.util.Prompt;
 
 public class App {
 
-  static BoardHandler boardHandler = new BoardHandler();
-  static MemberHandler memberHandler = new MemberHandler();
-  static ProjectHandler projectHandler = new ProjectHandler(memberHandler);
-  static TaskHandler taskHandler = new TaskHandler(memberHandler);
+  BoardHandler boardHandler = new BoardHandler();
+  MemberHandler memberHandler = new MemberHandler();
+  ProjectHandler projectHandler = new ProjectHandler(memberHandler);
+  TaskHandler taskHandler = new TaskHandler(memberHandler);
 
   public static void main(String[] args) {
+    App app = new App();
+    app.service();
+  }
 
-    Menu mainMenu = createMenu();
-    mainMenu.execute();
-
+  void service() {
+    //    Menu mainMenu = createMenu();
+    //    mainMenu.execute();
+    createMenu().execute();
     Prompt.close();
   }
 
-  static Menu createMenu() {
+  Menu createMenu() {
     MenuGroup mainMenuGroup = new MenuGroup("메인");
     mainMenuGroup.setPrevMenuTitle("종료");
 
