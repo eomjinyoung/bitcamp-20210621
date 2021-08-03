@@ -28,6 +28,23 @@
 
 ### 3단계 - `Leaf` 역할을 정의한다.
 
+게시판의 각 메뉴 항목을 정의한다. 
+
+- com.eomcs.pms.menu.BoardAddMenu 클래스 추가
+- com.eomcs.pms.menu.BoardListMenu 클래스 추가
+- com.eomcs.pms.menu.BoardDetailMenu 클래스 추가
+- com.eomcs.pms.menu.BoardUpdateMenu 클래스 추가
+- com.eomcs.pms.menu.BoardDeleteMenu 클래스 추가
+
+### 4단계 - 메뉴를 App 클래스에 적용한다.
+
+- com.eomcs.pms.App 클래스 변경
+
+
+
+
+### 3단계 - `Leaf` 역할을 정의한다.
+
 - com.eomcs.pms.menu.MenuItem 클래스 추가
   - execute() 구현 : 메뉴 이름을 출력한다.
   - 백업: MenuItem.java.01

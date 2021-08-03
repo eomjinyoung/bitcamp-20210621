@@ -4,6 +4,13 @@ import com.eomcs.pms.handler.BoardHandler;
 import com.eomcs.pms.handler.MemberHandler;
 import com.eomcs.pms.handler.ProjectHandler;
 import com.eomcs.pms.handler.TaskHandler;
+import com.eomcs.pms.menu.BoardAddMenu;
+import com.eomcs.pms.menu.BoardDeleteMenu;
+import com.eomcs.pms.menu.BoardDetailMenu;
+import com.eomcs.pms.menu.BoardListMenu;
+import com.eomcs.pms.menu.BoardUpdateMenu;
+import com.eomcs.pms.menu.Menu;
+import com.eomcs.pms.menu.MenuGroup;
 import com.eomcs.util.Prompt;
 
 // 1) 메인 메뉴를 출력하고 번호를 입력 받는다.(App.java.01)
@@ -30,26 +37,28 @@ public class App {
   static TaskHandler taskHandler = new TaskHandler(memberHandler);
 
   public static void main(String[] args) {
-    while (true) {
-      int menuNo = doMainMenu();
 
-      if (menuNo == 0) {
-        break;
-      } else if (menuNo == 1) {
-        doBoardMenu();
-      } else if (menuNo == 2) {
-        doMemberMenu();
-      } else if (menuNo == 3) {
-        doProjectMenu();
-      } else if (menuNo == 4) {
-        doTaskMenu();
-      } else {
-        System.out.println("메뉴 번호가 유효하지 않습니다.");
-      }
-      System.out.println();
-    }
+    Menu mainMenu = createMenu();
+    mainMenu.execute();
+
 
     Prompt.close();
+  }
+
+  static Menu createMenu() {
+    MenuGroup mainMenuGroup = new MenuGroup("메인");
+    mainMenuGroup.setPrevMenuTitle("종료");
+
+    MenuGroup boardMenu = new MenuGroup("게시판");
+    mainMenuGroup.add(boardMenu);
+
+    boardMenu.add(new BoardAddMenu(boardHandler));
+    boardMenu.add(new BoardListMenu(boardHandler));
+    boardMenu.add(new BoardDetailMenu(boardHandler));
+    boardMenu.add(new BoardUpdateMenu(boardHandler));
+    boardMenu.add(new BoardDeleteMenu(boardHandler));
+
+    return mainMenuGroup;
   }
 
   static void doBoardMenu() {

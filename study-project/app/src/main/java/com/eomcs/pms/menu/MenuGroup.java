@@ -10,6 +10,7 @@ public class MenuGroup extends Menu {
   Menu[] childs = new Menu[100];
   int size;
   boolean disablePrevMenu;
+  String prevMenuTitle = "이전 메뉴";
 
   // 생성자를 정의하지 않으면 컴파일러가 기본 생성자를 자동으로 추가해 준다.
   // 문제는 컴파일러가 추가한 기본 생성자는 수퍼 클래스의 기본 생성자를 호출하기 때문에
@@ -23,6 +24,10 @@ public class MenuGroup extends Menu {
   public MenuGroup(String title, boolean disablePrevMenu) {
     super(title);
     this.disablePrevMenu = disablePrevMenu;
+  }
+
+  public void setPrevMenuTitle(String prevMenuTitle) {
+    this.prevMenuTitle = prevMenuTitle;
   }
 
   // MenuGroup이 포함하는 하위 Menu를 다룰 수 있도록 메서드를 정의한다.
@@ -75,7 +80,7 @@ public class MenuGroup extends Menu {
       }
 
       if (!disablePrevMenu) {
-        System.out.println("0. 이전메뉴");
+        System.out.printf("0. %s\n", this.prevMenuTitle);
       }
 
       int menuNo = Prompt.inputInt("선택> ");
