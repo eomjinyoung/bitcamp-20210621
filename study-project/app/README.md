@@ -42,12 +42,6 @@
 - com.eomcs.pms.handler.BoardHandler 클래스 변경
 
 
-
-
-
-
-
-
 ### 2단계 - `MemberHandler`, `ProjectHandler`, `TaskHandler`의 배열도 가변 크기를 갖는 배열로 변경한다.
 
 - 값을 추가할 때 배열의 크기가 작으면 새 배열을 만들어 크기를 늘린다.

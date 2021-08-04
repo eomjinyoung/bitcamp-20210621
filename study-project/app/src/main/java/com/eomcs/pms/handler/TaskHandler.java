@@ -10,24 +10,13 @@ public class TaskHandler {
 
   Task[] tasks = new Task[MAX_LENGTH];
   int size = 0;
-
-  // 이제 의존 객체는 생성자를 통해 주입 받기 때문에 
-  // 외부에서 인스턴스 변수에 직접 접근할 이유가 없다.
-  // 따라서 전체 공개 모드에서 패키지 멤버에게만 공개하는 모드로 전환한다. 
   MemberHandler memberHandler;
 
-
-  // TaskHandler의 의존 객체를 반드시 주입하도록 강제하고 싶다면,
-  // 생성자를 선언할 때 파라미터로 지정하라.
-  // 즉 TaskHandler의 인스턴스를 생성할 때 필요한 값이 있다면,
-  // 생성자의 파라미터를 이용해서 받을 수 있다.
   public TaskHandler(MemberHandler memberHandler) {
     this.memberHandler = memberHandler;
   }
 
 
-  // add()에서 사용할 MemberHandler는 메서드를 호출하기 전에 
-  // 인스턴스 변수에 미리 주입되어 있어야 한다.
   public void add() {
     System.out.println("[작업 등록]");
 
@@ -43,10 +32,16 @@ public class TaskHandler {
       return; 
     }
 
+    if (size == tasks.length) {
+      Task[] arr = new Task[tasks.length + (tasks.length >> 1)];
+      for (int i = 0; i < size; i++) {
+        arr[i] = tasks[i];
+      }
+      tasks = arr;
+    }
     this.tasks[this.size++] = task;
   }
 
-  //다른 패키지에 있는 App 클래스가 다음 메서드를 호출할 수 있도록 공개한다.
   public void list() {
     System.out.println("[작업 목록]");
 
