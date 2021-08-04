@@ -15,14 +15,9 @@ public class BoardHandler {
     }
   }
 
-
-  static final int MAX_LENGTH = 5;
-
-  Board[] boards = new Board[MAX_LENGTH];
-  int size = 0;
-
   Node head;
   Node tail;
+  int size = 0;
 
   public void add() {
     System.out.println("[새 게시글]");
