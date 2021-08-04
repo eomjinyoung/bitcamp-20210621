@@ -11,6 +11,9 @@ public class BoardHandler {
   Board[] boards = new Board[MAX_LENGTH];
   int size = 0;
 
+  Node head;
+  Node tail;
+
   public void add() {
     System.out.println("[새 게시글]");
 
@@ -22,34 +25,40 @@ public class BoardHandler {
     board.writer = Prompt.inputString("작성자? ");
     board.registeredDate = new Date(System.currentTimeMillis());
 
-    if (this.size == this.boards.length) {
-      // 기존 배열 보다 50% 더 큰 배열을 만든다.
-      Board[] arr = new Board[this.boards.length + (this.boards.length >> 1)];
+    // 새 노드를 만든다. 생성자를 호출할 때, 노드에 담을 Board 객체 주소를 넘긴다. 
+    Node node = new Node(board);
 
-      // 기존 배열의 값을 새 배열로 복사한다.
-      for (int i = 0; i < this.size; i++) {
-        arr[i] = this.boards[i];
-      }
+    if (head == null) {
+      tail = head = node;
+    } else {
+      // 기존에 tail이 가리키는 마지막 노드의 next 변수에 새 노드 주소를 저장한다.
+      tail.next = node;
 
-      // 기존 배열 대신 새 배열 주소를 저장한다.
-      // => 물론 이렇게 함으로써 기존 배열은 가비지가 될 것이다.
-      this.boards = arr;
-      System.out.println("새 Board[] 객체를 만듦!");
+      // 새로 만든 노드를 마지막 노드로 설정한다. 
+      tail = node;
     }
-    this.boards[this.size++] = board;
+
+    size++;
   }
 
   public void list() {
     System.out.println("[게시글 목록]");
-    for (int i = 0; i < this.size; i++) {
-      System.out.printf("%d, %s, %s, %s, %d, %d\n", 
-          this.boards[i].no, 
-          this.boards[i].title, 
-          this.boards[i].writer,
-          this.boards[i].registeredDate,
-          this.boards[i].viewCount, 
-          this.boards[i].like);
+    if (head == null) {
+      return;
     }
+
+    Node node = head;
+
+    do {
+      System.out.printf("%d, %s, %s, %s, %d, %d\n", 
+          node.board.no, 
+          node.board.title, 
+          node.board.writer,
+          node.board.registeredDate,
+          node.board.viewCount, 
+          node.board.like);
+      node = node.next;
+    } while (node != null);
   }
 
   public void detail() {
