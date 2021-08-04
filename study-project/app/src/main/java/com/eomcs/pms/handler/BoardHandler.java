@@ -130,11 +130,15 @@ public class BoardHandler {
   }
 
   private Board findByNo(int no) {
-    for (int i = 0; i < this.size; i++) {
-      if (this.boards[i].no == no) {
-        return this.boards[i];
+    Node node = head;
+
+    while (node != null) {
+      if (node.board.no == no) {
+        return node.board;
       }
+      node = node.next;
     }
+
     return null;
   }
 
