@@ -6,10 +6,19 @@ import com.eomcs.util.Prompt;
 
 public class TaskHandler {
 
-  static final int MAX_LENGTH = 5;
+  static class Node {
+    Task task;
+    Node next;
 
-  Task[] tasks = new Task[MAX_LENGTH];
+    public Node(Task task) {
+      this.task = task;
+    }
+  }
+
+  Node head;
+  Node tail;
   int size = 0;
+
   MemberHandler memberHandler;
 
   public TaskHandler(MemberHandler memberHandler) {
@@ -32,27 +41,32 @@ public class TaskHandler {
       return; 
     }
 
-    if (size == tasks.length) {
-      Task[] arr = new Task[tasks.length + (tasks.length >> 1)];
-      for (int i = 0; i < size; i++) {
-        arr[i] = tasks[i];
-      }
-      tasks = arr;
+    Node node = new Node(task);
+    if (head == null) {
+      tail = head = node;
+    } else {
+      tail.next = node;
+      tail = node;
     }
-    this.tasks[this.size++] = task;
+    size++;
   }
 
   public void list() {
     System.out.println("[작업 목록]");
 
-    for (int i = 0; i < this.size; i++) {
-      System.out.printf("%d, %s, %s, %s, %s\n",
-          this.tasks[i].no, 
-          this.tasks[i].content, 
-          this.tasks[i].deadline, 
-          getStatusLabel(this.tasks[i].status), 
-          this.tasks[i].owner);
+    if (head == null) {
+      return;
     }
+    Node node = head;
+    do {
+      System.out.printf("%d, %s, %s, %s, %s\n",
+          node.task.no, 
+          node.task.content, 
+          node.task.deadline, 
+          getStatusLabel(node.task.status), 
+          node.task.owner);
+      node = node.next;
+    } while (node != null);
   }
 
   public void detail() {
@@ -111,8 +125,8 @@ public class TaskHandler {
     System.out.println("[작업 삭제]");
     int no = Prompt.inputInt("번호? ");
 
-    int index = indexOf(no);
-    if (index == -1) {
+    Task task = findByNo(no);
+    if (task == null) {
       System.out.println("해당 번호의 작업이 없습니다.");
       return;
     }
@@ -123,30 +137,42 @@ public class TaskHandler {
       return;
     }
 
-    for (int i = index + 1; i < this.size; i++) {
-      this.tasks[i - 1] = this.tasks[i];
+    Node node = head;
+    Node prev = null;
+
+    while (node != null) {
+      if (node.task == task) {
+        if (node == head) {
+          head = node.next;
+        } else {
+          prev.next = node.next; // 이전 노드를 다음 노드와 연결한다.
+        }
+        node.next = null; // 다음 노드와의 연결을 끊는다.
+        if (node == tail) { // 삭제할 현재 노드가 마지막 노드라면
+          tail = prev; // 이전 노드를 마지막 노드로 설정한다.
+        }
+        break;
+      }
+      // 현재 노드가 아니라면,
+      prev = node; // 현재 노드의 주소를 prev 변수에 저장하고,
+      node = node.next; // node 변수에는 다음 노드의 주소를 저장한다.
     }
-    this.tasks[--this.size] = null;
+    size--;
 
     System.out.println("작업를 삭제하였습니다.");
   }
 
   private Task findByNo(int no) {
-    for (int i = 0; i < this.size; i++) {
-      if (this.tasks[i].no == no) {
-        return this.tasks[i];
-      }
-    }
-    return null;
-  }
+    Node node = head;
 
-  private int indexOf(int no) {
-    for (int i = 0; i < this.size; i++) {
-      if (this.tasks[i].no == no) {
-        return i;
+    while (node != null) {
+      if (node.task.no == no) {
+        return node.task;
       }
+      node = node.next;
     }
-    return -1;
+
+    return null;
   }
 
   private String getStatusLabel(int status) {

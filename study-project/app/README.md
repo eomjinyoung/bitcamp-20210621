@@ -44,9 +44,6 @@
 - com.eomcs.pms.handler.BoardHandler 클래스 변경
 
 
-
-
-
 ### 2단계 - `MemberHandler`, `ProjectHandler`, `TaskHandler` 또한 배열 대신 연결 리스트 방식을 사용하여 데이터 목록을 다룬다.
 
 - 연결 리스트를 구현한다.
