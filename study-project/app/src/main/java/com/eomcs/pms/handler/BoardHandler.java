@@ -6,6 +6,16 @@ import com.eomcs.util.Prompt;
 
 public class BoardHandler {
 
+  static class Node {
+    Board board;
+    Node next;
+
+    public Node(Board board) {
+      this.board = board;
+    }
+  }
+
+
   static final int MAX_LENGTH = 5;
 
   Board[] boards = new Board[MAX_LENGTH];
