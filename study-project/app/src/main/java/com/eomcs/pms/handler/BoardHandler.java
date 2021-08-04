@@ -25,8 +25,21 @@ public class BoardHandler {
     board.content = Prompt.inputString("내용? ");
     board.writer = Prompt.inputString("작성자? ");
     board.registeredDate = new Date(System.currentTimeMillis());
-    //    board.viewCount = 0; // 인스턴스 변수는 생성되는 순간 기본 값이 0으로 설정된다.
 
+    if (this.size == this.boards.length) {
+      // 기존 배열 보다 50% 더 큰 배열을 만든다.
+      Board[] arr = new Board[this.boards.length + (this.boards.length >> 1)];
+
+      // 기존 배열의 값을 새 배열로 복사한다.
+      for (int i = 0; i < this.size; i++) {
+        arr[i] = this.boards[i];
+      }
+
+      // 기존 배열 대신 새 배열 주소를 저장한다.
+      // => 물론 이렇게 함으로써 기존 배열은 가비지가 될 것이다.
+      this.boards = arr;
+      System.out.println("새 Board[] 객체를 만듦!");
+    }
     this.boards[this.size++] = board;
   }
 

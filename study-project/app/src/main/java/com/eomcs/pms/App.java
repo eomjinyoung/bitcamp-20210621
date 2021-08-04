@@ -18,13 +18,9 @@ public class App {
   public static void main(String[] args) {
     App app = new App();
     app.service();
-
-
   }
 
   void service() {
-    //    Menu mainMenu = createMenu();
-    //    mainMenu.execute();
     createMenu().execute();
     Prompt.close();
   }
