@@ -108,9 +108,9 @@ public class BoardHandler {
     System.out.println("[게시글 삭제]");
     int no = Prompt.inputInt("번호? ");
 
-    int index = indexOf(no);
+    Board board = findByNo(no);
 
-    if (index == -1) {
+    if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다.");
       return;
     }
@@ -121,10 +121,32 @@ public class BoardHandler {
       return;
     }
 
-    for (int i = index + 1; i < this.size; i++) {
-      this.boards[i - 1] = this.boards[i];
+    Node node = head;
+    Node prev = null;
+
+    while (node != null) {
+      if (node.board == board) {
+        if (node == head) {
+          head = node.next;
+        } else {
+          prev.next = node.next; // 이전 노드를 다음 노드와 연결한다.
+        }
+
+        node.next = null; // 다음 노드와의 연결을 끊는다.
+
+        if (node == tail) { // 삭제할 현재 노드가 마지막 노드라면
+          tail = prev; // 이전 노드를 마지막 노드로 설정한다.
+        }
+
+        break;
+      }
+
+      // 현재 노드가 아니라면,
+      prev = node; // 현재 노드의 주소를 prev 변수에 저장하고,
+      node = node.next; // node 변수에는 다음 노드의 주소를 저장한다.
     }
-    this.boards[--this.size] = null;
+
+    size--;
 
     System.out.println("게시글을 삭제하였습니다.");
   }
@@ -141,17 +163,6 @@ public class BoardHandler {
 
     return null;
   }
-
-  private int indexOf(int no) {
-    for (int i = 0; i < this.size; i++) {
-      if (this.boards[i].no == no) {
-        return i;
-      }
-    }
-    return -1;
-  }
-
-
 }
 
 
