@@ -21,6 +21,8 @@ public class App {
   }
 
   void service() {
+    //    Menu mainMenu = createMenu();
+    //    mainMenu.execute();
     createMenu().execute();
     Prompt.close();
   }
