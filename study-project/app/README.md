@@ -145,11 +145,7 @@ class BoardService {}
 ### 1단계 - BoardHandler 에서 데이터 처리 코드를 별도의 클래스로 분리하여 캡슐화한다.
 
 - `BoardHandler`에서 데이터 처리 코드를 분리하여 `BoardList` 클래스로 정의한다.
-- `BoardList`의 기본 생성자와 배열의 초기 크기를 설정하는 생성자를 정의한다.
-- `BoardList`에 Board 객체를 등록하는 add()를 정의한다.
-- `BoardList`에 데이터를 리턴하는 get() 메서드를 정의한다.
-- `BoardList`에 데이터 목록을 리턴하는 toArray() 메서드를 정의한다.
-- `BoardList`에 데이터를 삭제하는 delete() 메서드를 정의한다.
+- `add()`, `toArray()`, `findByNo()`, `indexOf()`, `remove()` 메서드를 정의한다.
 - `BoardHandler`는 `BoardList`를 사용하여 입,출력 데이터를 처리한다.
 
 #### 작업 파일

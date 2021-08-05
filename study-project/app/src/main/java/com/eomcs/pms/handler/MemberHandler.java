@@ -6,10 +6,7 @@ import com.eomcs.util.Prompt;
 
 public class MemberHandler {
 
-  static final int MAX_LENGTH = 5;
-
-  Member[] members = new Member[MAX_LENGTH];
-  int size = 0;
+  MemberList memberList = new MemberList();
 
   public void add() {
     System.out.println("[회원 등록]");
@@ -24,18 +21,21 @@ public class MemberHandler {
     member.tel = Prompt.inputString("전화? ");
     member.registeredDate = new Date(System.currentTimeMillis());
 
-    this.members[this.size++] = member;
+    memberList.add(member);
   }
 
   public void list() {
     System.out.println("[회원 목록]");
-    for (int i = 0; i < this.size; i++) {
+
+    Member[] list = memberList.toArray();
+
+    for (Member member : list) {
       System.out.printf("%d, %s, %s, %s, %s\n", 
-          this.members[i].no, 
-          this.members[i].name, 
-          this.members[i].email, 
-          this.members[i].tel, 
-          this.members[i].registeredDate);
+          member.no, 
+          member.name, 
+          member.email, 
+          member.tel, 
+          member.registeredDate);
     }
   }
 
@@ -43,7 +43,7 @@ public class MemberHandler {
     System.out.println("[회원 상세보기]");
     int no = Prompt.inputInt("번호? ");
 
-    Member member = findByNo(no);
+    Member member = memberList.findByNo(no);
 
     if (member == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -61,7 +61,7 @@ public class MemberHandler {
     System.out.println("[회원 변경]");
     int no = Prompt.inputInt("번호? ");
 
-    Member member = findByNo(no);
+    Member member = memberList.findByNo(no);
 
     if (member == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -93,9 +93,9 @@ public class MemberHandler {
     System.out.println("[회원 삭제]");
     int no = Prompt.inputInt("번호? ");
 
-    int index = indexOf(no);
+    Member member = memberList.findByNo(no);
 
-    if (index == -1) {
+    if (member == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
       return;
     }
@@ -106,39 +106,9 @@ public class MemberHandler {
       return;
     }
 
-    for (int i = index + 1; i < this.size; i++) {
-      this.members[i - 1] = this.members[i];
-    }
-    this.members[--this.size] = null;
+    memberList.remove(member);
 
     System.out.println("회원을 삭제하였습니다.");
-  }
-
-  boolean exist(String name) {
-    for (int i = 0; i < this.size; i++) {
-      if (this.members[i].name.equals(name)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private Member findByNo(int no) {
-    for (int i = 0; i < this.size; i++) {
-      if (this.members[i].no == no) {
-        return this.members[i];
-      }
-    }
-    return null;
-  }
-
-  private int indexOf(int no) {
-    for (int i = 0; i < this.size; i++) {
-      if (this.members[i].no == no) {
-        return i;
-      }
-    }
-    return -1;
   }
 
 }
