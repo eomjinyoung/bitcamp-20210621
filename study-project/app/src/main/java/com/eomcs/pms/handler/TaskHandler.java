@@ -6,28 +6,15 @@ import com.eomcs.util.Prompt;
 
 public class TaskHandler {
 
-  static final int MAX_LENGTH = 5;
-
-  Task[] tasks = new Task[MAX_LENGTH];
-  int size = 0;
-
-  // 이제 의존 객체는 생성자를 통해 주입 받기 때문에 
-  // 외부에서 인스턴스 변수에 직접 접근할 이유가 없다.
-  // 따라서 전체 공개 모드에서 패키지 멤버에게만 공개하는 모드로 전환한다. 
-  MemberHandler memberHandler;
+  TaskList taskList;
+  MemberList memberList;
 
 
-  // TaskHandler의 의존 객체를 반드시 주입하도록 강제하고 싶다면,
-  // 생성자를 선언할 때 파라미터로 지정하라.
-  // 즉 TaskHandler의 인스턴스를 생성할 때 필요한 값이 있다면,
-  // 생성자의 파라미터를 이용해서 받을 수 있다.
-  public TaskHandler(MemberHandler memberHandler) {
-    this.memberHandler = memberHandler;
+  public TaskHandler(TaskList taskList, MemberList memberList) {
+    this.taskList = taskList;
+    this.memberList = memberList;
   }
 
-
-  // add()에서 사용할 MemberHandler는 메서드를 호출하기 전에 
-  // 인스턴스 변수에 미리 주입되어 있어야 한다.
   public void add() {
     System.out.println("[작업 등록]");
 
@@ -43,20 +30,22 @@ public class TaskHandler {
       return; 
     }
 
-    this.tasks[this.size++] = task;
+    taskList.add(task);
   }
 
   //다른 패키지에 있는 App 클래스가 다음 메서드를 호출할 수 있도록 공개한다.
   public void list() {
     System.out.println("[작업 목록]");
 
-    for (int i = 0; i < this.size; i++) {
+    Task[] list = taskList.toArray();
+
+    for (Task task : list) {
       System.out.printf("%d, %s, %s, %s, %s\n",
-          this.tasks[i].no, 
-          this.tasks[i].content, 
-          this.tasks[i].deadline, 
-          getStatusLabel(this.tasks[i].status), 
-          this.tasks[i].owner);
+          task.no, 
+          task.content, 
+          task.deadline, 
+          getStatusLabel(task.status), 
+          task.owner);
     }
   }
 
@@ -64,7 +53,7 @@ public class TaskHandler {
     System.out.println("[작업 상세보기]");
     int no = Prompt.inputInt("번호? ");
 
-    Task task = findByNo(no);
+    Task task = taskList.findByNo(no);
     if (task == null) {
       System.out.println("해당 번호의 작업이 없습니다.");
       return;
@@ -76,13 +65,11 @@ public class TaskHandler {
     System.out.printf("담당자: %s\n", task.owner);
   }
 
-  // update()가 사용할 MemberHandler 는 
-  // 인스턴스 변수에 미리 주입 받기 때문에 파라미터로 받을 필요가 없다.
   public void update() {
     System.out.println("[작업 변경]");
     int no = Prompt.inputInt("번호? ");
 
-    Task task = findByNo(no);
+    Task task = taskList.findByNo(no);
     if (task == null) {
       System.out.println("해당 번호의 작업이 없습니다.");
       return;
@@ -116,8 +103,8 @@ public class TaskHandler {
     System.out.println("[작업 삭제]");
     int no = Prompt.inputInt("번호? ");
 
-    int index = indexOf(no);
-    if (index == -1) {
+    Task task = taskList.findByNo(no);
+    if (task == null) {
       System.out.println("해당 번호의 작업이 없습니다.");
       return;
     }
@@ -128,30 +115,9 @@ public class TaskHandler {
       return;
     }
 
-    for (int i = index + 1; i < this.size; i++) {
-      this.tasks[i - 1] = this.tasks[i];
-    }
-    this.tasks[--this.size] = null;
+    taskList.remove(task);
 
     System.out.println("작업를 삭제하였습니다.");
-  }
-
-  private Task findByNo(int no) {
-    for (int i = 0; i < this.size; i++) {
-      if (this.tasks[i].no == no) {
-        return this.tasks[i];
-      }
-    }
-    return null;
-  }
-
-  private int indexOf(int no) {
-    for (int i = 0; i < this.size; i++) {
-      if (this.tasks[i].no == no) {
-        return i;
-      }
-    }
-    return -1;
   }
 
   private String getStatusLabel(int status) {
@@ -165,8 +131,7 @@ public class TaskHandler {
   private String promptOwner(String label) {
     while (true) {
       String owner = Prompt.inputString(label);
-      // MemberHandler의 인스턴스는 미리 인스턴스 변수에 주입 받은 것을 사용한다.
-      if (this.memberHandler.exist(owner)) {
+      if (this.memberList.exist(owner)) {
         return owner;
       } else if (owner.length() == 0) {
         return null;
