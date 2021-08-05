@@ -1,4 +1,4 @@
-# 10-c. 자료 구조 다루기 II : 데이터 처리 코드를 캡슐화 + 연결리스트 적용
+# 09-e. 데이터 처리 코드를 캡슐화 : 캡슐화 후 -  연결리스트 적용
 
 이번 훈련에서는 **자료 구조** 를 활용하여 데이터 목록을 다루는 방법을 연습할 것이다.
 
@@ -36,7 +36,7 @@
 ### 1단계 - 배열 대신 노드의 연결을 통해 목록을 다루는 `BoardList2` 클래스를 정의하고 기존의 `BoardList`를 대체한다.
 
 - 연결 리스트를 구현한다.
-- `BoardHandler` 에 `BoardList`를 `BoardList2`로 교체한다.
+- `BoardHandler` 에서는 `BoardList`를 `BoardList2`로 교체한다.
 
 #### 작업 파일
 
@@ -44,20 +44,28 @@
 - com.eomcs.pms.handler.BoardHandler 클래스 변경
 
 
-### 2단계 - `MemberList`, `ProjectList`, `TaskList` 또한 배열 대신 연결 리스트 방식을 사용하여 데이터 목록을 다룬다.
+### 2단계 - `MemberList`, `ProjectList`, `TaskList` 도 `BoardList`와 마찬가지로 연결리스트로 목록을 다루는 클래스를 만든 후 그 클래스로 대체한다.
 
 - 연결 리스트를 구현한다.
+- `XxxHandler` 에서는 `XxxList` 를 `XxxList2`로 교체한다.
 
 #### 작업 파일
 
-- com.eomcs.pms.handler.MemberList 클래스 변경
-- com.eomcs.pms.handler.ProjectList 클래스 변경
-- com.eomcs.pms.handler.TaskList 클래스 변경
+- com.eomcs.pms.handler.MemberList2 클래스 추가
+- com.eomcs.pms.handler.ProjectList2 클래스 추가
+- com.eomcs.pms.handler.TaskList2 클래스 추가
+- com.eomcs.pms.handler.MemberHandler 클래스 변경
+- com.eomcs.pms.handler.ProjectHandler 클래스 변경
+- com.eomcs.pms.handler.TaskHandler 클래스 변경
 
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/pms/handler/BoardList.java 변경
-- src/main/java/com/eomcs/pms/handler/MemberList.java 변경
-- src/main/java/com/eomcs/pms/handler/ProjectList.java 변경
-- src/main/java/com/eomcs/pms/handler/TaskList.java 변경
+- src/main/java/com/eomcs/pms/handler/BoardList2.java 추가
+- src/main/java/com/eomcs/pms/handler/MemberList2.java 추가
+- src/main/java/com/eomcs/pms/handler/ProjectList2.java 추가
+- src/main/java/com/eomcs/pms/handler/TaskList2.java 추가
+- src/main/java/com/eomcs/pms/handler/BoardHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/MemberHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/ProjectHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/TaskHandler.java 변경
