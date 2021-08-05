@@ -6,9 +6,9 @@ import com.eomcs.util.Prompt;
 
 public class MemberHandler {
 
-  MemberList2 memberList = new MemberList2();
+  MemberList memberList = new MemberList();
 
-  public MemberList2 getMemberList() {
+  public MemberList getMemberList() {
     return memberList;
   }
 
@@ -31,9 +31,10 @@ public class MemberHandler {
   public void list() {
     System.out.println("[회원 목록]");
 
-    Member[] list = memberList.toArray();
+    Object[] list = memberList.toArray();
 
-    for (Member member : list) {
+    for (Object obj : list) {
+      Member member = (Member) obj;
       System.out.printf("%d, %s, %s, %s, %s\n", 
           member.no, 
           member.name, 

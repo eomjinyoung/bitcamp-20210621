@@ -6,11 +6,11 @@ import com.eomcs.util.Prompt;
 
 public class TaskHandler {
 
-  TaskList2 taskList = new TaskList2();
-  MemberList2 memberList;
+  TaskList taskList = new TaskList();
+  MemberList memberList;
 
 
-  public TaskHandler(MemberList2 memberList) {
+  public TaskHandler(MemberList memberList) {
     this.memberList = memberList;
   }
 
@@ -36,9 +36,10 @@ public class TaskHandler {
   public void list() {
     System.out.println("[작업 목록]");
 
-    Task[] list = taskList.toArray();
+    Object[] list = taskList.toArray();
 
-    for (Task task : list) {
+    for (Object obj : list) {
+      Task task = (Task) obj;
       System.out.printf("%d, %s, %s, %s, %s\n",
           task.no, 
           task.content, 

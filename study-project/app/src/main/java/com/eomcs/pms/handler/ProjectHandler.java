@@ -6,10 +6,10 @@ import com.eomcs.util.Prompt;
 
 public class ProjectHandler {
 
-  ProjectList2 projectList = new ProjectList2();
-  MemberList2 memberList;
+  ProjectList projectList = new ProjectList();
+  MemberList memberList;
 
-  public ProjectHandler(MemberList2 memberList) {
+  public ProjectHandler(MemberList memberList) {
     this.memberList = memberList;
   }
 
@@ -39,9 +39,10 @@ public class ProjectHandler {
   public void list() {
     System.out.println("[프로젝트 목록]");
 
-    Project[] list = projectList.toArray();
+    Object[] list = projectList.toArray();
 
-    for (Project project : list) {
+    for (Object obj : list) {
+      Project project = (Project) obj;
       System.out.printf("%d, %s, %s, %s, %s, [%s]\n",
           project.no, 
           project.title, 
