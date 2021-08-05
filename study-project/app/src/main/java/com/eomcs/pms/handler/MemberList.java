@@ -9,6 +9,13 @@ public class MemberList {
   int size = 0;
 
   public void add(Member member) {
+    if (size == members.length) {
+      Member[] arr = new Member[members.length + (members.length >> 1)];
+      for (int i = 0; i < size; i++) {
+        arr[i] = members[i];
+      }
+      members = arr; // members에 저장된 옛날 배열 주소를 버리고 새 배열 주소를 저장한다.
+    }
     this.members[this.size++] = member;
   }
 

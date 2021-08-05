@@ -9,6 +9,13 @@ public class BoardList {
   int size = 0;
 
   public void add(Board board) {
+    if (size == boards.length) {
+      Board[] arr = new Board[boards.length + (boards.length >> 1)];
+      for (int i = 0; i < size; i++) {
+        arr[i] = boards[i];
+      }
+      boards = arr; // boards에 저장된 옛날 배열 주소를 버리고 새 배열 주소를 저장한다.
+    }
     this.boards[this.size++] = board;
   }
 

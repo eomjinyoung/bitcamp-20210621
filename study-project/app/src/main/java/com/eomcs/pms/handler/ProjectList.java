@@ -9,6 +9,13 @@ public class ProjectList {
   int size = 0;
 
   public void add(Project project) {
+    if (size == projects.length) {
+      Project[] arr = new Project[projects.length + (projects.length >> 1)];
+      for (int i = 0; i < size; i++) {
+        arr[i] = projects[i];
+      }
+      projects = arr; // projects에 저장된 옛날 배열 주소를 버리고 새 배열 주소를 저장한다.
+    }
     this.projects[this.size++] = project;
   }
 
