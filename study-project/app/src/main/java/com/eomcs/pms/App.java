@@ -1,28 +1,19 @@
 package com.eomcs.pms;
 
 import com.eomcs.pms.handler.BoardHandler;
-import com.eomcs.pms.handler.BoardList;
 import com.eomcs.pms.handler.MemberHandler;
-import com.eomcs.pms.handler.MemberList;
 import com.eomcs.pms.handler.ProjectHandler;
-import com.eomcs.pms.handler.ProjectList;
 import com.eomcs.pms.handler.TaskHandler;
-import com.eomcs.pms.handler.TaskList;
 import com.eomcs.pms.menu.Menu;
 import com.eomcs.pms.menu.MenuGroup;
 import com.eomcs.util.Prompt;
 
 public class App {
 
-  BoardList boardList = new BoardList();
-  MemberList memberList = new MemberList();
-  ProjectList projectList = new ProjectList();
-  TaskList taskList = new TaskList();
-
-  BoardHandler boardHandler = new BoardHandler(boardList);
-  MemberHandler memberHandler = new MemberHandler(memberList);
-  ProjectHandler projectHandler = new ProjectHandler(projectList, memberList);
-  TaskHandler taskHandler = new TaskHandler(taskList, memberList);
+  BoardHandler boardHandler = new BoardHandler();
+  MemberHandler memberHandler = new MemberHandler();
+  ProjectHandler projectHandler = new ProjectHandler(memberHandler.getMemberList());
+  TaskHandler taskHandler = new TaskHandler(memberHandler.getMemberList());
 
   public static void main(String[] args) {
     App app = new App();
@@ -30,8 +21,6 @@ public class App {
   }
 
   void service() {
-    //    Menu mainMenu = createMenu();
-    //    mainMenu.execute();
     createMenu().execute();
     Prompt.close();
   }

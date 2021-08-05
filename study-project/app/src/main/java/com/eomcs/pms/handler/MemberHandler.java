@@ -6,10 +6,10 @@ import com.eomcs.util.Prompt;
 
 public class MemberHandler {
 
-  MemberList memberList;
+  MemberList memberList = new MemberList();
 
-  public MemberHandler(MemberList memberList) {
-    this.memberList = memberList;
+  public MemberList getMemberList() {
+    return memberList;
   }
 
   public void add() {
