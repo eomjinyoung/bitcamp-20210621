@@ -6,7 +6,7 @@ import com.eomcs.util.Prompt;
 
 public class BoardHandler {
 
-  BoardList boardList = new BoardList();
+  BoardList2 boardList = new BoardList2();
 
   public void add() {
     System.out.println("[새 게시글]");
