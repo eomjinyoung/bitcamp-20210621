@@ -341,3 +341,6 @@
 	- 09-e. 데이터 처리 코드를 캡슐화 : 캡슐화 후 -  연결리스트 적용
 	- 10-a. 상속 : Generalization
 	- 10-b. 상속 : Generalization II
+
+## 30일차(2021-08-06,금)
+- 실전 프로젝트(eomcs-java-project)
