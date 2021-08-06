@@ -1,6 +1,6 @@
 package com.eomcs.pms.handler;
 
-public class ArrayList extends List {
+public class ArrayList implements List {
 
   static final int MAX_LENGTH = 5;
 
