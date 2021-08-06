@@ -137,6 +137,36 @@ public class MemberHandler {
     }
     return false;
   }
+
+  public String promptMember(String label) {
+    while (true) {
+      String owner = Prompt.inputString(label);
+      if (this.exist(owner)) {
+        return owner;
+      } else if (owner.length() == 0) {
+        return null;
+      }
+      System.out.println("등록된 회원이 아닙니다.");
+    }
+  }
+
+  public String promptMembers(String label) {
+    String members = "";
+    while (true) {
+      String member = Prompt.inputString(label);
+      if (this.exist(member)) {
+        if (members.length() > 0) {
+          members += ",";
+        }
+        members += member;
+        continue;
+      } else if (member.length() == 0) {
+        break;
+      } 
+      System.out.println("등록된 회원이 아닙니다.");
+    }
+    return members;
+  }
 }
 
 
