@@ -1,6 +1,6 @@
 package com.eomcs.pms.handler;
 
-public class LinkedList {
+public class LinkedList extends List {
 
   static class Node {
     Object item;

@@ -6,10 +6,10 @@ import com.eomcs.util.Prompt;
 
 public class MemberHandler {
 
-  MemberList2 memberList = new MemberList2();
+  List memberList;
 
-  public MemberList2 getMemberList() {
-    return memberList;
+  public MemberHandler(List memberList) {
+    this.memberList = memberList;
   }
 
   public void add() {
@@ -48,7 +48,7 @@ public class MemberHandler {
     System.out.println("[회원 상세보기]");
     int no = Prompt.inputInt("번호? ");
 
-    Member member = memberList.findByNo(no);
+    Member member = findByNo(no);
 
     if (member == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -66,7 +66,7 @@ public class MemberHandler {
     System.out.println("[회원 변경]");
     int no = Prompt.inputInt("번호? ");
 
-    Member member = memberList.findByNo(no);
+    Member member = findByNo(no);
 
     if (member == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -98,7 +98,7 @@ public class MemberHandler {
     System.out.println("[회원 삭제]");
     int no = Prompt.inputInt("번호? ");
 
-    Member member = memberList.findByNo(no);
+    Member member = findByNo(no);
 
     if (member == null) {
       System.out.println("해당 번호의 회원이 없습니다.");
@@ -116,6 +116,27 @@ public class MemberHandler {
     System.out.println("회원을 삭제하였습니다.");
   }
 
+  private Member findByNo(int no) {
+    Object[] arr = memberList.toArray();
+    for (Object obj : arr) {
+      Member member = (Member) obj;
+      if (member.no == no) {
+        return member;
+      }
+    }
+    return null;
+  }
+
+  public boolean exist(String name) {
+    Object[] arr = memberList.toArray();
+    for (Object obj : arr) {
+      Member member = (Member) obj;
+      if (member.name.equals(name)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
 
 
