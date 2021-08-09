@@ -349,3 +349,7 @@
 	- 10-e. 리팩토링 : Generalization + 다형성 + 의존 객체 주입(Dependecy Injection)
 	- 10-f. 리팩토링 : 메서드 이동
 	- 10-g. 리팩토링 : 인터페이스 적용
+
+## 31일차(2021-08-09,월)
+- 자바 객체지향 문법(eomcs-java/com.eomcs.oop)
+	- ex07: 추상 클래스와 추상 메서드
