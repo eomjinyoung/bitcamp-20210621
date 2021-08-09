@@ -17,11 +17,11 @@ public class BoardHandler {
 
     Board board = new Board();
 
-    board.no = Prompt.inputInt("번호? ");
-    board.title = Prompt.inputString("제목? ");
-    board.content = Prompt.inputString("내용? ");
-    board.writer = Prompt.inputString("작성자? ");
-    board.registeredDate = new Date(System.currentTimeMillis());
+    board.setNo(Prompt.inputInt("번호? "));
+    board.setTitle(Prompt.inputString("제목? "));
+    board.setContent(Prompt.inputString("내용? "));
+    board.setWriter(Prompt.inputString("작성자? "));
+    board.setRegisteredDate(new Date(System.currentTimeMillis()));
 
     boardList.add(board);
   }
@@ -34,12 +34,12 @@ public class BoardHandler {
     for (Object obj : list) {
       Board board = (Board) obj;
       System.out.printf("%d, %s, %s, %s, %d, %d\n", 
-          board.no, 
-          board.title, 
-          board.writer,
-          board.registeredDate,
-          board.viewCount, 
-          board.like);
+          board.getNo(), 
+          board.getTitle(), 
+          board.getWriter(),
+          board.getRegisteredDate(),
+          board.getViewCount(), 
+          board.getLike());
     }
   }
 
@@ -54,11 +54,13 @@ public class BoardHandler {
       return;
     }
 
-    System.out.printf("제목: %s\n", board.title);
-    System.out.printf("내용: %s\n", board.content);
-    System.out.printf("작성자: %s\n", board.writer);
-    System.out.printf("등록일: %s\n", board.registeredDate);
-    System.out.printf("조회수: %d\n", ++board.viewCount);
+    System.out.printf("제목: %s\n", board.getTitle());
+    System.out.printf("내용: %s\n", board.getContent());
+    System.out.printf("작성자: %s\n", board.getWriter());
+    System.out.printf("등록일: %s\n", board.getRegisteredDate());
+
+    board.setViewCount(board.getViewCount() + 1);
+    System.out.printf("조회수: %d\n", board.getViewCount());
   }
 
   public void update() {
@@ -72,8 +74,8 @@ public class BoardHandler {
       return;
     }
 
-    String title = Prompt.inputString(String.format("제목(%s)? ", board.title));
-    String content = Prompt.inputString(String.format("내용(%s)? ", board.content));
+    String title = Prompt.inputString(String.format("제목(%s)? ", board.getTitle()));
+    String content = Prompt.inputString(String.format("내용(%s)? ", board.getContent()));
 
     String input = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (input.equalsIgnoreCase("n") || input.length() == 0) {
@@ -81,8 +83,8 @@ public class BoardHandler {
       return;
     }
 
-    board.title = title;
-    board.content = content;
+    board.setTitle(title);
+    board.setContent(content);
     System.out.println("게시글을 변경하였습니다.");
   }
 
@@ -112,7 +114,7 @@ public class BoardHandler {
     Object[] arr = boardList.toArray();
     for (Object obj : arr) {
       Board board = (Board) obj;
-      if (board.no == no) {
+      if (board.getNo() == no) {
         return board;
       }
     }
