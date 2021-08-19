@@ -15,18 +15,16 @@
 ## 훈련 목표
 
 - 스택(stack) 자료구조를 구현하고 구동 원리를 이해한다.
-- Object.clone() 메서드의 용도와 인스턴스를 복제하는 방법을 배운다.
-- 얕은 복제(shallow copy)와 깊은 복제(deep copy)의 차이점을 이해한다.
 
 ## 훈련 내용
 
 - `java.util.Stack` 을 모방하여 `Stack` 클래스를 구현한다.
-- 스택을 이용하여 사용자가 입력한 명령을 보관한다.
-- 사용자가 입력한 명령을 최신순으로 출력하는 `history` 명령을 추가한다.
+- 사용자가 선택한 메뉴를 스택에 보관한다.
+- 메뉴를 출력할 때 마다 스택에 보관된 메뉴 경로를 출력한다.
 
 ## 실습
 
-### 0단계 - List 인터페이스에 인덱스로 항목을 꺼내는 메서드를 추가한다.
+### 2단계 - List 인터페이스에 인덱스로 항목을 꺼내는 메서드를 추가한다.
 
 인덱스로 목록에서 값을 꺼내거나 삭제하는 메서드를 준비한다.
 
@@ -41,62 +39,74 @@
   - remove(int) 메서드 구현
 
 
-### 1단계 - `java.util.Stack` 를 모방하여 `Stack` 클래스를 구현한다.
+### 2단계 - `java.util.Stack` 를 모방하여 `Stack` 클래스를 구현한다.
 
 **스택(stack)** 자료 구조를 직접 구현해본다.
 
-- `com.eomcs.pms.handler.Stack` 클래스를 작성한다.
+- com.eomcs.pms.handler.Stack 클래스 추가
   - 상속 문법을 이용하여 기존 코드를 확장한다.
     - `com.eomcs.pms.List` 클래스를 상속 받아 정의한다.
   - push(), pop() 메서드를 추가한다.
   - 백업: Stack.java.01
 
 
-### 2단계 - 사용자가 선택한 메뉴의 bread crumb을 출력한다.
+### 3단계 - 사용자가 메뉴를 선택하면 현재 메뉴의 경로를 bread crumb 으로 출력한다.
 
-- com.eomcs.pms.App 클래스 변경
-  - `Stack` 객체를 준비하여 사용자가 명령어를 입력할 때 마다 저장한다.
-
-
-
-### 3단계 - 사용자가 입력한 명령을 최신순으로 출력하는 `history` 명령을 추가한다.
-
-- 사용자가 입력한 명령을 최신순으로 출력하는 `printCommandHistory()` 메서드를 정의한다.
-- `history` 명령을 처리하는 분기문을 추가한다.
+- com.eomcs.pms.menu.MenuGroup 클래스 변경
+  - `Stack` 객체를 준비한다.
+  - 사용자가 메뉴를 선택하면 해당 메뉴를 스택에 push 한다.
+  - 사용자가 이전 메뉴로 돌아가면 현재 메뉴를 스택에서 pop 한다.
 
 ```
-명령> history
-history
-/board/detail
-/member/list
-/lesson/add
-/lesson/list
-:  <== 키보드에서 ‘q’가 아닌 다른 문자키를 누른다.
-/board/add
-/member/list
-/member/list
-/board/add
-/board/add
-:q  <== 키보드에서 ‘q’ 키를 누른다.
-명령>
+[메인]  <--- breadcrumb
+1. 게시판
+2. 회원
+3. 프로젝트
+4. 작업
+5. 관리1
+0. 종료
+선택> 5
+
+[메인 / 관리1]  <--- breadcrumb
+1. 관리2
+0. 이전 메뉴
+선택> 1
+
+[메인 / 관리1 / 관리2]  <--- breadcrumb
+1. 관리3
+0. 이전 메뉴
+선택> 1
+
+[메인 / 관리1 / 관리2 / 관리3]  <--- breadcrumb
+0. 이전 메뉴
+선택> 0
+
+[메인 / 관리1 / 관리2]  <--- breadcrumb
+1. 관리3
+0. 이전 메뉴
+선택> 0
+
+[메인 / 관리1]  <--- breadcrumb
+1. 관리2
+0. 이전 메뉴
+선택> 0
+
+[메인]  <--- breadcrumb
+1. 게시판
+2. 회원
+3. 프로젝트
+4. 작업
+5. 관리1
+0. 종료
+선택> 
 
 ```
-
-#### 작업 파일
-
-- com.eomcs.pms.App 클래스 변경
-
-### 4단계 - `Stack` 클래스에 복제 기능을 재정의한다.
-
-- 기존 스택은 한 번 pop()을 호출하면 목록에서 제거하기 때문에
-  `history` 명령을 또 실행해봐야 소용없다.
-  - 원본 스택은 그대로 두고 복사본을 사용하여 `history` 명령을 처리한다.
-
-#### 작업 파일
-
-- com.eomcs.util.Stack 클래스 변경
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/util/Stack.java 추가
+- src/main/java/com/eomcs/pms/handler/List.java 변경
+- src/main/java/com/eomcs/pms/handler/ArrayList.java 변경
+- src/main/java/com/eomcs/pms/handler/LinkedList.java 변경
+- src/main/java/com/eomcs/pms/handler/Stack.java 추가
+- src/main/java/com/eomcs/pms/menu/MenuGroup.java 변경
 - src/main/java/com/eomcs/pms/App.java 변경
