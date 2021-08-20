@@ -30,10 +30,16 @@ public class BoardHandler {
   public void list() {
     System.out.println("[게시글 목록]");
 
-    Object[] list = boardList.toArray();
+    // 현재 BoardList에 보관된 값을 담을 수 있는 만큼 크기의 배열을 생성한다. 
+    Board[] boards = new Board[boardList.size()];
 
-    for (Object obj : list) {
-      Board board = (Board) obj;
+    // 배열을 파라미터로 넘겨서 값을 받아 온다.
+    // => 넘겨 주는 배열의 크기가 충분하기 때문에 toArray()는 새 배열을 만들지 않을 것이다.
+    boardList.toArray(boards);
+
+    // 이렇게 제네릭이 적용된 List를 사용하면 
+    // List에서 값을 꺼낼 때 마다 형변환 할 필요가 없어 프로그래밍이 편리하다.
+    for (Board board : boards) {
       System.out.printf("%d, %s, %s, %s, %d, %d\n", 
           board.getNo(), 
           board.getTitle(), 
@@ -112,9 +118,10 @@ public class BoardHandler {
   }
 
   private Board findByNo(int no) {
-    Object[] arr = boardList.toArray();
-    for (Object obj : arr) {
-      Board board = (Board) obj;
+    // 일부러 BoardList에 들어 있는 배열 보다 작은 배열을 넘겨준다.
+    // => 그러면 toArray()는 새 배열을 만들어 값을 저장한 후 리턴할 것이다.
+    Board[] arr = boardList.toArray(new Board[0]);
+    for (Board board : arr) {
       if (board.getNo() == no) {
         return board;
       }

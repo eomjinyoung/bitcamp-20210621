@@ -32,10 +32,9 @@ public class MemberHandler {
   public void list() {
     System.out.println("[회원 목록]");
 
-    Object[] list = memberList.toArray();
+    Member[] list = memberList.toArray(new Member[0]);
 
-    for (Object obj : list) {
-      Member member = (Member) obj;
+    for (Member member : list) {
       System.out.printf("%d, %s, %s, %s, %s\n", 
           member.getNo(), 
           member.getName(), 
@@ -118,9 +117,8 @@ public class MemberHandler {
   }
 
   private Member findByNo(int no) {
-    Object[] arr = memberList.toArray();
-    for (Object obj : arr) {
-      Member member = (Member) obj;
+    Member[] arr = memberList.toArray(new Member[0]);
+    for (Member member : arr) {
       if (member.getNo() == no) {
         return member;
       }
@@ -129,9 +127,8 @@ public class MemberHandler {
   }
 
   public boolean exist(String name) {
-    Object[] arr = memberList.toArray();
-    for (Object obj : arr) {
-      Member member = (Member) obj;
+    Member[] arr = memberList.toArray(new Member[0]);
+    for (Member member : arr) {
       if (member.getName().equals(name)) {
         return true;
       }

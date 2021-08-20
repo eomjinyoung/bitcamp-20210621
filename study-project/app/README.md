@@ -28,6 +28,7 @@
 
 ### 2단계 - `List` 인터페이스를 구현한 클래스에 제네릭을 적용한다.
 
+- `com.eomcs.util.AbstractList` 클래스 변경
 - `com.eomcs.util.ArrayList` 클래스 변경
 - `com.eomcs.util.LinkedList` 클래스 변경
 
@@ -39,55 +40,23 @@
 ### 4단계 - 제네릭이 적용된 `toArray()` 추가한다.
 
 - `com.eomcs.util.List` 인터페이스 변경
-  - `T toArray(T[])` 메서드 추가
+  - `E[] toArray(E[])` 메서드 추가
+- `com.eomcs.util.ArrayList` 클래스 변경
+  - `E[] toArray(E[])` 메서드 구현
+- `com.eomcs.util.LinkedList` 클래스 변경
+  - `E[] toArray(E[])` 메서드 구현
 
+### 5단계 - 제네릭이 적용된 `toArray()`를 사용하는 핸들러를 변경한다.
 
-- `Node` 중첩 클래스 변경
-  - 선언부에 타입 파라미터 선언한다.
-  - 인스턴스 필드 변경
-- `Iterator` 인터페이스 변경
-  - 선언부에 타입 파라미터 선언한다.
-  - next() 메서드 변경
-
-#### 작업 파일
-
-- com.eomcs.util.List 클래스 변경
-- com.eomcs.util.Iterator 클래스 변경
-
-### 2단계 - 제네릭을 적용한 `List` 의 사용법에 따라 XxxHandler 코드를 변경한다.
-
-- `BoardHandler` 에서 `List` 를 생성할 때 목록에서 다룰 항목의 타입을 `Board` 로 한정한다.  
-- `MemberHandler` 에서 `List` 를 생성할 때 목록에서 다룰 항목의 타입을 `Member` 로 한정한다.  
-- `ProjectHandler` 에서 `List` 를 생성할 때 목록에서 다룰 항목의 타입을 `Project` 로 한정한다.  
-- `TaskHandler` 에서 `List` 를 생성할 때 목록에서 다룰 항목의 타입을 `Task` 로 한정한다.  
-
-
-#### 작업 파일
-
-- com.eomcs.pms.handler.BoardHandler 클래스 변경
-- com.eomcs.pms.handler.MemberHandler 클래스 변경
-- com.eomcs.pms.handler.ProjectHandler 클래스 변경
-- com.eomcs.pms.handler.TaskHandler 클래스 변경
-
-### 3단계 - `Stack`, `Queue` 에 제네릭(generic) 문법을 적용한다.
-
-- `Stack` 클래스 변경
-- `Queue` 클래스 변경
-- 스택과 큐를 사용하는 `App` 클래스 변경
-
-#### 작업 파일
-
-- com.eomcs.util.Stack 클래스 변경
-- com.eomcs.util.Queue 클래스 변경
-- com.eomcs.pms.App 클래스 변경
+- `com.eomcs.pms.handler.XxxHandler` 클래스 변경
 
 
 ## 실습 결과
 
 - src/main/java/com/eomcs/util/List.java 변경
-- src/main/java/com/eomcs/util/Iterator.java 변경
-- src/main/java/com/eomcs/util/Stack.java 변경
-- src/main/java/com/eomcs/util/Queue.java 변경
+- src/main/java/com/eomcs/util/AbstractList.java 변경
+- src/main/java/com/eomcs/util/ArrayList.java 변경
+- src/main/java/com/eomcs/util/LinkedListList.java 변경
 - src/main/java/com/eomcs/pms/handler/BoardHandler.java 변경
 - src/main/java/com/eomcs/pms/handler/MemberHandler.java 변경
 - src/main/java/com/eomcs/pms/handler/ProjectHandler.java 변경

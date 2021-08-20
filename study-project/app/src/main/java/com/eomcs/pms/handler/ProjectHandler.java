@@ -41,10 +41,10 @@ public class ProjectHandler {
   public void list() {
     System.out.println("[프로젝트 목록]");
 
-    Object[] list = projectList.toArray();
+    Project[] list = new Project[projectList.size()];
+    list = projectList.toArray(list); // 혹시 파라미터로 넘겨준 배열이 작을 경우를 대비한다.
 
-    for (Object obj : list) {
-      Project project = (Project) obj;
+    for (Project project : list) {
       System.out.printf("%d, %s, %s, %s, %s, [%s]\n",
           project.getNo(), 
           project.getTitle(), 
@@ -139,9 +139,8 @@ public class ProjectHandler {
   }
 
   public Project findByNo(int no) {
-    Object[] arr = projectList.toArray();
-    for (Object obj : arr) {
-      Project project = (Project) obj;
+    Project[] arr = projectList.toArray(new Project[0]);
+    for (Project project : arr) {
       if (project.getNo() == no) {
         return project;
       }

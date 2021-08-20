@@ -1,5 +1,7 @@
 package com.eomcs.util;
 
+import java.lang.reflect.Array;
+
 public class LinkedList<E> extends AbstractList<E> {
 
   static class Node<E> {
@@ -132,6 +134,26 @@ public class LinkedList<E> extends AbstractList<E> {
 
     return null;
   }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public E[] toArray(E[] arr) {
+    E[] temp = null;
+
+    if (arr.length >= this.size) { 
+      temp = arr;
+    } else {
+      temp = (E[]) Array.newInstance(arr.getClass().getComponentType(), this.size);
+    }
+
+    Node<E> node = head;
+    for (int i = 0; i < this.size; i++) {
+      temp[i] = node.item;
+      node = node.next;
+    }
+    return temp; 
+  }
+
 }
 
 
