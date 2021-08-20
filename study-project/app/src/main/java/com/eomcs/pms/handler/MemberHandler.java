@@ -7,9 +7,9 @@ import com.eomcs.util.Prompt;
 
 public class MemberHandler {
 
-  List memberList;
+  List<Member> memberList;
 
-  public MemberHandler(List memberList) {
+  public MemberHandler(List<Member> memberList) {
     this.memberList = memberList;
   }
 

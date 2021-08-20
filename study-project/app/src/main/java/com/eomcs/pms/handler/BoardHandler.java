@@ -7,9 +7,9 @@ import com.eomcs.util.Prompt;
 
 public class BoardHandler {
 
-  List boardList;
+  List<Board> boardList;
 
-  public BoardHandler(List boardList) {
+  public BoardHandler(List<Board> boardList) {
     this.boardList = boardList;
   }
 
@@ -25,7 +25,6 @@ public class BoardHandler {
     board.setRegisteredDate(new Date(System.currentTimeMillis()));
 
     boardList.add(board);
-    boardList.add(new String("Hello!")); 
   }
 
   public void list() {

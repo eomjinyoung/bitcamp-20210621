@@ -7,11 +7,11 @@ import com.eomcs.util.Prompt;
 
 public class TaskHandler {
 
-  List taskList;
+  List<Task> taskList;
   MemberHandler memberHandler;
 
 
-  public TaskHandler(List taskList, MemberHandler memberHandler) {
+  public TaskHandler(List<Task> taskList, MemberHandler memberHandler) {
     this.taskList = taskList;
     this.memberHandler = memberHandler;
   }

@@ -10,6 +10,7 @@ public interface List<E> {
   int size();
   E get(int index);
   E remove(int index);
+  E[] toArray(E[] arr);
 }
 
 

@@ -26,13 +26,20 @@
 
 - `com.eomcs.util.List` 인터페이스 변경
 
-### 2단계 - `List` 인터페이스를 구현한 ArrayList 클래스에 제네릭을 적용한다.
+### 2단계 - `List` 인터페이스를 구현한 클래스에 제네릭을 적용한다.
 
 - `com.eomcs.util.ArrayList` 클래스 변경
+- `com.eomcs.util.LinkedList` 클래스 변경
 
-### 3단계 - `ArrayList` 클래스를 사용하는 쪽에 제네릭을 적용한다.
+### 3단계 - `ArrayList` 또는 `LinkedList` 클래스를 사용하는 쪽에 제네릭을 적용한다.
 
 - `com.eomcs.pms.App` 클래스 변경
+- `com.eomcs.pms.handler.XxxHandler` 클래스 변경
+
+### 4단계 - 제네릭이 적용된 `toArray()` 추가한다.
+
+- `com.eomcs.util.List` 인터페이스 변경
+  - `T toArray(T[])` 메서드 추가
 
 
 - `Node` 중첩 클래스 변경
