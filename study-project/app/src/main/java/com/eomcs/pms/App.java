@@ -1,5 +1,8 @@
 package com.eomcs.pms;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import com.eomcs.menu.Menu;
 import com.eomcs.menu.MenuGroup;
 import com.eomcs.pms.domain.Board;
@@ -10,9 +13,6 @@ import com.eomcs.pms.handler.BoardHandler;
 import com.eomcs.pms.handler.MemberHandler;
 import com.eomcs.pms.handler.ProjectHandler;
 import com.eomcs.pms.handler.TaskHandler;
-import com.eomcs.util.ArrayList;
-import com.eomcs.util.LinkedList;
-import com.eomcs.util.List;
 import com.eomcs.util.Prompt;
 
 public class App {
