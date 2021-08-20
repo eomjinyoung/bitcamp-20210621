@@ -1,14 +1,14 @@
 package com.eomcs.pms;
 
-import com.eomcs.pms.handler.ArrayList;
+import com.eomcs.menu.Menu;
+import com.eomcs.menu.MenuGroup;
 import com.eomcs.pms.handler.BoardHandler;
-import com.eomcs.pms.handler.LinkedList;
-import com.eomcs.pms.handler.List;
 import com.eomcs.pms.handler.MemberHandler;
 import com.eomcs.pms.handler.ProjectHandler;
 import com.eomcs.pms.handler.TaskHandler;
-import com.eomcs.pms.menu.Menu;
-import com.eomcs.pms.menu.MenuGroup;
+import com.eomcs.util.ArrayList;
+import com.eomcs.util.LinkedList;
+import com.eomcs.util.List;
 import com.eomcs.util.Prompt;
 
 public class App {

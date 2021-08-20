@@ -1,4 +1,4 @@
-package com.eomcs.pms.handler;
+package com.eomcs.util;
 
 public abstract class AbstractList implements List {
   protected int size;

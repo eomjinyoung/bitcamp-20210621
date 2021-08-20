@@ -1,112 +1,87 @@
-# 11-a. 자료 구조 다루기 : 스택 구현과 사용
+# 11-c. 자료 구조 다루기 : 제네릭이 필요한 이유와 사용법
 
-이번 훈련에서는 **스택(stack)** 방식으로 데이터를 저장하는 자료 구조를 만들어보자.
+**제네릭(generic)** 문법을 이용하면,
 
-**스택(stack)** 은
-- LIFO(Last In First Out) 방식으로 데이터를 넣고 꺼낸다.
-- 데이터를 넣는 것을 `push`라고 하고, 데이터를 꺼내는 것을 `pop`이라 한다.
-- 보통 입력한 역순으로 데이터를 꺼내야 하는 상황에서 이 자료구조를 사용한다.
-- 예)
-  - JVM 스택 메모리 영역에서 메서드 호출을 관리할 때
-  - 웹 브라우저에서 이전 페이지로 따라 올라 갈 때
-  - 자바스크립트에서 이벤트를 처리할 때 버블링 단계를 수행(부모 엘리먼트를 따라 올라가면서 처리하는 것)
+- 같은 일을 하는 클래스를 정의할 때 타입 별로 중복해서 정의할 필요가 없기 때문에 코드의 재사용성을 높인다.
+- 지정된 타입의 객체만 다루도록 제한할 수 있어 코드의 안정성을 높인다.
+- 사용할 객체의 타입을 지정한 후 잘못된 타입의 객체를 사용할 때 컴파일 오류가 발생한다.
+- 컴파일 할 때 타입 검사를 진행하기 때문에 빠른 시점에 타입 안정성을 어긴 오류를 찾아 낼 수 있다.
+  - 가능한 실행할 때 발생된 오류 보다는 컴파일 할 때 발생된 오류를 잡는 것이 더 낫다.
 
 
 ## 훈련 목표
 
-- 스택(stack) 자료구조를 구현하고 구동 원리를 이해한다.
+- 제네릭 문법을 이용하여 타입 정보를 파라미터로 주고 받는 방법을 배운다.
+- 제네릭 문법으로 특정 타입의 값만 다루도록 제한하는 것을 연습한다.
 
 ## 훈련 내용
 
-- `java.util.Stack` 을 모방하여 `Stack` 클래스를 구현한다.
-- 사용자가 선택한 메뉴를 스택에 보관한다.
-- 메뉴를 출력할 때 마다 스택에 보관된 메뉴 경로를 출력한다.
+- ArrayList 클래스에 특정 타입의 객체를 다룰 수 있도록 제네릭을 적용한다.
+- 기존의 XxxHandler 에 제네릭이 적용된 ArrayList을 사용하도록 코드를 변경한다.
+
 
 ## 실습
 
-### 1단계 - List 인터페이스에 인덱스로 항목을 꺼내는 메서드를 추가한다.
+### 1단계 - `List` 에 제네릭(generic) 문법을 적용한다.
 
-인덱스로 목록에서 값을 꺼내거나 삭제하는 메서드를 준비한다.
+- `List` 클래스 변경
+  - 인스턴스 필드 변경
+  - 선언부에 타입 파라미터를 선언한다.
+  - add() 파라미터 타입 변경
+  - toArray(E[]]) 메서드 추가
+  - get() 리턴 타입 변경
+  - delete(E) 파라미터 타입 변경
+  - delete(int) 리턴 타입 변경
+  - indexOf(E) 파라미터 타입 변경
+  - iterator() 변경
+- `Node` 중첩 클래스 변경
+  - 선언부에 타입 파라미터 선언한다.
+  - 인스턴스 필드 변경
+- `Iterator` 인터페이스 변경
+  - 선언부에 타입 파라미터 선언한다.
+  - next() 메서드 변경
 
-- com.eomcs.pms.handler.List 인터페이스 변경
-  - get(int) 메서드 추가
-  - remove(int) 메서드 추가
-- com.eomcs.pms.handler.ArrayList 클래스 변경
-  - get(int) 메서드 구현
-  - remove(int) 메서드 구현
-- com.eomcs.pms.handler.LinkedList 클래스 변경
-  - get(int) 메서드 구현
-  - remove(int) 메서드 구현
+#### 작업 파일
+
+- com.eomcs.util.List 클래스 변경
+- com.eomcs.util.Iterator 클래스 변경
+
+### 2단계 - 제네릭을 적용한 `List` 의 사용법에 따라 XxxHandler 코드를 변경한다.
+
+- `BoardHandler` 에서 `List` 를 생성할 때 목록에서 다룰 항목의 타입을 `Board` 로 한정한다.  
+- `MemberHandler` 에서 `List` 를 생성할 때 목록에서 다룰 항목의 타입을 `Member` 로 한정한다.  
+- `ProjectHandler` 에서 `List` 를 생성할 때 목록에서 다룰 항목의 타입을 `Project` 로 한정한다.  
+- `TaskHandler` 에서 `List` 를 생성할 때 목록에서 다룰 항목의 타입을 `Task` 로 한정한다.  
 
 
-### 2단계 - `java.util.Stack` 를 모방하여 `Stack` 클래스를 구현한다.
+#### 작업 파일
 
-**스택(stack)** 자료 구조를 직접 구현해본다.
+- com.eomcs.pms.handler.BoardHandler 클래스 변경
+- com.eomcs.pms.handler.MemberHandler 클래스 변경
+- com.eomcs.pms.handler.ProjectHandler 클래스 변경
+- com.eomcs.pms.handler.TaskHandler 클래스 변경
 
-- com.eomcs.pms.handler.Stack 클래스 추가
-  - 상속 문법을 이용하여 기존 코드를 확장한다.
-    - `com.eomcs.pms.List` 클래스를 상속 받아 정의한다.
-  - push(), pop() 메서드를 추가한다.
-  - 백업: Stack.java.01
+### 3단계 - `Stack`, `Queue` 에 제네릭(generic) 문법을 적용한다.
 
+- `Stack` 클래스 변경
+- `Queue` 클래스 변경
+- 스택과 큐를 사용하는 `App` 클래스 변경
 
-### 3단계 - 사용자가 메뉴를 선택하면 현재 메뉴의 경로를 bread crumb 으로 출력한다.
+#### 작업 파일
 
-- com.eomcs.pms.menu.MenuGroup 클래스 변경
-  - `Stack` 객체를 준비한다.
-  - 사용자가 메뉴를 선택하면 해당 메뉴를 스택에 push 한다.
-  - 사용자가 이전 메뉴로 돌아가면 현재 메뉴를 스택에서 pop 한다.
+- com.eomcs.util.Stack 클래스 변경
+- com.eomcs.util.Queue 클래스 변경
+- com.eomcs.pms.App 클래스 변경
 
-```
-[메인]  <--- breadcrumb
-1. 게시판
-2. 회원
-3. 프로젝트
-4. 작업
-5. 관리1
-0. 종료
-선택> 5
-
-[메인 / 관리1]  <--- breadcrumb
-1. 관리2
-0. 이전 메뉴
-선택> 1
-
-[메인 / 관리1 / 관리2]  <--- breadcrumb
-1. 관리3
-0. 이전 메뉴
-선택> 1
-
-[메인 / 관리1 / 관리2 / 관리3]  <--- breadcrumb
-0. 이전 메뉴
-선택> 0
-
-[메인 / 관리1 / 관리2]  <--- breadcrumb
-1. 관리3
-0. 이전 메뉴
-선택> 0
-
-[메인 / 관리1]  <--- breadcrumb
-1. 관리2
-0. 이전 메뉴
-선택> 0
-
-[메인]  <--- breadcrumb
-1. 게시판
-2. 회원
-3. 프로젝트
-4. 작업
-5. 관리1
-0. 종료
-선택> 
-
-```
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/pms/handler/List.java 변경
-- src/main/java/com/eomcs/pms/handler/ArrayList.java 변경
-- src/main/java/com/eomcs/pms/handler/LinkedList.java 변경
-- src/main/java/com/eomcs/pms/handler/Stack.java 추가
-- src/main/java/com/eomcs/pms/menu/MenuGroup.java 변경
+- src/main/java/com/eomcs/util/List.java 변경
+- src/main/java/com/eomcs/util/Iterator.java 변경
+- src/main/java/com/eomcs/util/Stack.java 변경
+- src/main/java/com/eomcs/util/Queue.java 변경
+- src/main/java/com/eomcs/pms/handler/BoardHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/MemberHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/ProjectHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/TaskHandler.java 변경
 - src/main/java/com/eomcs/pms/App.java 변경

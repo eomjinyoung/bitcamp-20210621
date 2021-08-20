@@ -1,4 +1,4 @@
-package com.eomcs.pms.menu;
+package com.eomcs.menu;
 
 // MenuItem과 MenuGroup을 같은 타입으로 묶기 위해 정의한 클래스이다.
 // 이 클래스 자체는 직접 인스턴스를 만들어 사용하기 위함이 아니라
