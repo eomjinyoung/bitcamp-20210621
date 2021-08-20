@@ -24,16 +24,17 @@
 
 ### 1단계 - `List` 에 제네릭(generic) 문법을 적용한다.
 
-- `List` 클래스 변경
-  - 인스턴스 필드 변경
-  - 선언부에 타입 파라미터를 선언한다.
-  - add() 파라미터 타입 변경
-  - toArray(E[]]) 메서드 추가
-  - get() 리턴 타입 변경
-  - delete(E) 파라미터 타입 변경
-  - delete(int) 리턴 타입 변경
-  - indexOf(E) 파라미터 타입 변경
-  - iterator() 변경
+- `com.eomcs.util.List` 인터페이스 변경
+
+### 2단계 - `List` 인터페이스를 구현한 ArrayList 클래스에 제네릭을 적용한다.
+
+- `com.eomcs.util.ArrayList` 클래스 변경
+
+### 3단계 - `ArrayList` 클래스를 사용하는 쪽에 제네릭을 적용한다.
+
+- `com.eomcs.pms.App` 클래스 변경
+
+
 - `Node` 중첩 클래스 변경
   - 선언부에 타입 파라미터 선언한다.
   - 인스턴스 필드 변경

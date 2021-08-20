@@ -25,6 +25,7 @@ public class BoardHandler {
     board.setRegisteredDate(new Date(System.currentTimeMillis()));
 
     boardList.add(board);
+    boardList.add(new String("Hello!")); 
   }
 
   public void list() {
