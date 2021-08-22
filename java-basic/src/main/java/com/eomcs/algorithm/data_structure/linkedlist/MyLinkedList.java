@@ -27,6 +27,9 @@ import java.lang.reflect.Array;
 //
 // 테스트5: MyLinkedListTest5
 // 14) Object.clone()을 오버라이딩: deep copy
+//
+// 테스트6: MyLinkedListTest6
+// 15) reverseList(Node head) 구현
 
 public class MyLinkedList<E> implements Cloneable {
 
@@ -205,6 +208,20 @@ public class MyLinkedList<E> implements Cloneable {
       newList.add((E) value);
     }
     return newList;
+  }
+  
+  public void reverseList() {
+	Node<E> prev = null;
+	Node<E> curr = first;
+	
+	while (curr != null) {
+		Node<E> temp = curr.next;
+		curr.next = prev;
+		prev = curr;
+		curr = temp;
+	}
+	last = first;
+	first = prev;
   }
 }
 
