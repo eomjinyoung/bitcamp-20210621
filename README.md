@@ -478,7 +478,9 @@
 - 자바 컬렉션 API(eomcs-java/com.eomcs.basic)
 	- ex03: ArrayList 사용법(계속)
 
-## 42일차(2021-08-24,수)
+## 42일차(2021-08-25,수)
 
+- 자바 컬렉션 API(eomcs-java/com.eomcs.basic)
+	- ex04 ~ : LinkedList, Stack, Queue, Deque
 - 팀 프로젝트 
 	- 2차: 최종 프로젝트 주제 선정 발표 및 요구사항 모델 발표
