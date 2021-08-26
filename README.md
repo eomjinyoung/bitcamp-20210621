@@ -481,7 +481,7 @@
 ## 42일차(2021-08-25,수)
 
 - 자바 컬렉션 API(eomcs-java/com.eomcs.basic)
-	- ex04 ~ : LinkedList, Stack, Queue, Deque
+	- ex04 ~ ex06: LinkedList, Stack, Queue, Deque
 - 팀 프로젝트 
 	- 2차: 최종 프로젝트 주제 선정 발표 및 요구사항 모델 발표
 		- 내용
@@ -501,6 +501,11 @@
 				- 오늘의 공부
 			- 김태호,조주리,신현지,김진현
 				- APUJIMA
+
+## 43일차(2021-08-26,목)
+
+- 자바 컬렉션 API(eomcs-java/com.eomcs.basic)
+	- ex07 ~ ex08: HashSet, HashMap, Hashtable
 
 ## 44일차(2021-08-27,금)
 
