@@ -1,6 +1,6 @@
 public class ClassSelector {
   public static void main(String[] args) throws Exception {
-    String[] names = {"1팀", "2팀", "3팀"};
+    String[] names = {"1팀", "2팀", "3팀", "4팀", "5팀", "6팀"};
 
     for (int i = 0; i < 1000; i++) {
       int a = (int)(Math.random() * names.length);

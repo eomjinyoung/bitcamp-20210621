@@ -1,54 +1,47 @@
-# 11-d. 자료 구조 다루기 : 자바 컬렉션 API 사용하기
+# 12. 예외가 발생했을 때 시스템을 멈추지 않게 하는 방법
 
-이번 훈련에서는 우리가 직접 만든 `List`, `Stack` 대신에
-자바 제공하는 **자바 컬렉션 API** 를 사용하여 데이터 목록을 다룰 것이다.
-
-**자바 컬렉션 API**는,
-
-- **컬렉션(collection)** 은 여러 개의 항목을 담는 *컨테이너(container)* 객체이다.
-- 즉 데이터를 저장하고, 꺼내고, 삭제하는 등의 데이터 목록을 다룰 때 사용하는 객체다.   
-- 공식적으로는 **컬렉션 프레임워크(collection framework)** 라고 부른다.
-
-`java.util.*` 패키지,
-
-- 컬렉션과 관련된 인터페이스와 클래스들이 들어 있다.
-- 자료구조, 탐색, 정렬 등 다양한 알고리즘에 대한 객체 사용 규칙을 *인터페이스*로 정의하고 있다.
-- 또한 그 인터페이스의 구현체를 제공한다.
-
+이번 훈련에서는 **예외 처리 문법** 을 활용하여
+애플리케이션 오류를 다루는 방법을 연습할 것이다.
 
 ## 훈련 목표
 
-- 자바에서 제공하는 **컬렉션 API** 의 사용법을 익힌다.
-- `java.util.*` 패키지의 주요 클래스들을 사용해보고 내부 구조를 이해한다.
+- 예외 처리 문법의 존재 의의와 사용법을 배운다.
 
 
 ## 훈련 내용
 
-- 기존의 컬렉션 관련 클래스를 삭제한다.
-- `java.util.List` 인터페이스를 사용한다.
-- `java.util.ArrayList` 클래스를 사용한다.
-- `java.util.LinkedList` 클래스를 사용한다.
-- `java.util.Stack` 클래스를 사용한다.
+- 명령어 실행 중 오류가 발생했을 때 간단히 안내메시지를 출력한 후 사용자에게 프롬프트를 띄운다.
 
 ## 실습
 
-### 1단계 - `List`, `ArrayList`, `LinkedList`, `Stack` 을 자바 컬렉션 API로 교체한다.
 
-- com.eomcs.pms.handler.XxxHandler 클래스를 변경한다.
-  - 기존 컬렉션 클래스를 자바 컬렉션 API로 교체한다.
-- `com.eomcs.pms.App` 클래스를 변경한다.
-  - 자바에서 제공하는 같은 이름의 컬렉션 클래스로 교체한다.
+### 1단계 - 명령어 실행 중 오류가 발생하더라도 시스템이 멈추지 않고 계속 실행하게 한다.
+
+
+- 다음과 같이 잘못된 형식으로 값을 입력하더라도 시스템을 멈추지 않고 계속 실행하게 한다.
+  - 예외가 발생할 수 있는 코드를 try... catch... 블록으로 묶는다.
+
+```
+[메인]
+1. 게시판
+2. 회원
+3. 프로젝트
+4. 작업
+5. 관리1
+0. 종료
+선택> x
+--------------------------------------------------------------
+명령어 실행 중 오류 발생: java.lang.IllegalArgumentException
+--------------------------------------------------------------
+
+명령>
+```
+
+#### 작업 파일
+
+- com.eomcs.menu.MenuGroup 변경
 
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/util/List.java 삭제
-- src/main/java/com/eomcs/util/AbstractList.java 삭제
-- src/main/java/com/eomcs/util/ArraryList.java 삭제
-- src/main/java/com/eomcs/util/LinkedList.java 삭제
-- src/main/java/com/eomcs/util/Stack.java 삭제
-- src/main/java/com/eomcs/pms/handler/BoardHandler.java 변경
-- src/main/java/com/eomcs/pms/handler/MemberHandler.java 변경
-- src/main/java/com/eomcs/pms/handler/ProjectHandler.java 변경
-- src/main/java/com/eomcs/pms/handler/TaskHandler.java 변경
-- src/main/java/com/eomcs/pms/App.java 변경
+- src/main/java/com/eomcs/menu/MenuGroup.java 변경
