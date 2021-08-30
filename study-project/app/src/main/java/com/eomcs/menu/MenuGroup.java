@@ -1,6 +1,7 @@
 package com.eomcs.menu;
 
 import java.util.Stack;
+import com.eomcs.pms.handler.AuthHandler;
 import com.eomcs.util.Prompt;
 
 // 역할
@@ -84,6 +85,16 @@ public class MenuGroup extends Menu {
     while (true) {
       System.out.printf("\n[%s]\n", getBreadCrumb());
       for (int i = 0; i < this.size; i++) {
+        if (this.childs[i].enableState == Menu.ENABLE_LOGOUT && 
+            AuthHandler.getLoginUser() != null) {
+          // 로그인이 되어 있지 않을 때만 출력하는 메뉴인데 로그인 되어 있으면 출력하지 않는다.
+          continue;
+        } else if (this.childs[i].enableState == Menu.ENABLE_LOGIN && 
+            AuthHandler.getLoginUser() == null) {
+          // 로그인이 되어 있을 때만 출력하는 메뉴인데 로그인 되어 있지 않으면 출력하지 않는다.
+          continue;
+        } 
+        // 그 외에는 출력
         System.out.printf("%d. %-20s\n", i + 1, this.childs[i].title);
       }
 
