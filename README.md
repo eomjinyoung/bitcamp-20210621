@@ -524,3 +524,9 @@
 				- APUJIMA
 			- 윤수민,이용진,홍지현,문세철
 				- 주류파인더
+- 실전 프로젝트(eomcs-java-project)
+	- 12. 예외가 발생했을 때 시스템을 멈추지 않게 하는 방법
+
+## 45일차(2021-08-30,월)
+
+- 예외처리(eomcs-java/com.eomcs.exception)

@@ -9,6 +9,7 @@ import com.eomcs.pms.domain.Board;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.pms.domain.Task;
+import com.eomcs.pms.handler.AuthHandler;
 import com.eomcs.pms.handler.BoardHandler;
 import com.eomcs.pms.handler.MemberHandler;
 import com.eomcs.pms.handler.ProjectHandler;
@@ -25,6 +26,7 @@ public class App {
   MemberHandler memberHandler = new MemberHandler(memberList);
   ProjectHandler projectHandler = new ProjectHandler(projectList, memberHandler);
   TaskHandler taskHandler = new TaskHandler(taskList, memberHandler);
+  AuthHandler authHandler = new AuthHandler(memberList);
 
   public static void main(String[] args) {
     App app = new App(); 
@@ -39,6 +41,20 @@ public class App {
   Menu createMenu() {
     MenuGroup mainMenuGroup = new MenuGroup("메인");
     mainMenuGroup.setPrevMenuTitle("종료");
+
+    mainMenuGroup.add(new Menu("로그인") {
+      @Override
+      public void execute() {
+        authHandler.login(); 
+      }
+    });
+
+    mainMenuGroup.add(new Menu("내정보") {
+      @Override
+      public void execute() {
+        authHandler.displayLoginUser(); 
+      }
+    });
 
     MenuGroup boardMenu = new MenuGroup("게시판");
     mainMenuGroup.add(boardMenu);

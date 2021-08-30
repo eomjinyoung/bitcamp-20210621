@@ -84,7 +84,7 @@ public class MenuGroup extends Menu {
     while (true) {
       System.out.printf("\n[%s]\n", getBreadCrumb());
       for (int i = 0; i < this.size; i++) {
-        System.out.printf("%d. %s\n", i + 1, this.childs[i].title);
+        System.out.printf("%d. %-20s\n", i + 1, this.childs[i].title);
       }
 
       if (!disablePrevMenu) {
