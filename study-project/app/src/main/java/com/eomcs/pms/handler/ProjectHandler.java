@@ -2,6 +2,7 @@ package com.eomcs.pms.handler;
 
 import java.sql.Date;
 import java.util.List;
+import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.util.Prompt;
 
@@ -25,34 +26,38 @@ public class ProjectHandler {
     project.setContent(Prompt.inputString("내용? "));
     project.setStartDate(Prompt.inputDate("시작일? "));
     project.setEndDate(Prompt.inputDate("종료일? "));
-
-    project.setOwner(memberHandler.promptMember("만든이?(취소: 빈 문자열) "));
-    if (project.getOwner() == null) {
-      System.out.println("프로젝트 등록을 취소합니다.");
-      return;
-    }
-
+    project.setOwner(AuthHandler.getLoginUser());
     project.setMembers(memberHandler.promptMembers("팀원?(완료: 빈 문자열) "));
 
     projectList.add(project);
+
+    System.out.println("프로젝트를 저장했습니다!");
   }
 
   //다른 패키지에 있는 App 클래스가 다음 메서드를 호출할 수 있도록 공개한다.
   public void list() {
     System.out.println("[프로젝트 목록]");
 
-    Project[] list = new Project[projectList.size()];
-    list = projectList.toArray(list); // 혹시 파라미터로 넘겨준 배열이 작을 경우를 대비한다.
-
-    for (Project project : list) {
-      System.out.printf("%d, %s, %s, %s, %s, [%s]\n",
+    for (Project project : projectList) {
+      System.out.printf("%d, %s, %s ~ %s, %s, [%s]\n",
           project.getNo(), 
           project.getTitle(), 
           project.getStartDate(), 
           project.getEndDate(), 
-          project.getOwner(),
-          project.getMembers());
+          project.getOwner().getName(),
+          getMemberNames(project.getMembers()));
     }
+  }
+
+  private String getMemberNames(List<Member> members) {
+    StringBuilder names = new StringBuilder();
+    for (Member member : members) {
+      if (names.length() > 0) {
+        names.append(",");
+      }
+      names.append(member.getName());
+    }
+    return names.toString();
   }
 
   public void detail() {
@@ -70,8 +75,8 @@ public class ProjectHandler {
     System.out.printf("내용: %s\n", project.getContent());
     System.out.printf("시작일: %s\n", project.getStartDate());
     System.out.printf("종료일: %s\n", project.getEndDate());
-    System.out.printf("만든이: %s\n", project.getOwner());
-    System.out.printf("팀원: %s\n", project.getMembers());
+    System.out.printf("만든이: %s\n", project.getOwner().getName());
+    System.out.printf("팀원: %s\n", getMemberNames(project.getMembers()));
   }
 
   public void update() {
@@ -85,20 +90,18 @@ public class ProjectHandler {
       return;
     }
 
+    if (project.getOwner().getNo() != AuthHandler.getLoginUser().getNo()) {
+      System.out.println("변경 권한이 없습니다.");
+      return;
+    }
+
     String title = Prompt.inputString(String.format("프로젝트명(%s)? ", project.getTitle()));
     String content = Prompt.inputString(String.format("내용(%s)? ", project.getContent()));
     Date startDate = Prompt.inputDate(String.format("시작일(%s)? ", project.getStartDate()));
     Date endDate = Prompt.inputDate(String.format("종료일(%s)? ", project.getEndDate()));
 
-    String owner = memberHandler.promptMember(String.format(
-        "만든이(%s)?(취소: 빈 문자열) ", project.getOwner()));
-    if (owner == null) {
-      System.out.println("프로젝트 변경을 취소합니다.");
-      return;
-    }
-
-    String members = memberHandler.promptMembers(String.format(
-        "팀원(%s)?(완료: 빈 문자열) ", project.getMembers()));
+    List<Member> members = memberHandler.promptMembers(String.format(
+        "팀원(%s)?(완료: 빈 문자열) ", getMemberNames(project.getMembers())));
 
     String input = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (input.equalsIgnoreCase("n") || input.length() == 0) {
@@ -110,7 +113,6 @@ public class ProjectHandler {
     project.setContent(content);
     project.setStartDate(startDate);
     project.setEndDate(endDate);
-    project.setOwner(owner);
     project.setMembers(members);
 
     System.out.println("프로젝트를 변경하였습니다.");
@@ -124,6 +126,11 @@ public class ProjectHandler {
 
     if (project == null) {
       System.out.println("해당 번호의 프로젝트가 없습니다.");
+      return;
+    }
+
+    if (project.getOwner().getNo() != AuthHandler.getLoginUser().getNo()) {
+      System.out.println("삭제 권한이 없습니다.");
       return;
     }
 

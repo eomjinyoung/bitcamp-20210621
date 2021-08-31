@@ -25,21 +25,35 @@
   - update() 메서드 변경 : 작성자 여부 검사
   - delete() 메서드 변경 : 작성자 여부 검사
 
-### 2단계 - 로그인 여부에 따라 메뉴 출력을 제어한다.
+### 2단계 - 프로젝트를 관리할 때 로그인 정보를 사용한다.
 
-- com.eomcs.pms.handler.AuthHandler 클래스 변경
-  - 다른 객체에서 로그인 여부를 조회할 수 있도록 기능을 추가한다.
-  - loginUser 필드는 스태틱 멤버로 전환한다.
-  - 로그인 멤버 정보를 리턴해주는 스태틱 메서드 getLoginUser()를 정의한다.
-- com.eomcs.pms.handler.MenuGroup 클래스 변경
-  - execute() 메서드 변경
-  - 백업: MenuGroup.java.01
-  - 리팩토링 수행
+- com.eomcs.pms.handler.Project 클래스 변경
+  - owner 필드 변경: 회원 정보를 저장할 수 있도록 타입을 Member로 변경한다. 
+  - members 필드 변경: 여러 명의 회원 정보를 저장할 수 있도록 타입을 List<Member>로 변경한다. 
+- com.eomcs.pms.handler.MemberHandler 클래스 변경
+  - promptMembers() 메서드 변경 :  메서드의 리턴 타입을 List<Member> 로 변경
+- com.eomcs.pms.handler.ProjectHandler 클래스 변경
+  - add() 메서드 변경 : 작성자에 로그인 회원 정보를 저장한다.
+  - list() 메서드 변경 : 작성자 이름 출력
+  - detail() 메서드 변경 : 작성자 이름 출력
+  - update() 메서드 변경 : 작성자 여부 검사
+  - delete() 메서드 변경 : 작성자 여부 검사
 
-### 3단계 - 메뉴를 구성할 때 로그인 여부를 검사하는 메뉴는 따로 설정한다.
 
-- com.eomcs.pms.App 클래스 변경
-  - createMenu() 메서드 변경
+### 3단계 - 작업을 관리할 때 로그인 정보를 사용한다.
+
+- com.eomcs.pms.handler.Project 클래스 변경
+  - owner 필드 변경: 회원 정보를 저장할 수 있도록 타입을 Member로 변경한다. 
+  - members 필드 변경: 여러 명의 회원 정보를 저장할 수 있도록 타입을 List<Member>로 변경한다. 
+- com.eomcs.pms.handler.MemberHandler 클래스 변경
+  - promptMembers() 메서드 변경 :  메서드의 리턴 타입을 List<Member> 로 변경
+- com.eomcs.pms.handler.ProjectHandler 클래스 변경
+  - add() 메서드 변경 : 작성자에 로그인 회원 정보를 저장한다.
+  - list() 메서드 변경 : 작성자 이름 출력
+  - detail() 메서드 변경 : 작성자 이름 출력
+  - update() 메서드 변경 : 작성자 여부 검사
+  - delete() 메서드 변경 : 작성자 여부 검사
+
 
 ## 실습 결과
 
