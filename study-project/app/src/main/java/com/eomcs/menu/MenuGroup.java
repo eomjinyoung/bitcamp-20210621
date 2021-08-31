@@ -1,6 +1,7 @@
 package com.eomcs.menu;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 import com.eomcs.pms.handler.AuthHandler;
 import com.eomcs.util.Prompt;
@@ -18,6 +19,17 @@ public class MenuGroup extends Menu {
   int size;
   boolean disablePrevMenu;
   String prevMenuTitle = "이전 메뉴";
+
+  // 이전으로 이동시키는 메뉴를 표현하기 위해 만든 클래스
+  private static class PrevMenu extends Menu {
+    public PrevMenu() {
+      super("");
+    }
+    @Override
+    public void execute() {
+    }
+  }
+  static PrevMenu prevMenu = new PrevMenu();
 
   // 생성자를 정의하지 않으면 컴파일러가 기본 생성자를 자동으로 추가해 준다.
   // 문제는 컴파일러가 추가한 기본 생성자는 수퍼 클래스의 기본 생성자를 호출하기 때문에
@@ -85,34 +97,24 @@ public class MenuGroup extends Menu {
     breadCrumb.push(this);
 
     while (true) {
-      ArrayList<Menu> menuList = getMenuList();
-
-      System.out.printf("\n[%s]\n", getBreadCrumb());
-      int i = 1;
-      for (Menu menu : menuList) {
-        System.out.printf("%d. %-20s\n", i++, menu.title);
-      }
-
-      if (!disablePrevMenu) {
-        System.out.printf("0. %s\n", this.prevMenuTitle);
-      }
+      printBreadCrumbMenuTitle();
+      List<Menu> menuList = getMenuList();
+      printMenuList(menuList);
 
       try {
-        int menuNo = Prompt.inputInt("선택> ");
-        if (menuNo == 0 && !disablePrevMenu) {
-          // 현재 메뉴에서 나갈 때 스택에서 제거한다.
+        Menu menu = selectMenu(menuList);
+        if (menu == null) {
+          System.out.println("무효한 메뉴 번호입니다.");
+          continue;
+        }
+        if (menu instanceof PrevMenu) {
           breadCrumb.pop();
           return;
         }
 
-        if (menuNo < 0 || menuNo > this.size) {
-          System.out.println("무효한 메뉴 번호입니다.");
-          continue;
-        }
+        menu.execute();
 
-        menuList.get(menuNo - 1).execute();
-
-      } catch (Throwable e) {
+      } catch (Exception e) {
         // try 블록 안에 있는 코드를 실행하다가 예외가 발생하면
         // 다음 문장을 실행한 후 시스템을 멈추지 않고 실행을 계속한다.
         System.out.println("--------------------------------------------------------------");
@@ -141,7 +143,7 @@ public class MenuGroup extends Menu {
   // - 메뉴 출력 속도를 빠르게 하기 위함.
   // - 메뉴를 출력할 때 출력할 메뉴와 출력하지 말아야 할 메뉴를 구분하는 시간을 줄이기 위함.
   // 
-  private ArrayList<Menu> getMenuList() {
+  private List<Menu> getMenuList() {
     ArrayList<Menu> menuList = new ArrayList<>();
     for (int i = 0; i < this.size; i++) {
       if (this.childs[i].enableState == Menu.ENABLE_LOGOUT && 
@@ -157,6 +159,35 @@ public class MenuGroup extends Menu {
       } 
     }
     return menuList;
+  }
+
+  private void printBreadCrumbMenuTitle() {
+    System.out.printf("\n[%s]\n", getBreadCrumb());
+  }
+
+  private void printMenuList(List<Menu> menuList) {
+    int i = 1;
+    for (Menu menu : menuList) {
+      System.out.printf("%d. %-20s\n", i++, menu.title);
+    }
+
+    if (!disablePrevMenu) {
+      System.out.printf("0. %s\n", this.prevMenuTitle);
+    }
+  }
+
+  private Menu selectMenu(List<Menu> menuList) {
+    int menuNo = Prompt.inputInt("선택> ");
+
+    if (menuNo < 0 || menuNo > menuList.size()) {
+      return null;
+    }
+
+    if (menuNo == 0 && !disablePrevMenu) {
+      return prevMenu; // 호출한 쪽에 '이전 메뉴' 선택을 알리게 위해 
+    } 
+
+    return menuList.get(menuNo - 1);
   }
 
 }
