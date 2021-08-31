@@ -49,17 +49,28 @@
   - owner 필드 변경 : 회원 정보를 담을 수 있도록 Member 타입으로 변경한다.
 - com.eomcs.pms.handler.MemberHandler 클래스 변경
   - promptMember() 변경 : 리턴 타입을 Member 로 변경
+- com.eomcs.pms.handler.ProjectHandler 클래스 변경
+  - promptProject() 추가 : 프로젝트 목록에서 프로젝트를 선택하는 기능을 수행한다.
 - com.eomcs.pms.handler.TaskHandler 클래스 변경
-  - projectList 필드 추가 : 프로젝트 목록을 다룰 수 있도록 생성자에서 주입 받는다.
+  - taskList, memberHandler 필드 제거
   - add() 메서드 변경 : 작성자에 로그인 회원 정보를 저장한다.
   - list() 메서드 변경 : 작성자 이름 출력
   - detail() 메서드 변경 : 작성자 이름 출력
   - update() 메서드 변경 : 작성자 여부 검사
   - delete() 메서드 변경 : 작성자 여부 검사
-
+  - findByNo() 메서드 변경 : 프로젝트 목록
+  - 인스턴스 멤버를 사용하지 않는 메서드를 스태틱 메서드로 전환.
+- com.eomcs.pms.App 클래스 변경
+  - List<Task> 변수 삭제
+  - TaskHandler의 인스턴스 생성 부분 변경
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/menu/App.java 변경
-- src/main/java/com/eomcs/pms/handler/AuthHandler.java 변경
-- src/main/java/com/eomcs/menu/MenuGroup.java 변경
+- src/main/java/com/eomcs/pms/App.java 변경
+- src/main/java/com/eomcs/pms/domain/Board.java 변경
+- src/main/java/com/eomcs/pms/domain/Project.java 변경
+- src/main/java/com/eomcs/pms/domain/Member.java 변경
+- src/main/java/com/eomcs/pms/handler/BoardHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/MemberHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/ProjectHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/TaskHandler.java 변경

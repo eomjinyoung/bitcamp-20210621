@@ -186,7 +186,7 @@ public class TaskHandler {
     System.out.println("작업를 삭제하였습니다.");
   }
 
-  private String getStatusLabel(int status) {
+  private static String getStatusLabel(int status) {
     switch (status) {
       case 1: return "진행중";
       case 2: return "완료";
@@ -194,11 +194,11 @@ public class TaskHandler {
     }
   }
 
-  private int promptStatus() {
+  private static int promptStatus() {
     return promptStatus(-1);
   }
 
-  private int promptStatus(int status) {
+  private static int promptStatus(int status) {
     if (status == -1) {
       System.out.println("상태?");
     } else {
@@ -210,7 +210,7 @@ public class TaskHandler {
     return Prompt.inputInt("> ");
   }
 
-  private Task findByNo(Project project, int taskNo) {
+  private static Task findByNo(Project project, int taskNo) {
     for (Task task : project.getTasks()) {
       if (task.getNo() == taskNo) {
         return task;
