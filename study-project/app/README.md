@@ -28,6 +28,8 @@
   - 로그인 멤버 정보를 리턴해주는 스태틱 메서드 getLoginUser()를 정의한다.
 - com.eomcs.pms.handler.MenuGroup 클래스 변경
   - execute() 메서드 변경
+  - 백업: MenuGroup.java.01
+  - 리팩토링 수행
 
 ### 3단계 - 메뉴를 구성할 때 로그인 여부를 검사하는 메뉴는 따로 설정한다.
 

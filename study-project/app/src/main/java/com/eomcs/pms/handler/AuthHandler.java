@@ -1,5 +1,6 @@
 package com.eomcs.pms.handler;
 
+import java.sql.Date;
 import java.util.List;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
@@ -15,6 +16,17 @@ public class AuthHandler {
 
   public AuthHandler(List<Member> memberList) {
     this.memberList = memberList;
+
+    Member testUser = new Member();
+    testUser.setNo(1);
+    testUser.setName("aaa");
+    testUser.setEmail("aaa@test.com");
+    testUser.setPassword("1111");
+    testUser.setPhoto("aaa.gif");
+    testUser.setTel("010-1111-1111");
+    testUser.setRegisteredDate(new Date(System.currentTimeMillis()));
+
+    memberList.add(testUser);
   }
 
   public void login() {
