@@ -179,6 +179,15 @@ public class MemberHandler {
     return null;
   }
 
+  private static Member findByName(String name, List<Member> memberList) {
+    for (Member member : memberList) {
+      if (member.getName().equalsIgnoreCase(name)) {
+        return member;
+      }
+    }
+    return null;
+  }
+
   public boolean exist(String name) {
     for (Member member : memberList) {
       if (member.getName().equals(name)) {
@@ -196,6 +205,22 @@ public class MemberHandler {
       }
 
       Member member = findByName(memberName);
+      if (member != null) {
+        return member;
+      }
+
+      System.out.println("등록된 회원이 아닙니다.");
+    }
+  }
+
+  public static Member promptMember(String label, List<Member> memberList) {
+    while (true) {
+      String memberName = Prompt.inputString(label);
+      if (memberName.length() == 0) {
+        return null;
+      }
+
+      Member member = findByName(memberName, memberList);
       if (member != null) {
         return member;
       }

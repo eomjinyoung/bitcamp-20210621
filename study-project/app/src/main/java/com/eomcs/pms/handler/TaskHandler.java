@@ -1,7 +1,6 @@
 package com.eomcs.pms.handler;
 
 import java.sql.Date;
-import java.util.List;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.pms.domain.Task;
@@ -9,12 +8,9 @@ import com.eomcs.util.Prompt;
 
 public class TaskHandler {
 
-  MemberHandler memberHandler;
   ProjectHandler projectHandler;
 
-
-  public TaskHandler(MemberHandler memberHandler, ProjectHandler projectHandler) {
-    this.memberHandler = memberHandler;
+  public TaskHandler(ProjectHandler projectHandler) {
     this.projectHandler = projectHandler;
   }
 
@@ -27,6 +23,11 @@ public class TaskHandler {
       return;
     }
 
+    if (project.getOwner().getNo() != AuthHandler.getLoginUser().getNo()) {
+      System.out.println("이 프로젝트의 관리자가 아닙니다.");
+      return;
+    }
+
     Task task = new Task();
 
     task.setProject(project);
@@ -34,7 +35,7 @@ public class TaskHandler {
     task.setContent(Prompt.inputString("내용? "));
     task.setDeadline(Prompt.inputDate("마감일? "));
     task.setStatus(promptStatus());
-    task.setOwner(memberHandler.promptMember("담당자?(취소: 빈 문자열) "));
+    task.setOwner(MemberHandler.promptMember("담당자?(취소: 빈 문자열) ", project.getMembers()));
     if (task.getOwner() == null) {
       System.out.println("작업 등록을 취소합니다.");
       return; 
@@ -54,10 +55,13 @@ public class TaskHandler {
       System.out.println("작업 등록을 취소합니다.");
       return;
     }
-    List<Task> tasks = project.getTasks();
 
+    printTasks(project);
+  }
+
+  private void printTasks(Project project) {
     System.out.printf("%s:\n\n", project.getTitle());
-    for (Task task : tasks) {
+    for (Task task : project.getTasks()) {
       System.out.printf("%d, %s, %s, %s, %s\n",
           task.getNo(), 
           task.getContent(), 
@@ -69,9 +73,20 @@ public class TaskHandler {
 
   public void detail() {
     System.out.println("[작업 상세보기]");
-    int no = Prompt.inputInt("번호? ");
 
-    Task task = findByNo(no);
+    Project project = projectHandler.promptProject();
+    if (project == null) {
+      System.out.println("작업 조회를 취소합니다.");
+      return;
+    }
+
+    printTasks(project);
+
+    System.out.println("-------------------------------------");
+
+    int taskNo = Prompt.inputInt("작업 번호? ");
+
+    Task task = findByNo(project, taskNo);
     if (task == null) {
       System.out.println("해당 번호의 작업이 없습니다.");
       return;
@@ -85,9 +100,25 @@ public class TaskHandler {
 
   public void update() {
     System.out.println("[작업 변경]");
-    int no = Prompt.inputInt("번호? ");
 
-    Task task = findByNo(no);
+    Project project = projectHandler.promptProject();
+    if (project == null) {
+      System.out.println("작업 변경을 취소합니다.");
+      return;
+    }
+
+    if (project.getOwner().getNo() != AuthHandler.getLoginUser().getNo()) {
+      System.out.println("이 프로젝트의 관리자가 아닙니다.");
+      return;
+    }
+
+    printTasks(project);
+
+    System.out.println("-------------------------------------");
+
+    int taskNo = Prompt.inputInt("변경할 작업 번호? ");
+
+    Task task = findByNo(project, taskNo);
     if (task == null) {
       System.out.println("해당 번호의 작업이 없습니다.");
       return;
@@ -96,8 +127,9 @@ public class TaskHandler {
     String content = Prompt.inputString(String.format("내용(%s)? ", task.getContent()));
     Date deadline = Prompt.inputDate(String.format("마감일(%s)? ", task.getDeadline()));
     int status = promptStatus(task.getStatus());
-    Member owner = memberHandler.promptMember(String.format(
-        "담당자(%s)?(취소: 빈 문자열) ", task.getOwner()));
+    Member owner = MemberHandler.promptMember(
+        String.format("담당자(%s)?(취소: 빈 문자열) ", task.getOwner().getName()), 
+        project.getMembers());
     if (owner == null) {
       System.out.println("작업 변경을 취소합니다.");
       return;
@@ -119,9 +151,25 @@ public class TaskHandler {
 
   public void delete() {
     System.out.println("[작업 삭제]");
-    int no = Prompt.inputInt("번호? ");
 
-    Task task = findByNo(no);
+    Project project = projectHandler.promptProject();
+    if (project == null) {
+      System.out.println("작업 삭제를 취소합니다.");
+      return;
+    }
+
+    if (project.getOwner().getNo() != AuthHandler.getLoginUser().getNo()) {
+      System.out.println("이 프로젝트의 관리자가 아닙니다.");
+      return;
+    }
+
+    printTasks(project);
+
+    System.out.println("-------------------------------------");
+
+    int taskNo = Prompt.inputInt("삭제할 작업 번호? ");
+
+    Task task = findByNo(project, taskNo);
     if (task == null) {
       System.out.println("해당 번호의 작업이 없습니다.");
       return;
@@ -133,7 +181,7 @@ public class TaskHandler {
       return;
     }
 
-    //taskList.remove(task);
+    project.getTasks().remove(task);
 
     System.out.println("작업를 삭제하였습니다.");
   }
@@ -162,14 +210,12 @@ public class TaskHandler {
     return Prompt.inputInt("> ");
   }
 
-  private Task findByNo(int no) {
-    //    Task[] arr = new Task[taskList.size()];
-    //    taskList.toArray(arr);
-    //    for (Task task : arr) {
-    //      if (task.getNo() == no) {
-    //        return task;
-    //      }
-    //    }
+  private Task findByNo(Project project, int taskNo) {
+    for (Task task : project.getTasks()) {
+      if (task.getNo() == taskNo) {
+        return task;
+      }
+    }
     return null;
   }
 
