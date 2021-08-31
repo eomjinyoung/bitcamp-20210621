@@ -21,7 +21,8 @@ public class BoardHandler {
     board.setNo(Prompt.inputInt("번호? "));
     board.setTitle(Prompt.inputString("제목? "));
     board.setContent(Prompt.inputString("내용? "));
-    board.setWriter(Prompt.inputString("작성자? "));
+
+    board.setWriter(AuthHandler.getLoginUser());
     board.setRegisteredDate(new Date(System.currentTimeMillis()));
 
     boardList.add(board);
@@ -43,7 +44,7 @@ public class BoardHandler {
       System.out.printf("%d, %s, %s, %s, %d, %d\n", 
           board.getNo(), 
           board.getTitle(), 
-          board.getWriter(),
+          board.getWriter().getName(),
           board.getRegisteredDate(),
           board.getViewCount(), 
           board.getLike());
@@ -63,7 +64,7 @@ public class BoardHandler {
 
     System.out.printf("제목: %s\n", board.getTitle());
     System.out.printf("내용: %s\n", board.getContent());
-    System.out.printf("작성자: %s\n", board.getWriter());
+    System.out.printf("작성자: %s\n", board.getWriter().getName());
     System.out.printf("등록일: %s\n", board.getRegisteredDate());
 
     board.setViewCount(board.getViewCount() + 1);
@@ -78,6 +79,11 @@ public class BoardHandler {
 
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다.");
+      return;
+    }
+
+    if (board.getWriter().getNo() != AuthHandler.getLoginUser().getNo()) {
+      System.out.println("변경 권한이 없습니다.");
       return;
     }
 
@@ -103,6 +109,11 @@ public class BoardHandler {
 
     if (board == null) {
       System.out.println("해당 번호의 게시글이 없습니다.");
+      return;
+    }
+
+    if (board.getWriter().getNo() != AuthHandler.getLoginUser().getNo()) {
+      System.out.println("삭제 권한이 없습니다.");
       return;
     }
 
