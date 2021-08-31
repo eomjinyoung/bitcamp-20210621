@@ -80,31 +80,12 @@ public class MenuGroup extends Menu {
 
   @Override // 컴파일러에게 오버라이딩을 제대로 하는지 조사해 달라고 요구한다.
   public void execute() {
+
     // 현재 실행하는 메뉴를 스택에 보관한다.
     breadCrumb.push(this);
 
-
-
     while (true) {
-      // 출력될 메뉴 목록 준비
-      // 왜?
-      // - 메뉴 출력 속도를 빠르게 하기 위함.
-      // - 메뉴를 출력할 때 출력할 메뉴와 출력하지 말아야 할 메뉴를 구분하는 시간을 줄이기 위함.
-      // 
-      ArrayList<Menu> menuList = new ArrayList<>();
-      for (int i = 0; i < this.size; i++) {
-        if (this.childs[i].enableState == Menu.ENABLE_LOGOUT && 
-            AuthHandler.getLoginUser() == null) {
-          menuList.add(this.childs[i]);
-
-        } else if (this.childs[i].enableState == Menu.ENABLE_LOGIN && 
-            AuthHandler.getLoginUser() != null) {
-          menuList.add(this.childs[i]);
-
-        } else if (this.childs[i].enableState == Menu.ENABLE_ALL) {
-          menuList.add(this.childs[i]);
-        } 
-      }
+      ArrayList<Menu> menuList = getMenuList();
 
       System.out.printf("\n[%s]\n", getBreadCrumb());
       int i = 1;
@@ -153,6 +134,29 @@ public class MenuGroup extends Menu {
     }
 
     return path;
+  }
+
+  // 출력될 메뉴 목록 준비
+  // 왜?
+  // - 메뉴 출력 속도를 빠르게 하기 위함.
+  // - 메뉴를 출력할 때 출력할 메뉴와 출력하지 말아야 할 메뉴를 구분하는 시간을 줄이기 위함.
+  // 
+  private ArrayList<Menu> getMenuList() {
+    ArrayList<Menu> menuList = new ArrayList<>();
+    for (int i = 0; i < this.size; i++) {
+      if (this.childs[i].enableState == Menu.ENABLE_LOGOUT && 
+          AuthHandler.getLoginUser() == null) {
+        menuList.add(this.childs[i]);
+
+      } else if (this.childs[i].enableState == Menu.ENABLE_LOGIN && 
+          AuthHandler.getLoginUser() != null) {
+        menuList.add(this.childs[i]);
+
+      } else if (this.childs[i].enableState == Menu.ENABLE_ALL) {
+        menuList.add(this.childs[i]);
+      } 
+    }
+    return menuList;
   }
 
 }
