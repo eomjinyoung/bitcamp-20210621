@@ -43,11 +43,14 @@
 ### 3단계 - 작업을 관리할 때 로그인 정보를 사용한다.
 
 - com.eomcs.pms.handler.Project 클래스 변경
-  - owner 필드 변경: 회원 정보를 저장할 수 있도록 타입을 Member로 변경한다. 
-  - members 필드 변경: 여러 명의 회원 정보를 저장할 수 있도록 타입을 List<Member>로 변경한다. 
+  - tasks 필드 추가: 여러 개의 작업 정보를 저장할 수 있도록 List<Task> 필드를 추가한다.
+- com.eomcs.pms.handler.Task 클래스 변경   
+  - project 필드 추가: 작업이 소속된 프로젝트 정보를 저장할 수 있도록 Project 필드를 추가한다.
+  - owner 필드 변경 : 회원 정보를 담을 수 있도록 Member 타입으로 변경한다.
 - com.eomcs.pms.handler.MemberHandler 클래스 변경
-  - promptMembers() 메서드 변경 :  메서드의 리턴 타입을 List<Member> 로 변경
-- com.eomcs.pms.handler.ProjectHandler 클래스 변경
+  - promptMember() 변경 : 리턴 타입을 Member 로 변경
+- com.eomcs.pms.handler.TaskHandler 클래스 변경
+  - projectList 필드 추가 : 프로젝트 목록을 다룰 수 있도록 생성자에서 주입 받는다.
   - add() 메서드 변경 : 작성자에 로그인 회원 정보를 저장한다.
   - list() 메서드 변경 : 작성자 이름 출력
   - detail() 메서드 변경 : 작성자 이름 출력

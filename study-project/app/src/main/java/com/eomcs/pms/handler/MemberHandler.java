@@ -144,14 +144,18 @@ public class MemberHandler {
     return false;
   }
 
-  public String promptMember(String label) {
+  public Member promptMember(String label) {
     while (true) {
-      String owner = Prompt.inputString(label);
-      if (this.exist(owner)) {
-        return owner;
-      } else if (owner.length() == 0) {
+      String memberName = Prompt.inputString(label);
+      if (memberName.length() == 0) {
         return null;
       }
+
+      Member member = findByName(memberName);
+      if (member != null) {
+        return member;
+      }
+
       System.out.println("등록된 회원이 아닙니다.");
     }
   }
