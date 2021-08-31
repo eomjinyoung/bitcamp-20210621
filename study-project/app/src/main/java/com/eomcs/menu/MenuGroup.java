@@ -119,6 +119,7 @@ public class MenuGroup extends Menu {
         // 다음 문장을 실행한 후 시스템을 멈추지 않고 실행을 계속한다.
         System.out.println("--------------------------------------------------------------");
         System.out.printf("오류 발생: %s\n", e.getClass().getName());
+        e.printStackTrace();
         System.out.println("--------------------------------------------------------------");
       }
     }

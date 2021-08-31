@@ -1,6 +1,7 @@
 package com.eomcs.pms.handler;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
@@ -14,6 +15,40 @@ public class ProjectHandler {
   public ProjectHandler(List<Project> projectList, MemberHandler memberHandler) {
     this.projectList = projectList;
     this.memberHandler = memberHandler;
+
+    Project project = new Project();
+    project.setNo(101);
+    project.setTitle("프로젝트1");
+    project.setContent("내용!!!");
+    project.setStartDate(Date.valueOf("2021-1-1"));
+    project.setEndDate(Date.valueOf("2021-2-2"));
+    project.setOwner(memberHandler.memberList.get(0));
+    project.setMembers(new ArrayList<>());
+
+    projectList.add(project);
+
+    project = new Project();
+    project.setNo(102);
+    project.setTitle("프로젝트2");
+    project.setContent("내용!!!");
+    project.setStartDate(Date.valueOf("2021-3-1"));
+    project.setEndDate(Date.valueOf("2021-4-2"));
+    project.setOwner(memberHandler.memberList.get(1));
+    project.setMembers(new ArrayList<>());
+
+    projectList.add(project);
+
+    project = new Project();
+    project.setNo(103);
+    project.setTitle("프로젝트3");
+    project.setContent("내용!!!");
+    project.setStartDate(Date.valueOf("2021-5-1"));
+    project.setEndDate(Date.valueOf("2021-6-2"));
+    project.setOwner(memberHandler.memberList.get(2));
+    project.setMembers(new ArrayList<>());
+
+    projectList.add(project);
+
   }
 
   public void add() {
@@ -146,13 +181,30 @@ public class ProjectHandler {
   }
 
   public Project findByNo(int no) {
-    Project[] arr = projectList.toArray(new Project[0]);
-    for (Project project : arr) {
+    for (Project project : projectList) {
       if (project.getNo() == no) {
         return project;
       }
     }
     return null;
+  }
+
+  public Project promptProject() {
+    System.out.println("프로젝트:");
+    for (Project project : projectList) {
+      System.out.printf("  %d. %s\n", project.getNo(), project.getTitle());
+    }
+    while (true) {
+      int projectNo = Prompt.inputInt("프로젝트 번호 선택? (취소: 0) ");
+      if (projectNo == 0) {
+        return null;
+      }
+      Project selectedProject = findByNo(projectNo);
+      if (selectedProject != null) {
+        return selectedProject;
+      }
+      System.out.println("프로젝트 번호가 옳지 않습니다.");
+    }
   }
 
 }

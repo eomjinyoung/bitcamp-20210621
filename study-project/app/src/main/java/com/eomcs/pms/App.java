@@ -8,7 +8,6 @@ import com.eomcs.menu.MenuGroup;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
-import com.eomcs.pms.domain.Task;
 import com.eomcs.pms.handler.AuthHandler;
 import com.eomcs.pms.handler.BoardHandler;
 import com.eomcs.pms.handler.MemberHandler;
@@ -20,12 +19,11 @@ public class App {
   List<Board> boardList = new ArrayList<>();
   List<Member> memberList = new LinkedList<>();
   List<Project> projectList = new ArrayList<>();
-  List<Task> taskList = new LinkedList<>();
 
   BoardHandler boardHandler = new BoardHandler(boardList);
   MemberHandler memberHandler = new MemberHandler(memberList);
   ProjectHandler projectHandler = new ProjectHandler(projectList, memberHandler);
-  TaskHandler taskHandler = new TaskHandler(taskList, memberHandler);
+  TaskHandler taskHandler = new TaskHandler(memberHandler, projectHandler);
   AuthHandler authHandler = new AuthHandler(memberList);
 
   public static void main(String[] args) {

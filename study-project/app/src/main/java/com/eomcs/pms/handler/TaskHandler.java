@@ -9,30 +9,28 @@ import com.eomcs.util.Prompt;
 
 public class TaskHandler {
 
-  List<Task> taskList;
-  List<Project> projectList;
   MemberHandler memberHandler;
+  ProjectHandler projectHandler;
 
 
-  public TaskHandler(List<Task> taskList, MemberHandler memberHandler) {
-    this.taskList = taskList;
+  public TaskHandler(MemberHandler memberHandler, ProjectHandler projectHandler) {
     this.memberHandler = memberHandler;
+    this.projectHandler = projectHandler;
   }
 
   public void add() {
     System.out.println("[작업 등록]");
 
-    System.out.println("프로젝트:");
-    for (Project project : projectList) {
-      System.out.printf("  %d. %s\n", project.getNo(), project.getTitle());
+    Project project = projectHandler.promptProject();
+    if (project == null) {
+      System.out.println("작업 등록을 취소합니다.");
+      return;
     }
-    int projectNo = Prompt.inputInt("선택할 프로젝트는? ");
-    Project selectedProject = findProjectByNo(projectNo);
 
     Task task = new Task();
 
-    task.setProject(selectedProject);
-    task.setNo(Prompt.inputInt("번호? "));
+    task.setProject(project);
+    task.setNo(Prompt.inputInt("작업번호? "));
     task.setContent(Prompt.inputString("내용? "));
     task.setDeadline(Prompt.inputDate("마감일? "));
     task.setStatus(promptStatus());
@@ -42,27 +40,24 @@ public class TaskHandler {
       return; 
     }
 
-    taskList.add(task);
+    project.getTasks().add(task);
 
     System.out.println("작업을 등록했습니다.");
-  }
-
-  private Project findProjectByNo(int projectNo) {
-    for (Project project : projectList) {
-      if (project.getNo() == projectNo) {
-        return project;
-      }
-    }
-    return null;
   }
 
   //다른 패키지에 있는 App 클래스가 다음 메서드를 호출할 수 있도록 공개한다.
   public void list() {
     System.out.println("[작업 목록]");
 
-    Task[] list = taskList.toArray(new Task[0]);
+    Project project = projectHandler.promptProject();
+    if (project == null) {
+      System.out.println("작업 등록을 취소합니다.");
+      return;
+    }
+    List<Task> tasks = project.getTasks();
 
-    for (Task task : list) {
+    System.out.printf("%s:\n\n", project.getTitle());
+    for (Task task : tasks) {
       System.out.printf("%d, %s, %s, %s, %s\n",
           task.getNo(), 
           task.getContent(), 
@@ -138,7 +133,7 @@ public class TaskHandler {
       return;
     }
 
-    taskList.remove(task);
+    //taskList.remove(task);
 
     System.out.println("작업를 삭제하였습니다.");
   }
@@ -168,13 +163,13 @@ public class TaskHandler {
   }
 
   private Task findByNo(int no) {
-    Task[] arr = new Task[taskList.size()];
-    taskList.toArray(arr);
-    for (Task task : arr) {
-      if (task.getNo() == no) {
-        return task;
-      }
-    }
+    //    Task[] arr = new Task[taskList.size()];
+    //    taskList.toArray(arr);
+    //    for (Task task : arr) {
+    //      if (task.getNo() == no) {
+    //        return task;
+    //      }
+    //    }
     return null;
   }
 

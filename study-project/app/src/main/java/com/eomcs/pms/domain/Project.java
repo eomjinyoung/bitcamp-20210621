@@ -1,6 +1,7 @@
 package com.eomcs.pms.domain;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Project {
@@ -11,7 +12,7 @@ public class Project {
   private Date endDate;
   private Member owner;
   private List<Member> members;
-  private List<Task> tasks;
+  private List<Task> tasks = new ArrayList<>();
 
   @Override
   public String toString() {
