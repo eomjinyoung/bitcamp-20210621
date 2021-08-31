@@ -1,5 +1,6 @@
 package com.eomcs.menu;
 
+import java.util.ArrayList;
 import java.util.Stack;
 import com.eomcs.pms.handler.AuthHandler;
 import com.eomcs.util.Prompt;
@@ -82,20 +83,31 @@ public class MenuGroup extends Menu {
     // 현재 실행하는 메뉴를 스택에 보관한다.
     breadCrumb.push(this);
 
+    // 출력될 메뉴 목록 준비
+    // 왜?
+    // - 메뉴 출력 속도를 빠르게 하기 위함.
+    // - 메뉴를 출력할 때 출력할 메뉴와 출력하지 말아야 할 메뉴를 구분하는 시간을 줄이기 위함.
+    // 
+    ArrayList<Menu> menuList = new ArrayList<>();
+    for (int i = 0; i < this.size; i++) {
+      if (this.childs[i].enableState == Menu.ENABLE_LOGOUT && 
+          AuthHandler.getLoginUser() == null) {
+        menuList.add(this.childs[i]);
+
+      } else if (this.childs[i].enableState == Menu.ENABLE_LOGIN && 
+          AuthHandler.getLoginUser() != null) {
+        menuList.add(this.childs[i]);
+
+      } else if (this.childs[i].enableState == Menu.ENABLE_ALL) {
+        menuList.add(this.childs[i]);
+      } 
+    }
+
     while (true) {
       System.out.printf("\n[%s]\n", getBreadCrumb());
-      for (int i = 0; i < this.size; i++) {
-        if (this.childs[i].enableState == Menu.ENABLE_LOGOUT && 
-            AuthHandler.getLoginUser() != null) {
-          // 로그인이 되어 있지 않을 때만 출력하는 메뉴인데 로그인 되어 있으면 출력하지 않는다.
-          continue;
-        } else if (this.childs[i].enableState == Menu.ENABLE_LOGIN && 
-            AuthHandler.getLoginUser() == null) {
-          // 로그인이 되어 있을 때만 출력하는 메뉴인데 로그인 되어 있지 않으면 출력하지 않는다.
-          continue;
-        } 
-        // 그 외에는 출력
-        System.out.printf("%d. %-20s\n", i + 1, this.childs[i].title);
+      int i = 1;
+      for (Menu menu : menuList) {
+        System.out.printf("%d. %-20s\n", i++, menu.title);
       }
 
       if (!disablePrevMenu) {
@@ -115,7 +127,7 @@ public class MenuGroup extends Menu {
           continue;
         }
 
-        this.childs[menuNo - 1].execute();
+        menuList.get(menuNo - 1).execute();
 
       } catch (Throwable e) {
         // try 블록 안에 있는 코드를 실행하다가 예외가 발생하면
