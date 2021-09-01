@@ -7,7 +7,7 @@ import com.eomcs.util.Prompt;
 
 public abstract class AbstractMemberHandler {
 
-  List<Member> memberList;
+  protected List<Member> memberList;
 
   public AbstractMemberHandler(List<Member> memberList) {
     this.memberList = memberList;

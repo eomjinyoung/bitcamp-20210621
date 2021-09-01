@@ -8,9 +8,9 @@ import com.eomcs.util.Prompt;
 
 public class TaskHandler {
 
-  ProjectHandler projectHandler;
+  AbstractProjectHandler projectHandler;
 
-  public TaskHandler(ProjectHandler projectHandler) {
+  public TaskHandler(AbstractProjectHandler projectHandler) {
     this.projectHandler = projectHandler;
   }
 

@@ -19,7 +19,11 @@ import com.eomcs.pms.handler.MemberDeleteHandler;
 import com.eomcs.pms.handler.MemberDetailHandler;
 import com.eomcs.pms.handler.MemberListHandler;
 import com.eomcs.pms.handler.MemberUpdateHandler;
-import com.eomcs.pms.handler.ProjectHandler;
+import com.eomcs.pms.handler.ProjectAddHandler;
+import com.eomcs.pms.handler.ProjectDeleteHandler;
+import com.eomcs.pms.handler.ProjectDetailHandler;
+import com.eomcs.pms.handler.ProjectListHandler;
+import com.eomcs.pms.handler.ProjectUpdateHandler;
 import com.eomcs.pms.handler.TaskHandler;
 import com.eomcs.util.Prompt;
 
@@ -40,8 +44,13 @@ public class App {
   MemberUpdateHandler memberUpdateHandler = new MemberUpdateHandler(memberList);
   MemberDeleteHandler memberDeleteHandler = new MemberDeleteHandler(memberList);
 
-  ProjectHandler projectHandler = new ProjectHandler(projectList, memberListHandler);
-  TaskHandler taskHandler = new TaskHandler(projectHandler);
+  ProjectAddHandler projectAddHandler = new ProjectAddHandler(projectList, memberListHandler);
+  ProjectListHandler projectListHandler = new ProjectListHandler(projectList);
+  ProjectDetailHandler projectDetailHandler = new ProjectDetailHandler(projectList);
+  ProjectUpdateHandler projectUpdateHandler = new ProjectUpdateHandler(projectList, memberListHandler);
+  ProjectDeleteHandler projectDeleteHandler = new ProjectDeleteHandler(projectList);
+
+  TaskHandler taskHandler = new TaskHandler(projectListHandler);
   AuthHandler authHandler = new AuthHandler(memberList);
 
   public static void main(String[] args) {
@@ -143,27 +152,27 @@ public class App {
     projectMenu.add(new Menu("등록", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        projectHandler.add(); 
+        projectAddHandler.add(); 
       }});
     projectMenu.add(new Menu("목록") {
       @Override
       public void execute() {
-        projectHandler.list(); 
+        projectListHandler.list(); 
       }});
     projectMenu.add(new Menu("상세보기") {
       @Override
       public void execute() {
-        projectHandler.detail(); 
+        projectDetailHandler.detail(); 
       }});
     projectMenu.add(new Menu("변경", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        projectHandler.update(); 
+        projectUpdateHandler.update(); 
       }});
     projectMenu.add(new Menu("삭제", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        projectHandler.delete(); 
+        projectDeleteHandler.delete(); 
       }});
 
     MenuGroup taskMenu = new MenuGroup("작업");
