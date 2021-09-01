@@ -68,4 +68,28 @@ public class Project {
   public void setTasks(List<Task> tasks) {
     this.tasks = tasks;
   }
+
+  public String getMemberNames() {
+    if (this.members == null) {
+      return "";
+    }
+
+    StringBuilder names = new StringBuilder();
+    for (Member member : this.members) {
+      if (names.length() > 0) {
+        names.append(",");
+      }
+      names.append(member.getName());
+    }
+    return names.toString();
+  }
+
+  public Task findTaskByNo(int taskNo) {
+    for (Task task : this.tasks) {
+      if (task.getNo() == taskNo) {
+        return task;
+      }
+    }
+    return null;
+  }
 }

@@ -1,7 +1,6 @@
 package com.eomcs.pms.handler;
 
 import java.util.List;
-import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.util.Prompt;
 
@@ -11,17 +10,6 @@ public abstract class AbstractProjectHandler {
 
   public AbstractProjectHandler(List<Project> projectList) {
     this.projectList = projectList;
-  }
-
-  protected String getMemberNames(List<Member> members) {
-    StringBuilder names = new StringBuilder();
-    for (Member member : members) {
-      if (names.length() > 0) {
-        names.append(",");
-      }
-      names.append(member.getName());
-    }
-    return names.toString();
   }
 
   protected Project findByNo(int no) {

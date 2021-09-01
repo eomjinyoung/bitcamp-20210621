@@ -8,11 +8,11 @@ import com.eomcs.util.Prompt;
 
 public class ProjectAddHandler extends AbstractProjectHandler {
 
-  AbstractMemberHandler memberHandler;
+  MemberPromptHandler memberPromptHandler;
 
-  public ProjectAddHandler(List<Project> projectList, AbstractMemberHandler memberHandler) {
+  public ProjectAddHandler(List<Project> projectList, MemberPromptHandler memberPromptHandler) {
     super(projectList);
-    this.memberHandler = memberHandler;
+    this.memberPromptHandler = memberPromptHandler;
 
     Project project = new Project();
     project.setNo(101);
@@ -20,7 +20,7 @@ public class ProjectAddHandler extends AbstractProjectHandler {
     project.setContent("내용!!!");
     project.setStartDate(Date.valueOf("2021-1-1"));
     project.setEndDate(Date.valueOf("2021-2-2"));
-    project.setOwner(memberHandler.memberList.get(0));
+    project.setOwner(memberPromptHandler.memberList.get(0));
     project.setMembers(new ArrayList<>());
 
     projectList.add(project);
@@ -31,7 +31,7 @@ public class ProjectAddHandler extends AbstractProjectHandler {
     project.setContent("내용!!!");
     project.setStartDate(Date.valueOf("2021-3-1"));
     project.setEndDate(Date.valueOf("2021-4-2"));
-    project.setOwner(memberHandler.memberList.get(1));
+    project.setOwner(memberPromptHandler.memberList.get(1));
     project.setMembers(new ArrayList<>());
 
     projectList.add(project);
@@ -42,7 +42,7 @@ public class ProjectAddHandler extends AbstractProjectHandler {
     project.setContent("내용!!!");
     project.setStartDate(Date.valueOf("2021-5-1"));
     project.setEndDate(Date.valueOf("2021-6-2"));
-    project.setOwner(memberHandler.memberList.get(2));
+    project.setOwner(memberPromptHandler.memberList.get(2));
     project.setMembers(new ArrayList<>());
 
     projectList.add(project);
@@ -60,7 +60,7 @@ public class ProjectAddHandler extends AbstractProjectHandler {
     project.setStartDate(Prompt.inputDate("시작일? "));
     project.setEndDate(Prompt.inputDate("종료일? "));
     project.setOwner(AuthLoginHandler.getLoginUser());
-    project.setMembers(memberHandler.promptMembers("팀원?(완료: 빈 문자열) "));
+    project.setMembers(memberPromptHandler.promptMembers("팀원?(완료: 빈 문자열) "));
 
     projectList.add(project);
 

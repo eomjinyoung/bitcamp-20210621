@@ -20,6 +20,7 @@ import com.eomcs.pms.handler.MemberAddHandler;
 import com.eomcs.pms.handler.MemberDeleteHandler;
 import com.eomcs.pms.handler.MemberDetailHandler;
 import com.eomcs.pms.handler.MemberListHandler;
+import com.eomcs.pms.handler.MemberPromptHandler;
 import com.eomcs.pms.handler.MemberUpdateHandler;
 import com.eomcs.pms.handler.ProjectAddHandler;
 import com.eomcs.pms.handler.ProjectDeleteHandler;
@@ -49,11 +50,12 @@ public class App {
   MemberDetailHandler memberDetailHandler = new MemberDetailHandler(memberList);
   MemberUpdateHandler memberUpdateHandler = new MemberUpdateHandler(memberList);
   MemberDeleteHandler memberDeleteHandler = new MemberDeleteHandler(memberList);
+  MemberPromptHandler memberPromptHandler = new MemberPromptHandler(memberList);
 
-  ProjectAddHandler projectAddHandler = new ProjectAddHandler(projectList, memberListHandler);
+  ProjectAddHandler projectAddHandler = new ProjectAddHandler(projectList, memberPromptHandler);
   ProjectListHandler projectListHandler = new ProjectListHandler(projectList);
   ProjectDetailHandler projectDetailHandler = new ProjectDetailHandler(projectList);
-  ProjectUpdateHandler projectUpdateHandler = new ProjectUpdateHandler(projectList, memberListHandler);
+  ProjectUpdateHandler projectUpdateHandler = new ProjectUpdateHandler(projectList, memberPromptHandler);
   ProjectDeleteHandler projectDeleteHandler = new ProjectDeleteHandler(projectList);
 
   TaskAddHandler taskAddHandler = new TaskAddHandler(projectListHandler);

@@ -25,7 +25,7 @@ public class TaskDetailHandler extends AbstractTaskHandler {
 
     int taskNo = Prompt.inputInt("작업 번호? ");
 
-    Task task = findByNo(project, taskNo);
+    Task task = project.findTaskByNo(taskNo);
     if (task == null) {
       System.out.println("해당 번호의 작업이 없습니다.");
       return;

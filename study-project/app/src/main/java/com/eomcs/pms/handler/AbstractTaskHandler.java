@@ -12,7 +12,7 @@ public abstract class AbstractTaskHandler {
     this.projectHandler = projectHandler;
   }
 
-  protected void printTasks(Project project) {
+  protected static void printTasks(Project project) {
     System.out.printf("%s:\n\n", project.getTitle());
     for (Task task : project.getTasks()) {
       System.out.printf("%d, %s, %s, %s, %s\n",
@@ -47,16 +47,6 @@ public abstract class AbstractTaskHandler {
     System.out.println("2: 완료");
     return Prompt.inputInt("> ");
   }
-
-  protected static Task findByNo(Project project, int taskNo) {
-    for (Task task : project.getTasks()) {
-      if (task.getNo() == taskNo) {
-        return task;
-      }
-    }
-    return null;
-  }
-
 }
 
 

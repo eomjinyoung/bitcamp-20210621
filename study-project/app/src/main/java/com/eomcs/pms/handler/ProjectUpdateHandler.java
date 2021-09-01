@@ -8,11 +8,11 @@ import com.eomcs.util.Prompt;
 
 public class ProjectUpdateHandler extends AbstractProjectHandler {
 
-  AbstractMemberHandler memberHandler;
+  MemberPromptHandler memberPromptHandler;
 
-  public ProjectUpdateHandler(List<Project> projectList, AbstractMemberHandler memberHandler) {
+  public ProjectUpdateHandler(List<Project> projectList, MemberPromptHandler memberPromptHandler) {
     super(projectList);
-    this.memberHandler = memberHandler;
+    this.memberPromptHandler = memberPromptHandler;
   }
 
   public void update() {
@@ -36,8 +36,8 @@ public class ProjectUpdateHandler extends AbstractProjectHandler {
     Date startDate = Prompt.inputDate(String.format("시작일(%s)? ", project.getStartDate()));
     Date endDate = Prompt.inputDate(String.format("종료일(%s)? ", project.getEndDate()));
 
-    List<Member> members = memberHandler.promptMembers(String.format(
-        "팀원(%s)?(완료: 빈 문자열) ", getMemberNames(project.getMembers())));
+    List<Member> members = memberPromptHandler.promptMembers(String.format(
+        "팀원(%s)?(완료: 빈 문자열) ", project.getMemberNames()));
 
     String input = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
     if (input.equalsIgnoreCase("n") || input.length() == 0) {

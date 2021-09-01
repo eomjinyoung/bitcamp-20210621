@@ -1,4 +1,4 @@
-# 14-b. `Command` 디자인 패턴 : 메서드를 객체로 분리
+# 14-c. `Command` 디자인 패턴 : 리팩토링
 
 이번 훈련에서는 **커맨드 패턴(command pattern)** 을 프로젝트에 적용할 것이다.
 
@@ -33,111 +33,45 @@
 
 ## 실습
 
-`13-e` 소스를 기반으로 작업한다.
+### 1단계 - 프로젝트 멤버의 이름 목록을 리턴하는 메서드를 이동한다.
 
-### 1단계 - 게시판 명령을 처리하는 BoardHandler 의 각 메서드를 별도의 클래스로 분리한다.
+- com.eomcs.pms.handler.AbstractProjectHandler 클래스 변경
+  - getMemberNames() 메서드를 `Project` 클래스로 이동한다. 
+- com.eomcs.pms.domain.Project 클래스 변경
+  - getMemberNames() 메서드를 가져온다.
+- com.eomcs.pms.handler.ProjectDetailHandler 클래스 변경
+- com.eomcs.pms.handler.ProjectListHandler 클래스 변경
+- com.eomcs.pms.handler.ProjectUpdateHandler 클래스 변경
 
-- 각 명령어를 처리하는 메서드를 별도의 BoardXxxHandler 클래스를 만들어 분리한다.
-  - BoardAddHandler, BoardListHandler, BoardDetailHandler,BoardUpdateHandler, BoardDeleteHandler
-- 게시판 데이터를 공유하기 위해 생성자를 통해 `List` 객체를 주입 받는다.
+### 2단계 - 인스턴스 멤버를 스태틱 멤버로 전환한다.
 
-### 작업 파일
-
-- com.eomcs.pms.handler.BoardAddHandler 생성
-- com.eomcs.pms.handler.BoardListHandler 생성
-- com.eomcs.pms.handler.BoardDetailHandler 생성
-- com.eomcs.pms.handler.BoardUpdateHandler 생성
-- com.eomcs.pms.handler.BoardDeleteHandler 생성
-- com.eomcs.pms.handler.BoardHandler 삭제
-- com.eomcs.pms.App 변경
-
-### 2단계 - 여러 클래스에 공통으로 등장하는 필드와 메서드를 별도의 클래스로 분리한다.
-
-- com.eomcs.pms.handler.AbstractBoardHandler 클래스 추가
-  - BoardXxxHandler 클래스에 있던 공통 멤버인 `boardList`와 `findByNo()` 메서드를 이 클래스로 가져온다.
-  - BoardXxxHandler에서 이 클래스를 상속 받도록 한다.
-
-### 작업 파일
-
-- com.eomcs.pms.handler.BoardAddHandler 변경
-- com.eomcs.pms.handler.BoardListHandler 변경
-- com.eomcs.pms.handler.BoardDetailHandler 변경
-- com.eomcs.pms.handler.BoardUpdateHandler 변경
-- com.eomcs.pms.handler.BoardDeleteHandler 변경
-- com.eomcs.pms.handler.AbstractBoardHandler 다시 생성
+- com.eomcs.pms.handler.TaskHandler 클래스 변경
+  - printTasks() 변경 : 스태틱 메서드로 전환
 
 
-### 3단계 - generalization을 통해 만든 수퍼 클래스를 추상 클래스로 변경한다.
+### 3단계 - 회원 정보를 요구하는 메서드를 별도의 클래스로 분리한다.
 
-- com.eomcs.pms.handler.AbstractBoardHandler 이름 변경
-  - `BoardHandler` 클래스를 추상 클래스로 변경한다.
-  - 클래스를 추상클래스로 만들어 상속 받는 용도로만 사용하게 한다.
-  - 클래스의 이름을 `AbstractBoardHandler` 로 변경한다.
+- com.eomcs.pms.handler.AbstractMemberHandler 클래스 변경
+  - promptXxx() 메서드 이동 : 서브 클래스에서 사용하는 것이 아니라 외부 클래스에서 사용하는 메서드이기 때문에 별도의 클래스로 분리한다.
+- com.eomcs.pms.handler.MemberPromptHandler 클래스 생성
+  - promptXxx() 메서드를 가져온다.
+  - com.eomcs.pms.handler.ProjectAddHandler 클래스 변경
+  - com.eomcs.pms.handler.ProjectUpdateHandler 클래스 변경
+  - com.eomcs.pms.handler.TaskAddHandler 클래스 변경
+  - com.eomcs.pms.handler.TaskUpdateHandler 클래스 변경
+- com.eomcs.pms.App 클래스 변경
+  - MemberPromptHandler 객체 준비
 
+### 4단계 - 프로젝트 정보에서 특정 작업을 조회하는 메서드를 이동한다.
 
-### 4단계 - 나머지 `MemberHandler`, `ProjectHandler`, `TaskHandler`, `AuthHandler` 도 Command 패턴을 적용한다.
-
-
-#### 작업 파일
-
-- com.eomcs.pms.handler.MemberAddHandler 생성
-- com.eomcs.pms.handler.MemberListHandler 생성
-- com.eomcs.pms.handler.MemberDetailHandler 생성
-- com.eomcs.pms.handler.MemberUpdateHandler 생성
-- com.eomcs.pms.handler.MemberDeleteHandler 생성
-- com.eomcs.pms.handler.AbstractMemberHandler 생성
-- com.eomcs.pms.handler.MemberHandler 삭제
-- com.eomcs.pms.handler.ProjectAddHandler 생성
-- com.eomcs.pms.handler.ProjectListHandler 생성
-- com.eomcs.pms.handler.ProjectDetailHandler 생성
-- com.eomcs.pms.handler.ProjectUpdateHandler 생성
-- com.eomcs.pms.handler.ProjectDeleteHandler 생성
-- com.eomcs.pms.handler.AbstractProjectHandler 생성
-- com.eomcs.pms.handler.ProjectHandler 삭제
-- com.eomcs.pms.handler.TaskAddHandler 생성
-- com.eomcs.pms.handler.TaskListHandler 생성
-- com.eomcs.pms.handler.TaskDetailHandler 생성
-- com.eomcs.pms.handler.TaskUpdateHandler 생성
-- com.eomcs.pms.handler.TaskDeleteHandler 생성
-- com.eomcs.pms.handler.AbstractTaskHandler 생성
-- com.eomcs.pms.handler.TaskHandler 삭제
-- com.eomcs.pms.handler.AuthLoginHandler 생성
-- com.eomcs.pms.handler.AuthLogoutHandler 생성
-- com.eomcs.pms.handler.AuthUserInfoHandler 생성
-- com.eomcs.pms.App 변경
+- com.eomcs.pms.handler.AbstractTaskHandler 클래스 변경
+  - findByNo(Project,int) 메서드 이동 : Project 클래스로 이동
+- com.eomcs.pms.domain.Project 클래스 변경
+  - findTaskByNo(int) 메서드 가져오기
+  - com.eomcs.pms.handler.TaskDeleteHandler 클래스 변경
+  - com.eomcs.pms.handler.TaskDetailHandler 클래스 변경
+  - com.eomcs.pms.handler.TaskUpdateHandler 클래스 변경
 
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/pms/handler/BoardAddHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/BoardListHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/BoardDetailHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/BoardUpdateHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/BoardDeleteHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/AbstractBoardHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/MemberAddHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/MemberListHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/MemberDetailHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/MemberUpdateHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/MemberDeleteHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/AbstractMemberHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/MemberHandler.java 삭제
-- src/main/java/com/eomcs/pms/handler/ProjectAddHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/ProjectListHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/ProjectDetailHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/ProjectUpdateHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/ProjectDeleteHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/AbstractProjectHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/ProjectHandler.java 삭제
-- src/main/java/com/eomcs/pms/handler/TaskAddHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/TaskListHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/TaskDetailHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/TaskUpdateHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/TaskDeleteHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/AbstractTaskHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/TaskHandler.java 삭제
-- src/main/java/com/eomcs/pms/handler/AuthLoginHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/AuthLogoutHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/AuthUserInfoHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/AuthHandler.java 삭제
-- src/main/java/com/eomcs/pms/App.java 변경

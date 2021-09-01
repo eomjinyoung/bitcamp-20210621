@@ -31,7 +31,7 @@ public class TaskAddHandler extends AbstractTaskHandler {
     task.setContent(Prompt.inputString("내용? "));
     task.setDeadline(Prompt.inputDate("마감일? "));
     task.setStatus(promptStatus());
-    task.setOwner(AbstractMemberHandler.promptMember("담당자?(취소: 빈 문자열) ", project.getMembers()));
+    task.setOwner(MemberPromptHandler.promptMember("담당자?(취소: 빈 문자열) ", project.getMembers()));
     if (task.getOwner() == null) {
       System.out.println("작업 등록을 취소합니다.");
       return; 

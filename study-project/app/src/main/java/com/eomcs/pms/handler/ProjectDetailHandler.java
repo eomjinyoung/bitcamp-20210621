@@ -26,7 +26,7 @@ public class ProjectDetailHandler extends AbstractProjectHandler {
     System.out.printf("시작일: %s\n", project.getStartDate());
     System.out.printf("종료일: %s\n", project.getEndDate());
     System.out.printf("만든이: %s\n", project.getOwner().getName());
-    System.out.printf("팀원: %s\n", getMemberNames(project.getMembers()));
+    System.out.printf("팀원: %s\n", project.getMemberNames());
   }
 }
 
