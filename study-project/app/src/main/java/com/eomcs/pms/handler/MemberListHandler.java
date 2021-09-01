@@ -12,9 +12,7 @@ public class MemberListHandler extends AbstractMemberHandler {
   public void list() {
     System.out.println("[회원 목록]");
 
-    Member[] list = memberList.toArray(new Member[0]);
-
-    for (Member member : list) {
+    for (Member member : memberList) {
       System.out.printf("%d, %s, %s, %s, %s\n", 
           member.getNo(), 
           member.getName(), 

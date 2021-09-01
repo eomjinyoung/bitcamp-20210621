@@ -106,66 +106,6 @@
 - com.eomcs.pms.handler.AuthUserInfoHandler 생성
 - com.eomcs.pms.App 변경
 
-### 5단계 - [리팩토링] `AbstractMemberHandler`에서 회원 유효성 검사를 하는 메서드를 별도의 클래스로 분리한다.
-
-- `MemberValidatorHandler` 클래스 추가
-  - `AbstractMemberHandler`에 있는 `inputMember()`와 `inputMembers()`를 이 클래스로 옮긴다.
-- `ProjectAddHandler`, `ProjectUpdateHandler`, `TaskAddHandler`, `TaskUpdateHandler` 클래스의 의존 객체를 `MemberValidatorHandler`로 교체한다.
-
-#### 작업 파일
-
-- com.eomcs.pms.handler.MemberValidatorHandler 생성
-- com.eomcs.pms.handler.ProjectAddHandler 변경
-- com.eomcs.pms.handler.ProjectUpdateHandler 변경
-- com.eomcs.pms.handler.TaskAddHandler 변경
-- com.eomcs.pms.handler.TaskUpdateHandler 변경
-- com.eomcs.pms.App 변경
-
-### 6단계 - 커맨드 패턴 적용 후 : 게시글 검색 기능을 추가해보자.
-
-- 커맨드 패턴을 적용하여 애플리케이션 아키텍처가 변경되었다.
-- 커맨드 패턴을 적용할 경우 새 기능 추가가 쉽다는 것을 확인해보자.
-
-```console
-명령> /board/search
-검색어? aa
-검색어에 해당하는 게시글이 없습니다.
-
-명령> /board/search
-검색어? bb
-1, aa bbb, ok, 2020-1-1, 3
-7, bbacc, no, 2020-2-3, 23
-
-명령>
-```
-
-- `/board/search` 명령을 처리할 클래스를 정의한다.
-  - `BoardSearchHandler` 클래스 생성
-  - Command 패턴을 적용하기 전에는 기존의 `BoardHandler`에 코드를 추가하였다.
-  - Command 패턴을 적용한 후에는 단지 새 클래스를 만들기만 하면 된다.
-  - 기존 코드를 손댈 필요가 없다.
-
-#### 작업 파일
-
-- com.eomcs.pms.handler.BoardSearchHandler 생성
-- com.eomcs.pms.App 변경
-
-### 7단계 - 커맨드 패턴 적용 후 : `/hello` 명령을 추가한다.
-
-- 커맨드 패턴을 적용할 경우 새 기능 추가가 쉽다는 것을 확인해보자.
-
-```console
-명령> /hello
-안녕하세요!
-
-명령>
-```
-
-#### 작업 파일
-
-- com.eomcs.pms.handler.HelloHandler 생성
-- com.eomcs.pms.App 변경
-
 
 ## 실습 결과
 
@@ -175,7 +115,6 @@
 - src/main/java/com/eomcs/pms/handler/BoardUpdateHandler.java 생성
 - src/main/java/com/eomcs/pms/handler/BoardDeleteHandler.java 생성
 - src/main/java/com/eomcs/pms/handler/AbstractBoardHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/ABoardHandler.java 삭제
 - src/main/java/com/eomcs/pms/handler/MemberAddHandler.java 생성
 - src/main/java/com/eomcs/pms/handler/MemberListHandler.java 생성
 - src/main/java/com/eomcs/pms/handler/MemberDetailHandler.java 생성
@@ -197,6 +136,8 @@
 - src/main/java/com/eomcs/pms/handler/TaskDeleteHandler.java 생성
 - src/main/java/com/eomcs/pms/handler/AbstractTaskHandler.java 생성
 - src/main/java/com/eomcs/pms/handler/TaskHandler.java 삭제
-- src/main/java/com/eomcs/pms/handler/BoardSearchHandler.java 생성
-- src/main/java/com/eomcs/pms/handler/HelloHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/AuthLoginHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/AuthLogoutHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/AuthUserInfoHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/AuthHandler.java 삭제
 - src/main/java/com/eomcs/pms/App.java 변경
