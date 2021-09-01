@@ -24,7 +24,11 @@ import com.eomcs.pms.handler.ProjectDeleteHandler;
 import com.eomcs.pms.handler.ProjectDetailHandler;
 import com.eomcs.pms.handler.ProjectListHandler;
 import com.eomcs.pms.handler.ProjectUpdateHandler;
-import com.eomcs.pms.handler.TaskHandler;
+import com.eomcs.pms.handler.TaskAddHandler;
+import com.eomcs.pms.handler.TaskDeleteHandler;
+import com.eomcs.pms.handler.TaskDetailHandler;
+import com.eomcs.pms.handler.TaskListHandler;
+import com.eomcs.pms.handler.TaskUpdateHandler;
 import com.eomcs.util.Prompt;
 
 public class App {
@@ -50,7 +54,12 @@ public class App {
   ProjectUpdateHandler projectUpdateHandler = new ProjectUpdateHandler(projectList, memberListHandler);
   ProjectDeleteHandler projectDeleteHandler = new ProjectDeleteHandler(projectList);
 
-  TaskHandler taskHandler = new TaskHandler(projectListHandler);
+  TaskAddHandler taskAddHandler = new TaskAddHandler(projectListHandler);
+  TaskListHandler taskListHandler = new TaskListHandler(projectListHandler);
+  TaskDetailHandler taskDetailHandler = new TaskDetailHandler(projectListHandler);
+  TaskUpdateHandler taskUpdateHandler = new TaskUpdateHandler(projectListHandler);
+  TaskDeleteHandler taskDeleteHandler = new TaskDeleteHandler(projectListHandler);
+
   AuthHandler authHandler = new AuthHandler(memberList);
 
   public static void main(String[] args) {
@@ -181,27 +190,27 @@ public class App {
     taskMenu.add(new Menu("등록", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        taskHandler.add(); 
+        taskAddHandler.add(); 
       }});
     taskMenu.add(new Menu("목록") {
       @Override
       public void execute() {
-        taskHandler.list(); 
+        taskListHandler.list(); 
       }});
     taskMenu.add(new Menu("상세보기") {
       @Override
       public void execute() {
-        taskHandler.detail(); 
+        taskDetailHandler.detail(); 
       }});
     taskMenu.add(new Menu("변경", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        taskHandler.update(); 
+        taskUpdateHandler.update(); 
       }});
     taskMenu.add(new Menu("삭제", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        taskHandler.delete(); 
+        taskDeleteHandler.delete(); 
       }});
 
 
