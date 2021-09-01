@@ -538,7 +538,15 @@
 
 ## 46일차(2021-08-31,화)
 
-- 예외처리(eomcs-java/com.eomcs.exception)
+- 예외처리(eomcs-java/com.eomcs.exception)(계속)
 - 실전 프로젝트(eomcs-java-project)
 	- 13-d. 사용자 인증 : 로그인 여부에 따라 메뉴 출력 제어(계속)
 	- 13-e. 사용자 인증 : 로그인 정보 활용
+
+## 47일차(2021-09-01,수)
+
+- 실전 프로젝트(eomcs-java-project)
+	- 14-a. `Command` 디자인 패턴 : 적용 전 문제점 확인
+	- 14-b. `Command` 디자인 패턴 : 메서드를 객체로 분리
+	- 14-c. `Command` 디자인 패턴 : 리팩토링
+	- 14-d. `Command` 디자인 패턴 : 기능 추가를 통해 커맨드 패턴의 유용성 확인 
