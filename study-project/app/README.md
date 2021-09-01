@@ -1,4 +1,4 @@
-# 14-c. `Command` 디자인 패턴 : 리팩토링
+# 14-d. `Command` 디자인 패턴 : 기능 추가를 통해 커맨드 패턴의 유용성 확인 
 
 이번 훈련에서는 **커맨드 패턴(command pattern)** 을 프로젝트에 적용할 것이다.
 
@@ -33,44 +33,27 @@
 
 ## 실습
 
-### 1단계 - 프로젝트 멤버의 이름 목록을 리턴하는 메서드를 이동한다.
+### 1단계 - 커맨드 패턴 적용 후 : 게시물 검색 기능을 추가해보자.
 
-- com.eomcs.pms.handler.AbstractProjectHandler 클래스 변경
-  - getMemberNames() 메서드를 `Project` 클래스로 이동한다. 
-- com.eomcs.pms.domain.Project 클래스 변경
-  - getMemberNames() 메서드를 가져온다.
-- com.eomcs.pms.handler.ProjectDetailHandler 클래스 변경
-- com.eomcs.pms.handler.ProjectListHandler 클래스 변경
-- com.eomcs.pms.handler.ProjectUpdateHandler 클래스 변경
+- 커맨드 패턴을 적용한 후에는 새 기능을 추가하기 위해 기존 클래스를 손댈 필요가 없다.
+- 그냥 새 클래스를 만들면 된다.
 
-### 2단계 - 인스턴스 멤버를 스태틱 멤버로 전환한다.
+```console
+[게시글 검색]
+검색어? aa
+검색어에 해당하는 게시글이 없습니다.
 
-- com.eomcs.pms.handler.TaskHandler 클래스 변경
-  - printTasks() 변경 : 스태틱 메서드로 전환
+[게시글 검색]
+검색어? bb
+1, aa bbb, ok, 2020-1-1, 3
+7, bbacc, no, 2020-2-3, 23
 
+```
 
-### 3단계 - 회원 정보를 요구하는 메서드를 별도의 클래스로 분리한다.
-
-- com.eomcs.pms.handler.AbstractMemberHandler 클래스 변경
-  - promptXxx() 메서드 이동 : 서브 클래스에서 사용하는 것이 아니라 외부 클래스에서 사용하는 메서드이기 때문에 별도의 클래스로 분리한다.
-- com.eomcs.pms.handler.MemberPromptHandler 클래스 생성
-  - promptXxx() 메서드를 가져온다.
-  - com.eomcs.pms.handler.ProjectAddHandler 클래스 변경
-  - com.eomcs.pms.handler.ProjectUpdateHandler 클래스 변경
-  - com.eomcs.pms.handler.TaskAddHandler 클래스 변경
-  - com.eomcs.pms.handler.TaskUpdateHandler 클래스 변경
+- com.eomcs.pms.handler.BoardSearchHandler 클래스 추가
+  - `게시글 검색` 명령을 처리할 메서드를 정의한다.
 - com.eomcs.pms.App 클래스 변경
-  - MemberPromptHandler 객체 준비
-
-### 4단계 - 프로젝트 정보에서 특정 작업을 조회하는 메서드를 이동한다.
-
-- com.eomcs.pms.handler.AbstractTaskHandler 클래스 변경
-  - findByNo(Project,int) 메서드 이동 : Project 클래스로 이동
-- com.eomcs.pms.domain.Project 클래스 변경
-  - findTaskByNo(int) 메서드 가져오기
-  - com.eomcs.pms.handler.TaskDeleteHandler 클래스 변경
-  - com.eomcs.pms.handler.TaskDetailHandler 클래스 변경
-  - com.eomcs.pms.handler.TaskUpdateHandler 클래스 변경
+  - createMenu() 변경: *게시글 검색* 메뉴 추가
 
 
 ## 실습 결과

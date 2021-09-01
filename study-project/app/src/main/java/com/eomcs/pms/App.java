@@ -44,6 +44,7 @@ public class App {
   BoardDetailHandler boardDetailHandler = new BoardDetailHandler(boardList);
   BoardUpdateHandler boardUpdateHandler = new BoardUpdateHandler(boardList);
   BoardDeleteHandler boardDeleteHandler = new BoardDeleteHandler(boardList);
+  BoardDeleteHandler boardDeleteHandler = new BoardDeleteHandler(boardList);
 
   MemberAddHandler memberAddHandler = new MemberAddHandler(memberList);
   MemberListHandler memberListHandler = new MemberListHandler(memberList);
@@ -130,6 +131,11 @@ public class App {
       @Override
       public void execute() {
         boardDeleteHandler.delete(); 
+      }});
+    boardMenu.add(new Menu("검색") {
+      @Override
+      public void execute() {
+        boardSearchHandler.search(); 
       }});
 
     MenuGroup memberMenu = new MenuGroup("회원");
