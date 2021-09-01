@@ -19,7 +19,7 @@ public class TaskDeleteHandler extends AbstractTaskHandler {
       return;
     }
 
-    if (project.getOwner().getNo() != AuthHandler.getLoginUser().getNo()) {
+    if (project.getOwner().getNo() != AuthLoginHandler.getLoginUser().getNo()) {
       System.out.println("이 프로젝트의 관리자가 아닙니다.");
       return;
     }

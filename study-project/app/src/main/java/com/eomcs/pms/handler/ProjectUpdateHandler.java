@@ -26,7 +26,7 @@ public class ProjectUpdateHandler extends AbstractProjectHandler {
       return;
     }
 
-    if (project.getOwner().getNo() != AuthHandler.getLoginUser().getNo()) {
+    if (project.getOwner().getNo() != AuthLoginHandler.getLoginUser().getNo()) {
       System.out.println("변경 권한이 없습니다.");
       return;
     }

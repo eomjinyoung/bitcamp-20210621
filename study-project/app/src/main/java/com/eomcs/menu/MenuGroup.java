@@ -3,7 +3,7 @@ package com.eomcs.menu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import com.eomcs.pms.handler.AuthHandler;
+import com.eomcs.pms.handler.AuthLoginHandler;
 import com.eomcs.util.Prompt;
 
 // 역할
@@ -148,11 +148,11 @@ public class MenuGroup extends Menu {
     ArrayList<Menu> menuList = new ArrayList<>();
     for (int i = 0; i < this.size; i++) {
       if (this.childs[i].enableState == Menu.ENABLE_LOGOUT && 
-          AuthHandler.getLoginUser() == null) {
+          AuthLoginHandler.getLoginUser() == null) {
         menuList.add(this.childs[i]);
 
       } else if (this.childs[i].enableState == Menu.ENABLE_LOGIN && 
-          AuthHandler.getLoginUser() != null) {
+          AuthLoginHandler.getLoginUser() != null) {
         menuList.add(this.childs[i]);
 
       } else if (this.childs[i].enableState == Menu.ENABLE_ALL) {

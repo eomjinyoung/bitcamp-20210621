@@ -21,7 +21,7 @@ public class BoardUpdateHandler extends AbstractBoardHandler {
       return;
     }
 
-    if (board.getWriter().getNo() != AuthHandler.getLoginUser().getNo()) {
+    if (board.getWriter().getNo() != AuthLoginHandler.getLoginUser().getNo()) {
       System.out.println("변경 권한이 없습니다.");
       return;
     }

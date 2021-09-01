@@ -8,7 +8,9 @@ import com.eomcs.menu.MenuGroup;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
-import com.eomcs.pms.handler.AuthHandler;
+import com.eomcs.pms.handler.AuthLoginHandler;
+import com.eomcs.pms.handler.AuthLogoutHandler;
+import com.eomcs.pms.handler.AuthUserInfoHandler;
 import com.eomcs.pms.handler.BoardAddHandler;
 import com.eomcs.pms.handler.BoardDeleteHandler;
 import com.eomcs.pms.handler.BoardDetailHandler;
@@ -60,7 +62,9 @@ public class App {
   TaskUpdateHandler taskUpdateHandler = new TaskUpdateHandler(projectListHandler);
   TaskDeleteHandler taskDeleteHandler = new TaskDeleteHandler(projectListHandler);
 
-  AuthHandler authHandler = new AuthHandler(memberList);
+  AuthLoginHandler authLoginHandler = new AuthLoginHandler(memberList);
+  AuthLogoutHandler authLogoutHandler = new AuthLogoutHandler();
+  AuthUserInfoHandler authUserInfoHandler = new AuthUserInfoHandler();
 
   public static void main(String[] args) {
     App app = new App(); 
@@ -79,21 +83,21 @@ public class App {
     mainMenuGroup.add(new Menu("로그인", Menu.ENABLE_LOGOUT) {
       @Override
       public void execute() {
-        authHandler.login(); 
+        authLoginHandler.login(); 
       }
     });
 
     mainMenuGroup.add(new Menu("내정보", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        authHandler.displayLoginUser(); 
+        authUserInfoHandler.displayLoginUser(); 
       }
     });
 
     mainMenuGroup.add(new Menu("로그아웃", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        authHandler.logout(); 
+        authLogoutHandler.logout(); 
       }
     });
 

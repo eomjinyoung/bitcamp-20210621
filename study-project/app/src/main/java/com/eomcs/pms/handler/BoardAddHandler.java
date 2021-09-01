@@ -20,7 +20,7 @@ public class BoardAddHandler extends AbstractBoardHandler {
     board.setTitle(Prompt.inputString("제목? "));
     board.setContent(Prompt.inputString("내용? "));
 
-    board.setWriter(AuthHandler.getLoginUser());
+    board.setWriter(AuthLoginHandler.getLoginUser());
     board.setRegisteredDate(new Date(System.currentTimeMillis()));
 
     boardList.add(board);
