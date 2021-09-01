@@ -1,4 +1,4 @@
-# 14-a. `Command` 디자인 패턴 : 적용 전 문제점 확인
+# 14-b. `Command` 디자인 패턴 : 메서드를 객체로 분리
 
 이번 훈련에서는 **커맨드 패턴(command pattern)** 을 프로젝트에 적용할 것이다.
 
@@ -33,38 +33,170 @@
 
 ## 실습
 
-### 1단계 - 커맨드 패턴 적용 전 : 게시물 검색 기능을 추가해보자.
+`13-e` 소스를 기반으로 작업한다.
 
-- 커맨드 패턴을 적용하기 전에는 새 기능을 추가하려면 기존 코드를 변경해야 한다.
-- 새 기능을 추가하기 기존 코드를 손대는 것은 버그를 생성할 위험성이 있다.
-- 즉 잘되던 기능을 망치는 경우가 발생할 수 있다.
+### 1단계 - 게시판 명령을 처리하는 BoardHandler 의 각 메서드를 별도의 클래스로 분리한다.
 
-```console
-[게시글 검색]
-검색어? aa
-검색어에 해당하는 게시글이 없습니다.
+- 각 명령어를 처리하는 메서드를 별도의 BoardXxxHandler 클래스를 만들어 분리한다.
+  - BoardAddHandler, BoardListHandler, BoardDetailHandler,BoardUpdateHandler, BoardDeleteHandler
+- 게시판 데이터를 공유하기 위해 생성자를 통해 `List` 객체를 주입 받는다.
 
-[게시글 검색]
-검색어? bb
-1, aa bbb, ok, 2020-1-1, 3
-7, bbacc, no, 2020-2-3, 23
+### 작업 파일
 
-```
+- com.eomcs.pms.handler.BoardAddHandler 생성
+- com.eomcs.pms.handler.BoardListHandler 생성
+- com.eomcs.pms.handler.BoardDetailHandler 생성
+- com.eomcs.pms.handler.BoardUpdateHandler 생성
+- com.eomcs.pms.handler.BoardDeleteHandler 생성
+- com.eomcs.pms.handler.BoardHandler 삭제
+- com.eomcs.pms.App 변경
 
-- com.eomcs.pms.App 클래스 변경
-  - createMenu() 변경: *게시글 검색* 메뉴 추가
-- com.eomcs.pms.handler.BoardHandler 클래스 변경
-  - search() 추가: `게시글 검색` 명령을 처리할 메서드를 추가한다.
+### 2단계 - 여러 클래스에 공통으로 등장하는 필드와 메서드를 별도의 클래스로 분리한다.
+
+- `BoardHandler` 클래스를 정의한다.
+  - BoardXxxHandler 클래스에 있던 공통 멤버인 `boardList`와 `findByNo()` 메서드를 이 클래스로 가져온다.
+  - BoardXxxHandler에서 이 클래스를 상속 받도록 한다.
+
+### 작업 파일
+
+- com.eomcs.pms.handler.BoardAddHandler 변경
+- com.eomcs.pms.handler.BoardListHandler 변경
+- com.eomcs.pms.handler.BoardDetailHandler 변경
+- com.eomcs.pms.handler.BoardUpdateHandler 변경
+- com.eomcs.pms.handler.BoardDeleteHandler 변경
+- com.eomcs.pms.handler.BoardHandler 다시 생성
+
+
+### 3단계 - generalization을 통해 만든 수퍼 클래스를 추상 클래스로 변경한다.
+
+- `BoardHandler` 클래스를 추상 클래스로 변경한다.
+  - 클래스를 추상클래스로 만들어 상속 받는 용도로만 사용하게 한다.
+  - 클래스의 이름을 `AbstractBoardHandler` 로 변경한다.
+
+### 작업 파일
+
+- com.eomcs.pms.handler.AbstractBoardHandler 이름 변경
+
+
+### 4단계 - 나머지 `MemberHandler`, `ProjectHandler`, `TaskHandler` 도 Command 패턴을 적용한다.
 
 
 #### 작업 파일
 
-- com.eomcs.pms.handler.BoardHandler 클래스 변경
-- com.eomcs.pms.App 클래스 변경
+- com.eomcs.pms.handler.MemberAddHandler 생성
+- com.eomcs.pms.handler.MemberListHandler 생성
+- com.eomcs.pms.handler.MemberDetailHandler 생성
+- com.eomcs.pms.handler.MemberUpdateHandler 생성
+- com.eomcs.pms.handler.MemberDeleteHandler 생성
+- com.eomcs.pms.handler.AbstractMemberHandler 생성
+- com.eomcs.pms.handler.MemberHandler 삭제
+- com.eomcs.pms.handler.ProjectAddHandler 생성
+- com.eomcs.pms.handler.ProjectListHandler 생성
+- com.eomcs.pms.handler.ProjectDetailHandler 생성
+- com.eomcs.pms.handler.ProjectUpdateHandler 생성
+- com.eomcs.pms.handler.ProjectDeleteHandler 생성
+- com.eomcs.pms.handler.AbstractProjectHandler 생성
+- com.eomcs.pms.handler.ProjectHandler 삭제
+- com.eomcs.pms.handler.TaskAddHandler 생성
+- com.eomcs.pms.handler.TaskListHandler 생성
+- com.eomcs.pms.handler.TaskDetailHandler 생성
+- com.eomcs.pms.handler.TaskUpdateHandler 생성
+- com.eomcs.pms.handler.TaskDeleteHandler 생성
+- com.eomcs.pms.handler.AbstractTaskHandler 생성
+- com.eomcs.pms.handler.TaskHandler 삭제
+- com.eomcs.pms.App 변경
 
+### 5단계 - [리팩토링] `AbstractMemberHandler`에서 회원 유효성 검사를 하는 메서드를 별도의 클래스로 분리한다.
+
+- `MemberValidatorHandler` 클래스 추가
+  - `AbstractMemberHandler`에 있는 `inputMember()`와 `inputMembers()`를 이 클래스로 옮긴다.
+- `ProjectAddHandler`, `ProjectUpdateHandler`, `TaskAddHandler`, `TaskUpdateHandler` 클래스의 의존 객체를 `MemberValidatorHandler`로 교체한다.
+
+#### 작업 파일
+
+- com.eomcs.pms.handler.MemberValidatorHandler 생성
+- com.eomcs.pms.handler.ProjectAddHandler 변경
+- com.eomcs.pms.handler.ProjectUpdateHandler 변경
+- com.eomcs.pms.handler.TaskAddHandler 변경
+- com.eomcs.pms.handler.TaskUpdateHandler 변경
+- com.eomcs.pms.App 변경
+
+### 6단계 - 커맨드 패턴 적용 후 : 게시글 검색 기능을 추가해보자.
+
+- 커맨드 패턴을 적용하여 애플리케이션 아키텍처가 변경되었다.
+- 커맨드 패턴을 적용할 경우 새 기능 추가가 쉽다는 것을 확인해보자.
+
+```console
+명령> /board/search
+검색어? aa
+검색어에 해당하는 게시글이 없습니다.
+
+명령> /board/search
+검색어? bb
+1, aa bbb, ok, 2020-1-1, 3
+7, bbacc, no, 2020-2-3, 23
+
+명령>
+```
+
+- `/board/search` 명령을 처리할 클래스를 정의한다.
+  - `BoardSearchHandler` 클래스 생성
+  - Command 패턴을 적용하기 전에는 기존의 `BoardHandler`에 코드를 추가하였다.
+  - Command 패턴을 적용한 후에는 단지 새 클래스를 만들기만 하면 된다.
+  - 기존 코드를 손댈 필요가 없다.
+
+#### 작업 파일
+
+- com.eomcs.pms.handler.BoardSearchHandler 생성
+- com.eomcs.pms.App 변경
+
+### 7단계 - 커맨드 패턴 적용 후 : `/hello` 명령을 추가한다.
+
+- 커맨드 패턴을 적용할 경우 새 기능 추가가 쉽다는 것을 확인해보자.
+
+```console
+명령> /hello
+안녕하세요!
+
+명령>
+```
+
+#### 작업 파일
+
+- com.eomcs.pms.handler.HelloHandler 생성
+- com.eomcs.pms.App 변경
 
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/pms/handler/BoardHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/BoardAddHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/BoardListHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/BoardDetailHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/BoardUpdateHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/BoardDeleteHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/AbstractBoardHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/ABoardHandler.java 삭제
+- src/main/java/com/eomcs/pms/handler/MemberAddHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/MemberListHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/MemberDetailHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/MemberUpdateHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/MemberDeleteHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/AbstractMemberHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/MemberHandler.java 삭제
+- src/main/java/com/eomcs/pms/handler/ProjectAddHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/ProjectListHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/ProjectDetailHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/ProjectUpdateHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/ProjectDeleteHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/AbstractProjectHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/ProjectHandler.java 삭제
+- src/main/java/com/eomcs/pms/handler/TaskAddHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/TaskListHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/TaskDetailHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/TaskUpdateHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/TaskDeleteHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/AbstractTaskHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/TaskHandler.java 삭제
+- src/main/java/com/eomcs/pms/handler/BoardSearchHandler.java 생성
+- src/main/java/com/eomcs/pms/handler/HelloHandler.java 생성
 - src/main/java/com/eomcs/pms/App.java 변경

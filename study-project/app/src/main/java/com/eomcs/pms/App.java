@@ -9,7 +9,11 @@ import com.eomcs.pms.domain.Board;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.pms.handler.AuthHandler;
-import com.eomcs.pms.handler.BoardHandler;
+import com.eomcs.pms.handler.BoardAddHandler;
+import com.eomcs.pms.handler.BoardDeleteHandler;
+import com.eomcs.pms.handler.BoardDetailHandler;
+import com.eomcs.pms.handler.BoardListHandler;
+import com.eomcs.pms.handler.BoardUpdateHandler;
 import com.eomcs.pms.handler.MemberHandler;
 import com.eomcs.pms.handler.ProjectHandler;
 import com.eomcs.pms.handler.TaskHandler;
@@ -20,7 +24,12 @@ public class App {
   List<Member> memberList = new LinkedList<>();
   List<Project> projectList = new ArrayList<>();
 
-  BoardHandler boardHandler = new BoardHandler(boardList);
+  BoardAddHandler boardAddHandler = new BoardAddHandler(boardList);
+  BoardListHandler boardListHandler = new BoardListHandler(boardList);
+  BoardDetailHandler boardDetailHandler = new BoardDetailHandler(boardList);
+  BoardUpdateHandler boardUpdateHandler = new BoardUpdateHandler(boardList);
+  BoardDeleteHandler boardDeleteHandler = new BoardDeleteHandler(boardList);
+
   MemberHandler memberHandler = new MemberHandler(memberList);
   ProjectHandler projectHandler = new ProjectHandler(projectList, memberHandler);
   TaskHandler taskHandler = new TaskHandler(projectHandler);
@@ -67,32 +76,27 @@ public class App {
     boardMenu.add(new Menu("등록", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        boardHandler.add(); 
+        boardAddHandler.add(); 
       }});
     boardMenu.add(new Menu("목록") {
       @Override
       public void execute() {
-        boardHandler.list(); 
+        boardListHandler.list(); 
       }});
     boardMenu.add(new Menu("상세보기") {
       @Override
       public void execute() {
-        boardHandler.detail(); 
+        boardDetailHandler.detail(); 
       }});
     boardMenu.add(new Menu("변경", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        boardHandler.update(); 
+        boardUpdateHandler.update(); 
       }});
     boardMenu.add(new Menu("삭제", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        boardHandler.delete(); 
-      }});
-    boardMenu.add(new Menu("검색") {
-      @Override
-      public void execute() {
-        boardHandler.search(); 
+        boardDeleteHandler.delete(); 
       }});
 
     MenuGroup memberMenu = new MenuGroup("회원");
