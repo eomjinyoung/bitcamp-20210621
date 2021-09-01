@@ -35,7 +35,7 @@ public class TaskHandler {
     task.setContent(Prompt.inputString("내용? "));
     task.setDeadline(Prompt.inputDate("마감일? "));
     task.setStatus(promptStatus());
-    task.setOwner(MemberHandler.promptMember("담당자?(취소: 빈 문자열) ", project.getMembers()));
+    task.setOwner(AbstractMemberHandler.promptMember("담당자?(취소: 빈 문자열) ", project.getMembers()));
     if (task.getOwner() == null) {
       System.out.println("작업 등록을 취소합니다.");
       return; 
@@ -127,7 +127,7 @@ public class TaskHandler {
     String content = Prompt.inputString(String.format("내용(%s)? ", task.getContent()));
     Date deadline = Prompt.inputDate(String.format("마감일(%s)? ", task.getDeadline()));
     int status = promptStatus(task.getStatus());
-    Member owner = MemberHandler.promptMember(
+    Member owner = AbstractMemberHandler.promptMember(
         String.format("담당자(%s)?(취소: 빈 문자열) ", task.getOwner().getName()), 
         project.getMembers());
     if (owner == null) {
