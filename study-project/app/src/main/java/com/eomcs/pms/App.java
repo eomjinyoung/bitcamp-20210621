@@ -15,6 +15,7 @@ import com.eomcs.pms.handler.BoardAddHandler;
 import com.eomcs.pms.handler.BoardDeleteHandler;
 import com.eomcs.pms.handler.BoardDetailHandler;
 import com.eomcs.pms.handler.BoardListHandler;
+import com.eomcs.pms.handler.BoardSearchHandler;
 import com.eomcs.pms.handler.BoardUpdateHandler;
 import com.eomcs.pms.handler.MemberAddHandler;
 import com.eomcs.pms.handler.MemberDeleteHandler;
@@ -44,7 +45,7 @@ public class App {
   BoardDetailHandler boardDetailHandler = new BoardDetailHandler(boardList);
   BoardUpdateHandler boardUpdateHandler = new BoardUpdateHandler(boardList);
   BoardDeleteHandler boardDeleteHandler = new BoardDeleteHandler(boardList);
-  BoardDeleteHandler boardDeleteHandler = new BoardDeleteHandler(boardList);
+  BoardSearchHandler boardSearchHandler = new BoardSearchHandler(boardList);
 
   MemberAddHandler memberAddHandler = new MemberAddHandler(memberList);
   MemberListHandler memberListHandler = new MemberListHandler(memberList);
