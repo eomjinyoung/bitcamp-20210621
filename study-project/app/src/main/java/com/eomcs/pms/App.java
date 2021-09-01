@@ -89,6 +89,11 @@ public class App {
       public void execute() {
         boardHandler.delete(); 
       }});
+    boardMenu.add(new Menu("검색") {
+      @Override
+      public void execute() {
+        boardHandler.search(); 
+      }});
 
     MenuGroup memberMenu = new MenuGroup("회원");
     mainMenuGroup.add(memberMenu);

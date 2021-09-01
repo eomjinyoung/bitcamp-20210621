@@ -31,16 +31,7 @@ public class BoardHandler {
   public void list() {
     System.out.println("[게시글 목록]");
 
-    // 현재 BoardList에 보관된 값을 담을 수 있는 만큼 크기의 배열을 생성한다. 
-    Board[] boards = new Board[boardList.size()];
-
-    // 배열을 파라미터로 넘겨서 값을 받아 온다.
-    // => 넘겨 주는 배열의 크기가 충분하기 때문에 toArray()는 새 배열을 만들지 않을 것이다.
-    boardList.toArray(boards);
-
-    // 이렇게 제네릭이 적용된 List를 사용하면 
-    // List에서 값을 꺼낼 때 마다 형변환 할 필요가 없어 프로그래밍이 편리하다.
-    for (Board board : boards) {
+    for (Board board : boardList) {
       System.out.printf("%d, %s, %s, %s, %d, %d\n", 
           board.getNo(), 
           board.getTitle(), 
@@ -126,6 +117,27 @@ public class BoardHandler {
     boardList.remove(board);
 
     System.out.println("게시글을 삭제하였습니다.");
+  }
+
+  public void search() {
+    System.out.println("[게시글 검색]");
+
+    String input = Prompt.inputString("검색? ");
+
+    for (Board board : boardList) {
+      if (!board.getTitle().contains(input) &&
+          !board.getContent().contains(input) &&
+          !board.getWriter().getName().contains(input)) {
+        continue;
+      }
+      System.out.printf("%d, %s, %s, %s, %d, %d\n", 
+          board.getNo(), 
+          board.getTitle(), 
+          board.getWriter().getName(),
+          board.getRegisteredDate(),
+          board.getViewCount(), 
+          board.getLike());
+    }
   }
 
   private Board findByNo(int no) {
