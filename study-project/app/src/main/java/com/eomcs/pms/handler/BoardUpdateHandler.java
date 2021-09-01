@@ -4,12 +4,10 @@ import java.util.List;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
 
-public class BoardUpdateHandler {
-
-  List<Board> boardList;
+public class BoardUpdateHandler extends AbstractBoardHandler {
 
   public BoardUpdateHandler(List<Board> boardList) {
-    this.boardList = boardList;
+    super(boardList);
   }
 
   public void update() {
@@ -40,15 +38,6 @@ public class BoardUpdateHandler {
     board.setTitle(title);
     board.setContent(content);
     System.out.println("게시글을 변경하였습니다.");
-  }
-
-  private Board findByNo(int no) {
-    for (Board board : boardList) {
-      if (board.getNo() == no) {
-        return board;
-      }
-    }
-    return null;
   }
 }
 

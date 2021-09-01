@@ -3,12 +3,10 @@ package com.eomcs.pms.handler;
 import java.util.List;
 import com.eomcs.pms.domain.Board;
 
-public class BoardListHandler {
-
-  List<Board> boardList;
+public class BoardListHandler extends AbstractBoardHandler {
 
   public BoardListHandler(List<Board> boardList) {
-    this.boardList = boardList;
+    super(boardList);
   }
 
   public void list() {

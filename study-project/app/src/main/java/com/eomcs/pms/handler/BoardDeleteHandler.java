@@ -4,12 +4,10 @@ import java.util.List;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
 
-public class BoardDeleteHandler {
-
-  List<Board> boardList;
+public class BoardDeleteHandler extends AbstractBoardHandler {
 
   public BoardDeleteHandler(List<Board> boardList) {
-    this.boardList = boardList;
+    super(boardList);
   }
 
   public void delete() {
@@ -37,25 +35,6 @@ public class BoardDeleteHandler {
     boardList.remove(board);
 
     System.out.println("게시글을 삭제하였습니다.");
-  }
-
-  private Board findByNo(int no) {
-    for (Board board : boardList) {
-      if (board.getNo() == no) {
-        return board;
-      }
-    }
-
-    // 위의 코드는 컴파일할 때 다음 코드로 변경된다.
-    //    Iterator<Board> boards = boardList.iterator();
-    //    while (boards.hasNext()) {
-    //      Board board = boards.next();
-    //      if (board.getNo() == no) {
-    //        return board;
-    //      }
-    //    }
-
-    return null;
   }
 }
 

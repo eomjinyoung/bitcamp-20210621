@@ -4,12 +4,10 @@ import java.util.List;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.util.Prompt;
 
-public class BoardDetailHandler {
-
-  List<Board> boardList;
+public class BoardDetailHandler extends AbstractBoardHandler {
 
   public BoardDetailHandler(List<Board> boardList) {
-    this.boardList = boardList;
+    super(boardList);
   }
 
   public void detail() {
@@ -30,15 +28,6 @@ public class BoardDetailHandler {
 
     board.setViewCount(board.getViewCount() + 1);
     System.out.printf("조회수: %d\n", board.getViewCount());
-  }
-
-  private Board findByNo(int no) {
-    for (Board board : boardList) {
-      if (board.getNo() == no) {
-        return board;
-      }
-    }
-    return null;
   }
 }
 

@@ -53,7 +53,7 @@
 
 ### 2단계 - 여러 클래스에 공통으로 등장하는 필드와 메서드를 별도의 클래스로 분리한다.
 
-- `BoardHandler` 클래스를 정의한다.
+- com.eomcs.pms.handler.AbstractBoardHandler 클래스 추가
   - BoardXxxHandler 클래스에 있던 공통 멤버인 `boardList`와 `findByNo()` 메서드를 이 클래스로 가져온다.
   - BoardXxxHandler에서 이 클래스를 상속 받도록 한다.
 
@@ -64,21 +64,18 @@
 - com.eomcs.pms.handler.BoardDetailHandler 변경
 - com.eomcs.pms.handler.BoardUpdateHandler 변경
 - com.eomcs.pms.handler.BoardDeleteHandler 변경
-- com.eomcs.pms.handler.BoardHandler 다시 생성
+- com.eomcs.pms.handler.AbstractBoardHandler 다시 생성
 
 
 ### 3단계 - generalization을 통해 만든 수퍼 클래스를 추상 클래스로 변경한다.
 
-- `BoardHandler` 클래스를 추상 클래스로 변경한다.
+- com.eomcs.pms.handler.AbstractBoardHandler 이름 변경
+  - `BoardHandler` 클래스를 추상 클래스로 변경한다.
   - 클래스를 추상클래스로 만들어 상속 받는 용도로만 사용하게 한다.
   - 클래스의 이름을 `AbstractBoardHandler` 로 변경한다.
 
-### 작업 파일
 
-- com.eomcs.pms.handler.AbstractBoardHandler 이름 변경
-
-
-### 4단계 - 나머지 `MemberHandler`, `ProjectHandler`, `TaskHandler` 도 Command 패턴을 적용한다.
+### 4단계 - 나머지 `MemberHandler`, `ProjectHandler`, `TaskHandler`, `AuthHandler` 도 Command 패턴을 적용한다.
 
 
 #### 작업 파일
@@ -104,6 +101,9 @@
 - com.eomcs.pms.handler.TaskDeleteHandler 생성
 - com.eomcs.pms.handler.AbstractTaskHandler 생성
 - com.eomcs.pms.handler.TaskHandler 삭제
+- com.eomcs.pms.handler.AuthLoginHandler 생성
+- com.eomcs.pms.handler.AuthLogoutHandler 생성
+- com.eomcs.pms.handler.AuthUserInfoHandler 생성
 - com.eomcs.pms.App 변경
 
 ### 5단계 - [리팩토링] `AbstractMemberHandler`에서 회원 유효성 검사를 하는 메서드를 별도의 클래스로 분리한다.
