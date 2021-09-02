@@ -1,6 +1,7 @@
 package com.eomcs.pms;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import com.eomcs.menu.Menu;
@@ -17,6 +18,7 @@ import com.eomcs.pms.handler.BoardDetailHandler;
 import com.eomcs.pms.handler.BoardListHandler;
 import com.eomcs.pms.handler.BoardSearchHandler;
 import com.eomcs.pms.handler.BoardUpdateHandler;
+import com.eomcs.pms.handler.Command;
 import com.eomcs.pms.handler.MemberAddHandler;
 import com.eomcs.pms.handler.MemberDeleteHandler;
 import com.eomcs.pms.handler.MemberDetailHandler;
@@ -27,6 +29,7 @@ import com.eomcs.pms.handler.ProjectAddHandler;
 import com.eomcs.pms.handler.ProjectDeleteHandler;
 import com.eomcs.pms.handler.ProjectDetailHandler;
 import com.eomcs.pms.handler.ProjectListHandler;
+import com.eomcs.pms.handler.ProjectPrompt;
 import com.eomcs.pms.handler.ProjectUpdateHandler;
 import com.eomcs.pms.handler.TaskAddHandler;
 import com.eomcs.pms.handler.TaskDeleteHandler;
@@ -40,39 +43,64 @@ public class App {
   List<Member> memberList = new LinkedList<>();
   List<Project> projectList = new ArrayList<>();
 
-  BoardAddHandler boardAddHandler = new BoardAddHandler(boardList);
-  BoardListHandler boardListHandler = new BoardListHandler(boardList);
-  BoardDetailHandler boardDetailHandler = new BoardDetailHandler(boardList);
-  BoardUpdateHandler boardUpdateHandler = new BoardUpdateHandler(boardList);
-  BoardDeleteHandler boardDeleteHandler = new BoardDeleteHandler(boardList);
-  BoardSearchHandler boardSearchHandler = new BoardSearchHandler(boardList);
+  HashMap<String,Command> commandMap = new HashMap<>();
 
-  MemberAddHandler memberAddHandler = new MemberAddHandler(memberList);
-  MemberListHandler memberListHandler = new MemberListHandler(memberList);
-  MemberDetailHandler memberDetailHandler = new MemberDetailHandler(memberList);
-  MemberUpdateHandler memberUpdateHandler = new MemberUpdateHandler(memberList);
-  MemberDeleteHandler memberDeleteHandler = new MemberDeleteHandler(memberList);
-  MemberPrompt memberPromptHandler = new MemberPrompt(memberList);
+  MemberPrompt memberPrompt = new MemberPrompt(memberList);
+  ProjectPrompt projectPrompt = new ProjectPrompt(projectList);
 
-  ProjectAddHandler projectAddHandler = new ProjectAddHandler(projectList, memberPromptHandler);
-  ProjectListHandler projectListHandler = new ProjectListHandler(projectList);
-  ProjectDetailHandler projectDetailHandler = new ProjectDetailHandler(projectList);
-  ProjectUpdateHandler projectUpdateHandler = new ProjectUpdateHandler(projectList, memberPromptHandler);
-  ProjectDeleteHandler projectDeleteHandler = new ProjectDeleteHandler(projectList);
+  // Menu 추상 클래스를 상속 받아서 PMS 시스템에 맞게 기능을 추가한다.
+  class MenuItem extends Menu {
 
-  TaskAddHandler taskAddHandler = new TaskAddHandler(projectListHandler);
-  TaskListHandler taskListHandler = new TaskListHandler(projectListHandler);
-  TaskDetailHandler taskDetailHandler = new TaskDetailHandler(projectListHandler);
-  TaskUpdateHandler taskUpdateHandler = new TaskUpdateHandler(projectListHandler);
-  TaskDeleteHandler taskDeleteHandler = new TaskDeleteHandler(projectListHandler);
+    // 1) 메뉴의 ID를 저장할 필드를 선언한다.
+    // - 이 메뉴 아이디는 커맨드 객체를 찾을 때 사용할 것이다.
+    String menuId;
 
-  AuthLoginHandler authLoginHandler = new AuthLoginHandler(memberList);
-  AuthLogoutHandler authLogoutHandler = new AuthLogoutHandler();
-  AuthUserInfoHandler authUserInfoHandler = new AuthUserInfoHandler();
+    public MenuItem(String title, String menuId) {
+      super(title);
+      this.menuId = me
+    }
+
+    @Override
+    public void execute() {
+      // TODO Auto-generated method stub
+
+    }
+  }
 
   public static void main(String[] args) {
     App app = new App(); 
     app.service();
+  }
+
+  public App() {
+    commandMap.put("/board/add", new BoardAddHandler(boardList));
+    commandMap.put("/board/list", new BoardListHandler(boardList));
+    commandMap.put("/board/detail", new BoardDetailHandler(boardList));
+    commandMap.put("/board/update", new BoardUpdateHandler(boardList));
+    commandMap.put("/board/delete", new BoardDeleteHandler(boardList));
+    commandMap.put("/board/search", new BoardSearchHandler(boardList));
+
+    commandMap.put("/member/add", new MemberAddHandler(memberList));
+    commandMap.put("/member/list", new MemberListHandler(memberList));
+    commandMap.put("/member/detail", new MemberDetailHandler(memberList));
+    commandMap.put("/member/update", new MemberUpdateHandler(memberList));
+    commandMap.put("/member/delete", new MemberDeleteHandler(memberList));
+
+    commandMap.put("/project/add", new ProjectAddHandler(projectList, memberPrompt));
+    commandMap.put("/project/list", new ProjectListHandler(projectList));
+    commandMap.put("/project/detail", new ProjectDetailHandler(projectList));
+    commandMap.put("/project/update", new ProjectUpdateHandler(projectList, memberPrompt));
+    commandMap.put("/project/delete", new ProjectDeleteHandler(projectList));
+
+    commandMap.put("/task/add", new TaskAddHandler(projectPrompt));
+    commandMap.put("/task/list", new TaskListHandler(projectPrompt));
+    commandMap.put("/task/detail", new TaskDetailHandler(projectPrompt));
+    commandMap.put("/task/update", new TaskUpdateHandler(projectPrompt));
+    commandMap.put("/task/delete", new TaskDeleteHandler(projectPrompt));
+
+    commandMap.put("/auth/login", new AuthLoginHandler(memberList));
+    commandMap.put("/auth/logout", new AuthLogoutHandler());
+    commandMap.put("/auth/userinfo", new AuthUserInfoHandler());
   }
 
   void service() {

@@ -8,15 +8,15 @@ import com.eomcs.util.Prompt;
 
 public class TaskUpdateHandler extends AbstractTaskHandler {
 
-  public TaskUpdateHandler(AbstractProjectHandler projectHandler) {
-    super(projectHandler);
+  public TaskUpdateHandler(ProjectPrompt projectPrompt) {
+    super(projectPrompt);
   }
 
   @Override
   public void execute() {
     System.out.println("[작업 변경]");
 
-    Project project = projectHandler.promptProject();
+    Project project = projectPrompt.promptProject();
     if (project == null) {
       System.out.println("작업 변경을 취소합니다.");
       return;

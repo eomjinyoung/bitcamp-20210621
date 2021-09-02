@@ -6,15 +6,15 @@ import com.eomcs.util.Prompt;
 
 public class TaskDeleteHandler extends AbstractTaskHandler {
 
-  public TaskDeleteHandler(AbstractProjectHandler projectHandler) {
-    super(projectHandler);
+  public TaskDeleteHandler(ProjectPrompt projectPrompt) {
+    super(projectPrompt);
   }
 
   @Override
   public void execute() {
     System.out.println("[작업 삭제]");
 
-    Project project = projectHandler.promptProject();
+    Project project = projectPrompt.promptProject();
     if (project == null) {
       System.out.println("작업 삭제를 취소합니다.");
       return;
