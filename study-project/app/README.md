@@ -37,10 +37,22 @@
 ### 3단계 - `Menu` 객체에서 `Map` 객체에 들어 있는 `Command` 구현체를 사용하도록 변경한다.
 
 - com.eomcs.pms.App 클래스 변경
-  - `Menu`를 구현한 inner class 를 정의한다.
+  - `Menu`를 구현한 inner class `MenuItem`을 정의한다.
     - 메뉴를 실행할 때 `Map`에서 `Command` 객체를 찾아 실행한다.
+  - createMenu() 변경 : 메뉴 객체를 만들 때 MenuItem 을 사용한다. 
+    - MenuItem 객체를 만들 때 메뉴 아이디를 지정한다.
+    - 메뉴 아이디는 해당 메뉴를 처리할 커맨드 객체의 key 와 일치해야 한다.
+
+### 4단계 - 리팩토링 : 메뉴 생성 코드를 정리한다.
+
+- com.eomcs.pms.App 클래스 변경
+  - createMenuItem() 변경
+    - 각 메뉴 그룹 생성 코드를 별도의 메서드를 분리한다.
+    - 메서드 명을 createMainMenu()로 변경한다.
+  - createXxxMenu() 생성 
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/pms/handler/XxxHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/AbstractProjectHandler.java 변경
+- src/main/java/com/eomcs/pms/handler/ProjectPrompt.java 추가
 - src/main/java/com/eomcs/pms/App.java 변경
