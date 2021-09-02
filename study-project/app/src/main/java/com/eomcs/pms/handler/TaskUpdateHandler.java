@@ -12,7 +12,8 @@ public class TaskUpdateHandler extends AbstractTaskHandler {
     super(projectHandler);
   }
 
-  public void update() {
+  @Override
+  public void execute() {
     System.out.println("[작업 변경]");
 
     Project project = projectHandler.promptProject();

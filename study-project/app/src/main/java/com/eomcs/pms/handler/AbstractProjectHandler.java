@@ -4,7 +4,7 @@ import java.util.List;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.util.Prompt;
 
-public abstract class AbstractProjectHandler {
+public abstract class AbstractProjectHandler implements Command {
 
   protected List<Project> projectList;
 

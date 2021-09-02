@@ -10,7 +10,8 @@ public class ProjectDetailHandler extends AbstractProjectHandler {
     super(projectList);
   }
 
-  public void detail() {
+  @Override
+  public void execute() {
     System.out.println("[프로젝트 상세보기]");
     int no = Prompt.inputInt("번호? ");
 

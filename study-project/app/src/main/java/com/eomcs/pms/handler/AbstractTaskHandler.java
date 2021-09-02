@@ -4,7 +4,7 @@ import com.eomcs.pms.domain.Project;
 import com.eomcs.pms.domain.Task;
 import com.eomcs.util.Prompt;
 
-public abstract class AbstractTaskHandler {
+public abstract class AbstractTaskHandler implements Command {
 
   protected AbstractProjectHandler projectHandler;
 

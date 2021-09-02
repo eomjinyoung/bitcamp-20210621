@@ -87,21 +87,21 @@ public class App {
     mainMenuGroup.add(new Menu("로그인", Menu.ENABLE_LOGOUT) {
       @Override
       public void execute() {
-        authLoginHandler.login(); 
+        authLoginHandler.execute(); 
       }
     });
 
     mainMenuGroup.add(new Menu("내정보", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        authUserInfoHandler.displayLoginUser(); 
+        authUserInfoHandler.execute(); 
       }
     });
 
     mainMenuGroup.add(new Menu("로그아웃", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        authLogoutHandler.logout(); 
+        authLogoutHandler.execute(); 
       }
     });
 
@@ -145,27 +145,27 @@ public class App {
     memberMenu.add(new Menu("등록", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        memberAddHandler.add(); 
+        memberAddHandler.execute(); 
       }});
     memberMenu.add(new Menu("목록") {
       @Override
       public void execute() {
-        memberListHandler.list(); 
+        memberListHandler.execute(); 
       }});
     memberMenu.add(new Menu("상세보기") {
       @Override
       public void execute() {
-        memberDetailHandler.detail(); 
+        memberDetailHandler.execute(); 
       }});
     memberMenu.add(new Menu("변경", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        memberUpdateHandler.update(); 
+        memberUpdateHandler.execute(); 
       }});
     memberMenu.add(new Menu("삭제", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        memberDeleteHandler.delete(); 
+        memberDeleteHandler.execute(); 
       }});
 
     MenuGroup projectMenu = new MenuGroup("프로젝트");
@@ -174,27 +174,27 @@ public class App {
     projectMenu.add(new Menu("등록", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        projectAddHandler.add(); 
+        projectAddHandler.execute(); 
       }});
     projectMenu.add(new Menu("목록") {
       @Override
       public void execute() {
-        projectListHandler.list(); 
+        projectListHandler.execute(); 
       }});
     projectMenu.add(new Menu("상세보기") {
       @Override
       public void execute() {
-        projectDetailHandler.detail(); 
+        projectDetailHandler.execute(); 
       }});
     projectMenu.add(new Menu("변경", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        projectUpdateHandler.update(); 
+        projectUpdateHandler.execute(); 
       }});
     projectMenu.add(new Menu("삭제", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        projectDeleteHandler.delete(); 
+        projectDeleteHandler.execute(); 
       }});
 
     MenuGroup taskMenu = new MenuGroup("작업");
@@ -203,27 +203,27 @@ public class App {
     taskMenu.add(new Menu("등록", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        taskAddHandler.add(); 
+        taskAddHandler.execute(); 
       }});
     taskMenu.add(new Menu("목록") {
       @Override
       public void execute() {
-        taskListHandler.list(); 
+        taskListHandler.execute(); 
       }});
     taskMenu.add(new Menu("상세보기") {
       @Override
       public void execute() {
-        taskDetailHandler.detail(); 
+        taskDetailHandler.execute(); 
       }});
     taskMenu.add(new Menu("변경", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        taskUpdateHandler.update(); 
+        taskUpdateHandler.execute(); 
       }});
     taskMenu.add(new Menu("삭제", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        taskDeleteHandler.delete(); 
+        taskDeleteHandler.execute(); 
       }});
 
 

@@ -50,7 +50,7 @@
 - com.eomcs.pms.handler.AbstractXxxHandler 클래스 변경
   - `Command` 인터페이스를 구현하겠다고 선언한다.
   - 단 `execute()` 정의는 서브 클래스에서 하도록 구현하지 않는다.
-- com.eomcs.pms.handlerf.XxxHandler 클래스 변경
+- com.eomcs.pms.handler.XxxHandler 클래스 변경
   - 각 핸들러 마다 다른 이름의 메서드를 정의하였다.
   - `Command` 규칙에 맞춰 이름을 변경한다.
   - `App`에서 핸들러의 메서드를 호출할 때 `Command` 규칙에 맞춰 호출한다.

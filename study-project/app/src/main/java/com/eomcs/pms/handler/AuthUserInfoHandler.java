@@ -2,9 +2,10 @@ package com.eomcs.pms.handler;
 
 import com.eomcs.pms.domain.Member;
 
-public class AuthUserInfoHandler {
+public class AuthUserInfoHandler implements Command {
 
-  public void displayLoginUser() {
+  @Override
+  public void execute() {
     System.out.println("[내정보]");
 
     Member loginUser = AuthLoginHandler.getLoginUser();

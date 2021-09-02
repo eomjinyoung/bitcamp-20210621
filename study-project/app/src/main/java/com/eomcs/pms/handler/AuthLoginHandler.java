@@ -4,7 +4,7 @@ import java.util.List;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
 
-public class AuthLoginHandler {
+public class AuthLoginHandler implements Command {
 
   List<Member> memberList;
 
@@ -17,7 +17,8 @@ public class AuthLoginHandler {
     this.memberList = memberList;
   }
 
-  public void login() {
+  @Override
+  public void execute() {
     System.out.println("[로그인]");
 
     String email = Prompt.inputString("이메일? ");
