@@ -21,7 +21,7 @@ import com.eomcs.pms.handler.MemberAddHandler;
 import com.eomcs.pms.handler.MemberDeleteHandler;
 import com.eomcs.pms.handler.MemberDetailHandler;
 import com.eomcs.pms.handler.MemberListHandler;
-import com.eomcs.pms.handler.MemberPromptHandler;
+import com.eomcs.pms.handler.MemberPrompt;
 import com.eomcs.pms.handler.MemberUpdateHandler;
 import com.eomcs.pms.handler.ProjectAddHandler;
 import com.eomcs.pms.handler.ProjectDeleteHandler;
@@ -52,7 +52,7 @@ public class App {
   MemberDetailHandler memberDetailHandler = new MemberDetailHandler(memberList);
   MemberUpdateHandler memberUpdateHandler = new MemberUpdateHandler(memberList);
   MemberDeleteHandler memberDeleteHandler = new MemberDeleteHandler(memberList);
-  MemberPromptHandler memberPromptHandler = new MemberPromptHandler(memberList);
+  MemberPrompt memberPromptHandler = new MemberPrompt(memberList);
 
   ProjectAddHandler projectAddHandler = new ProjectAddHandler(projectList, memberPromptHandler);
   ProjectListHandler projectListHandler = new ProjectListHandler(projectList);

@@ -8,9 +8,9 @@ import com.eomcs.util.Prompt;
 
 public class ProjectAddHandler extends AbstractProjectHandler {
 
-  MemberPromptHandler memberPromptHandler;
+  MemberPrompt memberPromptHandler;
 
-  public ProjectAddHandler(List<Project> projectList, MemberPromptHandler memberPromptHandler) {
+  public ProjectAddHandler(List<Project> projectList, MemberPrompt memberPromptHandler) {
     super(projectList);
     this.memberPromptHandler = memberPromptHandler;
 

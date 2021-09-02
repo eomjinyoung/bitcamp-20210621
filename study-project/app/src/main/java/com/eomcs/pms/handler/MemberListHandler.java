@@ -9,7 +9,8 @@ public class MemberListHandler extends AbstractMemberHandler {
     super(memberList);
   }
 
-  public void list() {
+  @Override
+  public void execute() {
     System.out.println("[회원 목록]");
 
     for (Member member : memberList) {

@@ -3,7 +3,7 @@ package com.eomcs.pms.handler;
 import java.util.List;
 import com.eomcs.pms.domain.Member;
 
-public abstract class AbstractMemberHandler {
+public abstract class AbstractMemberHandler implements Command {
 
   protected List<Member> memberList;
 

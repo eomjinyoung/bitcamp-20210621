@@ -5,10 +5,12 @@ import java.util.List;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
 
-public class MemberPromptHandler extends AbstractMemberHandler {
+public class MemberPrompt {
 
-  public MemberPromptHandler(List<Member> memberList) {
-    super(memberList);
+  List<Member> memberList;
+
+  public MemberPrompt(List<Member> memberList) {
+    this.memberList = memberList;
   }
 
   protected Member findByName(String name) {
