@@ -10,7 +10,8 @@ public class BoardUpdateHandler extends AbstractBoardHandler {
     super(boardList);
   }
 
-  public void update() {
+  @Override
+  public void execute() {
     System.out.println("[게시글 변경]");
     int no = Prompt.inputInt("번호? ");
 

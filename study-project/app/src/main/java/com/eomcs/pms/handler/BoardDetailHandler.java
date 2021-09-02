@@ -10,7 +10,8 @@ public class BoardDetailHandler extends AbstractBoardHandler {
     super(boardList);
   }
 
-  public void detail() {
+  @Override
+  public void execute() {
     System.out.println("[게시글 상세보기]");
     int no = Prompt.inputInt("번호? ");
 

@@ -1,4 +1,4 @@
-# 14-d. `Command` 디자인 패턴 : 기능 추가를 통해 커맨드 패턴의 유용성 확인 
+# 14-e. `Command` 디자인 패턴 : 인터페이스로 객체의 사용 규칙 통일
 
 이번 훈련에서는 **커맨드 패턴(command pattern)** 을 프로젝트에 적용할 것이다.
 
@@ -33,28 +33,34 @@
 
 ## 실습
 
-### 1단계 - 커맨드 패턴 적용 후 : 게시물 검색 기능을 추가해보자.
+### 1단계 - 메뉴 명령을 처리하는 커맨드 객체의 사용 규칙(메서드 호출 규칙)을 정의한다.
 
-- 커맨드 패턴을 적용한 후에는 새 기능을 추가하기 위해 기존 클래스를 손댈 필요가 없다.
-- 그냥 새 클래스를 만들면 된다.
+- 기존의 핸들러 클래스는 메서드의 이름이 달라서 호출할 때 일관성이 없었다.
+- 객체 사용의 일관성을 위해 인터페이스 문법을 도입하여 객체 사용규칙을 통일해 보자.
+- `Command` 인터페이스를 정의한다.
+  - 메뉴 명령을 처리할 때 호출하는 메서드를 선언한다.
 
-```console
-[게시글 검색]
-검색어? aa
-검색어에 해당하는 게시글이 없습니다.
+#### 작업 파일
 
-[게시글 검색]
-검색어? bb
-1, aa bbb, ok, 2020-1-1, 3
-7, bbacc, no, 2020-2-3, 23
+- com.eomcs.pms.handler.Command 생성
 
-```
 
-- com.eomcs.pms.handler.BoardSearchHandler 클래스 추가
-  - `게시글 검색` 명령을 처리할 메서드를 정의한다.
-- com.eomcs.pms.App 클래스 변경
-  - createMenu() 변경: *게시글 검색* 메뉴 추가
+### 2단계 - 명령을 처리하는 XxxHandler 는 `Command` 규칙에 따라 메서드 이름을 변경한다.
 
+- com.eomcs.pms.handler.AbstractXxxHandler 클래스 변경
+  - `Command` 인터페이스를 구현하겠다고 선언한다.
+  - 단 `execute()` 정의는 서브 클래스에서 하도록 구현하지 않는다.
+- com.eomcs.pms.handlerf.XxxHandler 클래스 변경
+  - 각 핸들러 마다 다른 이름의 메서드를 정의하였다.
+  - `Command` 규칙에 맞춰 이름을 변경한다.
+  - `App`에서 핸들러의 메서드를 호출할 때 `Command` 규칙에 맞춰 호출한다.
+
+#### 작업 파일
+
+- com.eomcs.pms.handler.XxxHandler 변경
+- com.eomcs.pms.App 변경
 
 ## 실습 결과
 
+- src/main/java/com/eomcs/pms/handler/XxxHandler.java 변경
+- src/main/java/com/eomcs/pms/App.java 변경

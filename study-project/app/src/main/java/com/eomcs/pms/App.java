@@ -111,32 +111,32 @@ public class App {
     boardMenu.add(new Menu("등록", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        boardAddHandler.add(); 
+        boardAddHandler.execute(); 
       }});
     boardMenu.add(new Menu("목록") {
       @Override
       public void execute() {
-        boardListHandler.list(); 
+        boardListHandler.execute(); 
       }});
     boardMenu.add(new Menu("상세보기") {
       @Override
       public void execute() {
-        boardDetailHandler.detail(); 
+        boardDetailHandler.execute(); 
       }});
     boardMenu.add(new Menu("변경", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        boardUpdateHandler.update(); 
+        boardUpdateHandler.execute(); 
       }});
     boardMenu.add(new Menu("삭제", Menu.ENABLE_LOGIN) {
       @Override
       public void execute() {
-        boardDeleteHandler.delete(); 
+        boardDeleteHandler.execute(); 
       }});
     boardMenu.add(new Menu("검색") {
       @Override
       public void execute() {
-        boardSearchHandler.search(); 
+        boardSearchHandler.execute(); 
       }});
 
     MenuGroup memberMenu = new MenuGroup("회원");

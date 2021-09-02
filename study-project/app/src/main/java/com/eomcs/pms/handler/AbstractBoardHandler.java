@@ -3,7 +3,7 @@ package com.eomcs.pms.handler;
 import java.util.List;
 import com.eomcs.pms.domain.Board;
 
-public abstract class AbstractBoardHandler {
+public abstract class AbstractBoardHandler implements Command {
 
   protected List<Board> boardList;
 
