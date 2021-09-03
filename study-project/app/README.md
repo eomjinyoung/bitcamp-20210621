@@ -1,58 +1,40 @@
-# 14-f. `Command` 디자인 패턴 : `Map`으로 커맨드 객체 관리
+# 15. 비트 연산자 활용: 메뉴 권한 관리
 
-이번 훈련에서는 **컬렉션 API** 중에서 `Map` 객체를 이용하여
-커맨드 객체를 관리하는 것을 연습할 것이다.
+이번 훈련에서는 **비트 연산자** 를 활용하여 메뉴의 접근 권한
+통제를 연습할 것이다.
 
 ## 훈련 목표
 
-- **Map** 을 이용하여 객체를 저장하고 꺼내는 것을 연습한다.
-- **인터페이스** 를 통해 일관된 방법으로 객체를 사용하는 것을 확인한다.
+- **비트 연산자** 를 이용하여 비트를 다룰 수 있다.
+- **비트 연산자** 를 접근 권한 통제에 활용할 수 있다.
 
 
 ## 훈련 내용
 
-- 명령어를 key로 사용하여 커맨드 객체를 `Map` 객체에 담아 저장한다.
-- 명령어로 커맨드 객체를 찾아 실행한다.
+- 
 
 
 ## 실습
 
-### 1단계 - 서브 클래스가 아니라 외부 클래스에서 사용하는 메서드는 별도의 클래스로 분리한다.
+### 1단계 - 메뉴의 접근 범위를 지정할 상수와 생성자를 정의한다.
 
-- com.eomcs.pms.handler.AbstractProjectHandler 클래스 변경
-  - promptProject() 메서드 이동
-- com.eomcs.pms.handler.ProjectPrompt 클래스 추가
-  - promptProject() 메서드를 가져온다.
-- com.eomcs.pms.App 클래스 변경
-  - ProjectPrompt 객체 필드 추가
+- com.eomcs.pms.menu.Menu 클래스 변경
+  - 기존의 상수 값과 필드를 변경한다.
+- com.eomcs.pms.menu.MenuGroup 클래스 변경
+  - 생성자를 추가한다.
 
-### 2단계 - `HashMap` 객체를 이용하여 핸들러 객체를 관리한다.
+### 2단계 - 로그인/로그아웃 할 때 사용자의 권한을 설정한다.
 
-- com.eomcs.pms.App 클래스 변경
-  - 낱개의 레퍼런스로 커맨드 객체를 관리하던 방식을 `Map`을 이용하여 관리한다.
-  - 맵 객체를 사용하면 객체를 관리하기 쉽다.
-  - key : 문자열을 이용하여 메뉴 아이디를 지정한다.
-  - value : Command 구현체다.
+- com.eomcs.pms.handler.AuthLoginHandler 클래스 변경
+  - 사용자 접근 수준을 설정할 필드와 메서드를 추가한다.
+- com.eomcs.pms.handler.AuthLogoutHandler 클래스 변경
+  - 로그아웃 했을 때 사용자 접근 권한을 줄인다.
 
-### 3단계 - `Menu` 객체에서 `Map` 객체에 들어 있는 `Command` 구현체를 사용하도록 변경한다.
+### 3단계 - 메뉴를 구성할 때 접근 범위를 설정한다.
 
 - com.eomcs.pms.App 클래스 변경
-  - `Menu`를 구현한 inner class `MenuItem`을 정의한다.
-    - 메뉴를 실행할 때 `Map`에서 `Command` 객체를 찾아 실행한다.
-  - createMenu() 변경 : 메뉴 객체를 만들 때 MenuItem 을 사용한다. 
-    - MenuItem 객체를 만들 때 메뉴 아이디를 지정한다.
-    - 메뉴 아이디는 해당 메뉴를 처리할 커맨드 객체의 key 와 일치해야 한다.
+  - createXxxMenu() 변경: 새로운 규칙에 따라 접근 범위를 설정한다.
 
-### 4단계 - 리팩토링 : 메뉴 생성 코드를 정리한다.
-
-- com.eomcs.pms.App 클래스 변경
-  - createMenuItem() 변경
-    - 각 메뉴 그룹 생성 코드를 별도의 메서드를 분리한다.
-    - 메서드 명을 createMainMenu()로 변경한다.
-  - createXxxMenu() 생성 
 
 ## 실습 결과
 
-- src/main/java/com/eomcs/pms/handler/AbstractProjectHandler.java 변경
-- src/main/java/com/eomcs/pms/handler/ProjectPrompt.java 추가
-- src/main/java/com/eomcs/pms/App.java 변경
