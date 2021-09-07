@@ -9,50 +9,6 @@ public class MemberAddHandler extends AbstractMemberHandler {
 
   public MemberAddHandler(List<Member> memberList) {
     super(memberList);
-
-    Member testUser = new Member();
-    testUser.setNo(1);
-    testUser.setName("aaa");
-    testUser.setEmail("aaa@test.com");
-    testUser.setPassword("1111");
-    testUser.setPhoto("aaa.gif");
-    testUser.setTel("010-1111-1111");
-    testUser.setRegisteredDate(new Date(System.currentTimeMillis()));
-
-    memberList.add(testUser);
-
-    testUser = new Member();
-    testUser.setNo(2);
-    testUser.setName("bbb");
-    testUser.setEmail("bbb@test.com");
-    testUser.setPassword("1111");
-    testUser.setPhoto("bbb.gif");
-    testUser.setTel("010-1111-2222");
-    testUser.setRegisteredDate(new Date(System.currentTimeMillis()));
-
-    memberList.add(testUser);
-
-    testUser = new Member();
-    testUser.setNo(3);
-    testUser.setName("ccc");
-    testUser.setEmail("ccc@test.com");
-    testUser.setPassword("1111");
-    testUser.setPhoto("ccc.gif");
-    testUser.setTel("010-1111-3333");
-    testUser.setRegisteredDate(new Date(System.currentTimeMillis()));
-
-    memberList.add(testUser);
-
-    testUser = new Member();
-    testUser.setNo(4);
-    testUser.setName("ddd");
-    testUser.setEmail("ddd@test.com");
-    testUser.setPassword("1111");
-    testUser.setPhoto("ddd.gif");
-    testUser.setTel("010-1111-4444");
-    testUser.setRegisteredDate(new Date(System.currentTimeMillis()));
-
-    memberList.add(testUser);
   }
 
   @Override

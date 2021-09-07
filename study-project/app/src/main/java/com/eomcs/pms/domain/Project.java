@@ -1,10 +1,13 @@
 package com.eomcs.pms.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Project {
+@SuppressWarnings("serial")
+public class Project implements Serializable {
+
   private int no;
   private String title;
   private String content;

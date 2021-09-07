@@ -114,6 +114,9 @@
   - 백업: App.java.04
 - com.eomcs.pms.App 클래스 변경
   - List 객체를 통째로 직렬화/복원 한다.
+  - 백업: App.java.05
+  
+### 
 
 ## 실습 결과
 
