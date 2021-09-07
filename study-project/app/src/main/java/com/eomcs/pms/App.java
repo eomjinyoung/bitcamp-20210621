@@ -5,6 +5,7 @@ import static com.eomcs.menu.Menu.ACCESS_GENERAL;
 import static com.eomcs.menu.Menu.ACCESS_LOGOUT;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -117,8 +118,51 @@ public class App {
     try (FileInputStream in = new FileInputStream("board.data")) {
       int size = (in.read() << 24) | (in.read() << 16) | (in.read() << 8) | in.read();
       for (int i = 0; i < size; i++) {
+        Board board = new Board();
 
+        // 1) 게시글 번호 읽기
+        board.setNo((in.read() << 24) | (in.read() << 16) | (in.read() << 8) | in.read());
+
+        // 2) 게시글 제목 읽기
+        int strlen = (in.read() << 8) | in.read(); // 제목 문자열의 바이트 수
+        byte[] buf = new byte[strlen]; // 문자열의 바이트를 담을 배열 준비
+        in.read(buf); // 문자열의 바이트를 배열에 담는다.
+        String str = new String(buf, "UTF-8"); // 바이트 배열을 가지고 String 객체를 만든다.
+        board.setTitle(str); // Board 객체에 제목을 담는다.
+
+        // 3) 게시글 내용 읽기
+        buf = new byte[(in.read() << 8) | in.read()];
+        in.read(buf);
+        board.setContent(new String(buf, "UTF-8"));
+
+        // 4) 게시글 등록일 읽기
+        buf = new byte[(in.read() << 8) | in.read()];
+        in.read(buf);
+        Date regDate = Date.valueOf(new String(buf, "UTF-8"));
+        board.setRegisteredDate(regDate);
+
+        // 5) 게시글 조회수 읽기
+        board.setViewCount((in.read() << 24) | (in.read() << 16) | (in.read() << 8) | in.read());
+
+        // 6) 작성자 정보 읽기
+        Member writer = new Member();
+
+        // - 작성자 번호 읽기
+        writer.setNo((in.read() << 24) | (in.read() << 16) | (in.read() << 8) | in.read());
+
+        // - 작성자 이름 읽기
+        buf = new byte[(in.read() << 8) | in.read()];
+        in.read(buf);
+        writer.setName(new String(buf, "UTF-8"));
+
+        // - 게시글에 작성자 정보 저장
+        board.setWriter(writer);
+
+        // 목록에 게시글 저장
+        boardList.add(board);
       }
+
+      System.out.println("게시글 로딩 완료!");
 
     } catch (Exception e) {
       System.out.println("파일에서 게시글을 읽어 오는 중 오류 발생!");
@@ -179,6 +223,9 @@ public class App {
         out.write(bytes.length);
         out.write(bytes);
       }
+
+      System.out.println("게시글 저장 완료!");
+
     } catch (Exception e) {
       System.out.println("게시글을 파일에 저장 중 오류 발생!");
     }
