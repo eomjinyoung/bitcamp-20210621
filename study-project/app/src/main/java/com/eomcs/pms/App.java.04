@@ -121,12 +121,21 @@ public class App {
     saveBoards();
   }
 
-  @SuppressWarnings("unchecked")
   private void loadBoards() {
-    try (ObjectInputStream in = new ObjectInputStream(
-        new FileInputStream("board.data3"))) {
+    try (
+        // 파일에서 바이트를 읽어 오는 일을 하는 객체
+        FileInputStream in = new FileInputStream("board.data2");
 
-      boardList.addAll((List<Board>) in.readObject());
+        // 직렬화 방식으로 출력된 바이트를 읽어 객체의 필드 값으로 복원하는 일을 하는 객체
+        ObjectInputStream in2 = new ObjectInputStream(in)) {
+
+      // 게시글 개수를 먼저 읽는다.
+      int size = in2.readInt();
+
+      for (int i = 0; i < size; i++) {
+        boardList.add((Board)in2.readObject()); 
+        // writeObject() 로 출력한 바이트 데이터를 읽어서 원래 객체로 복원해 준다.
+      }
 
       System.out.println("게시글 로딩 완료!");
 
@@ -137,10 +146,19 @@ public class App {
   }
 
   private void saveBoards() {
-    try (ObjectOutputStream out = new ObjectOutputStream(
-        new FileOutputStream("board.data3"))) {
+    try (
+        // 파일에 바이트를 출력하는 객체
+        FileOutputStream out = new FileOutputStream("board.data2");
 
-      out.writeObject(boardList);
+        // 출력할 객체의 모든 필드 값을 바이트 배열에 담는 일을 하는 객체
+        ObjectOutputStream out2 = new ObjectOutputStream(out)) {
+
+      // 출력할 게시글 개수를 먼저 저장한다.
+      out2.writeInt(boardList.size());
+
+      for (Board board : boardList) {
+        out2.writeObject(board);
+      }
 
       System.out.println("게시글 저장 완료!");
 

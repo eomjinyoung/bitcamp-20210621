@@ -3,10 +3,11 @@ package com.eomcs.pms;
 import static com.eomcs.menu.Menu.ACCESS_ADMIN;
 import static com.eomcs.menu.Menu.ACCESS_GENERAL;
 import static com.eomcs.menu.Menu.ACCESS_LOGOUT;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -121,12 +122,33 @@ public class App {
     saveBoards();
   }
 
-  @SuppressWarnings("unchecked")
   private void loadBoards() {
-    try (ObjectInputStream in = new ObjectInputStream(
-        new FileInputStream("board.data3"))) {
+    try (
+        // 파일에서 바이트를 읽어 오는 일을 하는 객체
+        FileInputStream in = new FileInputStream("board.data");
 
-      boardList.addAll((List<Board>) in.readObject());
+        // 읽어 바이트를 가공하여 primitive 타입의 값이나 String 객체로 가공하는 일을 하는 객체
+        DataInputStream in2 = new DataInputStream(in)) {
+
+      // 게시글 개수를 먼저 읽는다.
+      int size = in2.readInt();
+
+      for (int i = 0; i < size; i++) {
+        Board board = new Board();
+        board.setNo(in2.readInt()); // writeInt()로 출력한 데이터를 읽을 때 사용
+        board.setTitle(in2.readUTF()); // writeUTF()로 출력한 문자열을 읽을 때 사용 
+        board.setContent(in2.readUTF());
+        board.setRegisteredDate(Date.valueOf(in2.readUTF()));
+        board.setViewCount(in2.readInt());
+
+        Member writer = new Member();
+        writer.setNo(in2.readInt());
+        writer.setName(in2.readUTF());
+
+        board.setWriter(writer);
+
+        boardList.add(board);
+      }
 
       System.out.println("게시글 로딩 완료!");
 
@@ -137,10 +159,25 @@ public class App {
   }
 
   private void saveBoards() {
-    try (ObjectOutputStream out = new ObjectOutputStream(
-        new FileOutputStream("board.data3"))) {
+    try (
+        // 파일에 바이트를 출력하는 객체
+        FileOutputStream out = new FileOutputStream("board.data");
 
-      out.writeObject(boardList);
+        // 파일에 바이트를 출력하기 전에 바이트 단위로 쪼개는 일을 하는 데코레이터
+        DataOutputStream out2 = new DataOutputStream(out)) {
+
+      // 출력할 게시글 개수를 먼저 저장한다.
+      out2.writeInt(boardList.size());
+
+      for (Board board : boardList) {
+        out2.writeInt(board.getNo());
+        out2.writeUTF(board.getTitle());
+        out2.writeUTF(board.getContent());
+        out2.writeUTF(board.getRegisteredDate().toString());
+        out2.writeInt(board.getViewCount());
+        out2.writeInt(board.getWriter().getNo());
+        out2.writeUTF(board.getWriter().getName());
+      }
 
       System.out.println("게시글 저장 완료!");
 
