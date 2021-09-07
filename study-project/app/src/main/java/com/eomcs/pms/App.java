@@ -3,6 +3,7 @@ package com.eomcs.pms;
 import static com.eomcs.menu.Menu.ACCESS_ADMIN;
 import static com.eomcs.menu.Menu.ACCESS_GENERAL;
 import static com.eomcs.menu.Menu.ACCESS_LOGOUT;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -110,11 +111,30 @@ public class App {
   }
 
   void service() {
+    // 파일에서 게시글 데이터를 가져오기(로딩하기, 읽기)
+    // => 저장할 때 사용한 규칙에 따라 읽어야 한다.
+    // => 즉 파일 포맷에 맞춰 읽는다.
+    try (FileInputStream in = new FileInputStream("board.data")) {
+      int size = (in.read() << 24) | (in.read() << 16) | (in.read() << 8) | in.read();
+      for (int i = 0; i < size; i++) {
+
+      }
+
+    } catch (Exception e) {
+      System.out.println("파일에서 게시글을 읽어 오는 중 오류 발생!");
+    }
+
     createMainMenu().execute();
     Prompt.close();
 
     // 게시글 데이터를 파일로 내보내기(저장하기, 쓰기)
     try (FileOutputStream out = new FileOutputStream("board.data")) {
+      // 출력할 게시글 개수를 먼저 저장한다.
+      out.write(boardList.size() >> 24);
+      out.write(boardList.size() >> 16);
+      out.write(boardList.size() >> 8);
+      out.write(boardList.size());
+
       for (Board board : boardList) {
         // 1) 게시글 번호 4바이트 출력
         out.write(board.getNo() >> 24);
@@ -162,6 +182,16 @@ public class App {
     } catch (Exception e) {
       System.out.println("게시글을 파일에 저장 중 오류 발생!");
     }
+    // 이렇게 게시글 데이터를 저장할 때 다음과 같이 나름의 형식에 따라 데이터를 출력한다.
+    // - 처음 4바이트는 저장할 게시글의 개수이고,
+    // - 그 다음 4바이트는 게시글 번호이고,
+    // - 그 다음 2바이트는 제목의 바이트 개수이고 등등 
+    // 파일에 데이터를 출력할 때 사용하는 규칙을 "파일 포맷(format)"이라 부른다.
+    // 당연히 파일에서 데이터를 읽을 때는 저장한 규칙에 맞춰 읽어야 한다.
+    // 즉 "파일 포맷"에 맞춰 읽어야 한다.
+    // .ppt 파일을 읽을 때는 ppt 파일 포맷에 맞춰 읽어야 하고,
+    // .gif 파일을 읽을 때는 gif 파일 포맷에 맞춰 읽어야 한다.
+    // 만약 파일 포맷을 모른다면 해당 파일을 제대로 읽을 수가 없다.
   }
 
   Menu createMainMenu() {
