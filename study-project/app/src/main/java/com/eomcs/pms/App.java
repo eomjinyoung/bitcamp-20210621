@@ -3,6 +3,7 @@ package com.eomcs.pms;
 import static com.eomcs.menu.Menu.ACCESS_ADMIN;
 import static com.eomcs.menu.Menu.ACCESS_GENERAL;
 import static com.eomcs.menu.Menu.ACCESS_LOGOUT;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -111,6 +112,15 @@ public class App {
   void service() {
     createMainMenu().execute();
     Prompt.close();
+
+    // 게시글 데이터를 파일로 내보내기(저장하기, 쓰기)
+    try (FileOutputStream out = new FileOutputStream("board.data")) {
+      for (Board board : boardList) {
+        out.write(board.getNo());
+      }
+    } catch (Exception e) {
+      System.out.println("게시글을 파일에 저장 중 오류 발생!");
+    }
   }
 
   Menu createMainMenu() {
