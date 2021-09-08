@@ -116,7 +116,22 @@
   - List 객체를 통째로 직렬화/복원 한다.
   - 백업: App.java.05
   
-### 
+### 5단계 - 버퍼를 사용하여 입출력 속도를 높힌다.
+
+- com.eomcs.pms.App 클래스 변경
+  - saveXxx() 변경 : BufferedOutputStream 데코레이터를 출력 스트림에 덧붙인다.
+  - loadXxx() 변경 : BufferedInputStream 데코레이터를 입력 스트림에 덧붙인다.
+  - 백업: App.java.06
+
+
+### 6단계 - 제네릭을 사용하여 여러 타입의 객체 입출력을 한 개의 메서드로 다룬다.
+
+- com.eomcs.pms.App 클래스 변경
+  - saveBoards() 변경 : 제네릭을 사용하여 출력 데이터를 가공한다.
+  - loadBoards() 변경 : 제네릭을 사용하여 입력 데이터를 가공한다.
+  - 백업: App.java.07
+
+
 
 ## 실습 결과
 
