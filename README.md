@@ -592,8 +592,33 @@
 - 자바 스트림 API(eomcs-java/com.eomcs.io)
 	- ex01: File 클래스 사용법
 	- ex02: FileInputStream/FileOutputStream 클래스 사용법
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
 
 ## 53일차(2021-09-09,목)
 
 - 자바 스트림 API(eomcs-java/com.eomcs.io)
 	- ex02: FileInputStream/FileOutputStream 클래스 사용법(계속)
+	- ex03: FileReader/FileWriter 클래스 사용법
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+
+## 54일차(2021-09-10,금)
+
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+	- 5차: 중간 구현 점검
+		- 발표 순서
+			- 변민성,위정욱,박성준,구백연,이지호
+				- 행복하share
+			- 김은채,송다혜,조솔,우형민
+				- 오늘의 공부
+			- 김태호,조주리,신현지,김진현
+				- APUJIMA
+			- 윤수민,이용진,홍지현,문세철
+				- 주류파인더
+			- 최보균,이혜연,방우주,이서은,조대희
+				- MySeoul
+			- 반계령,배서연,하선영,김제이,김주창
+				- 스터디위더스
+
