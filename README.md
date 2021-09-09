@@ -585,4 +585,15 @@
 ## 51일차(2021-09-07,화)
 
 - 실전 프로젝트(eomcs-java-project)
-	- 16-a. 바이트 스트림 다루기 : 바이너리 형식의 데이터 입출력(FileInputStream/FileOutputStream)
+	- 16. 파일 입출력 다루기 : 바이너리 형식으로 데이터 입출력
+
+## 52일차(2021-09-08,수)
+
+- 자바 스트림 API(eomcs-java/com.eomcs.io)
+	- ex01: File 클래스 사용법
+	- ex02: FileInputStream/FileOutputStream 클래스 사용법
+
+## 53일차(2021-09-09,목)
+
+- 자바 스트림 API(eomcs-java/com.eomcs.io)
+	- ex02: FileInputStream/FileOutputStream 클래스 사용법(계속)
