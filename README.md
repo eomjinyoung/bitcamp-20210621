@@ -621,4 +621,8 @@
 				- MySeoul
 			- 반계령,배서연,하선영,김제이,김주창
 				- 스터디위더스
-
+- 디자인 패턴(eomcs-java/com.eomcs.design_pattern)
+	- decorator: 데코레이터 패턴 소개
+- 자바 스트림 API(eomcs-java/com.eomcs.io)
+	- ex02: FileInputStream/FileOutputStream 클래스 사용법(계속)
+	- ex03: FileReader/FileWriter 클래스 사용법
