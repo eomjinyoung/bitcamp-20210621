@@ -624,5 +624,5 @@
 - 디자인 패턴(eomcs-java/com.eomcs.design_pattern)
 	- decorator: 데코레이터 패턴 소개
 - 자바 스트림 API(eomcs-java/com.eomcs.io)
-	- ex02: FileInputStream/FileOutputStream 클래스 사용법(계속)
-	- ex03: FileReader/FileWriter 클래스 사용법
+	- ex04: FileInputStream/FileOutputStream 을 이용하여 객체의 필드 값 출력하기
+	- ex05: FileInputStream/FileOutputStream 을 상속 받아서 기능을 확장하기
