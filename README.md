@@ -626,3 +626,9 @@
 - 자바 스트림 API(eomcs-java/com.eomcs.io)
 	- ex04: FileInputStream/FileOutputStream 을 이용하여 객체의 필드 값 출력하기
 	- ex05: FileInputStream/FileOutputStream 을 상속 받아서 기능을 확장하기
+
+## 55일차(2021-09-13,월)
+
+- 자바 스트림 API(eomcs-java/com.eomcs.io)
+	- ex06: 버퍼를 활용하는 이유
+	- ex07: 
