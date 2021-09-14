@@ -122,17 +122,19 @@
   - saveXxx() 변경 : BufferedOutputStream 데코레이터를 출력 스트림에 덧붙인다.
   - loadXxx() 변경 : BufferedInputStream 데코레이터를 입력 스트림에 덧붙인다.
   - 백업: App.java.06
+- com.eomcs.pms.domain의 도메인 클래스 변경
+  - serialVersionUID 필드를 설정한다.
 
 
 ### 6단계 - 제네릭을 사용하여 여러 타입의 객체 입출력을 한 개의 메서드로 다룬다.
 
 - com.eomcs.pms.App 클래스 변경
-  - saveBoards() 변경 : 제네릭을 사용하여 출력 데이터를 가공한다.
-  - loadBoards() 변경 : 제네릭을 사용하여 입력 데이터를 가공한다.
+  - saveXxx() 를 saveObjects() 로 통합 : 제네릭을 사용하여 객체를 저장하는 여러 메서드를 하나로 합친다.
+  - loadXxx() 를 loadObjects() 로 통합 : 제네릭을 사용하여 객체를 읽어들이는 여러 메서드를 하나로 합친다.
   - 백업: App.java.07
-
 
 
 ## 실습 결과
 
 - src/main/java/com/eomcs/pms/App.java 변경
+- src/main/java/com/eomcs/pms/domain/*.java 변경
