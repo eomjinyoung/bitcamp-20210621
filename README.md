@@ -638,3 +638,11 @@
 	- ex11: 객체를 serialize/deserialize 하기
 - 팀 프로젝트 
 	- 팀별 프로젝트 구현
+
+## 56일차(2021-09-14,화)
+
+- 자바 스트림 API(eomcs-java/com.eomcs.io)
+	- ex11: 객체를 serialize/deserialize 하기(계속)
+	- ex12: 연습
+	- ex13: 스트림 API를 사용하여 바이트 배열이나 스트링 버퍼에 출력하기
+	- ex14: 입출력 예외처리
