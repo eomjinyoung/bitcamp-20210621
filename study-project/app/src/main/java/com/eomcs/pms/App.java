@@ -3,12 +3,7 @@ package com.eomcs.pms;
 import static com.eomcs.menu.Menu.ACCESS_ADMIN;
 import static com.eomcs.menu.Menu.ACCESS_GENERAL;
 import static com.eomcs.menu.Menu.ACCESS_LOGOUT;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -115,46 +110,27 @@ public class App {
   }
 
   void service() {
-    loadObjects("board.data3", boardList);
-    loadObjects("member.data3", memberList);
-    loadObjects("project.data3", projectList);
 
     createMainMenu().execute();
     Prompt.close();
 
-    saveObjects("board.data3", boardList);
-    saveObjects("member.data3", memberList);
-    saveObjects("project.data3", projectList);
-  }
-
-  @SuppressWarnings("unchecked")
-  private <E> void loadObjects(String filepath, List<E> list) {
-    try (ObjectInputStream in = new ObjectInputStream(
-        new BufferedInputStream(
-            new FileInputStream(filepath)))) {
-
-      list.addAll((List<E>) in.readObject());
-
-      System.out.printf("%s 파일 로딩 완료!\n", filepath);
-
-    } catch (Exception e) {
-      System.out.printf("%s 파일에서 데이터를 읽어 오는 중 오류 발생!\n", filepath);
-      e.printStackTrace();
-    }
-  }
-
-  private <E> void saveObjects(String filepath, List<E> list) {
-    try (ObjectOutputStream out = new ObjectOutputStream(
-        new BufferedOutputStream(
-            new FileOutputStream(filepath)))) {
-
-      out.writeObject(list);
-
-      System.out.printf("%s 파일 저장 완료!\n", filepath);
+    // 게시글 데이터를 CSV 형식으로 출력한다.
+    try (FileWriter out = new FileWriter("board.csv")) {
+      for (Board board : boardList) {
+        out.write(String.format("%d,%s,%s,%s,%d,%d,%d,%s\n",
+            board.getNo(),
+            board.getTitle(),
+            board.getContent(),
+            board.getRegisteredDate(),
+            board.getViewCount(),
+            board.getLike(),
+            board.getWriter().getNo(),
+            board.getWriter().getName()));
+      }
+      System.out.println("게시글 데이터 출력 완료!");
 
     } catch (Exception e) {
-      System.out.printf("%s 파일에 데이터를 저장 중 오류 발생!\n", filepath);
-      e.printStackTrace();
+      System.out.println("게시글 데이터 출력 오류!");
     }
   }
 
