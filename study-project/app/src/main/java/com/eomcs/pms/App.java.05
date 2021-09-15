@@ -115,18 +115,7 @@ public class App {
   }
 
   void service() {
-    // 파일에서 게시글 데이터를 로딩하는 코드를 별도의 메서드로 분리한다.
-    loadBoards();
 
-    createMainMenu().execute();
-    Prompt.close();
-
-    // 게시글을 파일에 출력하는 코드를 별도의 메서드로 분리한다.
-    saveBoards();
-
-  }
-
-  private void loadBoards() {
     // CSV 형식으로 저장된 게시글 데이터를 파일에서 읽어 객체에 담는다. 
     try (BufferedReader in = new BufferedReader(
         new FileReader("board.csv", Charset.forName("UTF-8")))) {
@@ -141,9 +130,10 @@ public class App {
     } catch (Exception e) {
       System.out.println("게시글 데이터 로딩 오류!");
     }
-  }
 
-  private void saveBoards() {
+    createMainMenu().execute();
+    Prompt.close();
+
     // 게시글 데이터를 CSV 형식으로 출력한다.
     try (PrintWriter out = new PrintWriter(
         new BufferedWriter(
