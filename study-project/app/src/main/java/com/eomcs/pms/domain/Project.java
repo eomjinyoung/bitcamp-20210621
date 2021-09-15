@@ -3,8 +3,9 @@ package com.eomcs.pms.domain;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import com.eomcs.csv.CsvValue;
 
-public class Project {
+public class Project implements CsvValue {
   private int no;
   private String title;
   private String content;
@@ -20,6 +21,42 @@ public class Project {
         + startDate + ", endDate=" + endDate + ", owner=" + owner + ", members=" + members
         + ", tasks=" + tasks + "]";
   }
+
+  // 다음 메서드는 CsvValue 규칙에 따라 정의한 메서드다.
+  @Override
+  public String toCsvString() {
+    // 프로젝트 정보를 CSV로 출력할 때 3줄로 표현한다.
+    StringBuilder strBuilder = new StringBuilder();
+
+    // 
+    //    strBuilder.append(String.format("%d,%s,%s,%s,%s,%s,%s",
+    //        this.getNo(),
+    //        this.getName(),
+    //        this.getEmail(),
+    //        this.getPassword(),
+    //        this.getPhoto(),
+    //        this.getTel(),
+    //        this.getRegisteredDate());
+
+    return strBuilder.toString();
+  }
+
+  // 다음 메서드는 파라미터로 받은 CSV 문자열에서 값을 추출하여 
+  // Board 객체의 각 필드에 저장한다.
+  @Override
+  public void loadCsv(String csv) {
+    String[] values = csv.split(",");
+
+    // CSV 문자열에서 추출한 값을 객체의 필드에 저장한다.
+    //    this.setNo(Integer.valueOf(values[0]));
+    //    this.setName(values[1]);
+    //    this.setEmail(values[2]);
+    //    this.setPassword(values[3]);
+    //    this.setPhoto(values[4]);
+    //    this.setTel(values[5]);
+    //    this.setRegisteredDate(Date.valueOf(values[6]));
+  }
+
   public int getNo() {
     return no;
   }

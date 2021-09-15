@@ -128,7 +128,7 @@ class Student {
 - com.eomcs.pms.domain.Board 클래스 변경
   - toCsvString() 메서드 추가
     - 데이터를 갖고 있는 클래스가 CSV 문자열을 만든다.
-  - valueOfCsv(String) 메서드 추가
+  - valueOfCsv(String) 스태틱 메서드 추가
     - CSV 문자열을 만드는 객체가 인스턴스를 초기화한다.
 - com.eomcs.pms.App 클래스 변경
   - 현재는 게시글 객체를 출력할 때 CSV 형식의 문자열로 만드는 일을 App 클래스가 했다.
@@ -146,7 +146,29 @@ class Student {
 
 ### 6단계 - 리팩토링 : 제네릭 적용
 
-
+- 제네릭 적용
+  - 한 개의 메서드로 여러 타입을 다룰 수 있다.
+- com.eomcs.csv.CsvValue 인터페이스 정의
+  - CSV 형식의 문자열을 다루는 객체는 반드시 이 규칙에 따라 작성해야 한다.
+  - 즉 이 규칙에 따라 동작하는 메서드를 구비하고 있어야 한다.
+  - toCsvString() 메서드 선언
+    - 객체의 필드 값을 CSV 형식의 문자열로 만들어 리턴한다.
+  - loadCsv(String csv) 메서드 선언
+    - CSV 문자열에서 값을 추출하여 객체의 필드에 할당한다.
+- com.eomcs.pms.domain.Board 클래스 변경
+  - CsvValue 인터페이스를 구현한다.
+- com.eomcs.pms.domain.Member 클래스 변경
+  - CsvValue 인터페이스를 구현한다.
+- com.eomcs.pms.domain.Project 클래스 변경
+  - CsvValue 인터페이스를 구현한다.
+- com.eomcs.pms.domain.Task 클래스 변경
+  - CsvValue 인터페이스를 구현한다.
+- com.eomcs.pms.App 클래스 변경
+  - saveBoards()를 saveObjects() 메서드로 변경
+    - Board 클래스 외에 다른 타입의 객체도 출력할 수 있게 하려고.
+  - loadBoards()를 loadObjects() 메서드로 변경
+    - Board 클래스 외에 다른 타입의 객체로 로딩할 수 있게 하려고.
+  - 백업: App.java.07
 
 
 - App 클래스

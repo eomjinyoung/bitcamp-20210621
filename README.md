@@ -661,3 +661,6 @@
 - 실전 프로젝트(eomcs-java-project)
 	- 16-b. 파일 입출력 다루기 : 텍스트 형식으로 데이터 입출력(계속)
 		- BufferedReader/BufferedWriter 데코레이터 클래스 사용하기
+		- 리팩토링 : 'Information Expert' GRASP 적용
+		- 리팩토링 : '메서드 추출'
+		- 리팩토링 : 제네릭 적용

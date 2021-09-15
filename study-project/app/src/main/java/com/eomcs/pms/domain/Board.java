@@ -1,8 +1,9 @@
 package com.eomcs.pms.domain;
 
 import java.sql.Date;
+import com.eomcs.csv.CsvValue;
 
-public class Board {
+public class Board implements CsvValue {
   private int no;
   private String title;
   private String content;
@@ -18,6 +19,8 @@ public class Board {
         + "]";
   }
 
+  // 다음 메서드는 CsvValue 규칙에 따라 정의한 메서드다.
+  @Override
   public String toCsvString() {
     return String.format("%d,%s,%s,%s,%d,%d,%d,%s",
         this.getNo(),
@@ -28,6 +31,27 @@ public class Board {
         this.getLike(),
         this.getWriter().getNo(),
         this.getWriter().getName());
+  }
+
+  // 다음 메서드는 파라미터로 받은 CSV 문자열에서 값을 추출하여 
+  // Board 객체의 각 필드에 저장한다.
+  @Override
+  public void loadCsv(String csv) {
+    String[] values = csv.split(",");
+
+    // CSV 문자열에서 추출한 값을 객체의 필드에 저장한다.
+    this.setNo(Integer.valueOf(values[0]));
+    this.setTitle(values[1]);
+    this.setContent(values[2]);
+    this.setRegisteredDate(Date.valueOf(values[3]));
+    this.setViewCount(Integer.valueOf(values[4]));
+    this.setLike(Integer.valueOf(values[5]));
+
+    Member m = new Member();
+    m.setNo(Integer.valueOf(values[6]));
+    m.setName(values[7]);
+
+    this.setWriter(m);
   }
 
   public static Board valueOfCsv(String csv) {
