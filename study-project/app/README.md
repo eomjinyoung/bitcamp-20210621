@@ -113,7 +113,24 @@ class Student {
   - 파일에 한 줄의 문자열을 출력할 때 PrintWriter 데코레이터를 사용한다.
   - 백업: App.java.03
 
+### 3단계 - 데코레이터 BufferedReader/BufferedWriter를 사용하여 입출력 속도를 높힌다.
 
+- com.eomcs.pms.App 클래스 변경
+  - 데이터를 읽을 때 이미 버퍼 기능을 갖는 데코레이터는 적용되어 있다.
+  - 데이터를 쓸 때 버퍼 기능을 사용하도록 BufferedWriter 데코레이터를 붙인다. 
+  - 백업: App.java.04
+
+### 4단계 - 리팩토링 : Information Expert
+
+- GRASP 패턴(General Responsibility Assignment Software Pattern): Information Expert
+  - 정보를 다루는 일은 그 정보를 갖고 있는 객체가 하는 게 유지보수에 좋다.
+  - 도메인 객체(예: Board, Member, Project, Task)에서 필드 값을 CSV 문자열로 리턴하도록 역할을 부여한다.
+- com.eomcs.pms.domain.Board 클래스 변경
+  - toCsvString() 메서드 추가
+
+- com.eomcs.pms.App 클래스 변경
+  - 현재는 게시글 객체를 출력할 때 CSV 형식의 문자열로 만드는 일을 App 클래스가 했다.
+    - 변경: 게시글 정보를 갖고 있는 Board 클래스가 CSV 형식의 문자열을 만들도록 책임을 위임하라.
 
 
 

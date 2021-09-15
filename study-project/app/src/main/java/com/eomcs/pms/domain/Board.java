@@ -18,6 +18,18 @@ public class Board {
         + "]";
   }
 
+  public String toCsvString() {
+    return String.format("%d,%s,%s,%s,%d,%d,%d,%s",
+        this.getNo(),
+        this.getTitle(),
+        this.getContent(),
+        this.getRegisteredDate(),
+        this.getViewCount(),
+        this.getLike(),
+        this.getWriter().getNo(),
+        this.getWriter().getName());
+  }
+
   public int getNo() {
     return no;
   }

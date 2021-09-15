@@ -655,3 +655,9 @@
 		- BufferedReader/PrintWriter 데코레이터 클래스 사용하기
 - 팀 프로젝트 
 	- 팀별 프로젝트 구현
+
+## 57일차(2021-09-15,수)
+
+- 실전 프로젝트(eomcs-java-project)
+	- 16-b. 파일 입출력 다루기 : 텍스트 형식으로 데이터 입출력(계속)
+		- BufferedReader/BufferedWriter 데코레이터 클래스 사용하기
