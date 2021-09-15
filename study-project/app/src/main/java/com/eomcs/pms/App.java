@@ -158,10 +158,10 @@ public class App {
         list.add(obj);
       }
 
-      System.out.println("게시글 데이터 로딩 완료!");
+      System.out.printf("%s 데이터 로딩 완료!\n", filepath);
 
     } catch (Exception e) {
-      System.out.println("게시글 데이터 로딩 오류!");
+      System.out.printf("%s 데이터 로딩 오류!\n", filepath);
     }
   }
 
@@ -181,10 +181,11 @@ public class App {
         // 그래서 다음과 같이 CsvValue 에 선언된 메서드를 호출할 수 있는 것이다.
         out.println(obj.toCsvString());
       }
-      System.out.println("게시글 데이터 출력 완료!");
+      System.out.printf("%s 데이터 출력 완료!\n", filepath);
 
     } catch (Exception e) {
-      System.out.println("게시글 데이터 출력 오류!");
+      System.out.printf("%s 데이터 출력 오류!\n", filepath);
+      e.printStackTrace();
     }
   }
 
