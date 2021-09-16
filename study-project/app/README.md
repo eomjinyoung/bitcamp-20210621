@@ -211,8 +211,16 @@ class Student {
     - Board 클래스 외에 다른 타입의 객체로 로딩할 수 있게 하려고.
   - 백업: App.java.07
 
+### 7단계 - 리팩토링: Task 도메인 클래스에 CsvValue 인터페이스 적용
 
-### 7단계 - JSON 형식으로 데이터를 입출력하기
+- com.eomcs.pms.domain.Task 클래스 변경
+  - CsvValue 인터페이스를 구현한다.
+- com.eomcs.pms.domain.Project 클래스 변경
+  - toCsvString() 변경
+  - loadCsv() 변경
+
+
+### 8단계 - JSON 형식으로 데이터를 입출력하기
 
 
 
