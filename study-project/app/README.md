@@ -248,3 +248,19 @@ class Student {
 - 자바 객체를 JSON 형식의 텍스트로 변환하는 기능을 제공한다.
 - JSON 형식의 텍스트를 자바 객체로 변환하는 기능을 제공한다.
 
+1) **Gson** 라이브러리를 프로젝트에 추가한다.
+- `build.gradle` 빌드 스크립트 파일 변경
+  - Gson 라이브러리 정보를 dependecies {} 블록에 추가한다.
+    - https://search.maven.org/ 사이트에 방문한다.
+    - `gson` 검색어로 라이브러리를 찾는다.
+    - `com.google.code.gson` 라이브러리를 선택한다.
+    - 검색 결과에서 최신 버전을 선택한다.
+    - Gradle Groovy DSL 코드를 복사하여 빌드 스크립트에 붙여 넣는다.
+  - `$ gradle eclipse` 를 실행하여 라이브러리를 다운로드하여 프로젝트에 등록한다.
+    - 명령을 실행한 후 eclipse IDE 에서 해당 프로젝트를 refresh 해야 한다.
+    - 'Referenced Libraries' 노드에서 gson 라이브러리 파일이 추가된 것을 확인한다.
+
+- com.eomcs.pms.App 클래스 변경
+  - saveObjects() 변경 : CSV 형식 대신에 JSON 형식으로 저장한다.
+  - loadObjects() 변경 : JSON 형식으로 저장된 데이터를 로드한다.
+  - service() 변경 : saveObjects(), loadObjects() 호출할 때 파라미터 값 변경.
