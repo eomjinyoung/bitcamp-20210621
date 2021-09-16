@@ -664,3 +664,14 @@
 		- 리팩토링 : 'Information Expert' GRASP 적용
 		- 리팩토링 : '메서드 추출'
 		- 리팩토링 : 제네릭 적용
+
+## 58일차(2021-09-16,목)
+
+- JSON Open API 사용법(eomcs-java/com.eomcs.openapi.json)
+	- Gson 라이브러리를 사용하여 JSON 문자열을 다루는 방법
+- 실전 프로젝트(eomcs-java-project)
+	- 16-b. 파일 입출력 다루기 : 텍스트 형식으로 데이터 입출력(계속)
+		- 리팩토링 : Task 도메인 클래스에 CsvValue 인터페이스 적용
+		- 리팩토링 : JSON 형식으로 데이터를 입출력하기
+
+	
