@@ -14,7 +14,7 @@ public class ProjectAddHandler extends AbstractProjectHandler {
   }
 
   @Override
-  public void execute() {
+  public void execute(CommandRequest request) {
     System.out.println("[프로젝트 등록]");
 
     Project project = new Project();

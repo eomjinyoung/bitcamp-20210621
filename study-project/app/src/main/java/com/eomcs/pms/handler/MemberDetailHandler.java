@@ -11,7 +11,7 @@ public class MemberDetailHandler extends AbstractMemberHandler {
   }
 
   @Override
-  public void execute() {
+  public void execute(CommandRequest request) {
     System.out.println("[회원 상세보기]");
     int no = Prompt.inputInt("번호? ");
 

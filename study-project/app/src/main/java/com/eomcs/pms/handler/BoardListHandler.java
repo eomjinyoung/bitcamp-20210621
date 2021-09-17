@@ -10,7 +10,7 @@ public class BoardListHandler extends AbstractBoardHandler {
   }
 
   @Override
-  public void execute() {
+  public void execute(CommandRequest request) {
     System.out.println("[게시글 목록]");
 
     for (Board board : boardList) {

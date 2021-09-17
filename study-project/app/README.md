@@ -1,4 +1,4 @@
-# 17-a. 메뉴 리팩토링: 상세보기에서 변경, 삭제 기능 수행하기
+# 17-c. 메뉴 리팩토링: Command 객체 간에 종속성 제거하기
 
 이번 훈련에서는 객체 간의 종속성을 줄이는 방법을 알아본다.
 
@@ -15,18 +15,21 @@
 ## 실습
 
 
-### 1단계 - 객체 간의 종속성 이해하기
+### 1단계 - 커맨드 객체끼리의 종속성을 제거하기 위해 커맨드 객체 실행을 다른 객체에게 맡겨라.
 
-- 게시글 상세 보기에서 게시글 변경, 삭제를 수행하려면,
-  - BoardDetailHandler 는 BoardUpdateHandler와 BoardDeleteHandler를 알아야 한다.
-  - 즉 인스턴스 필드에 사용할 객체를 담고 있어야 한다.
-  - BoardDetailHandler는 BoardUpdateHandler와 BoardDeleteHandler 없이 사용할 수 없다.
-  - 이것이 종속된다는 의미다.
+- 게시글 상세 보기에서 게시글 변경, 삭제를 수행할 때
+  - 현재 방식 : 직접 해당 커맨드 객체의 메서드를 호출한다.
+  - 개선 방식 : RequestDispatcher 에게 실행을 위임한다.
 
-- com.eomcs.pms.handler.BoardDetailHandler 변경
-  - 생성자에서 BoardUpdateHandler와 BoardDeleteHandler 객체를 파라미터로 받아 보관 한다.
-  - 상세보기에서 게시글 변경, 삭제를 수행할 수 있도록 변경한다.
+- com.eomcs.pms.handler.RequestDispatcher 클래스 정의
+  - 객체를 생성할 때 파라미터로 받은 커맨드 객체를 실행하는 일을 한다.
+- com.eomcs.pms.handler.CommandRequest 클래스 변경
+  - getRequestDispatcher(커맨드 아이디) 메서드 추가
+    - 지정된 아이디의 커맨드 객체를 찾아 RequestDispatcher에 담아서 리턴해준다.
+- com.eomcs.pms.handler.BoardDetailHandler 클래스 변경
+  - BoardUpdateHandler와 BoardDeleteHandler 와의 의존성을 제거한다.
+  - 게시글 변경과 삭제는 RequestDispatcher 를 통해 처리한다.
 - com.eomcs.pms.App 클래스 변경
-  - 파일에서 한 줄의 문자열을 읽을 때 BufferedReader 데코레이터를 사용한다.
-  - 파일에 한 줄의 문자열을 출력할 때 PrintWriter 데코레이터를 사용한다.
-  - 백업: App.java.03
+  - BoardDetailHandler의 변경에 맞춰 의존 객체 주입을 제거한다.
+
+### 2단계 - 나머지 메뉴도 게시글과 같이 처리한다.

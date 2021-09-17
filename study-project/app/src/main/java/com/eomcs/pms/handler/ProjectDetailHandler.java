@@ -11,7 +11,7 @@ public class ProjectDetailHandler extends AbstractProjectHandler {
   }
 
   @Override
-  public void execute() {
+  public void execute(CommandRequest request) {
     System.out.println("[프로젝트 상세보기]");
     int no = Prompt.inputInt("번호? ");
 

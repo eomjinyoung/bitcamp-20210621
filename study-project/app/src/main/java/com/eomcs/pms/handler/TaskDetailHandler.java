@@ -11,7 +11,7 @@ public class TaskDetailHandler extends AbstractTaskHandler {
   }
 
   @Override
-  public void execute() {
+  public void execute(CommandRequest request) {
     System.out.println("[작업 상세보기]");
 
     Project project = projectPrompt.promptProject();

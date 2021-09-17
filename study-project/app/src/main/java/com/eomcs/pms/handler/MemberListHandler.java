@@ -10,7 +10,7 @@ public class MemberListHandler extends AbstractMemberHandler {
   }
 
   @Override
-  public void execute() {
+  public void execute(CommandRequest request) {
     System.out.println("[회원 목록]");
 
     for (Member member : memberList) {

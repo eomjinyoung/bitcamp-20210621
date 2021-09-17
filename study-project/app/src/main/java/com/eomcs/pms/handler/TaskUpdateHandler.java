@@ -13,7 +13,7 @@ public class TaskUpdateHandler extends AbstractTaskHandler {
   }
 
   @Override
-  public void execute() {
+  public void execute(CommandRequest request) {
     System.out.println("[작업 변경]");
 
     Project project = projectPrompt.promptProject();

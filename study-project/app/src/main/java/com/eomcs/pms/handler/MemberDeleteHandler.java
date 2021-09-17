@@ -11,7 +11,7 @@ public class MemberDeleteHandler extends AbstractMemberHandler {
   }
 
   @Override
-  public void execute() {
+  public void execute(CommandRequest request) {
     System.out.println("[회원 삭제]");
     int no = Prompt.inputInt("번호? ");
 

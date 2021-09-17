@@ -12,7 +12,7 @@ public class MemberAddHandler extends AbstractMemberHandler {
   }
 
   @Override
-  public void execute() {
+  public void execute(CommandRequest request) {
     System.out.println("[회원 등록]");
 
     Member member = new Member();

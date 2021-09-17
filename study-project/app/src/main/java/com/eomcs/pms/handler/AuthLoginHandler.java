@@ -24,7 +24,7 @@ public class AuthLoginHandler implements Command {
   }
 
   @Override
-  public void execute() {
+  public void execute(CommandRequest request) {
     System.out.println("[로그인]");
 
     String email = Prompt.inputString("이메일? ");

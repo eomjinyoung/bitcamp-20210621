@@ -11,7 +11,7 @@ public class BoardSearchHandler extends AbstractBoardHandler {
   }
 
   @Override
-  public void execute() {
+  public void execute(CommandRequest request) {
     System.out.println("[게시글 검색]");
 
     String input = Prompt.inputString("검색어? ");
