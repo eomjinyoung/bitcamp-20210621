@@ -2,16 +2,12 @@ package com.eomcs.pms.handler;
 
 import java.util.List;
 import com.eomcs.pms.domain.Board;
-import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
 
 public class BoardDetailHandler extends AbstractBoardHandler {
 
-  BoardUpdateHandler boardUpdateHandler;
-
-  public BoardDetailHandler(List<Board> boardList, BoardUpdateHandler boardUpdateHandler) {
+  public BoardDetailHandler(List<Board> boardList) {
     super(boardList);
-    this.boardUpdateHandler = boardUpdateHandler;
   }
 
   @Override
@@ -35,17 +31,12 @@ public class BoardDetailHandler extends AbstractBoardHandler {
     System.out.printf("조회수: %d\n", board.getViewCount());
     System.out.println();
 
-    Member loginUser = AuthLoginHandler.getLoginUser(); 
-    if (loginUser == null || board.getWriter().getNo() != loginUser.getNo()) {
-      return;
-    }
-
     while (true) {
       String input = Prompt.inputString("변경(U), 삭제(D), 이전(0)>");
       switch (input) {
         case "U":
         case "u":
-          boardUpdateHandler.execute();
+          System.out.println("게시글 변경 수행!");
           return;
         case "D":
         case "d":

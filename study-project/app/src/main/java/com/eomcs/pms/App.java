@@ -90,8 +90,10 @@ public class App {
   public App() {
     commandMap.put("/board/add", new BoardAddHandler(boardList));
     commandMap.put("/board/list", new BoardListHandler(boardList));
-    commandMap.put("/board/detail", new BoardDetailHandler(boardList));
-    commandMap.put("/board/update", new BoardUpdateHandler(boardList));
+
+    BoardUpdateHandler boardUpdateHandler = new BoardUpdateHandler(boardList);
+    //commandMap.put("/board/update", boardUpdateHandler);
+    commandMap.put("/board/detail", new BoardDetailHandler(boardList, boardUpdateHandler));
     commandMap.put("/board/delete", new BoardDeleteHandler(boardList));
     commandMap.put("/board/search", new BoardSearchHandler(boardList));
 
