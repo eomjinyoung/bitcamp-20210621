@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import com.eomcs.context.ApplicationContextListener;
 import com.eomcs.menu.Menu;
 import com.eomcs.menu.MenuGroup;
 import com.eomcs.pms.domain.Board;
@@ -48,12 +49,14 @@ import com.eomcs.pms.handler.TaskDeleteHandler;
 import com.eomcs.pms.handler.TaskDetailHandler;
 import com.eomcs.pms.handler.TaskListHandler;
 import com.eomcs.pms.handler.TaskUpdateHandler;
+import com.eomcs.pms.listener.AppInitListener;
 import com.eomcs.util.Prompt;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 
 public class App {
+
   List<Board> boardList = new ArrayList<>();
   List<Member> memberList = new LinkedList<>();
   List<Project> projectList = new ArrayList<>();
@@ -62,6 +65,20 @@ public class App {
 
   MemberPrompt memberPrompt = new MemberPrompt(memberList);
   ProjectPrompt projectPrompt = new ProjectPrompt(projectList);
+
+  // 옵저버 관련 필드와 메서드
+  // => 옵저버(리스너) 목록
+  List<ApplicationContextListener> listeners = new ArrayList<>();
+
+  // => 옵저버(리스너)를 등록하는 메서드
+  public void addApplicationContextListener(ApplicationContextListener listener) {
+    this.listeners.add(listener);
+  }
+
+  // => 옵저버(리스너)를 제거하는 메서드
+  public void removeApplicationContextListener(ApplicationContextListener listener) {
+    this.listeners.remove(listener);
+  }
 
   class MenuItem extends Menu {
     String menuId;
@@ -90,6 +107,13 @@ public class App {
 
   public static void main(String[] args) {
     App app = new App(); 
+
+    // 애플리케이션을 본격적으로 실행하기 전에 옵저버를 등록한다.
+    // => 이렇게 등록된 옵저버는 service()가 호출되거나/종료될 때 그 상태를 보고 받을 것이다.
+    // => 옵저버의 기능을 제거하고 싶다면, 언제든 등록하지 않으면 된다.
+    //    즉 기능을 추가하거나 빼기 쉽다.
+    app.addApplicationContextListener(new AppInitListener());
+
     app.service();
   }
 
@@ -125,12 +149,21 @@ public class App {
     commandMap.put("/auth/userinfo", new AuthUserInfoHandler());
   }
 
+  private void notifyOnApplicationStarted() {
+    for (ApplicationContextListener listener : listeners) {
+      listener.contextInitialized();
+    }
+  }
+
+  private void notifyOnApplicationEnded() {
+    for (ApplicationContextListener listener : listeners) {
+      listener.contextDestroyed();
+    }
+  }
+
   void service() {
 
-    System.out.println("****************************************");
-    System.out.println("* 미니 프로젝트 관리시스템 ver 1.0     *");
-    System.out.println("*    (C)Copyright BitCamp              *");
-    System.out.println("****************************************");
+    notifyOnApplicationStarted();
 
     loadObjects("board.json", boardList, Board.class);
     loadObjects("member.json", memberList, Member.class);
@@ -142,6 +175,8 @@ public class App {
     saveObjects("board.json", boardList);
     saveObjects("member.json", memberList);
     saveObjects("project.json", projectList);
+
+    notifyOnApplicationEnded();
   }
 
   // JSON 형식으로 저장된 데이터를 읽어서 객체로 만든다.
