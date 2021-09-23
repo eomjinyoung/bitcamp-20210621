@@ -1,6 +1,6 @@
-# 17-c. 메뉴 리팩토링: Command 객체 간에 종속성 제거하기
+# 18-a. `Observer` 디자인 패턴 : 옵저버 패턴이 필요한 이유
 
-이번 훈련에서는 객체 간의 종속성을 줄이는 방법을 알아본다.
+이번 훈련에서는 `Observer` 패턴을 적용해야 하는 상황을 알아보자.
 
 
 ## 훈련 목표
@@ -15,21 +15,27 @@
 ## 실습
 
 
-### 1단계 - 커맨드 객체끼리의 종속성을 제거하기 위해 커맨드 객체 실행을 다른 객체에게 맡겨라.
+### 1단계 - 애플리케익션을 실행할 때 환영 문구를 출력한다.
 
-- 게시글 상세 보기에서 게시글 변경, 삭제를 수행할 때
-  - 현재 방식 : 직접 해당 커맨드 객체의 메서드를 호출한다.
-  - 개선 방식 : RequestDispatcher 에게 실행을 위임한다.
+```
+$ java ... com.eomcs.pms.App
+****************************************
+* 미니 프로젝트 관리시스템 ver 1.0     *
+*    (C)Copyright BitCamp              *
+****************************************
+board.json 데이터 로딩 완료!
+member.json 데이터 로딩 완료!
+project.json 데이터 로딩 완료!
 
-- com.eomcs.pms.handler.RequestDispatcher 클래스 정의
-  - 객체를 생성할 때 파라미터로 받은 커맨드 객체를 실행하는 일을 한다.
-- com.eomcs.pms.handler.CommandRequest 클래스 변경
-  - getRequestDispatcher(커맨드 아이디) 메서드 추가
-    - 지정된 아이디의 커맨드 객체를 찾아 RequestDispatcher에 담아서 리턴해준다.
-- com.eomcs.pms.handler.BoardDetailHandler 클래스 변경
-  - BoardUpdateHandler와 BoardDeleteHandler 와의 의존성을 제거한다.
-  - 게시글 변경과 삭제는 RequestDispatcher 를 통해 처리한다.
+[메인]
+1. 로그인                 
+2. 게시판                 
+3. 회원                  
+4. 프로젝트                
+5. 작업                  
+0. 종료
+선택> 
+```
+
 - com.eomcs.pms.App 클래스 변경
-  - BoardDetailHandler의 변경에 맞춰 의존 객체 주입을 제거한다.
-
-### 2단계 - 나머지 메뉴도 게시글과 같이 처리한다.
+  - 

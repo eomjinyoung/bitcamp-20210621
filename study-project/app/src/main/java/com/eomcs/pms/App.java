@@ -126,6 +126,12 @@ public class App {
   }
 
   void service() {
+
+    System.out.println("****************************************");
+    System.out.println("* 미니 프로젝트 관리시스템 ver 1.0     *");
+    System.out.println("*    (C)Copyright BitCamp              *");
+    System.out.println("****************************************");
+
     loadObjects("board.json", boardList, Board.class);
     loadObjects("member.json", memberList, Member.class);
     loadObjects("project.json", projectList, Project.class);
