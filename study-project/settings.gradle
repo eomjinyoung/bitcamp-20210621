@@ -5,3 +5,5 @@ rootProject.name = 'study-project'
 // 서브 프로젝트의 폴더 등록
 // => 빌드 작업을 수행할 때 서브 프로젝트 폴더에 있는 build.gradle 파일을 참조한다.
 include('app')
+include('app-client')
+include('app-server')
