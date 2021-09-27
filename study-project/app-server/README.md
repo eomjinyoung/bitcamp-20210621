@@ -1,4 +1,4 @@
-# 19-c. 데이터 관리 서버 만들기 : 사용자가 입력한 명령처리
+# 19-d. 데이터 관리 서버 만들기 : 프로토콜 정의 및 적용
 
 이번 훈련에서는,
 - **네트워크 API** 를 이용하여 데스크톱 애플리케이션을 클라이언트/서버 구조로 변경한다.
@@ -15,23 +15,98 @@
 
 
 ## 훈련 목표
-- Stateful 방식 통신을 이해하고 구현하는 것을 연습한다.
+- 통신 프로토콜을 이해한다.
+- `extract method` 리팩토링 기법을 연습한다.
 
 ## 훈련 내용
-- 클라이언트가 연결되면 클라이언트에서 quit 요청을 보낼 때까지 응답/요청을 반복한다.
+- 응답 프로토콜을 변경하고 그에 맞게 구현한다.
+- 응답을 수신하는 코드를 별도의 메서드로 분리한다.
 
+### 요청 프로토콜
+
+```
+요청 데이터 규칙: 
+명령(UTF-8 문자열) CRLF
+JSON 데이터(UTF-8 문자열) CRLF  <== 명령어에 따라 선택 사항
+
+예) 게시글 목록 요청
+/board/list CRLF
+
+예) 게시글 상세 요청
+/board/detail CRLF
+{"no": 1} CRLF
+
+예) 게시글 등록 요청
+/board/add CRLF
+{
+    "title": "제목", 
+    "content": "내용", 
+    "writer": {
+        "no": 1, "name": "홍길동"
+    }
+} CRLF
+
+예) 게시글 변경 요청
+board/update CRLF
+{
+    "no": 1
+    "title": "제목", 
+    "content": "내용"
+} CRLF
+
+예) 게시글 삭제 요청
+/board/delete CRLF
+{"no": 1} CRLF
+```
+
+### 응답 프로토콜
+
+```
+응답 데이터 규칙: 
+처리상태(success | fail) CRLF
+JSON 데이터(UTF-8 문자열) CRLF  <== 처리 결과에 따라 선택 사항
+
+
+예) /board/list 요청에 대한 응답
+success CRLF
+게시글 목록에 대한 JSON 데이터 CRLF
+
+
+예) board/detail 요청에 대한 응답
+success CRLF
+{
+    "no": 1
+    "title": "제목", 
+    "content": "내용", 
+    "writer": {
+        "no": 1, "name": "홍길동"
+    },
+    "registeredDate": "2021-01-01",
+    "viewCount": 11,
+    "like": 5
+} CRLF
+
+예) board/add 요청에 대한 응답
+success CRLF
+
+예) board/update 요청에 대한 응답
+success CRLF
+
+예) board/delete 요청에 대한 응답
+success CRLF
+```
 
 ## 실습
 
-### 1단계 - 클라이언트가 보낸 데이터를 그대로 응답한다.
+### 1단계 - 프로토콜에 맞춰 게시글 데이터의 저장 요청을 처리한다.
 
+- com.eomcs.pms.domain.Member 클래스 가져오기
+- com.eomcs.pms.domain.Board 클래스 가져오기
 - `com.eomcs.pms.ServerApp` 변경
-  - 백업: ServerApp.java.01
+    - 프로토콜에 맞춰 JSON 형식으로 받은 데이터를 Board 객체로 변환하여 저장한다.
+    - 저장 성공 시 success 응답을 보낸다.
+    - 저장 실패 시 fail 응답을 보낸다.
 
-### 2단계 - 클라이언트가 `quit` 명령을 보낼 때까지 요청/응답을 반복한다.
-
-- `com.eomcs.pms.ServerApp` 변경
-    - 'quit' 명령을 받으면 "goodbye"를 리턴하고 서버를 종료한다.
 
 ## 실습 결과
 - src/main/java/com/eomcs/pms/ServerApp.java 변경

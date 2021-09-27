@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import com.eomcs.pms.domain.Board;
+import com.google.gson.Gson;
 
 public class ServerApp {
 
@@ -30,10 +32,14 @@ public class ServerApp {
         out.println("goodbye");
         out.flush();
         break;
-      }
 
-      out.println(command);
-      out.flush();
+      } else if (command.equals("/board/add")) {
+        addBoard(out, in);
+
+      } else {
+        out.println(command);
+        out.flush();
+      }
     }
 
     System.out.println("4) 클라이언트와의 접속을 끊음");
@@ -45,6 +51,16 @@ public class ServerApp {
     serverSocket.close(); // 더 이상 클라이언트의 접속을 수용하지 않는다.
   }
 
+  private static void addBoard(PrintWriter out, BufferedReader in) throws Exception {
+    String jsonStr = in.readLine();
+
+    Board board = new Gson().fromJson(jsonStr, Board.class);
+
+    System.out.println(board);
+
+    out.println("success");
+    out.flush();
+  }
 }
 
 

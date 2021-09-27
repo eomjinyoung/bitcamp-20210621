@@ -1,4 +1,5 @@
-# 19-c. 데이터 관리 서버 만들기 : 사용자가 입력한 명령처리
+# 19-d. 데이터 관리 서버 만들기 : 프로토콜 정의 및 적용
+
 
 이번 훈련에서는,
 - **네트워크 API** 를 이용하여 데스크톱 애플리케이션을 클라이언트/서버 구조로 변경한다.
@@ -15,30 +16,104 @@
 
 
 ## 훈련 목표
-- 콘솔에서 입력 받는 것을 연습한다.
-- 입력 받은 값을 서버에 전송하는 것을 연습한다.
+- 통신 프로토콜을 이해한다.
+- `extract method` 리팩토링 기법을 연습한다.
 
 ## 훈련 내용
-- 콘솔 입력 스트림(System.in)을 Scanner 객체에 연결하여 사용자가 입력한 값을 얻는다.
-- 소켓의 출력 스트림을 통해 서버에 전송한다.
+- 응답 프로토콜을 변경하고 그에 맞게 구현한다.
+- 응답을 수신하는 코드를 별도의 메서드로 분리한다.
 
+### 요청 프로토콜
+
+```
+요청 데이터 규칙: 
+명령(UTF-8 문자열) CRLF
+JSON 데이터(UTF-8 문자열) CRLF  <== 명령어에 따라 선택 사항
+
+예) 게시글 목록 요청
+/board/list CRLF
+
+예) 게시글 상세 요청
+/board/detail CRLF
+{"no": 1} CRLF
+
+예) 게시글 등록 요청
+/board/add CRLF
+{
+    "title": "제목", 
+    "content": "내용", 
+    "writer": {
+        "no": 1, "name": "홍길동"
+    }
+} CRLF
+
+예) 게시글 변경 요청
+board/update CRLF
+{
+    "no": 1
+    "title": "제목", 
+    "content": "내용"
+} CRLF
+
+예) 게시글 삭제 요청
+/board/delete CRLF
+{"no": 1} CRLF
+```
+
+### 응답 프로토콜
+
+```
+응답 데이터 규칙: 
+처리상태(success | fail) CRLF
+JSON 데이터(UTF-8 문자열) CRLF  <== 처리 결과에 따라 선택 사항
+
+
+예) /board/list 요청에 대한 응답
+success CRLF
+게시글 목록에 대한 JSON 데이터 CRLF
+
+
+예) board/detail 요청에 대한 응답
+success CRLF
+{
+    "no": 1
+    "title": "제목", 
+    "content": "내용", 
+    "writer": {
+        "no": 1, "name": "홍길동"
+    },
+    "registeredDate": "2021-01-01",
+    "viewCount": 11,
+    "like": 5
+} CRLF
+
+예) board/add 요청에 대한 응답
+success CRLF
+
+예) board/update 요청에 대한 응답
+success CRLF
+
+예) board/delete 요청에 대한 응답
+success CRLF
+```
 
 ## 실습
 
-### 1단계 - 사용자가 입력한 명령을 서버에 전송한다.
+### 1단계 - 프로토콜에 맞춰 게시글 데이터의 저장을 요청한다.
 
-- com.eomcs.util.Prompt 가져오기
-  - 이전 프로젝트(28-b)에서 가져온다.
-- com.eomcs.pms.ClientApp 변경
-  - Prompt 를 사용하여 사용자 입력을 처리한다.
-  - 백업: ClientApp.java.01
+- com.eomcs.pms.domain.Member 클래스 가져오기
+- com.eomcs.pms.domain.Board 클래스 가져오기
+- `com.eomcs.pms.ClientApp` 변경
+    - `addBoard()` 메서드 추가 
+        - 프로토콜에 맞춰 Board 객체를 JSON 데이터로 바꿔 서버에 보내기
+        - 서버의 응답 결과를 출력하기
 
+### 2단계 - 프로토콜에 맞춰 게시글 데이터의 조회를 요청한다.
 
-### 2단계 - 사용자가 quit 명령을 입력할 때까지 반복한다.
-
-- com.eomcs.pms.ClientApp 변경
-
+- `com.eomcs.pms.ClientApp` 변경
+    - `detailBoard()` 메서드 추가
+        - 프로토콜에 맞춰 Board 객체를 요구하기
+        - 서버에서 보내온 JSON 데이터로 Board 객체로 바꿔 출력하기
 
 ## 실습 결과
-- src/main/java/com/eomcs/util/Prompt.java 추가
 - src/main/java/com/eomcs/pms/ClientApp.java 변경
