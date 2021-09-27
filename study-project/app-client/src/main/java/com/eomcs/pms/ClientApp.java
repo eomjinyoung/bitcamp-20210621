@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import com.eomcs.util.Prompt;
 
 public class ClientApp {
 
@@ -15,21 +16,27 @@ public class ClientApp {
 
     System.out.println("2) 서버와 연결되었음");
 
-    System.out.println("입출력 스트림 객체 준비");
     PrintWriter out = new PrintWriter(socket.getOutputStream());
     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-    System.out.println("서버에 데이터 보내기");
-    out.println("Hello!");
-    out.flush();
+    while (true) {
+      String input = Prompt.inputString("명령> ");
+      out.println(input);
+      out.flush();
 
-    System.out.println("서버가 보낸 데이터 읽기");
-    String result = in.readLine();
-    System.out.println(">>> " + result);
+      String result = in.readLine();  // 서버에서 한 줄의 문자열을 보낼 때까지 기다린다.
+      System.out.println(">>> " + result);
+
+      if (input.equalsIgnoreCase("quit")) {
+        break;
+      }
+    }
 
     System.out.println("3) 서버와의 접속을 끊음");
     out.close();
     socket.close();
+
+    Prompt.close();
   }
 
 }

@@ -17,20 +17,24 @@ public class ServerApp {
     System.out.println("2) 클라이언트의 접속을 기다림");
     Socket socket = serverSocket.accept(); // 클라이언트가 접속하면 리턴한다.
 
-    System.out.println();
     System.out.println("3) 클라이언트가 접속했음");
 
-    System.out.println("클라이언트와 데이터를 주고 받기 위해 입출력 스트림 준비");
     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     PrintWriter out = new PrintWriter(socket.getOutputStream());
 
-    System.out.println("클라이언트가 보낸 데이터 읽기");
-    String message = in.readLine();
-    System.out.println("===> " + message);
+    while (true) {
+      String command = in.readLine(); // 클라이언트에서 한 줄의 문자열을 보낼 때까지 기다린다.
+      System.out.println("===> " + command);
 
-    System.out.println("클라이언트에게 데이터 보내기");
-    out.println("안녕");
-    out.flush();
+      if (command.equalsIgnoreCase("quit")) {
+        out.println("goodbye");
+        out.flush();
+        break;
+      }
+
+      out.println(command);
+      out.flush();
+    }
 
     System.out.println("4) 클라이언트와의 접속을 끊음");
     out.close();

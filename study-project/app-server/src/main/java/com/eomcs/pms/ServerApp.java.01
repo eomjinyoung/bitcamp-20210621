@@ -1,5 +1,8 @@
 package com.eomcs.pms;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -16,7 +19,18 @@ public class ServerApp {
 
     System.out.println("3) 클라이언트가 접속했음");
 
+    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    PrintWriter out = new PrintWriter(socket.getOutputStream());
+
+    String command = in.readLine(); // 클라이언트에서 한 줄의 문자열을 보낼 때까지 기다린다.
+    System.out.println("===> " + command);
+
+    out.println(command);
+    out.flush();
+
     System.out.println("4) 클라이언트와의 접속을 끊음");
+    out.close();
+    in.close();
     socket.close(); 
 
     System.out.println("5) 서버 소켓 종료");
