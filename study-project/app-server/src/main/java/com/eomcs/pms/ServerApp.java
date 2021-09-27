@@ -17,6 +17,7 @@ public class ServerApp {
     System.out.println("2) 클라이언트의 접속을 기다림");
     Socket socket = serverSocket.accept(); // 클라이언트가 접속하면 리턴한다.
 
+    System.out.println();
     System.out.println("3) 클라이언트가 접속했음");
 
     System.out.println("클라이언트와 데이터를 주고 받기 위해 입출력 스트림 준비");
