@@ -23,7 +23,9 @@
 - 응답 프로토콜을 변경하고 그에 맞게 구현한다.
 - 응답을 수신하는 코드를 별도의 메서드로 분리한다.
 
-### 요청 프로토콜
+## 실습
+
+### 요청 프로토콜 변경
 
 ```
 요청 데이터 규칙: 
@@ -32,6 +34,7 @@ JSON 데이터(UTF-8 문자열) CRLF  <== 명령어에 따라 선택 사항
 
 예) 게시글 목록 요청
 /board/list CRLF
+CRLF
 
 예) 게시글 상세 요청
 /board/detail CRLF
@@ -65,7 +68,7 @@ board/update CRLF
 ```
 응답 데이터 규칙: 
 처리상태(success | fail) CRLF
-JSON 데이터(UTF-8 문자열) CRLF  <== 처리 결과에 따라 선택 사항
+JSON 데이터(UTF-8 문자열) CRLF  <== 데이터가 없으면 빈 문자열을 응답한다.
 
 
 예) /board/list 요청에 대한 응답
@@ -89,46 +92,30 @@ success CRLF
 
 예) board/add 요청에 대한 응답
 success CRLF
+CRLF
 
 예) board/update 요청에 대한 응답
 success CRLF
+CRLF
 
 예) board/delete 요청에 대한 응답
 success CRLF
+CRLF
 ```
 
-## 실습
-
-기존의 **app-18-c** 프로젝트에서 게시글 관련 코드를 가져와 클라이언트에 적용한다.
-
-### 1단계 - domain 클래스 준비
-
-- `com.eomcs.pms.domain.Project` 클래스 복사 및 편집
-- `com.eomcs.pms.domain.Task` 클래스 복사 및 편집
-
-### 2단계 - 핸들러 클래스 준비
-
-- `com.eomcs.pms.handler.Command` 인터페이스 복사 및 변경
-    - 서버와 통신을 할 입출력 스트림을 파라미터로 받는다.
-- `com.eomcs.pms.handler.XxxHandler` 클래스 복사 및 변경
-    - 직접 Command 인터페이스를 구현한다.
-    - 서버와 통신하여 데이터를 다루도록 변경한다.
-- `com.eomcs.pms.handler.MemberValidator` 클래스 추가
-    - 기존의 `MemberValidatorHandler` 클래스를 가져와서 변경한다.
-
-### 3단계 - 데이터를 다룰 때는 서버에 위임한다.
-
-- `com.eomcs.pms.ClientApp` 변경
-    - `mini-pms-28-b` 프로젝트의 App 클래스에서 사용자 명령을 입력 받아서 처리하는 부분을 복사해 온다.
 
 
-## 실습 결과
+### 1단계 - 서버에 요청하고 응답하는 코드를 캡슐화한다.
 
-- src/main/java/com/eomcs/pms/domain/Board.java 추가
-- src/main/java/com/eomcs/pms/domain/Member.java 추가
-- src/main/java/com/eomcs/pms/domain/Project.java 추가
-- src/main/java/com/eomcs/pms/domain/Task.java 추가
-- src/main/java/com/eomcs/pms/handler/Command.java 추가
-- src/main/java/com/eomcs/pms/handler/XxxHandler.java 추가
-- src/main/java/com/eomcs/pms/handler/MemberValidator.java 추가
-- src/main/java/com/eomcs/pms/ClientApp.java 변경
+- `com.eomcs.request.RequestAgent` 클래스 정의
+    - 백업: RequestAgent.java.01
+
+### 2단계 - 서버에 요청하는 기능을 RequestAgent로 대체한다.
+
+- `com.eomcs.pms.ClientApp` 클래스 변경
+    - 백업: ClientApp.java.01
+
+### 3단계 - 서버가 응답하는 메시지를 상수 필드로 전환한다.
+
+- `com.eomcs.request.RequestAgent` 클래스 정의
+- `com.eomcs.pms.ClientApp` 클래스 변경

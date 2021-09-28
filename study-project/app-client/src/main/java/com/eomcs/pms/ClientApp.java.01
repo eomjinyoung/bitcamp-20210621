@@ -28,7 +28,7 @@ public class ClientApp {
       } else {
         requestAgent.request(input, null);
 
-        if (requestAgent.getStatus().equals(RequestAgent.SUCCESS)) {
+        if (requestAgent.getStatus().equals("success")) {
           String result = requestAgent.getObject(String.class);
           System.out.println(">>> " + result);
         } else {
@@ -64,7 +64,7 @@ public class ClientApp {
     requestAgent.request("/board/add", board);
 
     // 서버가 보낸 결과를 확인한다.
-    if (requestAgent.getStatus().equals(RequestAgent.SUCCESS)) {
+    if (requestAgent.getStatus().equals("success")) {
       System.out.println("게시글 저장 성공!");
     } else {
       System.out.println("게시글 저장 실패!");
@@ -80,7 +80,7 @@ public class ClientApp {
     requestAgent.request("/board/detail", map);
 
     // 서버가 보낸 결과를 확인한다.
-    if (requestAgent.getStatus().equals(RequestAgent.SUCCESS)) {
+    if (requestAgent.getStatus().equals("success")) {
       Board board = requestAgent.getObject(Board.class);
       System.out.println(board);
 

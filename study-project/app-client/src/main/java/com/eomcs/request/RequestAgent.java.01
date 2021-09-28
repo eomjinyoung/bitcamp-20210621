@@ -11,9 +11,6 @@ import com.google.gson.Gson;
 //
 public class RequestAgent implements AutoCloseable {
 
-  public static final String SUCCESS = "success";
-  public static final String FAIL = "fail";
-
   Socket socket;
   PrintWriter out;
   BufferedReader in;
