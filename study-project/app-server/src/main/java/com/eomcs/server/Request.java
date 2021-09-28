@@ -21,6 +21,9 @@ public class Request {
   }
 
   public <T> T getObject(Class<T> type) {
+    if (jsonData == null || jsonData.length() == 0) {
+      return null;
+    }
     return new Gson().fromJson(jsonData, type);
   }
 }

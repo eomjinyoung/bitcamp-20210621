@@ -110,7 +110,7 @@ CRLF
 - com.eomcs.server.Request 클래스 정의 
     - 요청 명령을 조회하고 요청 데이터를 꺼내는 일을 한다.
 - com.eomcs.server.Response 클래스 정의
-    - 클라이언트에게 응답하는 일을 한다.
+    - 클라이언트에게 응답할 데이터를 보관하는 일을 한다.
 
 ### 2단계 - 게시글 데이터를 저장하고 꺼내는 코드를 캡슐화 한다.
 
@@ -119,4 +119,4 @@ CRLF
 ### 3단계 - BoardTable 클래스를 이용하여 클라이언트 요청을 처리한다.
 
 - com.eomcs.pms.ServerApp 클래스 변경
-    
+

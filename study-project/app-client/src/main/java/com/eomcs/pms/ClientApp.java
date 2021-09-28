@@ -61,7 +61,7 @@ public class ClientApp {
     board.setWriter(m);
 
     // 서버에 요청하고,
-    requestAgent.request("/board/add", board);
+    requestAgent.request("/board/insert", board);
 
     // 서버가 보낸 결과를 확인한다.
     if (requestAgent.getStatus().equals(RequestAgent.SUCCESS)) {
@@ -74,10 +74,10 @@ public class ClientApp {
   private static void detailBoard() throws Exception {
 
     HashMap<String,Object> map = new HashMap<>();
-    map.put("no", 100);
+    map.put("no", "1");
 
     // 서버에 요청하고,
-    requestAgent.request("/board/detail", map);
+    requestAgent.request("/board/selectOne", map);
 
     // 서버가 보낸 결과를 확인한다.
     if (requestAgent.getStatus().equals(RequestAgent.SUCCESS)) {
