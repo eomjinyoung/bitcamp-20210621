@@ -1,4 +1,4 @@
-# 19-e. 데이터 관리 서버 만들기 : 통신 기능을 캡슐화
+# 19-f. 데이터 관리 서버 만들기 : 파일 및 데이터 처리 기능을 서버로 이전
 
 
 이번 훈련에서는,
@@ -103,20 +103,15 @@ success CRLF
 CRLF
 ```
 
-### 1단계 - 클라이언트의 요청 정보를 다루고 응답을 다루는 코드를 캡슐화 한다.
+### 1단계 - 회원 데이터를 저장하고 꺼내는 코드를 캡슐화 한다.
 
-- com.eomcs.server.RequestProcessor 클래스 정의
-    - 클라이언트의 요청 정보를 다루는 일을 한다.
-- com.eomcs.server.Request 클래스 정의 
-    - 요청 명령을 조회하고 요청 데이터를 꺼내는 일을 한다.
-- com.eomcs.server.Response 클래스 정의
-    - 클라이언트에게 응답할 데이터를 보관하는 일을 한다.
+- com.eomcs.pms.table.MemberTable 클래스 정의
 
-### 2단계 - 게시글 데이터를 저장하고 꺼내는 코드를 캡슐화 한다.
+### 2단계 - MemberTable 클래스를 이용하여 클라이언트 요청을 처리한다.
 
-- com.eomcs.pms.table.BoardTable 클래스 정의
-
-### 3단계 - BoardTable 클래스를 이용하여 클라이언트 요청을 처리한다.
-
+- com.eomcs.pms.server.Request 클래스 변경
+    - 생성자 추가
 - com.eomcs.pms.ServerApp 클래스 변경
+    - 클라이언트에게 응답하는 코드를 리팩토링 한다.
+
 

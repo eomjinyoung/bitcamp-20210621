@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import com.eomcs.pms.table.BoardTable;
+import com.eomcs.pms.table.MemberTable;
 import com.google.gson.Gson;
 
 // 역할
@@ -18,6 +19,7 @@ public class RequestProcessor implements AutoCloseable {
   BufferedReader in; 
 
   BoardTable boardTable = new BoardTable();
+  MemberTable memberTable = new MemberTable();
 
   public RequestProcessor(Socket socket) throws Exception {
     this.socket = socket;
@@ -36,36 +38,38 @@ public class RequestProcessor implements AutoCloseable {
   public void service() throws Exception {
     while (true) {
       String command = in.readLine();
+      Request request = new Request(command, in.readLine());
+      Response response = new Response();
 
       if (command.equalsIgnoreCase("quit")) {
-        in.readLine(); // 클라이언트가 quit 명령을 보낼 때 이어지는 값으로 빈 문자열을 데이터로 보낸다.
-        out.println("success");
-        out.println("goodbye");
-        out.flush();
+        response.setStatus(Response.SUCCESS);
+        response.setValue("goodbye");
+        sendResult(response);
         break;
 
-      } else if (command.startsWith("/board/")) {
-        Request request = new Request(command, in.readLine());
-        Response response = new Response();
-
+      } else if (command.startsWith("board.")) {
         boardTable.execute(request, response);
 
-        // Response 객체에 보관된 실행 결과를 클라이언트에게 보낸다.
-        out.println(response.status);
-        if (response.getValue() != null) {
-          out.println(new Gson().toJson(response.getValue()));
-        } else {
-          out.println();
-        }
-        out.flush();
+      } else if (command.startsWith("member.")) {
+        memberTable.execute(request, response);
 
       } else {
-        in.readLine(); // 클라이언트가 보낸 문자열을 읽어서 버린다.
-        out.println("success");
-        out.println(command);
-        out.flush();
+        response.setStatus(Response.SUCCESS);
+        response.setValue(command);
       }
+      sendResult(response); // 클라이언트에게 실행 결과를 보낸다.
     }
+  }
+
+  private void sendResult(Response response) throws Exception {
+    // Response 객체에 보관된 실행 결과를 클라이언트에게 보낸다.
+    out.println(response.status);
+    if (response.getValue() != null) {
+      out.println(new Gson().toJson(response.getValue()));
+    } else {
+      out.println();
+    }
+    out.flush();
   }
 
 }

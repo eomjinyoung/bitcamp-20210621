@@ -12,6 +12,7 @@ import com.eomcs.menu.MenuGroup;
 import com.eomcs.pms.handler.Command;
 import com.eomcs.pms.handler.CommandRequest;
 import com.eomcs.pms.handler.MemberAddHandler;
+import com.eomcs.pms.handler.MemberListHandler;
 import com.eomcs.pms.listener.AppInitListener;
 import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
@@ -82,6 +83,7 @@ public class ClientApp {
 
     // Command 객체 준비
     commandMap.put("/member/add", new MemberAddHandler(requestAgent));
+    commandMap.put("/member/list", new MemberListHandler(requestAgent));
   }
 
   Menu createMainMenu() {

@@ -165,3 +165,13 @@ CRLF
     - 대신에 서버와 통신하여 데이터를 처리하는 의존 객체를 주입한다.
 - com.eomcs.pms.ClientApp 클래스 변경
     - MemberAddCommand 객체를 생성하여 커맨드맵에 등록한다.
+
+### 9단계 - 회원 목록 조회 커맨드를 C/S 구조에 맞게 변경(마이그레이션)한다.
+
+- com.eomcs.request.RequestAgent 클래스 변경
+    - getObjects() 메서드를 추가한다.
+- com.eomcs.pms.handler.MemberListCommand 클래스를 가져온다.
+    - 회원 목록을 다루는 의존 객체를 List 대신 RequestAgent를 사용한다.
+    - RequestAgent는 서버와 통신하여 데이터를 처리하는 객체이다.
+- com.eomcs.pms.ClientApp 클래스 변경
+    - MemberListCommand 객체를 생성하여 커맨드맵에 등록한다.
