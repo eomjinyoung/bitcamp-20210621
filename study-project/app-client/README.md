@@ -1,4 +1,4 @@
-# 19-e. 데이터 관리 서버 만들기 : 통신 기능을 캡슐화
+# 19-f. 데이터 관리 서버 만들기 : 파일 및 데이터 처리 기능을 서버로 이전
 
 
 이번 훈련에서는,
@@ -105,17 +105,63 @@ CRLF
 
 
 
-### 1단계 - 서버에 요청하고 응답받는 코드를 캡슐화한다.
+### 1단계 - 메뉴 처리 코드를 가져온다.
 
-- `com.eomcs.request.RequestAgent` 클래스 정의
-    - 백업: RequestAgent.java.01
+- com.eomcs.menu 패키지 및 클래스를 가져온다.
+    - com.eomcs.pms.AuthLoginHandler 클래스에 종속되는 문제가 있다.
+    - 해결책!
+        - getMenuList() 변경: 
+            - MenuFilter 도입. 
+            - File 클래스에서 FileFilter 역할을 하는 객체처럼 출력할 메뉴를 선별하는 기능을 별도의 객체로 분리한다.
+- com.eomcs.menu.MenuFilter 인터페이스 정의
+    - java.io.FileFilter 인터페이스 참조.
+- com.eomcs.menu.MenuGroup 클래스 변경
+    - MenuFilter 객체를 저장할 필드와 셋터/겟터 메서드를 추가한다.
 
-### 2단계 - 서버에 요청하는 기능을 RequestAgent로 대체한다.
+### 2단계 - Command 디자인 패턴 관련 코드를 가져온다.
 
-- `com.eomcs.pms.ClientApp` 클래스 변경
-    - 백업: ClientApp.java.01
+- com.eomcs.pms.handler.Command 인터페이스를 가져온다.
+- com.eomcs.pms.handler.CommandRequest 클래스를 가져온다.
+- com.eomcs.pms.handler.RequestDispatcher 클래스를 가져온다.
+- com.eomcs.pms.ClientApp 클래스 변경
+    - Command 맵 필드를 가져온다.
+    - ClientApp 생성자 준비
 
-### 3단계 - 서버가 응답하는 메시지를 상수 필드로 전환한다.
+### 3단계 - Observer 디자인 패턴 관련 코드를 가져온다.
 
-- `com.eomcs.request.RequestAgent` 클래스 정의
-- `com.eomcs.pms.ClientApp` 클래스 변경
+- com.eomcs.context 패키지 및 클래스, 인터페이스 가져온다.
+- com.eomcs.pms.ClientApp 클래스 변경
+    - 옵저버 관련 필드와 메서드 가져온다.
+    - notifyOnXxx() 메서드를 가져온다.
+
+### 4단계 - 메뉴 생성 관련 코드를 가져온다.
+
+- com.eomcs.pms.ClientApp 클래스 변경
+    - 메뉴 생성과 관련된 코드를 가져온다.
+
+### 5단계 - service() 실행 관련 코드를 가져온다.
+
+- com.eomcs.pms.ClientApp 클래스 변경
+    - service() 메서드 가져온다.
+    - main() 메서드 변경
+
+### 6단계 - AppInitListener 옵저버 코드를 가져온다.
+
+- com.eomcs.pms.listener.AppInitListener 클래스를 가져온다.
+- com.eomcs.pms.ClientApp 클래스 변경
+    - AppInitListener 옵저버를 등록한다.
+
+### 7단계 - RequestAgent 필드를 인스턴스 필드로 전환한다.
+
+- com.eomcs.pms.ClientApp 클래스 변경
+    - RequestAgent 스태틱 필드를 인스턴스 필드로 전환.
+    - ClientApp() 생성자 변경 : RequestAgent 인스턴스 생성.
+
+### 8단계 - 회원 등록 커맨드를 C/S 구조에 맞게 변경(마이그레이션)한다.
+
+- com.eomcs.pms.handler.MemberAddCommand 클래스를 가져온다.
+    - 이제부터 회원 데이터는 서버에서 처리할 것이다.
+    - 회원 목록을 다루는 의존 객체 List를 제거한다.
+    - 대신에 서버와 통신하여 데이터를 처리하는 의존 객체를 주입한다.
+- com.eomcs.pms.ClientApp 클래스 변경
+    - MemberAddCommand 객체를 생성하여 커맨드맵에 등록한다.
