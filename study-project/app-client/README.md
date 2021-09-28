@@ -105,7 +105,7 @@ CRLF
 
 
 
-### 1단계 - 서버에 요청하고 응답하는 코드를 캡슐화한다.
+### 1단계 - 서버에 요청하고 응답받는 코드를 캡슐화한다.
 
 - `com.eomcs.request.RequestAgent` 클래스 정의
     - 백업: RequestAgent.java.01

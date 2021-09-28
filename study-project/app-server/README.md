@@ -1,4 +1,5 @@
-# 19-e. 데이터 관리 서버 만들기 : 파일 및 데이터 처리 기능을 서버로 이전
+# 19-e. 데이터 관리 서버 만들기 : 통신 기능을 캡슐화
+
 
 이번 훈련에서는,
 - **네트워크 API** 를 이용하여 데스크톱 애플리케이션을 클라이언트/서버 구조로 변경한다.
@@ -22,7 +23,9 @@
 - 응답 프로토콜을 변경하고 그에 맞게 구현한다.
 - 응답을 수신하는 코드를 별도의 메서드로 분리한다.
 
-### 요청 프로토콜
+## 실습
+
+### 요청 프로토콜 변경
 
 ```
 요청 데이터 규칙: 
@@ -31,6 +34,7 @@ JSON 데이터(UTF-8 문자열) CRLF  <== 명령어에 따라 선택 사항
 
 예) 게시글 목록 요청
 /board/list CRLF
+CRLF
 
 예) 게시글 상세 요청
 /board/detail CRLF
@@ -64,7 +68,7 @@ board/update CRLF
 ```
 응답 데이터 규칙: 
 처리상태(success | fail) CRLF
-JSON 데이터(UTF-8 문자열) CRLF  <== 처리 결과에 따라 선택 사항
+JSON 데이터(UTF-8 문자열) CRLF  <== 데이터가 없으면 빈 문자열을 응답한다.
 
 
 예) /board/list 요청에 대한 응답
@@ -88,25 +92,31 @@ success CRLF
 
 예) board/add 요청에 대한 응답
 success CRLF
+CRLF
 
 예) board/update 요청에 대한 응답
 success CRLF
+CRLF
 
 예) board/delete 요청에 대한 응답
 success CRLF
+CRLF
 ```
 
-## 실습
+### 1단계 - 클라이언트의 요청 정보를 다루고 응답을 다루는 코드를 캡슐화 한다.
 
-### 1단계 - 프로토콜에 맞춰 게시글 데이터의 저장 요청을 처리한다.
+- com.eomcs.server.RequestProcessor 클래스 정의
+    - 클라이언트의 요청 정보를 다루는 일을 한다.
+- com.eomcs.server.Request 클래스 정의 
+    - 요청 명령을 조회하고 요청 데이터를 꺼내는 일을 한다.
+- com.eomcs.server.Response 클래스 정의
+    - 클라이언트에게 응답하는 일을 한다.
 
-- com.eomcs.pms.domain.Member 클래스 가져오기
-- com.eomcs.pms.domain.Board 클래스 가져오기
-- `com.eomcs.pms.ServerApp` 변경
-    - 프로토콜에 맞춰 JSON 형식으로 받은 데이터를 Board 객체로 변환하여 저장한다.
-    - 저장 성공 시 success 응답을 보낸다.
-    - 저장 실패 시 fail 응답을 보낸다.
+### 2단계 - 게시글 데이터를 저장하고 꺼내는 코드를 캡슐화 한다.
 
+- com.eomcs.pms.table.BoardTable 클래스 정의
 
-## 실습 결과
-- src/main/java/com/eomcs/pms/ServerApp.java 변경
+### 3단계 - BoardTable 클래스를 이용하여 클라이언트 요청을 처리한다.
+
+- com.eomcs.pms.ServerApp 클래스 변경
+    
