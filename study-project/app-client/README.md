@@ -185,3 +185,11 @@ CRLF
 
 - com.eomcs.pms.handler.MemberUpdateCommand 클래스를 가져온다.
 - com.eomcs.pms.ClientApp 클래스 변경
+
+### 12단계 - 회원 삭제 커맨드를 C/S 구조에 맞게 마이그레이션 한다.
+
+- com.eomcs.pms.handler.MemberDeleteCommand 클래스를 가져온다.
+- com.eomcs.pms.ClientApp 클래스 변경
+
+### 13단계 - 게시판 관리 커맨드를 C/S 구조에 맞게 마이그레이션 한다.
+

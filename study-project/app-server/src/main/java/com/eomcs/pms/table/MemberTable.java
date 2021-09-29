@@ -87,6 +87,7 @@ public class MemberTable {
       case "member.selectList": selectList(request, response); break;
       case "member.selectOne": selectOne(request, response); break;
       case "member.update": update(request, response); break;
+      case "member.delete": delete(request, response); break;
       default:
         response.setStatus(Response.FAIL);
         response.setValue("해당 명령을 지원하지 않습니다.");
@@ -128,7 +129,20 @@ public class MemberTable {
     }
 
     list.set(index, member);
+    response.setStatus(Response.SUCCESS);
+  }
 
+  private void delete(Request request, Response response) throws Exception {
+    int no = Integer.parseInt(request.getParameter("no"));
+    int index = indexOf(no);
+
+    if (index == -1) {
+      response.setStatus(Response.FAIL);
+      response.setValue("해당 번호의 회원을 찾을 수 없습니다.");
+      return;
+    }
+
+    list.remove(index);
     response.setStatus(Response.SUCCESS);
   }
 

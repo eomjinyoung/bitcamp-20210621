@@ -12,6 +12,7 @@ import com.eomcs.menu.MenuGroup;
 import com.eomcs.pms.handler.Command;
 import com.eomcs.pms.handler.CommandRequest;
 import com.eomcs.pms.handler.MemberAddHandler;
+import com.eomcs.pms.handler.MemberDeleteHandler;
 import com.eomcs.pms.handler.MemberDetailHandler;
 import com.eomcs.pms.handler.MemberListHandler;
 import com.eomcs.pms.handler.MemberUpdateHandler;
@@ -88,6 +89,7 @@ public class ClientApp {
     commandMap.put("/member/list", new MemberListHandler(requestAgent));
     commandMap.put("/member/detail", new MemberDetailHandler(requestAgent));
     commandMap.put("/member/update", new MemberUpdateHandler(requestAgent));
+    commandMap.put("/member/delete", new MemberDeleteHandler(requestAgent));
   }
 
   Menu createMainMenu() {
