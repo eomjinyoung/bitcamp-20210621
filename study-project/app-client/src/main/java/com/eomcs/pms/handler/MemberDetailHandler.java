@@ -41,26 +41,26 @@ public class MemberDetailHandler implements Command {
     //    if (loginUser == null || (member.getNo() != loginUser.getNo() && !loginUser.getEmail().equals("root@test.com"))) {
     //      return;
     //    }
-    //
-    //    request.setAttribute("no", no);
-    //
-    //    while (true) {
-    //      String input = Prompt.inputString("변경(U), 삭제(D), 이전(0)>");
-    //      switch (input) {
-    //        case "U":
-    //        case "u":
-    //          request.getRequestDispatcher("/member/update").forward(request);
-    //          return;
-    //        case "D":
-    //        case "d":
-    //          request.getRequestDispatcher("/member/delete").forward(request);
-    //          return;
-    //        case "0":
-    //          return;
-    //        default:
-    //          System.out.println("명령어가 올바르지 않습니다!");
-    //      }
-    //  }
+
+    request.setAttribute("no", no);
+
+    while (true) {
+      String input = Prompt.inputString("변경(U), 삭제(D), 이전(0)>");
+      switch (input) {
+        case "U":
+        case "u":
+          request.getRequestDispatcher("/member/update").forward(request);
+          return;
+        case "D":
+        case "d":
+          request.getRequestDispatcher("/member/delete").forward(request);
+          return;
+        case "0":
+          return;
+        default:
+          System.out.println("명령어가 올바르지 않습니다!");
+      }
+    }
   }
 }
 

@@ -59,6 +59,9 @@ public class RequestProcessor implements AutoCloseable {
       }
       sendResult(response); // 클라이언트에게 실행 결과를 보낸다.
     }
+
+    // 데이터를 파일에 저장한다.
+    memberTable.save();
   }
 
   private void sendResult(Response response) throws Exception {

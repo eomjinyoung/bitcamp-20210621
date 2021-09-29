@@ -86,6 +86,7 @@ public class MemberTable {
       case "member.insert": insert(request, response); break;
       case "member.selectList": selectList(request, response); break;
       case "member.selectOne": selectOne(request, response); break;
+      case "member.update": update(request, response); break;
       default:
         response.setStatus(Response.FAIL);
         response.setValue("해당 명령을 지원하지 않습니다.");
@@ -116,6 +117,21 @@ public class MemberTable {
     }
   }
 
+  private void update(Request request, Response response) throws Exception {
+    Member member = request.getObject(Member.class);
+
+    int index = indexOf(member.getNo());
+    if (index == -1) {
+      response.setStatus(Response.FAIL);
+      response.setValue("해당 번호의 회원을 찾을 수 없습니다.");
+      return;
+    }
+
+    list.set(index, member);
+
+    response.setStatus(Response.SUCCESS);
+  }
+
   private Member findByNo(int no) {
     for (Member m : list) {
       if (m.getNo() == no) {
@@ -123,6 +139,15 @@ public class MemberTable {
       }
     }
     return null;
+  }
+
+  private int indexOf(int memberNo) {
+    for (int i = 0; i < list.size(); i++) {
+      if (list.get(i).getNo() == memberNo) {
+        return i;
+      }
+    }
+    return -1;
   }
 
 }

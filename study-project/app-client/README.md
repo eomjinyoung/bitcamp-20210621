@@ -175,3 +175,13 @@ CRLF
     - RequestAgent는 서버와 통신하여 데이터를 처리하는 객체이다.
 - com.eomcs.pms.ClientApp 클래스 변경
     - MemberListCommand 객체를 생성하여 커맨드맵에 등록한다.
+
+### 10단계 - 회원 상세 조회 커맨드를 C/S 구조에 맞게 변경(마이그레이션)한다.
+
+- com.eomcs.pms.handler.MemberDetailCommand 클래스를 가져온다.
+- com.eomcs.pms.ClientApp 클래스 변경
+
+### 11단계 - 회원 변경 커맨드를 C/S 구조에 맞게 마이그레이션 한다.
+
+- com.eomcs.pms.handler.MemberUpdateCommand 클래스를 가져온다.
+- com.eomcs.pms.ClientApp 클래스 변경
