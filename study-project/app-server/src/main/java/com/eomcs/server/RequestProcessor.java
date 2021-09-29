@@ -4,13 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import com.eomcs.pms.table.BoardTable;
-import com.eomcs.pms.table.JsonDataTable;
-import com.eomcs.pms.table.MemberTable;
 import com.google.gson.Gson;
 
 // 역할
@@ -23,16 +18,13 @@ public class RequestProcessor implements AutoCloseable {
   PrintWriter out;
   BufferedReader in; 
 
-  Map<String,DataProcessor> dataProcessorMap = new HashMap<String,DataProcessor>();
+  Map<String,DataProcessor> dataProcessorMap;
 
-  public RequestProcessor(Socket socket) throws Exception {
+  public RequestProcessor(Socket socket, Map<String,DataProcessor> dataProcessorMap) throws Exception {
     this.socket = socket;
     out = new PrintWriter(socket.getOutputStream());
     in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-    // 데이터 처리 담당자를 등록한다.
-    dataProcessorMap.put("board.", new BoardTable());
-    dataProcessorMap.put("member.", new MemberTable());
+    this.dataProcessorMap = dataProcessorMap; 
   }
 
   @Override
@@ -77,15 +69,6 @@ public class RequestProcessor implements AutoCloseable {
       }
 
       sendResult(response); // 클라이언트에게 실행 결과를 보낸다.
-    }
-
-    // 데이터를 파일에 저장한다.
-    Collection<DataProcessor> dataProcessors = dataProcessorMap.values();
-    for (DataProcessor dataProcessor : dataProcessors) {
-      if (dataProcessor instanceof JsonDataTable) {
-        // 만약 데이터 처리 담당자가 JsonDataTable 의 자손이라면,
-        ((JsonDataTable<?>)dataProcessor).save();
-      }
     }
   }
 

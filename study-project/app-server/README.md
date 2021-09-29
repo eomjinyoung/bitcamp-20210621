@@ -145,4 +145,12 @@ CRLF
     - service() 메서드 변경
     - 백업: RequestProcessor.java.01
 
-    
+### 7단계 - RequestProcessor 클래스를 리팩토링 한다.
+
+- com.eomcs.server.RequestProcessor 클래스 변경
+    - 특정 프로젝트에 종속되지 않고 여러 프로젝트에서 사용할 수 있도록 변경한다.
+    - DataProcessor 맵 객체를 밖에서 주입하도록 변경한다.
+    - 데이터를 파일에 저장하는 코드도 바깥으로 꺼낸다.
+- com.eomcs.pms.ServerApp 클래스 변경
+    - DataProcessor 맵을 준비한다.
+    - 데이터를 파일에 저장하는 코드를 이 클래스로 옮긴다.

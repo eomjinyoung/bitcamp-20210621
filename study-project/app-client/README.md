@@ -159,39 +159,46 @@ CRLF
 
 ### 8단계 - 회원 등록 커맨드를 C/S 구조에 맞게 변경(마이그레이션)한다.
 
-- com.eomcs.pms.handler.MemberAddCommand 클래스를 가져온다.
+- com.eomcs.pms.handler.MemberAddHandler 클래스를 가져온다.
     - 이제부터 회원 데이터는 서버에서 처리할 것이다.
     - 회원 목록을 다루는 의존 객체 List를 제거한다.
     - 대신에 서버와 통신하여 데이터를 처리하는 의존 객체를 주입한다.
 - com.eomcs.pms.ClientApp 클래스 변경
-    - MemberAddCommand 객체를 생성하여 커맨드맵에 등록한다.
+    - MemberAddHandler 객체를 생성하여 커맨드맵에 등록한다.
 
 ### 9단계 - 회원 목록 조회 커맨드를 C/S 구조에 맞게 변경(마이그레이션)한다.
 
 - com.eomcs.request.RequestAgent 클래스 변경
     - getObjects() 메서드를 추가한다.
-- com.eomcs.pms.handler.MemberListCommand 클래스를 가져온다.
+- com.eomcs.pms.handler.MemberListHandler 클래스를 가져온다.
     - 회원 목록을 다루는 의존 객체를 List 대신 RequestAgent를 사용한다.
     - RequestAgent는 서버와 통신하여 데이터를 처리하는 객체이다.
 - com.eomcs.pms.ClientApp 클래스 변경
-    - MemberListCommand 객체를 생성하여 커맨드맵에 등록한다.
+    - MemberListHandler 객체를 생성하여 커맨드맵에 등록한다.
 
 ### 10단계 - 회원 상세 조회 커맨드를 C/S 구조에 맞게 변경(마이그레이션)한다.
 
-- com.eomcs.pms.handler.MemberDetailCommand 클래스를 가져온다.
+- com.eomcs.pms.handler.MemberDetailHandler 클래스를 가져온다.
 - com.eomcs.pms.ClientApp 클래스 변경
 
 ### 11단계 - 회원 변경 커맨드를 C/S 구조에 맞게 마이그레이션 한다.
 
-- com.eomcs.pms.handler.MemberUpdateCommand 클래스를 가져온다.
+- com.eomcs.pms.handler.MemberUpdateHandler 클래스를 가져온다.
 - com.eomcs.pms.ClientApp 클래스 변경
 
 ### 12단계 - 회원 삭제 커맨드를 C/S 구조에 맞게 마이그레이션 한다.
 
-- com.eomcs.pms.handler.MemberDeleteCommand 클래스를 가져온다.
+- com.eomcs.pms.handler.MemberDeleteHandler 클래스를 가져온다.
 - com.eomcs.pms.ClientApp 클래스 변경
 
 ### 13단계 - 게시판 관리 커맨드를 C/S 구조에 맞게 마이그레이션 한다.
 
-- com.eomcs.pms.handler.MemberXxxCommand 클래스를 가져온다.
+- com.eomcs.pms.handler.MemberXxxHandler 클래스를 가져온다.
+- com.eomcs.pms.ClientApp 클래스 변경
+
+### 14단계 - 로그인/로그아웃/사용자정보 커맨드를 C/S 구조에 맞게 마이그레이션 한다.
+
+- com.eomcs.pms.handler.AuthLoginHandler 클래스를 가져온다.
+- com.eomcs.pms.handler.AuthLogoutHandler 클래스를 가져온다.
+- com.eomcs.pms.handler.AuthUserInfoHandler 클래스를 가져온다.
 - com.eomcs.pms.ClientApp 클래스 변경

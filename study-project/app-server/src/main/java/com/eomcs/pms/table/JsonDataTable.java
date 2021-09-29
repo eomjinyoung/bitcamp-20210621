@@ -5,11 +5,13 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 // 역할
 // - 데이터를 처리하는 클래스가 공통으로 가져야할 필드나 메서드를 정의한다.
@@ -17,10 +19,12 @@ import com.google.gson.Gson;
 public abstract class JsonDataTable<T> {
 
   protected List<T> list = new ArrayList<>();
+  private Class<T> elementType;
   private String filename;
 
-  public JsonDataTable(String filename) {
+  public JsonDataTable(String filename, Class<T> elementType) {
     this.filename = filename;
+    this.elementType = elementType;
     loadObjects();
   }
 
@@ -28,7 +32,6 @@ public abstract class JsonDataTable<T> {
     saveObjects();
   }
 
-  @SuppressWarnings("unchecked")
   private void loadObjects() {
 
     try (BufferedReader in = new BufferedReader(
@@ -40,8 +43,8 @@ public abstract class JsonDataTable<T> {
         strBuilder.append(str);
       }
 
-      //Type type = TypeToken.getParameterized(Collection.class, domainType).getType(); 
-      Collection<T> collection = new Gson().fromJson(strBuilder.toString(), list.getClass());
+      Type type = TypeToken.getParameterized(Collection.class, elementType).getType(); 
+      Collection<T> collection = new Gson().fromJson(strBuilder.toString(), type);
       list.addAll(collection);
 
       System.out.printf("%s 데이터 로딩 완료!\n", filename);

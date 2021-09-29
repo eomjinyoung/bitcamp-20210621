@@ -12,7 +12,7 @@ import com.eomcs.server.Response;
 public class BoardTable extends JsonDataTable<Board> implements DataProcessor {
 
   public BoardTable() {
-    super("board.json");
+    super("board.json", Board.class);
   }
 
   @Override
