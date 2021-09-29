@@ -2,18 +2,20 @@ package com.eomcs.pms.table;
 
 import java.util.ArrayList;
 import com.eomcs.pms.domain.Board;
+import com.eomcs.server.DataProcessor;
 import com.eomcs.server.Request;
 import com.eomcs.server.Response;
 
 // 역할
 // - 게시글 데이터를 처리하는 일을 한다.
 // 
-public class BoardTable extends DataTable<Board> {
+public class BoardTable extends JsonDataTable<Board> implements DataProcessor {
 
   public BoardTable() {
     super("board.json");
   }
 
+  @Override
   public void execute(Request request, Response response) throws Exception {
     switch (request.getCommand()) {
       case "board.insert": insert(request, response); break;

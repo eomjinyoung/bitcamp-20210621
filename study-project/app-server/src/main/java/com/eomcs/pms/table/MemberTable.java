@@ -1,18 +1,20 @@
 package com.eomcs.pms.table;
 
 import com.eomcs.pms.domain.Member;
+import com.eomcs.server.DataProcessor;
 import com.eomcs.server.Request;
 import com.eomcs.server.Response;
 
 // 역할
 // - 회원 데이터를 처리하는 일을 한다.
 // 
-public class MemberTable extends DataTable<Member> {
+public class MemberTable extends JsonDataTable<Member> implements DataProcessor {
 
   public MemberTable() {
     super("member.json");
   }
 
+  @Override
   public void execute(Request request, Response response) throws Exception {
     switch (request.getCommand()) {
       case "member.insert": insert(request, response); break;

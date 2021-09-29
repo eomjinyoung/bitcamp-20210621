@@ -129,6 +129,20 @@ CRLF
 
 ### 5단계 - MemberTable과 BoardTable에 대해 일반화(generalization)를 수행한다.
 
-- com.eomcs.pms.table.DataTable 클래스 정의
+- com.eomcs.pms.table.JsonDataTable 클래스 정의
 - com.eomcs.pms.table.MemberTable 클래스 변경
 - com.eomcs.pms.table.BoardTable 클래스 변경
+
+### 6단계 - RequestProcessor 와 XxxTable 클래스 간의 관계를 리팩토링한다.
+
+- com.eomcs.server.DataProcessor 인터페이스 정의
+- com.eomcs.server.pms.table.BoardTable 클래스 변경
+    - DataProcessor 인터페이스 구현
+- com.eomcs.server.pms.table.MemberTable 클래스 변경
+    - DataProcessor 인터페이스 구현
+- com.eomcs.server.RequestProcessor 클래스 변경
+    - 맵에 DataProcessor 객체를 보관한다.
+    - service() 메서드 변경
+    - 백업: RequestProcessor.java.01
+
+    
