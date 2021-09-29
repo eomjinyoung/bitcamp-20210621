@@ -9,6 +9,12 @@ import java.util.List;
 import com.eomcs.context.ApplicationContextListener;
 import com.eomcs.menu.Menu;
 import com.eomcs.menu.MenuGroup;
+import com.eomcs.pms.handler.BoardAddHandler;
+import com.eomcs.pms.handler.BoardDeleteHandler;
+import com.eomcs.pms.handler.BoardDetailHandler;
+import com.eomcs.pms.handler.BoardListHandler;
+import com.eomcs.pms.handler.BoardSearchHandler;
+import com.eomcs.pms.handler.BoardUpdateHandler;
 import com.eomcs.pms.handler.Command;
 import com.eomcs.pms.handler.CommandRequest;
 import com.eomcs.pms.handler.MemberAddHandler;
@@ -90,6 +96,13 @@ public class ClientApp {
     commandMap.put("/member/detail", new MemberDetailHandler(requestAgent));
     commandMap.put("/member/update", new MemberUpdateHandler(requestAgent));
     commandMap.put("/member/delete", new MemberDeleteHandler(requestAgent));
+
+    commandMap.put("/board/add", new BoardAddHandler(requestAgent));
+    commandMap.put("/board/list", new BoardListHandler(requestAgent));
+    commandMap.put("/board/detail", new BoardDetailHandler(requestAgent));
+    commandMap.put("/board/update", new BoardUpdateHandler(requestAgent));
+    commandMap.put("/board/delete", new BoardDeleteHandler(requestAgent));
+    commandMap.put("/board/search", new BoardSearchHandler(requestAgent));
   }
 
   Menu createMainMenu() {

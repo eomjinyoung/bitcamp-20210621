@@ -114,4 +114,16 @@ CRLF
 - com.eomcs.pms.ServerApp 클래스 변경
     - 클라이언트에게 응답하는 코드를 리팩토링 한다.
 
+### 3단계 - MemberTable 클래스에 파일 로딩 및 저장 기능을 추가한다.
+
+- com.eomcs.pms.table.MemberTable 클래스 변경
+    - 생성자 추가
+    - save() 메서드 추가
+    - loadObjects()/saveObjects() 메서드 가져온다.
+- com.eomcs.server.RequestProcessor 클래스 변경
+    - service() 변경
+
+### 4단계 - 게시글 데이터를 처리할 BoardTable 클래스를 추가한다.
+
+- com.eomcs.pms.table.BoardTable 클래스 정의
 

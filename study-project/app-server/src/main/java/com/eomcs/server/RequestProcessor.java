@@ -62,6 +62,7 @@ public class RequestProcessor implements AutoCloseable {
 
     // 데이터를 파일에 저장한다.
     memberTable.save();
+    boardTable.save();
   }
 
   private void sendResult(Response response) throws Exception {
