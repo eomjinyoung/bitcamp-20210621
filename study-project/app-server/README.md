@@ -127,3 +127,8 @@ CRLF
 
 - com.eomcs.pms.table.BoardTable 클래스 정의
 
+### 5단계 - MemberTable과 BoardTable에 대해 일반화(generalization)를 수행한다.
+
+- com.eomcs.pms.table.DataTable 클래스 정의
+- com.eomcs.pms.table.MemberTable 클래스 변경
+- com.eomcs.pms.table.BoardTable 클래스 변경
