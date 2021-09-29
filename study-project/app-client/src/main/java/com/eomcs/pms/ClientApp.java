@@ -12,6 +12,7 @@ import com.eomcs.menu.MenuGroup;
 import com.eomcs.pms.handler.Command;
 import com.eomcs.pms.handler.CommandRequest;
 import com.eomcs.pms.handler.MemberAddHandler;
+import com.eomcs.pms.handler.MemberDetailHandler;
 import com.eomcs.pms.handler.MemberListHandler;
 import com.eomcs.pms.listener.AppInitListener;
 import com.eomcs.request.RequestAgent;
@@ -84,6 +85,7 @@ public class ClientApp {
     // Command 객체 준비
     commandMap.put("/member/add", new MemberAddHandler(requestAgent));
     commandMap.put("/member/list", new MemberListHandler(requestAgent));
+    commandMap.put("/member/detail", new MemberDetailHandler(requestAgent));
   }
 
   Menu createMainMenu() {
@@ -146,14 +148,20 @@ public class ClientApp {
   }
 
 
-  void service() {
+  void service() throws Exception {
 
     notifyOnApplicationStarted();
 
     createMainMenu().execute();
+
+    // 프로그램의 실행을 끝내면, 서버와의 연결을 끊는다.
+    requestAgent.request("quit", null);
+    //    System.out.println(requestAgent.getObject(String.class));
+
     Prompt.close();
 
     notifyOnApplicationEnded();
+
   }
 
   public static void main(String[] args) throws Exception {

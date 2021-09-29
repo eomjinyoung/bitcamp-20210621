@@ -167,7 +167,7 @@ public class MenuGroup extends Menu {
     }
 
     if (menuNo == 0 && !disablePrevMenu) {
-      return prevMenu; // 호출한 쪽에 '이전 메뉴' 선택을 알리게 위해 
+      return prevMenu; // 호출한 쪽에 '이전 메뉴' 선택을 알리기 위해 
     } 
 
     return menuList.get(menuNo - 1);
