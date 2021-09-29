@@ -113,6 +113,8 @@ CRLF
         - getMenuList() 변경: 
             - MenuFilter 도입. 
             - File 클래스에서 FileFilter 역할을 하는 객체처럼 출력할 메뉴를 선별하는 기능을 별도의 객체로 분리한다.
+- com.eomcs.menu.Menu 클래스 변경
+    - accessScope 필드의 겟터 추가
 - com.eomcs.menu.MenuFilter 인터페이스 정의
     - java.io.FileFilter 인터페이스 참조.
 - com.eomcs.menu.MenuGroup 클래스 변경

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import com.eomcs.context.ApplicationContextListener;
 import com.eomcs.menu.Menu;
+import com.eomcs.menu.MenuFilter;
 import com.eomcs.menu.MenuGroup;
 import com.eomcs.pms.handler.AuthLoginHandler;
 import com.eomcs.pms.handler.AuthLogoutHandler;
@@ -112,8 +113,13 @@ public class ClientApp {
     commandMap.put("/auth/userinfo", new AuthUserInfoHandler());
   }
 
+  // MenuGroup에서 사용할 필터를 정의한다.
+  MenuFilter menuFilter = menu -> (menu.getAccessScope() & AuthLoginHandler.getUserAccessLevel()) > 0;
+
+
   Menu createMainMenu() {
     MenuGroup mainMenuGroup = new MenuGroup("메인");
+    mainMenuGroup.setMenuFilter(menuFilter);
     mainMenuGroup.setPrevMenuTitle("종료");
 
     mainMenuGroup.add(new MenuItem("로그인", ACCESS_LOGOUT , "/auth/login"));
@@ -131,6 +137,7 @@ public class ClientApp {
 
   private Menu createBoardMenu() {
     MenuGroup boardMenu = new MenuGroup("게시판");
+    boardMenu.setMenuFilter(menuFilter);
     boardMenu.add(new MenuItem("등록", ACCESS_GENERAL, "/board/add"));
     boardMenu.add(new MenuItem("목록", "/board/list"));
     boardMenu.add(new MenuItem("상세보기", "/board/detail"));
@@ -140,6 +147,7 @@ public class ClientApp {
 
   private Menu createMemberMenu() {
     MenuGroup memberMenu = new MenuGroup("회원");
+    memberMenu.setMenuFilter(menuFilter);
     memberMenu.add(new MenuItem("등록", ACCESS_GENERAL, "/member/add"));
     memberMenu.add(new MenuItem("목록", "/member/list"));
     memberMenu.add(new MenuItem("상세보기", "/member/detail"));
@@ -148,6 +156,7 @@ public class ClientApp {
 
   private Menu createProjectMenu() {
     MenuGroup projectMenu = new MenuGroup("프로젝트");
+    projectMenu.setMenuFilter(menuFilter);
     projectMenu.add(new MenuItem("등록", ACCESS_GENERAL, "/project/add"));
     projectMenu.add(new MenuItem("목록", "/project/list"));
     projectMenu.add(new MenuItem("상세보기", "/project/detail"));
@@ -156,6 +165,7 @@ public class ClientApp {
 
   private Menu createTaskMenu() {
     MenuGroup taskMenu = new MenuGroup("작업");
+    taskMenu.setMenuFilter(menuFilter);
     taskMenu.add(new MenuItem("등록", ACCESS_GENERAL, "/task/add"));
     taskMenu.add(new MenuItem("목록", "/task/list"));
     taskMenu.add(new MenuItem("상세보기", "/task/detail"));
@@ -164,6 +174,7 @@ public class ClientApp {
 
   private Menu createAdminMenu() {
     MenuGroup adminMenu = new MenuGroup("관리자", ACCESS_ADMIN);
+    adminMenu.setMenuFilter(menuFilter);
     adminMenu.add(new MenuItem("회원 등록", "/member/add"));
     adminMenu.add(new MenuItem("프로젝트 등록", "/project/add"));
     adminMenu.add(new MenuItem("작업 등록", "/task/add"));

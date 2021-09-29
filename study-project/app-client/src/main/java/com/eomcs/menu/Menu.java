@@ -19,5 +19,9 @@ public abstract class Menu {
     this.accessScope = accessScope;
   }
 
+  public int getAccessScope() {
+    return this.accessScope;
+  }
+
   public abstract void execute();
 }
