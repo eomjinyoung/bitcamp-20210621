@@ -31,7 +31,10 @@ import com.eomcs.pms.handler.ProjectAddHandler;
 import com.eomcs.pms.handler.ProjectDeleteHandler;
 import com.eomcs.pms.handler.ProjectDetailHandler;
 import com.eomcs.pms.handler.ProjectListHandler;
+import com.eomcs.pms.handler.ProjectPrompt;
 import com.eomcs.pms.handler.ProjectUpdateHandler;
+import com.eomcs.pms.handler.TaskAddHandler;
+import com.eomcs.pms.handler.TaskListHandler;
 import com.eomcs.pms.listener.AppInitListener;
 import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
@@ -125,6 +128,10 @@ public class ClientApp {
     commandMap.put("/project/detail", new ProjectDetailHandler(requestAgent));
     commandMap.put("/project/update", new ProjectUpdateHandler(requestAgent, memberPrompt));
     commandMap.put("/project/delete", new ProjectDeleteHandler(requestAgent));
+
+    ProjectPrompt projectPrompt = new ProjectPrompt(requestAgent);
+    commandMap.put("/task/add", new TaskAddHandler(requestAgent, projectPrompt));
+    commandMap.put("/task/list", new TaskListHandler(projectPrompt));
   }
 
   // MenuGroup에서 사용할 필터를 정의한다.

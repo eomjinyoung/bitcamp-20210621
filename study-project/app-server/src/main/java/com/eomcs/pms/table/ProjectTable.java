@@ -1,6 +1,7 @@
 package com.eomcs.pms.table;
 
 import com.eomcs.pms.domain.Project;
+import com.eomcs.pms.domain.Task;
 import com.eomcs.server.DataProcessor;
 import com.eomcs.server.Request;
 import com.eomcs.server.Response;
@@ -22,6 +23,7 @@ public class ProjectTable extends JsonDataTable<Project> implements DataProcesso
       case "project.selectOne": selectOne(request, response); break;
       case "project.update": update(request, response); break;
       case "project.delete": delete(request, response); break;
+      case "project.task.insert": insertTask(request, response); break;
       default:
         response.setStatus(Response.FAIL);
         response.setValue("해당 명령을 지원하지 않습니다.");
@@ -96,6 +98,13 @@ public class ProjectTable extends JsonDataTable<Project> implements DataProcesso
       }
     }
     return -1;
+  }
+
+  private void insertTask(Request request, Response response) throws Exception {
+    Task task = request.getObject(Task.class);
+    Project project = findByNo(task.getProject().getNo());
+    project.getTasks().add(task);
+    response.setStatus(Response.SUCCESS);
   }
 
 }
