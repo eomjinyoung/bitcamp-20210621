@@ -21,6 +21,7 @@ public class MemberTable extends JsonDataTable<Member> implements DataProcessor 
       case "member.selectList": selectList(request, response); break;
       case "member.selectOne": selectOne(request, response); break;
       case "member.selectOneByEmailPassword": selectOneByEmailPassword(request, response); break;
+      case "member.selectOneByName": selectOneByName(request, response); break;
       case "member.update": update(request, response); break;
       case "member.delete": delete(request, response); break;
       default:
@@ -71,6 +72,26 @@ public class MemberTable extends JsonDataTable<Member> implements DataProcessor 
     } else {
       response.setStatus(Response.FAIL);
       response.setValue("해당 이메일과 암호를 가진 회원을 찾을 수 없습니다.");
+    }
+  }
+
+  private void selectOneByName(Request request, Response response) throws Exception {
+    String name = request.getParameter("name");
+    System.out.println("-----> " + name);
+    Member member = null;
+    for (Member m : list) {
+      if (m.getName().equals(name)) {
+        member = m;
+        break;
+      }
+    }
+
+    if (member != null) {
+      response.setStatus(Response.SUCCESS);
+      response.setValue(member);
+    } else {
+      response.setStatus(Response.FAIL);
+      response.setValue("해당 이름의 회원을 찾을 수 없습니다.");
     }
   }
 

@@ -25,7 +25,13 @@ import com.eomcs.pms.handler.MemberAddHandler;
 import com.eomcs.pms.handler.MemberDeleteHandler;
 import com.eomcs.pms.handler.MemberDetailHandler;
 import com.eomcs.pms.handler.MemberListHandler;
+import com.eomcs.pms.handler.MemberPrompt;
 import com.eomcs.pms.handler.MemberUpdateHandler;
+import com.eomcs.pms.handler.ProjectAddHandler;
+import com.eomcs.pms.handler.ProjectDeleteHandler;
+import com.eomcs.pms.handler.ProjectDetailHandler;
+import com.eomcs.pms.handler.ProjectListHandler;
+import com.eomcs.pms.handler.ProjectUpdateHandler;
 import com.eomcs.pms.listener.AppInitListener;
 import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
@@ -111,6 +117,14 @@ public class ClientApp {
     commandMap.put("/auth/login", new AuthLoginHandler(requestAgent));
     commandMap.put("/auth/logout", new AuthLogoutHandler());
     commandMap.put("/auth/userinfo", new AuthUserInfoHandler());
+
+    MemberPrompt memberPrompt = new MemberPrompt(requestAgent);
+
+    commandMap.put("/project/add", new ProjectAddHandler(requestAgent, memberPrompt));
+    commandMap.put("/project/list", new ProjectListHandler(requestAgent));
+    commandMap.put("/project/detail", new ProjectDetailHandler(requestAgent));
+    commandMap.put("/project/update", new ProjectUpdateHandler(requestAgent, memberPrompt));
+    commandMap.put("/project/delete", new ProjectDeleteHandler(requestAgent));
   }
 
   // MenuGroup에서 사용할 필터를 정의한다.

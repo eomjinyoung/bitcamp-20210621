@@ -7,6 +7,7 @@ import java.util.HashMap;
 import com.eomcs.pms.table.BoardTable;
 import com.eomcs.pms.table.JsonDataTable;
 import com.eomcs.pms.table.MemberTable;
+import com.eomcs.pms.table.ProjectTable;
 import com.eomcs.server.DataProcessor;
 import com.eomcs.server.RequestProcessor;
 
@@ -27,6 +28,7 @@ public class ServerApp {
     // => 데이터 처리 담당자를 등록한다.
     dataProcessorMap.put("board.", new BoardTable());
     dataProcessorMap.put("member.", new MemberTable());
+    dataProcessorMap.put("project.", new ProjectTable());
 
     RequestProcessor requestProcessor = new RequestProcessor(socket, dataProcessorMap);
     requestProcessor.service();

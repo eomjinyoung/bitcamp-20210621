@@ -30,10 +30,10 @@ public class BoardUpdateHandler implements Command {
 
     Board board = requestAgent.getObject(Board.class);
 
-    //    if (board.getWriter().getNo() != AuthLoginHandler.getLoginUser().getNo()) {
-    //      System.out.println("변경 권한이 없습니다.");
-    //      return;
-    //    }
+    if (board.getWriter().getNo() != AuthLoginHandler.getLoginUser().getNo()) {
+      System.out.println("변경 권한이 없습니다.");
+      return;
+    }
 
     String title = Prompt.inputString(String.format("제목(%s)? ", board.getTitle()));
     String content = Prompt.inputString(String.format("내용(%s)? ", board.getContent()));
