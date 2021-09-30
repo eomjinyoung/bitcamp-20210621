@@ -42,8 +42,14 @@ public class TaskDetailHandler implements Command {
     System.out.println();
 
     Member loginUser = AuthLoginHandler.getLoginUser(); 
-    if (loginUser == null || (task.getNo() != loginUser.getNo() && !loginUser.getEmail().equals("root@test.com"))) {
+    if (loginUser == null) {
       return;
+    }
+
+    if (!loginUser.getEmail().equals("root@test.com")) {
+      if (project.getOwner().getNo() != loginUser.getNo()) {
+        return;
+      }
     }
 
     request.setAttribute("project", project);

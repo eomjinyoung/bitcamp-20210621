@@ -40,7 +40,7 @@ public class TaskDetailHandler extends AbstractTaskHandler {
     System.out.println();
 
     Member loginUser = AuthLoginHandler.getLoginUser(); 
-    if (loginUser == null || (task.getNo() != loginUser.getNo() && !loginUser.getEmail().equals("root@test.com"))) {
+    if (loginUser == null || (project.getOwner().getNo() != loginUser.getNo() && !loginUser.getEmail().equals("root@test.com"))) {
       return;
     }
 

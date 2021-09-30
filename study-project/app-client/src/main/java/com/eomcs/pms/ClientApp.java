@@ -36,6 +36,7 @@ import com.eomcs.pms.handler.ProjectUpdateHandler;
 import com.eomcs.pms.handler.TaskAddHandler;
 import com.eomcs.pms.handler.TaskDetailHandler;
 import com.eomcs.pms.handler.TaskListHandler;
+import com.eomcs.pms.handler.TaskUpdateHandler;
 import com.eomcs.pms.listener.AppInitListener;
 import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
@@ -134,6 +135,7 @@ public class ClientApp {
     commandMap.put("/task/add", new TaskAddHandler(requestAgent, projectPrompt));
     commandMap.put("/task/list", new TaskListHandler(projectPrompt));
     commandMap.put("/task/detail", new TaskDetailHandler(projectPrompt));
+    commandMap.put("/task/update", new TaskUpdateHandler(requestAgent, projectPrompt));
   }
 
   // MenuGroup에서 사용할 필터를 정의한다.
