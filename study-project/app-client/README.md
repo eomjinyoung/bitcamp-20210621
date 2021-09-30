@@ -204,3 +204,17 @@ CRLF
 - com.eomcs.pms.handler.AuthLogoutHandler 클래스를 가져온다.
 - com.eomcs.pms.handler.AuthUserInfoHandler 클래스를 가져온다.
 - com.eomcs.pms.ClientApp 클래스 변경
+
+### 15단계 - 프로젝트 관리 커맨드를 C/S 구조에 맞게 마이그레이션 한다.
+
+- com.eomcs.pms.handler.MemberPrompt 클래스를 가져온다.
+- com.eomcs.pms.handler.ProjectXxxHandler 클래스를 가져온다.
+- com.eomcs.pms.ClientApp 클래스 변경
+
+### 16단계 - 작업 관리 커맨드를 C/S 구조에 맞게 마이그레이션 한다.
+
+- com.eomcs.pms.handler.ProjectPrompt 클래스를 가져온다.
+- com.eomcs.pms.handler.AbstractTaskHandler 클래스를 가져온다.
+    - TaskHandlerHelper 클래스로 변경한다.
+- com.eomcs.pms.handler.TaskXxxHandler 클래스를 가져온다.
+- com.eomcs.pms.ClientApp 클래스 변경

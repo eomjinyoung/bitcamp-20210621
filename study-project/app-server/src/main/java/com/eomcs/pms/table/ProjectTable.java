@@ -26,6 +26,7 @@ public class ProjectTable extends JsonDataTable<Project> implements DataProcesso
       case "project.delete": delete(request, response); break;
       case "project.task.insert": insertTask(request, response); break;
       case "project.task.update": updateTask(request, response); break;
+      case "project.task.delete": deleteTask(request, response); break;
       default:
         response.setStatus(Response.FAIL);
         response.setValue("해당 명령을 지원하지 않습니다.");
@@ -122,6 +123,23 @@ public class ProjectTable extends JsonDataTable<Project> implements DataProcesso
     }
 
     project.getTasks().set(index, task);
+    response.setStatus(Response.SUCCESS);
+  }
+
+  private void deleteTask(Request request, Response response) throws Exception {
+    int taskNo = Integer.parseInt(request.getParameter("taskNo"));
+    int projectNo = Integer.parseInt(request.getParameter("projectNo"));
+
+    Project project = findByNo(projectNo);
+
+    int index = indexOfTask(taskNo, project.getTasks());
+    if (index == -1) {
+      response.setStatus(Response.FAIL);
+      response.setValue("해당 번호의 작업을 찾을 수 없습니다.");
+      return;
+    }
+
+    project.getTasks().remove(index);
     response.setStatus(Response.SUCCESS);
   }
 

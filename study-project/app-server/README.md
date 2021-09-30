@@ -154,3 +154,9 @@ CRLF
 - com.eomcs.pms.ServerApp 클래스 변경
     - DataProcessor 맵을 준비한다.
     - 데이터를 파일에 저장하는 코드를 이 클래스로 옮긴다.
+
+### 8단계 - 프젝젝트와 작업 데이터를 처리할 ProjectTable 클래스를 추가한다.
+
+- com.eomcs.pms.table.ProjectTable 클래스 변경
+- com.eomcs.pms.ServerApp 클래스 변경
+    - DataProcessor 맵에 ProjectTable 객체를 보관한다.
