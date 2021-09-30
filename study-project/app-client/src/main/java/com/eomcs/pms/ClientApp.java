@@ -104,7 +104,7 @@ public class ClientApp {
   public ClientApp() throws Exception {
 
     // 서버와 통신을 담당할 객체 준비
-    requestAgent = new RequestAgent("127.0.0.1", 8888);
+    requestAgent = new RequestAgent("192.168.0.33", 8888);
 
     // Command 객체 준비
     commandMap.put("/member/add", new MemberAddHandler(requestAgent));
@@ -215,10 +215,6 @@ public class ClientApp {
     notifyOnApplicationStarted();
 
     createMainMenu().execute();
-
-    // 프로그램의 실행을 끝내면, 서버와의 연결을 끊는다.
-    requestAgent.request("quit", null);
-    //    System.out.println(requestAgent.getObject(String.class));
 
     Prompt.close();
 
