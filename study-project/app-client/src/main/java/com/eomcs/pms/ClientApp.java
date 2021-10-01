@@ -10,7 +10,7 @@ import com.eomcs.context.ApplicationContextListener;
 import com.eomcs.menu.Menu;
 import com.eomcs.menu.MenuFilter;
 import com.eomcs.menu.MenuGroup;
-import com.eomcs.pms.dao.impl.ListBoardDao;
+import com.eomcs.pms.dao.impl.NetBoardDao;
 import com.eomcs.pms.handler.AuthLoginHandler;
 import com.eomcs.pms.handler.AuthLogoutHandler;
 import com.eomcs.pms.handler.AuthUserInfoHandler;
@@ -104,11 +104,11 @@ public class ClientApp {
 
   public ClientApp() throws Exception {
 
-    // 데이터 관리를 담당할 DAO 객체를 준비한다.
-    ListBoardDao boardDao = new ListBoardDao();
-
     // 서버와 통신을 담당할 객체 준비
     requestAgent = new RequestAgent("127.0.0.1", 8888);
+
+    // 데이터 관리를 담당할 DAO 객체를 준비한다.
+    NetBoardDao boardDao = new NetBoardDao(requestAgent);
 
     // Command 객체 준비
     commandMap.put("/member/add", new MemberAddHandler(requestAgent));

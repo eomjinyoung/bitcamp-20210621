@@ -80,7 +80,7 @@ public class NetBoardDao implements BoardDao {
     requestAgent.request("board.delete", params);
 
     if (requestAgent.getStatus().equals(RequestAgent.FAIL)) {
-      throw new Exception("게시글 변경 실패!");
+      throw new Exception("게시글 삭제 실패!");
     }
   }
 }
