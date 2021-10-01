@@ -10,6 +10,7 @@ import com.eomcs.context.ApplicationContextListener;
 import com.eomcs.menu.Menu;
 import com.eomcs.menu.MenuFilter;
 import com.eomcs.menu.MenuGroup;
+import com.eomcs.pms.dao.impl.ListBoardDao;
 import com.eomcs.pms.handler.AuthLoginHandler;
 import com.eomcs.pms.handler.AuthLogoutHandler;
 import com.eomcs.pms.handler.AuthUserInfoHandler;
@@ -103,8 +104,11 @@ public class ClientApp {
 
   public ClientApp() throws Exception {
 
+    // 데이터 관리를 담당할 DAO 객체를 준비한다.
+    ListBoardDao boardDao = new ListBoardDao();
+
     // 서버와 통신을 담당할 객체 준비
-    requestAgent = new RequestAgent("192.168.0.33", 8888);
+    requestAgent = new RequestAgent("127.0.0.1", 8888);
 
     // Command 객체 준비
     commandMap.put("/member/add", new MemberAddHandler(requestAgent));
@@ -113,12 +117,12 @@ public class ClientApp {
     commandMap.put("/member/update", new MemberUpdateHandler(requestAgent));
     commandMap.put("/member/delete", new MemberDeleteHandler(requestAgent));
 
-    commandMap.put("/board/add", new BoardAddHandler(requestAgent));
-    commandMap.put("/board/list", new BoardListHandler(requestAgent));
-    commandMap.put("/board/detail", new BoardDetailHandler(requestAgent));
-    commandMap.put("/board/update", new BoardUpdateHandler(requestAgent));
-    commandMap.put("/board/delete", new BoardDeleteHandler(requestAgent));
-    commandMap.put("/board/search", new BoardSearchHandler(requestAgent));
+    commandMap.put("/board/add", new BoardAddHandler(boardDao));
+    commandMap.put("/board/list", new BoardListHandler(boardDao));
+    commandMap.put("/board/detail", new BoardDetailHandler(boardDao));
+    commandMap.put("/board/update", new BoardUpdateHandler(boardDao));
+    commandMap.put("/board/delete", new BoardDeleteHandler(boardDao));
+    commandMap.put("/board/search", new BoardSearchHandler(boardDao));
 
     commandMap.put("/auth/login", new AuthLoginHandler(requestAgent));
     commandMap.put("/auth/logout", new AuthLogoutHandler());
