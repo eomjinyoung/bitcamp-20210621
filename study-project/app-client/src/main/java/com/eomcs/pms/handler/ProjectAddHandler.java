@@ -1,16 +1,16 @@
 package com.eomcs.pms.handler;
 
+import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.domain.Project;
-import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
 
 public class ProjectAddHandler implements Command {
 
-  RequestAgent requestAgent;
+  ProjectDao projectDao;
   MemberPrompt memberPrompt;
 
-  public ProjectAddHandler(RequestAgent requestAgent, MemberPrompt memberPrompt) {
-    this.requestAgent = requestAgent;
+  public ProjectAddHandler(ProjectDao projectDao, MemberPrompt memberPrompt) {
+    this.projectDao = projectDao;
     this.memberPrompt = memberPrompt;
   }
 
@@ -28,13 +28,9 @@ public class ProjectAddHandler implements Command {
     project.setOwner(AuthLoginHandler.getLoginUser());
     project.setMembers(memberPrompt.promptMembers("팀원?(완료: 빈 문자열) "));
 
-    requestAgent.request("project.insert", project);
+    projectDao.insert(project);
 
-    if (requestAgent.getStatus().equals(RequestAgent.SUCCESS)) {
-      System.out.println("프로젝트를 저장했습니다!");
-    } else {
-      System.out.println("프로젝트 저장 실패!");
-    }
+    System.out.println("프로젝트를 저장했습니다!");
   }
 }
 

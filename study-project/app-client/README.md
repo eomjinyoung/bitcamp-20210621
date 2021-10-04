@@ -24,7 +24,7 @@
 
 ## 실습
 
-### 1단계 - 데이터 처리 객체의 사용법을 인터페이스로 정의한다.
+### 1단계 - 게시글 데이터 처리 객체의 사용법을 인터페이스로 정의한다.
 
 - com.eomcs.pms.dao.BoardDao 인터페이스를 정의한다.
 
@@ -35,3 +35,22 @@
 ### 3단계 - BoardXxxHandler는 BoardDao 규칙에 따라 만든 객체를 사용한다.
 
 - com.eomcs.pms.handler.BoardXxxHandler 클래스 변경
+- com.eomcs.pms.ClientApp 클래스 변경
+  - BoardDao 객체 생성 및 핸들러에 적용
+
+### 4단계 - BoardDao 규칙에 따라 데이터 처리 서버와 통신하는 구현체를 만들어 핸들러에 적용한다.
+
+- com.eomcs.pms.dao.impl.NetBoardDao 클래스를 정의한다.
+- com.eomcs.pms.ClientApp 클래스 변경
+  - BoardDao 객체 생성 및 핸들러에 적용
+
+### 5단계 - 회원/프로젝트/작업 관리에 DAO 적용한다.
+
+- com.eomcs.pms.dao.MemberDao 인터페이스 정의
+- com.eomcs.pms.dao.ListProjectDao 클래스 정의
+- com.eomcs.pms.dao.NetProjectDao 클래스 정의
+- com.eomcs.pms.dao.ProjectDao 인터페이스 정의
+- com.eomcs.pms.dao.NetProjectDao 클래스 정의
+- com.eomcs.pms.handler.MemberXxx 클래스 변경
+- com.eomcs.pms.handler.ProjectXxx 클래스 변경
+- com.eomcs.pms.handler.TaskXxx 클래스 변경

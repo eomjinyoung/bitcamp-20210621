@@ -1,16 +1,15 @@
 package com.eomcs.pms.handler;
 
-import java.util.HashMap;
+import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.domain.Project;
-import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
 
 public class ProjectDeleteHandler implements Command {
 
-  RequestAgent requestAgent;
+  ProjectDao projectDao;
 
-  public ProjectDeleteHandler(RequestAgent requestAgent) {
-    this.requestAgent = requestAgent;
+  public ProjectDeleteHandler(ProjectDao projectDao) {
+    this.projectDao = projectDao;
   }
 
   @Override
@@ -18,17 +17,12 @@ public class ProjectDeleteHandler implements Command {
     System.out.println("[프로젝트 삭제]");
     int no = (int) request.getAttribute("no");
 
-    HashMap<String,String> params = new HashMap<>();
-    params.put("no", String.valueOf(no));
+    Project project = projectDao.findByNo(no);
 
-    requestAgent.request("project.selectOne", params);
-
-    if (requestAgent.getStatus().equals(RequestAgent.FAIL)) {
+    if (project == null) {
       System.out.println("해당 번호의 프로젝트가 없습니다.");
       return;
     }
-
-    Project project = requestAgent.getObject(Project.class);
 
     if (project.getOwner().getNo() != AuthLoginHandler.getLoginUser().getNo()) {
       System.out.println("삭제 권한이 없습니다.");
@@ -41,13 +35,7 @@ public class ProjectDeleteHandler implements Command {
       return;
     }
 
-    requestAgent.request("project.delete", params);
-
-    if (requestAgent.getStatus().equals(RequestAgent.FAIL)) {
-      System.out.println("프로젝트 삭제 실패!");
-      System.out.println(requestAgent.getObject(String.class));
-      return;
-    }
+    projectDao.delete(no);
 
     System.out.println("프로젝트를 삭제하였습니다.");
   }
