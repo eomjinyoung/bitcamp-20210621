@@ -1,19 +1,19 @@
 package com.eomcs.pms.handler;
 
 import java.sql.Date;
+import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.pms.domain.Task;
-import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
 
 public class TaskUpdateHandler implements Command {
 
-  RequestAgent requestAgent;
+  ProjectDao projectDao;
   ProjectPrompt projectPrompt;
 
-  public TaskUpdateHandler(RequestAgent requestAgent, ProjectPrompt projectPrompt) {
-    this.requestAgent = requestAgent;
+  public TaskUpdateHandler(ProjectDao projectDao, ProjectPrompt projectPrompt) {
+    this.projectDao = projectDao;
     this.projectPrompt = projectPrompt;
   }
 
@@ -47,13 +47,9 @@ public class TaskUpdateHandler implements Command {
     task.setStatus(status);
     task.setOwner(owner);
 
-    requestAgent.request("project.task.update", task);
+    projectDao.updateTask(task);
 
-    if (requestAgent.getStatus().equals(RequestAgent.SUCCESS)) {
-      System.out.println("작업를 변경하였습니다.");
-    } else {
-      System.out.println("작업 변경 실패!");
-    }
+    System.out.println("작업를 변경하였습니다.");
   }
 }
 

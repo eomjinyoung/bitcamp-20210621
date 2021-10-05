@@ -1,17 +1,16 @@
 package com.eomcs.pms.handler;
 
-import java.util.HashMap;
+import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
-import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
 
 public class ProjectDetailHandler implements Command {
 
-  RequestAgent requestAgent;
+  ProjectDao projectDao;
 
-  public ProjectDetailHandler(RequestAgent requestAgent) {
-    this.requestAgent = requestAgent;
+  public ProjectDetailHandler(ProjectDao projectDao) {
+    this.projectDao = projectDao;
   }
 
   @Override
@@ -19,17 +18,12 @@ public class ProjectDetailHandler implements Command {
     System.out.println("[프로젝트 상세보기]");
     int no = Prompt.inputInt("번호? ");
 
-    HashMap<String,String> params = new HashMap<>();
-    params.put("no", String.valueOf(no));
+    Project project = projectDao.findByNo(no);
 
-    requestAgent.request("project.selectOne", params);
-
-    if (requestAgent.getStatus().equals(RequestAgent.FAIL)) {
+    if (project == null) {
       System.out.println("해당 번호의 프로젝트가 없습니다.");
       return;
     }
-
-    Project project = requestAgent.getObject(Project.class);
 
     System.out.printf("프로젝트명: %s\n", project.getTitle());
     System.out.printf("내용: %s\n", project.getContent());

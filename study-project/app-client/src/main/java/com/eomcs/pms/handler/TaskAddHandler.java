@@ -1,17 +1,17 @@
 package com.eomcs.pms.handler;
 
+import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.pms.domain.Task;
-import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
 
 public class TaskAddHandler implements Command {
 
-  RequestAgent requestAgent;
+  ProjectDao projectDao;
   ProjectPrompt projectPrompt;
 
-  public TaskAddHandler(RequestAgent requestAgent, ProjectPrompt projectPrompt) {
-    this.requestAgent = requestAgent;
+  public TaskAddHandler(ProjectDao projectDao, ProjectPrompt projectPrompt) {
+    this.projectDao = projectDao;
     this.projectPrompt = projectPrompt;
   }
 
@@ -43,14 +43,9 @@ public class TaskAddHandler implements Command {
       return; 
     }
 
-    requestAgent.request("project.task.insert", task);
+    projectDao.insertTask(task);
 
-    if (requestAgent.getStatus().equals(RequestAgent.SUCCESS)) {
-      System.out.println("작업을 등록했습니다.");
-    } else {
-      System.out.println("작업 저장 실패!");
-    }
-
+    System.out.println("작업을 등록했습니다.");
   }
 }
 
