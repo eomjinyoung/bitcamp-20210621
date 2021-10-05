@@ -791,3 +791,12 @@
 			- 김은채,송다혜,조솔,우형민
 				- 오늘의 공부
 
+## 67일차(2021-10-05,화)
+
+
+
+
+
+# google meet
+https://meet.google.com/shs-ivqm-rvr
+
