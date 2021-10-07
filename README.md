@@ -817,6 +817,12 @@
 - 팀 프로젝트 
 	- 팀별 프로젝트 구현
 
+## 70일차(2021-10-08,금)
+
+- DBMS(eomcs-docs)
+	- SQL : DQL(계속)
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
 
 # google meet
 https://meet.google.com/shs-ivqm-rvr
