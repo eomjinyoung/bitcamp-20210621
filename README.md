@@ -793,8 +793,29 @@
 
 ## 67일차(2021-10-05,화)
 
+- DBMS(eomcs-docs)
+	- DBMS 개요
+	- MariaDB 설치 및 설정
+	- SQL : DDL
 
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
 
+## 68일차(2021-10-06,수)
+
+- DBMS(eomcs-docs)
+	- SQL : DDL(계속)
+	- SQL : DML
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+
+## 69일차(2021-10-07,목)
+
+- DBMS(eomcs-docs)
+	- SQL : DML(계속)
+	- SQL : DQL
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
 
 
 # google meet
