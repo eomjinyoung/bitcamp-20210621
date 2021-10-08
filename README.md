@@ -821,6 +821,7 @@
 
 - DBMS(eomcs-docs)
 	- SQL : DQL(계속)
+	- JDBC 프로그래밍 개요
 - 팀 프로젝트 
 	- 팀별 프로젝트 구현
 
