@@ -12,7 +12,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     implementation 'com.google.guava:guava:30.1-jre'
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
-    implementation 'com.oracle.database.jdbc:ojdbc11-production:21.3.0.0'
+    implementation 'com.oracle.database.jdbc:ojdbc11:21.3.0.0'
     implementation 'com.microsoft.sqlserver:mssql-jdbc:9.4.0.jre11'
 }
 

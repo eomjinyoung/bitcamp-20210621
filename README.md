@@ -825,6 +825,13 @@
 - 팀 프로젝트 
 	- 팀별 프로젝트 구현
 
+## 71일차(2021-10-12,화)
+
+- DBMS(eomcs-java) : com.eomcs.jdbc
+	- JDBC 프로그래밍: ex01 ~ ex02 
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+
 # google meet
 https://meet.google.com/shs-ivqm-rvr
 
