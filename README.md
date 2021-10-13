@@ -835,7 +835,12 @@
 ## 72일차(2021-10-13,수)
 
 - DBMS(eomcs-java) : com.eomcs.jdbc
-	- JDBC 프로그래밍: ex01 ~ ex02 
+	- JDBC 프로그래밍: ex03 ~ ex04
+		- Statement vs PreparedStatement
+		- 자동 증가 PK 값 알아내기
+		- 트랜잭션 다루기
+- DB 모델링
+	- ER-Diagram 도구 설치: exerd.com 에서 다운로드
 - 팀 프로젝트 
 	- 팀별 프로젝트 구현
 
