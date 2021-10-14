@@ -844,6 +844,13 @@
 - 팀 프로젝트 
 	- 팀별 프로젝트 구현
 
+## 73일차(2021-10-14,목)
+
+- DB 모델링
+	- DB 모델링 개요 및 실습
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+
 # google meet
 https://meet.google.com/shs-ivqm-rvr
 
