@@ -3,6 +3,8 @@ package com.eomcs.pms;
 import static com.eomcs.menu.Menu.ACCESS_ADMIN;
 import static com.eomcs.menu.Menu.ACCESS_GENERAL;
 import static com.eomcs.menu.Menu.ACCESS_LOGOUT;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,8 +12,9 @@ import com.eomcs.context.ApplicationContextListener;
 import com.eomcs.menu.Menu;
 import com.eomcs.menu.MenuFilter;
 import com.eomcs.menu.MenuGroup;
+import com.eomcs.pms.dao.MemberDao;
+import com.eomcs.pms.dao.impl.MariadbMemberDao;
 import com.eomcs.pms.dao.impl.NetBoardDao;
-import com.eomcs.pms.dao.impl.NetMemberDao;
 import com.eomcs.pms.dao.impl.NetProjectDao;
 import com.eomcs.pms.handler.AuthLoginHandler;
 import com.eomcs.pms.handler.AuthLogoutHandler;
@@ -46,6 +49,8 @@ import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
 
 public class ClientApp {
+
+  Connection con;
 
   RequestAgent requestAgent;
 
@@ -107,11 +112,15 @@ public class ClientApp {
   public ClientApp() throws Exception {
 
     // 서버와 통신을 담당할 객체 준비
-    requestAgent = new RequestAgent("127.0.0.1", 8888);
+    requestAgent = null;
+
+    // DBMS와 연결한다.
+    con = DriverManager.getConnection(
+        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
 
     // 데이터 관리를 담당할 DAO 객체를 준비한다.
     NetBoardDao boardDao = new NetBoardDao(requestAgent);
-    NetMemberDao memberDao = new NetMemberDao(requestAgent);
+    MemberDao memberDao = new MariadbMemberDao(con);
     NetProjectDao projectDao = new NetProjectDao(requestAgent);
 
     // Command 객체 준비
@@ -228,6 +237,8 @@ public class ClientApp {
 
     notifyOnApplicationEnded();
 
+    // DBMS와 연결을 끊는다.
+    con.close();
   }
 
   public static void main(String[] args) throws Exception {
