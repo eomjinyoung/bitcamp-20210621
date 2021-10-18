@@ -106,6 +106,32 @@ public class MariadbMemberDao implements MemberDao {
   }
 
   @Override
+  public Member findByEmailAndPassword(String email, String password) throws Exception {
+    try (PreparedStatement stmt = con.prepareStatement(
+        "select member_no,name,email,photo,tel,created_dt from pms_member"
+            + " where email=? and password=password(?)")) {
+
+      stmt.setString(1, email);
+      stmt.setString(2, password);
+
+      try (ResultSet rs = stmt.executeQuery()) {
+        if (!rs.next()) {
+          return null;
+        }
+        Member member = new Member();
+        member.setNo(rs.getInt("member_no"));
+        member.setName(rs.getString("name"));
+        member.setEmail(rs.getString("email"));
+        member.setPhoto(rs.getString("photo"));
+        member.setTel(rs.getString("tel"));
+        member.setRegisteredDate(rs.getDate("created_dt"));
+        return member;
+      }
+    }
+  }
+
+
+  @Override
   public void update(Member member) throws Exception {
     try (PreparedStatement stmt = con.prepareStatement(
         "update pms_member set"

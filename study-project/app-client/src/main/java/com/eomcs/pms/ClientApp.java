@@ -138,7 +138,7 @@ public class ClientApp {
     commandMap.put("/board/delete", new BoardDeleteHandler(boardDao));
     commandMap.put("/board/search", new BoardSearchHandler(boardDao));
 
-    commandMap.put("/auth/login", new AuthLoginHandler(requestAgent));
+    commandMap.put("/auth/login", new AuthLoginHandler(memberDao));
     commandMap.put("/auth/logout", new AuthLogoutHandler());
     commandMap.put("/auth/userinfo", new AuthUserInfoHandler());
 

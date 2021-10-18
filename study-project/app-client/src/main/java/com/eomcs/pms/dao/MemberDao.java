@@ -10,6 +10,7 @@ public interface MemberDao {
   List<Member> findAll() throws Exception;
   Member findByNo(int no) throws Exception;
   Member findByName(String name) throws Exception;
+  Member findByEmailAndPassword(String email, String password) throws Exception;
   void update(Member member) throws Exception;
   void delete(int no) throws Exception;
 }

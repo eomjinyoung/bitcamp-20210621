@@ -88,6 +88,8 @@
 - com.eomcs.pms.handler.MemberAddHandler 클래스를 변경한다.
   - 번호를 입력 받지 않는다. 
   - 등록일을 DBMS 서버에 보내지 않는다.
+- com.eomcs.pms.handler.AuthLoginHandler 클래스를 변경한다.
+  - RequestAgent 대신 MemberDao를 사용한다.
 - com.eomcs.pms.ClientApp 클래스를 변경한다.
   - NetMemberDao 대신 MariadbMemberDao를 사용한다.
   - Connection 객체를 준비한다.
@@ -96,7 +98,7 @@
 
 - com.eomcs.pms.dao.impl.MariadbProjectDao 클래스를 생성한다.
   - JDBC API를 사용하여 데이터를 처리한다.
-- com.eomcs.pms.handler.MemberAddHandler 클래스를 변경한다.
+- com.eomcs.pms.handler.ProjectAddHandler 클래스를 변경한다.
   - 번호를 입력 받지 않는다. 
   - 등록일을 DBMS 서버에 보내지 않는다.
 - com.eomcs.pms.ClientApp 클래스를 변경한다.

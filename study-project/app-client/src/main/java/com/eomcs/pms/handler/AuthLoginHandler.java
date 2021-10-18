@@ -1,14 +1,13 @@
 package com.eomcs.pms.handler;
 
-import java.util.HashMap;
 import com.eomcs.menu.Menu;
+import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Member;
-import com.eomcs.request.RequestAgent;
 import com.eomcs.util.Prompt;
 
 public class AuthLoginHandler implements Command {
 
-  RequestAgent requestAgent;
+  MemberDao memberDao;
 
   static Member loginUser;
   static int userAccessLevel = Menu.ACCESS_LOGOUT; // 기본은 로그아웃 된 상태이다.
@@ -20,8 +19,8 @@ public class AuthLoginHandler implements Command {
     return userAccessLevel;
   }
 
-  public AuthLoginHandler(RequestAgent requestAgent) {
-    this.requestAgent = requestAgent;
+  public AuthLoginHandler(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
   @Override
@@ -40,14 +39,9 @@ public class AuthLoginHandler implements Command {
       return;
     } 
 
-    HashMap<String,String> params = new HashMap<>();
-    params.put("email", email);
-    params.put("password", password);
+    Member member = memberDao.findByEmailAndPassword(email, password);
 
-    requestAgent.request("member.selectOneByEmailPassword", params);
-
-    if (requestAgent.getStatus().equals(RequestAgent.SUCCESS)) {
-      Member member = requestAgent.getObject(Member.class);
+    if (member != null) {
       System.out.printf("%s님 환영합니다!\n", member.getName());
       loginUser = member;
       userAccessLevel = Menu.ACCESS_GENERAL;
