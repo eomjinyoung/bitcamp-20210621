@@ -98,23 +98,35 @@ public class MariadbMemberDao implements MemberDao {
 
   @Override
   public void update(Member member) throws Exception {
-    //    requestAgent.request("member.update", member);
-    //
-    //    if (requestAgent.getStatus().equals(RequestAgent.FAIL)) {
-    //      throw new Exception(requestAgent.getObject(String.class));
-    //    }
+    try (PreparedStatement stmt = con.prepareStatement(
+        "update pms_member set"
+            + " name=?,email=?,password=password(?),photo=?,tel=?"
+            + " where member_no=?")) {
+
+      stmt.setString(1, member.getName());
+      stmt.setString(2, member.getEmail());
+      stmt.setString(3, member.getPassword());
+      stmt.setString(4, member.getPhoto());
+      stmt.setString(5, member.getTel());
+      stmt.setInt(6, member.getNo());
+
+      if (stmt.executeUpdate() == 0) {
+        throw new Exception("회원 데이터 변경 실패!");
+      }
+    }
   }
 
   @Override
   public void delete(int no) throws Exception {
-    //    HashMap<String,String> params = new HashMap<>();
-    //    params.put("no", String.valueOf(no));
-    //
-    //    requestAgent.request("member.delete", params);
-    //
-    //    if (requestAgent.getStatus().equals(RequestAgent.FAIL)) {
-    //      throw new Exception(requestAgent.getObject(String.class));
-    //    }
+    try (PreparedStatement stmt = con.prepareStatement(
+        "delete from pms_member where member_no=?")) {
+
+      stmt.setInt(1, no);
+
+      if (stmt.executeUpdate() == 0) {
+        throw new Exception("회원 데이터 삭제 실패!");
+      }
+    }
   }
 }
 
