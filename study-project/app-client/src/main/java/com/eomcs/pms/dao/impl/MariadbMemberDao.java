@@ -83,17 +83,26 @@ public class MariadbMemberDao implements MemberDao {
 
   @Override
   public Member findByName(String name) throws Exception {
-    //    HashMap<String,String> params = new HashMap<>();
-    //    params.put("name", name);
-    //
-    //    requestAgent.request("member.selectOneByName", params);
-    //
-    //    if (requestAgent.getStatus().equals(RequestAgent.FAIL)) {
-    //      return null;
-    //    }
-    //
-    //    return requestAgent.getObject(Member.class);
-    return null;
+    try (PreparedStatement stmt = con.prepareStatement(
+        "select member_no,name,email,photo,tel,created_dt from pms_member"
+            + " where name=?")) {
+
+      stmt.setString(1, name);
+
+      try (ResultSet rs = stmt.executeQuery()) {
+        if (!rs.next()) {
+          return null;
+        }
+        Member member = new Member();
+        member.setNo(rs.getInt("member_no"));
+        member.setName(rs.getString("name"));
+        member.setEmail(rs.getString("email"));
+        member.setPhoto(rs.getString("photo"));
+        member.setTel(rs.getString("tel"));
+        member.setRegisteredDate(rs.getDate("created_dt"));
+        return member;
+      }
+    }
   }
 
   @Override
