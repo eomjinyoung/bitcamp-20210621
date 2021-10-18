@@ -156,7 +156,59 @@ public class MariadbProjectDao implements ProjectDao {
 
   @Override
   public Project findByNo(int no) throws Exception {
-    return null;
+    try (PreparedStatement stmt = con.prepareStatement(
+        "select"
+            + " p.project_no,"
+            + " p.title,"
+            + " p.content,"
+            + " p.start_dt,"
+            + " p.end_dt,"
+            + " m.member_no owner_no,"
+            + " m.name owner_name,"
+            + " m.email owner_email,"
+            + " m2.member_no member_no,"
+            + " m2.name member_name,"
+            + " m2.email member_email"
+            + " from" 
+            + " pms_project p"
+            + " inner join pms_member m on p.member_no=m.member_no"
+            + " left outer join pms_project_member pm on p.project_no=pm.project_no"
+            + " inner join pms_member m2 on pm.member_no=m2.member_no"
+            + " where p.project_no=" + no
+            + " order by m2.name asc");
+        ResultSet rs = stmt.executeQuery()) {
+
+      Project project = null;
+
+      while (rs.next()) {
+        if (project == null) {
+          project = new Project();
+          project.setNo(rs.getInt("project_no"));
+          project.setTitle(rs.getString("title"));
+          project.setContent(rs.getString("content"));
+          project.setStartDate(rs.getDate("start_dt"));
+          project.setEndDate(rs.getDate("end_dt"));
+
+          Member owner = new Member();
+          owner.setNo(rs.getInt("owner_no"));
+          owner.setName(rs.getString("owner_name"));
+          owner.setEmail(rs.getString("owner_email"));
+
+          project.setOwner(owner);
+        }
+
+        // 프로젝트의 멤버가 있다면 기존 멤버 목록에 추가한다.
+        if (rs.getString("member_name") != null) {
+          Member member = new Member();
+          member.setNo(rs.getInt("member_no"));
+          member.setName(rs.getString("member_name"));
+          member.setEmail(rs.getString("member_email"));
+          project.getMembers().add(member);
+        }
+      }
+
+      return project;
+    }
   }
 
   @Override
