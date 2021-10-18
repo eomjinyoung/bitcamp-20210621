@@ -21,10 +21,19 @@ public class MariadbMemberDao implements MemberDao {
 
   @Override
   public void insert(Member member) throws Exception {
-    //    requestAgent.request("member.insert", member);
-    //    if (requestAgent.getStatus().equals(RequestAgent.FAIL)) {
-    //      throw new Exception(requestAgent.getObject(String.class));
-    //    }
+    try (PreparedStatement stmt = con.prepareStatement(
+        "insert into pms_member(name,email,password,photo,tel) values(?,?,password(?),?,?)")) {
+
+      stmt.setString(1, member.getName());
+      stmt.setString(2, member.getEmail());
+      stmt.setString(3, member.getPassword());
+      stmt.setString(4, member.getPhoto());
+      stmt.setString(5, member.getTel());
+
+      if (stmt.executeUpdate() == 0) {
+        throw new Exception("회원 데이터 저장 실패!");
+      }
+    }
   }
 
   @Override
