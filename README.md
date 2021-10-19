@@ -870,6 +870,12 @@
 - 팀 프로젝트 
 	- 팀별 프로젝트 구현
 
+## 76일차(2021-10-19,화)
+
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+		- JDBC 적용
+		
 # google meet
 https://meet.google.com/shs-ivqm-rvr
 

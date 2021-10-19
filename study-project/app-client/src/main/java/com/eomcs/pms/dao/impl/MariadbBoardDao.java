@@ -3,7 +3,6 @@ package com.eomcs.pms.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import com.eomcs.pms.dao.BoardDao;
@@ -24,8 +23,7 @@ public class MariadbBoardDao implements BoardDao {
   @Override
   public void insert(Board board) throws Exception {
     try (PreparedStatement stmt = con.prepareStatement(
-        "insert into pms_board(title,content,member_no) values(?,?,?)",
-        Statement.RETURN_GENERATED_KEYS)) {
+        "insert into pms_board(title,content,member_no) values(?,?,?)")) {
 
       stmt.setString(1, board.getTitle());
       stmt.setString(2, board.getContent());

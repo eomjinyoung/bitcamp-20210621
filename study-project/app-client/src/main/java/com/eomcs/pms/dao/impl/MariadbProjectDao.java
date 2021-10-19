@@ -9,7 +9,6 @@ import java.util.List;
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
-import com.eomcs.pms.domain.Task;
 
 // 역할
 // - 프로젝트 데이터를 DBMS 서버를 통해 관리한다.
@@ -301,22 +300,6 @@ public class MariadbProjectDao implements ProjectDao {
       }
     }
   }
-
-  @Override
-  public void insertTask(Task task) throws Exception {
-
-  }
-
-  @Override
-  public void deleteTask(int projectNo, int taskNo) throws Exception {
-
-  }
-
-  @Override
-  public void updateTask(Task task) throws Exception {
-
-  }
-
 }
 
 

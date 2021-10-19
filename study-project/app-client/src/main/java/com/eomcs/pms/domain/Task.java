@@ -7,15 +7,20 @@ public class Task {
   private String content;
   private Date deadline;
   private Member owner;
-  private int status;
-  private Project project;
+  private TaskStatus status;
+  private int projectNo;
 
   @Override
   public String toString() {
     return "Task [no=" + no + ", content=" + content + ", deadline=" + deadline + ", owner=" + owner
-        + ", status=" + status + ", project=" + project + "]";
+        + ", status=" + status + ", projectNo=" + projectNo + "]";
   }
-
+  public int getProjectNo() {
+    return projectNo;
+  }
+  public void setProjectNo(int projectNo) {
+    this.projectNo = projectNo;
+  }
   public int getNo() {
     return no;
   }
@@ -34,23 +39,16 @@ public class Task {
   public void setDeadline(Date deadline) {
     this.deadline = deadline;
   }
-  public int getStatus() {
-    return status;
-  }
-  public void setStatus(int status) {
-    this.status = status;
-  }
-  public Project getProject() {
-    return project;
-  }
-  public void setProject(Project project) {
-    this.project = project;
-  }
   public Member getOwner() {
     return owner;
   }
   public void setOwner(Member owner) {
     this.owner = owner;
   }
-
+  public TaskStatus getStatus() {
+    return status;
+  }
+  public void setStatus(TaskStatus status) {
+    this.status = status;
+  }
 }

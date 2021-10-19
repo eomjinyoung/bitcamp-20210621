@@ -83,6 +83,8 @@
 
 ### 3단계 - DBMS를 이용하여 회원 데이터를 저장하고 로딩한다.
 
+- com.eomcs.pms.dao.MemberDao 인터페이스 변경
+  - 이메일과 암호로 사용자를 찾는 메서드 추가 : findByEmailAndPassword()
 - com.eomcs.pms.dao.impl.MariadbMemberDao 클래스를 생성한다.
   - JDBC API를 사용하여 데이터를 처리한다.
 - com.eomcs.pms.handler.MemberAddHandler 클래스를 변경한다.
@@ -102,7 +104,6 @@
   - 번호를 입력 받지 않는다. 
 - com.eomcs.pms.ClientApp 클래스를 변경한다.
   - NetProjectDao 대신 MariadbProjectDao를 사용한다.
-  - Connection 객체를 준비한다.
 
 ### 5단계 - DBMS를 이용하여 게시글 데이터를 저장하고 로딩한다.
 
@@ -113,5 +114,23 @@
   - 등록일을 DBMS 서버에 보내지 않는다.
 - com.eomcs.pms.ClientApp 클래스를 변경한다.
   - NetBoardDao 대신 MariadbBoardDao를 사용한다.
-  - Connection 객체를 준비한다.
 
+### 6단계 - DBMS를 이용하여 작업 데이터를 저장하고 로딩한다.
+
+- com.eomcs.pms.domain.Task 클래스를 변경한다.
+  - Project 클래스와 상호 참조하는 관계를 끊는다.
+  - Project 객체를 저장하는 대신에 projectNo 필드를 사용한다.
+- com.eomcs.pms.dao.TaskDao 인터페이스 생성
+  - ProjectDao에서 작업 관련 호출 규칙을 분리하여 별도의 인터페이스로 정의한다.
+- com.eomcs.pms.dao.impl.MariadbTaskDao 클래스를 생성한다.
+  - JDBC API를 사용하여 데이터를 처리한다.
+- com.eomcs.pms.dao.ProjectDao 인터페이스 변경
+  - 작업 관련 메서드를 제거한다.
+- com.eomcs.pms.dao.impl.MariadbProjectDao 클래스를 변경한다.
+  - TaskDao로 분리한 메서드를 제거한다.
+- com.eomcs.pms.handler.TaskHandlerHelper 클래스 변경  
+  - TaskDao를 사용하도록 변경한다.
+- com.eomcs.pms.handler.TaskXxxHandler 변경
+  - TaskDao를 사용하여 데이터를 처리한다.
+- com.eomcs.pms.ClientApp 클래스를 변경한다.
+  - NetTaskDao 대신 MariadbTaskDao를 사용한다.

@@ -42,7 +42,7 @@ public class ProjectDetailHandler implements Command {
     request.setAttribute("no", no);
 
     while (true) {
-      String input = Prompt.inputString("변경(U), 삭제(D), 이전(0)>");
+      String input = Prompt.inputString("변경(U), 삭제(D), 이전(0)> ");
       switch (input) {
         case "U":
         case "u":
