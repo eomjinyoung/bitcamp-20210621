@@ -875,7 +875,15 @@
 - 팀 프로젝트 
 	- 팀별 프로젝트 구현
 		- JDBC 적용
-		
+
+## 76일차(2021-10-19,화)
+
+- DBMS(eomcs-java) : com.eomcs.mybatis
+	- Mybatis 퍼시스턴스 프레임어크 사용법: 
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+		- Mybatis 퍼시스턴스 프레임워크 적용
+
 # google meet
 https://meet.google.com/shs-ivqm-rvr
 
