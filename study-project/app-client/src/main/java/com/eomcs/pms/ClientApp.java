@@ -8,6 +8,9 @@ import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.eomcs.context.ApplicationContextListener;
 import com.eomcs.menu.Menu;
 import com.eomcs.menu.MenuFilter;
@@ -17,9 +20,9 @@ import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.dao.TaskDao;
 import com.eomcs.pms.dao.impl.MariadbBoardDao;
-import com.eomcs.pms.dao.impl.MariadbMemberDao;
 import com.eomcs.pms.dao.impl.MariadbProjectDao;
 import com.eomcs.pms.dao.impl.MariadbTaskDao;
+import com.eomcs.pms.dao.impl.MybatisMemberDao;
 import com.eomcs.pms.handler.AuthLoginHandler;
 import com.eomcs.pms.handler.AuthLogoutHandler;
 import com.eomcs.pms.handler.AuthUserInfoHandler;
@@ -122,9 +125,13 @@ public class ClientApp {
     con = DriverManager.getConnection(
         "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
 
+    // Mybatis의 SqlSession 객체 준비
+    SqlSession sqlSession = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream(
+        "com/eomcs/pms/conf/mybatis-config.xml")).openSession();
+
     // 데이터 관리를 담당할 DAO 객체를 준비한다.
     BoardDao boardDao = new MariadbBoardDao(con);
-    MemberDao memberDao = new MariadbMemberDao(con);
+    MemberDao memberDao = new MybatisMemberDao(sqlSession);
     ProjectDao projectDao = new MariadbProjectDao(con);
     TaskDao taskDao = new MariadbTaskDao(con);
 

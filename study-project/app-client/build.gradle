@@ -35,6 +35,9 @@ dependencies {
   // MariaDB JDBC 드라이버
   implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
   
+  // Mybatis 퍼시스턴스 프레임워크
+  implementation 'org.mybatis:mybatis:3.5.7'
+  
   implementation 'com.google.guava:guava:30.1-jre'
   testImplementation 'junit:junit:4.13.2'
 }
