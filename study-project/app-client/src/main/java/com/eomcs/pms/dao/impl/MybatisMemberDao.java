@@ -1,8 +1,7 @@
 package com.eomcs.pms.dao.impl;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import com.eomcs.pms.dao.MemberDao;
@@ -22,19 +21,8 @@ public class MybatisMemberDao implements MemberDao {
 
   @Override
   public void insert(Member member) throws Exception {
-    try (PreparedStatement stmt = con.prepareStatement(
-        "insert into pms_member(name,email,password,photo,tel) values(?,?,password(?),?,?)")) {
-
-      stmt.setString(1, member.getName());
-      stmt.setString(2, member.getEmail());
-      stmt.setString(3, member.getPassword());
-      stmt.setString(4, member.getPhoto());
-      stmt.setString(5, member.getTel());
-
-      if (stmt.executeUpdate() == 0) {
-        throw new Exception("회원 데이터 저장 실패!");
-      }
-    }
+    sqlSession.insert("MemberMapper.insert", member);
+    sqlSession.commit();
   }
 
   @Override
@@ -49,85 +37,35 @@ public class MybatisMemberDao implements MemberDao {
 
   @Override
   public Member findByName(String name) throws Exception {
-    try (PreparedStatement stmt = con.prepareStatement(
-        "select member_no,name,email,photo,tel,created_dt from pms_member"
-            + " where name=?")) {
-
-      stmt.setString(1, name);
-
-      try (ResultSet rs = stmt.executeQuery()) {
-        if (!rs.next()) {
-          return null;
-        }
-        Member member = new Member();
-        member.setNo(rs.getInt("member_no"));
-        member.setName(rs.getString("name"));
-        member.setEmail(rs.getString("email"));
-        member.setPhoto(rs.getString("photo"));
-        member.setTel(rs.getString("tel"));
-        member.setRegisteredDate(rs.getDate("created_dt"));
-        return member;
-      }
+    List<Member> list = sqlSession.selectList("MemberMapper.findByName", name);
+    if (list.size() > 0) {
+      return list.get(0);
+    } else {
+      return null;
     }
+
   }
 
   @Override
   public Member findByEmailAndPassword(String email, String password) throws Exception {
-    try (PreparedStatement stmt = con.prepareStatement(
-        "select member_no,name,email,photo,tel,created_dt from pms_member"
-            + " where email=? and password=password(?)")) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("email", email);
+    params.put("password", password);
 
-      stmt.setString(1, email);
-      stmt.setString(2, password);
-
-      try (ResultSet rs = stmt.executeQuery()) {
-        if (!rs.next()) {
-          return null;
-        }
-        Member member = new Member();
-        member.setNo(rs.getInt("member_no"));
-        member.setName(rs.getString("name"));
-        member.setEmail(rs.getString("email"));
-        member.setPhoto(rs.getString("photo"));
-        member.setTel(rs.getString("tel"));
-        member.setRegisteredDate(rs.getDate("created_dt"));
-        return member;
-      }
-    }
+    return sqlSession.selectOne("MemberMapper.findByEmailAndPassword", params);
   }
 
 
   @Override
   public void update(Member member) throws Exception {
-    try (PreparedStatement stmt = con.prepareStatement(
-        "update pms_member set"
-            + " name=?,email=?,password=password(?),photo=?,tel=?"
-            + " where member_no=?")) {
-
-      stmt.setString(1, member.getName());
-      stmt.setString(2, member.getEmail());
-      stmt.setString(3, member.getPassword());
-      stmt.setString(4, member.getPhoto());
-      stmt.setString(5, member.getTel());
-      stmt.setInt(6, member.getNo());
-
-      if (stmt.executeUpdate() == 0) {
-        throw new Exception("회원 데이터 변경 실패!");
-      }
-    }
+    sqlSession.update("MemberMapper.update", member);
+    sqlSession.commit();
   }
 
   @Override
   public void delete(int no) throws Exception {
-    try (PreparedStatement stmt = con.prepareStatement(
-        "delete from pms_member where member_no=?")) {
-
-      stmt.setInt(1, no);
-
-      if (stmt.executeUpdate() == 0) {
-        throw new Exception("회원 데이터 삭제 실패!");
-      }
-    }
+    sqlSession.delete("MemberMapper.delete", no);
+    sqlSession.commit();
   }
 }
 

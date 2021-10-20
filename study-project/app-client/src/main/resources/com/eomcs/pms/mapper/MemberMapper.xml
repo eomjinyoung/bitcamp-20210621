@@ -42,6 +42,54 @@
       member_no=#{no}
   </select>
 
+  <insert id="insert" parameterType="member">
+    insert into pms_member(name,email,password,photo,tel) 
+    values(#{name},#{email},password(#{password}),#{photo},#{tel})
+  </insert>
+  
+  <update id="update" parameterType="member">
+    update pms_member set
+      name=#{name},
+      email=#{email},
+      password=password(#{password}),
+      photo=#{photo},
+      tel=#{tel}
+    where 
+      member_no=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from pms_member 
+    where member_no=#{value}
+  </delete>
+  
+  <select id="findByEmailAndPassword" resultMap="MemberMap" parameterType="map">
+    select 
+      member_no,
+      name,
+      email,
+      photo,
+      tel,
+      created_dt 
+    from 
+      pms_member
+    where 
+      email=#{email} and password=password(#{password})
+  </select>
+  
+  <select id="findByName" resultMap="MemberMap" parameterType="string">
+    select 
+      member_no,
+      name,
+      email,
+      photo,
+      tel,
+      created_dt 
+    from 
+      pms_member
+    where 
+      name=#{value}
+  </select>
 </mapper>
 
 
