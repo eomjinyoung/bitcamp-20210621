@@ -19,7 +19,7 @@
     </association>
   </resultMap>
   
-  <select id="findAll" resultMap="BoardMap">
+  <sql id="select1">
     select
       b.board_no,
       b.title,
@@ -31,74 +31,60 @@
     from
       pms_board b
       inner join pms_member m on b.member_no=m.member_no
+  </sql>
+  
+  <sql id="order1">
     order by 
       b.board_no desc
+  </sql>
+  
+  <select id="findAll" resultMap="BoardMap">
+    <include refid="select1"/>
+    <include refid="order1"/>
   </select>
-<!--      
-  <select id="findByNo" resultMap="MemberMap" parameterType="int">
-    select 
-      member_no,
-      name,
-      email,
-      photo,
-      tel,
-      created_dt 
-    from 
-      pms_member 
-    where 
-      member_no=#{no}
+     
+  <select id="findByNo" resultMap="BoardMap" parameterType="int">
+    select
+      b.board_no,
+      b.title,
+      b.content,
+      b.created_dt,
+      b.view_cnt,
+      m.member_no,
+      m.name,
+      m.email
+    from
+      pms_board b
+      inner join pms_member m on b.member_no=m.member_no
+    where board_no=#{no}
   </select>
 
-  <insert id="insert" parameterType="member">
-    insert into pms_member(name,email,password,photo,tel) 
-    values(#{name},#{email},password(#{password}),#{photo},#{tel})
+  <select id="findByKeyword" resultMap="BoardMap" parameterType="string">
+    <include refid="select1"/>
+    where 
+      b.title like(concat('%',#{keyword},'%'))
+      or b.content like (concat('%',#{keyword},'%'))
+      or m.name like (concat('%',#{keyword},'%'))
+    <include refid="order1"/>
+  </select>
+  
+  <insert id="insert" parameterType="board">
+    insert into pms_board(title,content,member_no) 
+    values(#{title},#{content},#{writer.no})
   </insert>
   
-  <update id="update" parameterType="member">
-    update pms_member set
-      name=#{name},
-      email=#{email},
-      password=password(#{password}),
-      photo=#{photo},
-      tel=#{tel}
+  <update id="update" parameterType="board">
+    update pms_board set
+      title=#{title},
+      content=#{content}
     where 
-      member_no=#{no}
+      board_no=#{no}
   </update>
   
   <delete id="delete" parameterType="int">
-    delete from pms_member 
-    where member_no=#{value}
+    delete from pms_board 
+    where board_no=#{no}
   </delete>
-  
-  <select id="findByEmailAndPassword" resultMap="MemberMap" parameterType="map">
-    select 
-      member_no,
-      name,
-      email,
-      photo,
-      tel,
-      created_dt 
-    from 
-      pms_member
-    where 
-      email=#{email} and password=password(#{password})
-  </select>
-  
-  <select id="findByName" resultMap="MemberMap" parameterType="string">
-    select 
-      member_no,
-      name,
-      email,
-      photo,
-      tel,
-      created_dt 
-    from 
-      pms_member
-    where 
-      name=#{value}
-  </select>
--->  
-  
 </mapper>
 
 
