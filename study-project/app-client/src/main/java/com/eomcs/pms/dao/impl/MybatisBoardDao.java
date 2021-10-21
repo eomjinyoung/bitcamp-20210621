@@ -33,43 +33,7 @@ public class MybatisBoardDao implements BoardDao {
 
   @Override
   public List<Board> findAll() throws Exception {
-    return null;
-    //    try (PreparedStatement stmt = con.prepareStatement(
-    //        "select "
-    //            + " b.board_no,"
-    //            + " b.title,"
-    //            + " b.created_dt,"
-    //            + " b.view_cnt,"
-    //            + " m.member_no,"
-    //            + " m.name,"
-    //            + " m.email"
-    //            + " from "
-    //            + " pms_board b"
-    //            + " inner join pms_member m on b.member_no=m.member_no"
-    //            + " order by b.board_no desc");
-    //        ResultSet rs = stmt.executeQuery()) {
-    //
-    //      ArrayList<Board> list = new ArrayList<>();
-    //
-    //      while (rs.next()) {
-    //        Board board = new Board();
-    //        board.setNo(rs.getInt("board_no"));
-    //        board.setTitle(rs.getString("title"));
-    //        board.setRegisteredDate(rs.getDate("created_dt"));
-    //        board.setViewCount(rs.getInt("view_cnt"));
-    //
-    //        Member member = new Member();
-    //        member.setNo(rs.getInt("member_no"));
-    //        member.setName(rs.getString("name"));
-    //        member.setEmail(rs.getString("email"));
-    //
-    //        board.setWriter(member);
-    //
-    //        list.add(board);
-    //      }
-    //
-    //      return list;
-    //    }
+    return sqlSession.selectList("BoardMapper.findAll");
   }
 
   @Override
