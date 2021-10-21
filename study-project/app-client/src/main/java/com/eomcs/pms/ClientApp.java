@@ -19,10 +19,10 @@ import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.dao.TaskDao;
-import com.eomcs.pms.dao.impl.MariadbTaskDao;
 import com.eomcs.pms.dao.impl.MybatisBoardDao;
 import com.eomcs.pms.dao.impl.MybatisMemberDao;
 import com.eomcs.pms.dao.impl.MybatisProjectDao;
+import com.eomcs.pms.dao.impl.MybatisTaskDao;
 import com.eomcs.pms.handler.AuthLoginHandler;
 import com.eomcs.pms.handler.AuthLogoutHandler;
 import com.eomcs.pms.handler.AuthUserInfoHandler;
@@ -133,7 +133,7 @@ public class ClientApp {
     BoardDao boardDao = new MybatisBoardDao(sqlSession);
     MemberDao memberDao = new MybatisMemberDao(sqlSession);
     ProjectDao projectDao = new MybatisProjectDao(sqlSession);
-    TaskDao taskDao = new MariadbTaskDao(con);
+    TaskDao taskDao = new MybatisTaskDao(sqlSession);
 
     // Command 객체 준비
     commandMap.put("/member/add", new MemberAddHandler(memberDao));

@@ -3,14 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ProjectMapper">
+<mapper namespace="TaskMapper">
   
-  <resultMap type="project" id="ProjectMap">
-    <id column="project_no" property="no"/> 
-    <result column="title" property="title"/>
+  <resultMap type="task" id="TaskMap">
+    <id column="task_no" property="no"/> 
+    <result column="project_no" property="projectNo"/>
     <result column="content" property="content"/>
-    <result column="start_dt" property="startDate"/>
-    <result column="end_dt" property="endDate"/>
+    <result column="deadline" property="deadline"/>
     
     <association property="owner" javaType="member">
 	    <id column="owner_no" property="no"/>
@@ -18,34 +17,34 @@
 	    <result column="owner_email" property="email"/>
     </association>
     
-    <collection property="members" ofType="member">
-	    <id column="member_no" property="no"/>
-	    <result column="member_name" property="name"/>
-	    <result column="member_email" property="email"/>
-    </collection>
+    <association property="status" javaType="taskStatus">
+	    <id column="status_no" property="no"/>
+	    <result column="status_title" property="title"/>
+    </association>
   </resultMap>
   
-  <select id="findAll" resultMap="ProjectMap">
+  <select id="findAll" resultMap="TaskMap" parameterType="int">
     select
-      p.project_no,
-      p.title,
-      p.start_dt,
-      p.end_dt,
+      t.task_no,
+      t.project_no,
+      t.content,
+      t.deadline,
       m.member_no owner_no,
       m.name owner_name,
       m.email owner_email,
-      m2.member_no member_no,
-      m2.name member_name,
-      m2.email member_email
+      ts.task_status_no status_no,
+      ts.title status_title
     from
-      pms_project p
-      inner join pms_member m on p.member_no=m.member_no
-      left outer join pms_project_member pm on p.project_no=pm.project_no
-      inner join pms_member m2 on pm.member_no=m2.member_no
+      pms_task t
+      inner join pms_member m on t.member_no=m.member_no
+      inner join pms_task_status ts on t.task_status_no=ts.task_status_no
+    where
+      t.project_no=#{projectNo}
     order by
-      project_no desc, m2.name asc
+      t.task_no asc
   </select>
 
+<!--  
   <select id="findByNo" resultMap="ProjectMap" parameterType="int">
     select
       p.project_no,
@@ -97,7 +96,7 @@
     delete from pms_project 
     where project_no=#{no}
   </delete>
-  
+-->
 </mapper>
 
 

@@ -31,17 +31,6 @@ public class MybatisProjectDao implements ProjectDao {
     }
 
     sqlSession.commit();
-
-    //      // 프로젝트의 멤버를 입력하기
-    //      try (PreparedStatement stmt2 = con.prepareStatement(
-    //          "")) {
-    //        for (Member member : project.getMembers()) {
-    //          stmt2.setInt(1, projectNo);
-    //          stmt2.setInt(2, member.getNo());
-    //          stmt2.executeUpdate();
-    //        }
-    //      }
-    //    }
   }
 
   @Override
@@ -57,61 +46,24 @@ public class MybatisProjectDao implements ProjectDao {
 
   @Override
   public void update(Project project) throws Exception {
-    //    try (PreparedStatement stmt = con.prepareStatement(
-    //        "update pms_project set"
-    //            + " title=?,"
-    //            + " content=?,"
-    //            + " start_dt=?,"
-    //            + " end_dt=?"
-    //            + " where project_no=?")) {
-    //
-    //      stmt.setString(1, project.getTitle());
-    //      stmt.setString(2, project.getContent());
-    //      stmt.setDate(3, project.getStartDate());
-    //      stmt.setDate(4, project.getEndDate());
-    //      stmt.setInt(5, project.getNo());
-    //
-    //      if (stmt.executeUpdate() == 0) {
-    //        throw new Exception("프로젝트 데이터 변경 실패!");
-    //      }
-    //
-    //      // 프로젝트 멤버 변경
-    //      // => 기존 멤버 모두 제거
-    //      try (PreparedStatement stmt2 = con.prepareStatement(
-    //          "delete from pms_project_member where project_no=?")) {
-    //        stmt2.setInt(1, project.getNo());
-    //        stmt2.executeUpdate();
-    //      }
-    //
-    //      // => 프로젝트 새 멤버 입력
-    //      try (PreparedStatement stmt2 = con.prepareStatement(
-    //          "insert into pms_project_member(project_no,member_no) values(?,?)")) {
-    //        for (Member member : project.getMembers()) {
-    //          stmt2.setInt(1, project.getNo());
-    //          stmt2.setInt(2, member.getNo());
-    //          stmt2.executeUpdate();
-    //        }
-    //      }
-    //    }
+    sqlSession.update("ProjectMapper.update", project);
+    sqlSession.delete("ProjectMapper.deleteMember", project.getNo());
+
+    for (Member m : project.getMembers()) {
+      HashMap<String,Object> params = new HashMap<>();
+      params.put("projectNo", project.getNo());
+      params.put("memberNo", m.getNo());
+
+      sqlSession.insert("ProjectMapper.insertMember", params);
+    }
+    sqlSession.commit();
   }
 
   @Override
   public void delete(int no) throws Exception {
-    //    try (PreparedStatement stmt = con.prepareStatement(
-    //        "delete from pms_project where project_no=?");
-    //        PreparedStatement stmt2 = con.prepareStatement(
-    //            "delete from pms_project_member where project_no=?")) {
-    //
-    //      // 프로젝트 멤버를 먼제 삭제한다.
-    //      stmt2.setInt(1, no);
-    //      stmt2.executeUpdate();
-    //
-    //      // 프로젝트를 삭제한다.
-    //      stmt.setInt(1, no);
-    //      if (stmt.executeUpdate() == 0) {
-    //        throw new Exception("프로젝트 데이터 삭제 실패!");
-    //      }
-    //    }
+    sqlSession.delete("ProjectMapper.deleteMember", no);
+    sqlSession.delete("ProjectMapper.delete", no);
+    sqlSession.commit();
   }
 }
 
