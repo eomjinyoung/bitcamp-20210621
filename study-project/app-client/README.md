@@ -49,19 +49,34 @@
   - DB 커넥션 풀을 설정한다.
 
 
-### 3단계: MariadbMemberDao 에 Mybatis를 적용한다.
+### 3단계: Mybatis를 적용한 MybatisMemberDao 만들어 기존 DAO를 대체한다.
 
 - com/eomcs/pms/conf/mybatis-config.xml 변경
   - MemberMapper.xml 파일의 경로를 등록한다.
 - com/eomcs/pms/mapper/MemberMapper.xml 추가
   - MariadbMemberDao 에 있던 SQL문을 이 파일로 옮긴다.
-- com.eomcs.pms.dao.impl.MariadbMemberDao 클래스 변경
+- com.eomcs.pms.dao.impl.MybatisMemberDao 클래스 생성.
   - 의존 객체 SqlSession을 생성자를 통해 주입 받는다.
   - SQL을 뜯어내어 MemberMapper.xml로 옮긴다.
   - JDBC 코드를 뜯어내고 그 자리에 Mybatis 클래스로 대체한다.
 - com.eomcs.pms.ClientApp 클래스 변경
   - SqlSession 객체를 준비한다.
-  - MariadbMemberDao 객체에 주입한다.
+  - MybatisMemberDao 객체에 주입한다.
+
+### 4단계: Mybatis를 적용한 MybatisBoardDao 만들어 기존 DAO를 대체한다.
+
+- com/eomcs/pms/conf/mybatis-config.xml 변경
+  - BoardMapper.xml 파일의 경로를 등록한다.
+- com/eomcs/pms/mapper/BoardMapper.xml 추가
+  - MariadbBoardDao 에 있던 SQL문을 이 파일로 옮긴다.
+- com.eomcs.pms.dao.impl.MybatisBoardDao 클래스 생성.
+  - 의존 객체 SqlSession을 생성자를 통해 주입 받는다.
+  - SQL을 뜯어내어 BoardMapper.xml로 옮긴다.
+  - JDBC 코드를 뜯어내고 그 자리에 Mybatis 클래스로 대체한다.
+- com.eomcs.pms.ClientApp 클래스 변경
+  - SqlSession 객체를 준비한다.
+  - MybatisBoardDao 객체에 주입한다.
+
 
 ### 4단계: ClientApp 에서 DAO가 사용할 SqlSession 객체를 준비한다.
 

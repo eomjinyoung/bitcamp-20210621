@@ -19,9 +19,9 @@ import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.dao.TaskDao;
-import com.eomcs.pms.dao.impl.MariadbBoardDao;
 import com.eomcs.pms.dao.impl.MariadbProjectDao;
 import com.eomcs.pms.dao.impl.MariadbTaskDao;
+import com.eomcs.pms.dao.impl.MybatisBoardDao;
 import com.eomcs.pms.dao.impl.MybatisMemberDao;
 import com.eomcs.pms.handler.AuthLoginHandler;
 import com.eomcs.pms.handler.AuthLogoutHandler;
@@ -130,7 +130,7 @@ public class ClientApp {
         "com/eomcs/pms/conf/mybatis-config.xml")).openSession();
 
     // 데이터 관리를 담당할 DAO 객체를 준비한다.
-    BoardDao boardDao = new MariadbBoardDao(con);
+    BoardDao boardDao = new MybatisBoardDao(sqlSession);
     MemberDao memberDao = new MybatisMemberDao(sqlSession);
     ProjectDao projectDao = new MariadbProjectDao(con);
     TaskDao taskDao = new MariadbTaskDao(con);

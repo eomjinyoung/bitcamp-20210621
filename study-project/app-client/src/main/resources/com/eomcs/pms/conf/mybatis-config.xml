@@ -24,6 +24,7 @@
   
   <mappers>
     <mapper resource="com/eomcs/pms/mapper/MemberMapper.xml"/>
+    <mapper resource="com/eomcs/pms/mapper/BoardMapper.xml"/>
   </mappers>
 </configuration>
 
