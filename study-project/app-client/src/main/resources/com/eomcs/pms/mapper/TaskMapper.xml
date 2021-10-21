@@ -23,7 +23,12 @@
     </association>
   </resultMap>
   
-  <select id="findAll" resultMap="TaskMap" parameterType="int">
+  <resultMap type="taskStatus" id="TaskStatusMap">
+    <id column="task_status_no" property="no"/>
+    <result column="title" property="title"/>
+  </resultMap>
+  
+  <sql id="select1">
     select
       t.task_no,
       t.project_no,
@@ -38,65 +43,50 @@
       pms_task t
       inner join pms_member m on t.member_no=m.member_no
       inner join pms_task_status ts on t.task_status_no=ts.task_status_no
+  </sql>
+  
+  <select id="findAll" resultMap="TaskMap" parameterType="int">
+    <include refid="select1"/>
     where
       t.project_no=#{projectNo}
     order by
       t.task_no asc
   </select>
 
-<!--  
-  <select id="findByNo" resultMap="ProjectMap" parameterType="int">
-    select
-      p.project_no,
-      p.title,
-      p.content,
-      p.start_dt,
-      p.end_dt,
-      m.member_no owner_no,
-      m.name owner_name,
-      m.email owner_email,
-      m2.member_no member_no,
-      m2.name member_name,
-      m2.email member_email
-    from
-      pms_project p
-      inner join pms_member m on p.member_no=m.member_no
-      left outer join pms_project_member pm on p.project_no=pm.project_no
-      inner join pms_member m2 on pm.member_no=m2.member_no
-    where 
-      p.project_no=#{no}
+  <select id="findByNo" resultMap="TaskMap" parameterType="int">
+    <include refid="select1"/>
+    where
+      t.task_no=#{taskNo}
   </select>
 
-  <insert id="insert" parameterType="project" 
-          useGeneratedKeys="true" keyColumn="project_no" keyProperty="no">
-    insert into pms_project(title,content,start_dt,end_dt,member_no) 
-    values(#{title},#{content},#{startDate},#{endDate},#{owner.no})
+  <insert id="insert" parameterType="task">
+    insert into pms_task(project_no,member_no,content,deadline,task_status_no) 
+    values(#{projectNo},#{owner.no},#{content},#{deadline},#{status.no})
   </insert>
-
-  <insert id="insertMember" parameterType="map">
-    insert into pms_project_member(project_no,member_no) 
-    values(#{projectNo},#{memberNo})
-  </insert>
-
-  <update id="update" parameterType="project">
-    update pms_project set
-      title=#{title},
+  
+  <select id="findAllStatus" resultMap="TaskStatusMap">
+    select 
+      task_status_no, 
+      title 
+    from 
+      pms_task_status 
+    order by 
+      task_status_no asc
+  </select>
+  
+  <update id="update" parameterType="task">
+    update pms_task set
       content=#{content},
-      start_dt=#{startDate},
-      end_dt=#{endDate}
-    where project_no=#{no}
+      deadline=#{deadline},
+      task_status_no=#{status.no},
+      member_no=#{owner.no}
+    where task_no=#{no}
   </update>
   
-  <delete id="deleteMember" parameterType="int">
-    delete from pms_project_member 
-    where project_no=#{projectNo}
-  </delete>
-  
   <delete id="delete" parameterType="int">
-    delete from pms_project 
-    where project_no=#{no}
+    delete from pms_task 
+    where task_no=#{taskNo}
   </delete>
--->
 </mapper>
 
 

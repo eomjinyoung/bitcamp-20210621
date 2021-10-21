@@ -91,66 +91,17 @@
   - SqlSession 객체를 준비한다.
   - MybatisProjectDao 객체에 주입한다.
 
-
-
-
-### 4단계: ClientApp 에서 DAO가 사용할 SqlSession 객체를 준비한다.
-
-- com.eomcs.pms.ClientApp 클래스 변경
-  - `SqlSession` 객체를 생성한다.
-  - DAO 구현체를 생성할 때 SqlSession 객체를 주입한다.
-
-### 5단계: MemberDaoImpl 에 Mybatis를 적용한다.
-
-- com/eomcs/pms/conf/mybatis-config.xml 변경
-  - MemberMapper.xml 파일의 경로를 등록한다.
-- com/eomcs/pms/mapper/MemberMapper.xml 추가
-  - MemberDaoImpl 에 있던 SQL문을 이 파일로 옮긴다.
-- com.eomcs.pms.dao.mariadb.MemberDaoImpl 클래스 변경
-  - 의존 객체 SqlSession을 생성자를 통해 주입 받는다.
-  - SQL을 뜯어내어 MemberMapper.xml로 옮긴다.
-  - JDBC 코드를 뜯어내고 그 자리에 Mybatis 클래스로 대체한다.
-
-### 6단계: TaskDaoImpl 에 Mybatis를 적용한다.
+### 6단계: Mybatis를 적용한 MybatisTaskDao 만들어 기존 DAO를 대체한다.
 
 - com/eomcs/pms/conf/mybatis-config.xml 변경
   - TaskMapper.xml 파일의 경로를 등록한다.
 - com/eomcs/pms/mapper/TaskMapper.xml 추가
-  - TaskDaoImpl 에 있던 SQL문을 이 파일로 옮긴다.
-- com.eomcs.pms.dao.mariadb.TaskDaoImpl 클래스 변경
+  - MariadbTaskDao 에 있던 SQL문을 이 파일로 옮긴다.
+- com.eomcs.pms.dao.impl.MybatisTaskDao 클래스 생성.
   - 의존 객체 SqlSession을 생성자를 통해 주입 받는다.
   - SQL을 뜯어내어 TaskMapper.xml로 옮긴다.
   - JDBC 코드를 뜯어내고 그 자리에 Mybatis 클래스로 대체한다.
+- com.eomcs.pms.ClientApp 클래스 변경
+  - SqlSession 객체를 준비한다.
+  - MybatisTaskDao 객체에 주입한다.
 
-
-### 7단계: ProjectDaoImpl 에 Mybatis를 적용한다.
-
-- com/eomcs/pms/conf/mybatis-config.xml 변경
-  - ProjectMapper.xml 파일의 경로를 등록한다.
-- com/eomcs/pms/mapper/ProjectMapper.xml 추가
-  - ProjectDaoImpl 에 있던 SQL문을 이 파일로 옮긴다.
-- com.eomcs.pms.dao.mariadb.ProjectDaoImpl 클래스 변경
-  - 의존 객체 SqlSession을 생성자를 통해 주입 받는다.
-  - SQL을 뜯어내어 ProjectMapper.xml로 옮긴다.
-  - JDBC 코드를 뜯어내고 그 자리에 Mybatis 클래스로 대체한다.
-- com.eomcs.pms.dao.TaskDao 인터페이스 변경
-  - 프로젝트를 삭제할 때 그 프로젝트에 소속된 작업도 삭제할 수 있도록 deleteByProjectNo() 메서드를 추가한다.
-- com.eomcs.pms.dao.mariadb.TaskDaoImpl 클래스 변경
-  - 프로젝트의 작업을 삭제하는 deleteByProjectNo() 메서드 구현
-    - 프로젝트에 종속된 작업을 삭제하는 SQL을 뜯어내어 TaskMapper.xml로 옮긴다.
-    - JDBC 코드를 뜯어내고 그 자리에 Mybatis 클래스로 대체한다.
-
-
-## 실습 결과
-- build.gradle 변경
-- src/main/resources/com/eomcs/pms/conf/jdbc.properties 생성
-- src/main/resources/com/eomcs/pms/mapper/BoardMapper.xml 생성
-- src/main/resources/com/eomcs/pms/mapper/MemberMapper.xml 생성
-- src/main/resources/com/eomcs/pms/mapper/ProjectMapper.xml 생성
-- src/main/resources/com/eomcs/pms/mapper/TaskMapper.xml 생성
-- src/main/java/com/eomcs/pms/dao/mariadb/BoardDaoImpl.java 변경
-- src/main/java/com/eomcs/pms/dao/mariadb/MemberDaoImpl.java 변경
-- src/main/java/com/eomcs/pms/dao/mariadb/ProjectDaoImpl.java 변경
-- src/main/java/com/eomcs/pms/dao/TaskDao.java 변경
-- src/main/java/com/eomcs/pms/dao/mariadb/TaskDaoImpl.java 변경
-- src/main/java/com/eomcs/pms/listener/ClientApp.java 변경

@@ -3,8 +3,6 @@ package com.eomcs.pms;
 import static com.eomcs.menu.Menu.ACCESS_ADMIN;
 import static com.eomcs.menu.Menu.ACCESS_GENERAL;
 import static com.eomcs.menu.Menu.ACCESS_LOGOUT;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +55,7 @@ import com.eomcs.util.Prompt;
 
 public class ClientApp {
 
-  Connection con;
+  SqlSession sqlSession;
 
   RequestAgent requestAgent;
 
@@ -121,12 +119,8 @@ public class ClientApp {
     // 서버와 통신을 담당할 객체 준비
     requestAgent = null;
 
-    // DBMS와 연결한다.
-    con = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/studydb?user=study&password=1111");
-
     // Mybatis의 SqlSession 객체 준비
-    SqlSession sqlSession = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream(
+    sqlSession = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream(
         "com/eomcs/pms/conf/mybatis-config.xml")).openSession();
 
     // 데이터 관리를 담당할 DAO 객체를 준비한다.
@@ -247,8 +241,8 @@ public class ClientApp {
 
     notifyOnApplicationEnded();
 
-    // DBMS와 연결을 끊는다.
-    con.close();
+    // SqlSession 객체의 자원을 해제한다.
+    sqlSession.close();
   }
 
   public static void main(String[] args) throws Exception {
