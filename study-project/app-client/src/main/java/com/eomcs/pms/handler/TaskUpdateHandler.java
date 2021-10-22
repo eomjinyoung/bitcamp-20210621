@@ -1,5 +1,6 @@
 package com.eomcs.pms.handler;
 
+import org.apache.ibatis.session.SqlSession;
 import com.eomcs.pms.dao.TaskDao;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
@@ -10,9 +11,11 @@ public class TaskUpdateHandler implements Command {
 
   TaskDao taskDao;
   ProjectPrompt projectPrompt;
+  SqlSession sqlSession;
 
-  public TaskUpdateHandler(TaskDao taskDao) {
+  public TaskUpdateHandler(TaskDao taskDao, SqlSession sqlSession) {
     this.taskDao = taskDao;
+    this.sqlSession = sqlSession;
   }
 
   @Override
@@ -46,6 +49,7 @@ public class TaskUpdateHandler implements Command {
     }
 
     taskDao.update(task);
+    sqlSession.commit();
 
     System.out.println("작업를 변경하였습니다.");
   }

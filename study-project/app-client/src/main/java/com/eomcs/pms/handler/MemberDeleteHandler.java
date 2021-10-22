@@ -1,5 +1,6 @@
 package com.eomcs.pms.handler;
 
+import org.apache.ibatis.session.SqlSession;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
@@ -7,9 +8,11 @@ import com.eomcs.util.Prompt;
 public class MemberDeleteHandler implements Command {
 
   MemberDao memberDao;
+  SqlSession sqlSession;
 
-  public MemberDeleteHandler(MemberDao memberDao) {
+  public MemberDeleteHandler(MemberDao memberDao, SqlSession sqlSession) {
     this.memberDao = memberDao;
+    this.sqlSession = sqlSession;
   }
 
   @Override
@@ -31,6 +34,7 @@ public class MemberDeleteHandler implements Command {
     }
 
     memberDao.delete(no);
+    sqlSession.commit();
 
     System.out.println("회원을 삭제하였습니다.");
   }

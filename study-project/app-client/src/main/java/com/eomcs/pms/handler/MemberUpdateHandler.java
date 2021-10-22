@@ -1,6 +1,7 @@
 package com.eomcs.pms.handler;
 
 import java.util.HashMap;
+import org.apache.ibatis.session.SqlSession;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
@@ -8,9 +9,11 @@ import com.eomcs.util.Prompt;
 public class MemberUpdateHandler implements Command {
 
   MemberDao memberDao;
+  SqlSession sqlSession;
 
-  public MemberUpdateHandler(MemberDao memberDao) {
+  public MemberUpdateHandler(MemberDao memberDao, SqlSession sqlSession) {
     this.memberDao = memberDao;
+    this.sqlSession = sqlSession;
   }
 
   @Override
@@ -45,7 +48,9 @@ public class MemberUpdateHandler implements Command {
     member.setPassword(password);
     member.setPhoto(photo);
     member.setTel(tel);
+
     memberDao.update(member);
+    sqlSession.commit();
 
     System.out.println("회원을 변경하였습니다.");
   }

@@ -1,5 +1,6 @@
 package com.eomcs.pms.handler;
 
+import org.apache.ibatis.session.SqlSession;
 import com.eomcs.pms.dao.TaskDao;
 import com.eomcs.pms.domain.Project;
 import com.eomcs.pms.domain.Task;
@@ -8,9 +9,11 @@ import com.eomcs.util.Prompt;
 public class TaskDeleteHandler implements Command {
 
   TaskDao taskDao;
+  SqlSession sqlSession;
 
-  public TaskDeleteHandler(TaskDao taskDao) {
+  public TaskDeleteHandler(TaskDao taskDao, SqlSession sqlSession) {
     this.taskDao = taskDao;
+    this.sqlSession = sqlSession;
   }
 
   @Override
@@ -32,6 +35,7 @@ public class TaskDeleteHandler implements Command {
     }
 
     taskDao.delete(task.getNo());
+    sqlSession.commit();
 
     System.out.println("작업를 삭제하였습니다.");
   }

@@ -10,6 +10,7 @@ public interface BoardDao {
   List<Board> findAll() throws Exception;
   List<Board> findByKeyword(String keyword) throws Exception;
   Board findByNo(int no) throws Exception;
+  void updateCount(int no) throws Exception;
   void update(Board board) throws Exception;
   void delete(int no) throws Exception;
 }

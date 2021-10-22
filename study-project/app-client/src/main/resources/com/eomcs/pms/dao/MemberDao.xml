@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="MemberMapper">
+<mapper namespace="com.eomcs.pms.dao.MemberDao">
   
   <resultMap type="Member" id="MemberMap">
     <id column="member_no" property="no"/> 
@@ -63,7 +63,7 @@
     where member_no=#{value}
   </delete>
   
-  <select id="findByEmailAndPassword" resultMap="MemberMap" parameterType="map">
+  <select id="findByEmailAndPassword" resultMap="MemberMap">
     select 
       member_no,
       name,

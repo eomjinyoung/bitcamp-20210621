@@ -1,5 +1,6 @@
 package com.eomcs.pms.handler;
 
+import org.apache.ibatis.session.SqlSession;
 import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.pms.domain.Member;
@@ -8,9 +9,11 @@ import com.eomcs.util.Prompt;
 public class BoardDetailHandler implements Command {
 
   BoardDao boardDao;
+  SqlSession sqlSession;
 
-  public BoardDetailHandler(BoardDao boardDao) {
+  public BoardDetailHandler(BoardDao boardDao, SqlSession sqlSession) {
     this.boardDao = boardDao;
+    this.sqlSession = sqlSession;
   }
 
   @Override
@@ -33,6 +36,9 @@ public class BoardDetailHandler implements Command {
     board.setViewCount(board.getViewCount() + 1);
     System.out.printf("조회수: %d\n", board.getViewCount());
     System.out.println();
+
+    boardDao.updateCount(no);
+    sqlSession.commit();
 
     Member loginUser = AuthLoginHandler.getLoginUser(); 
     if (loginUser == null || 

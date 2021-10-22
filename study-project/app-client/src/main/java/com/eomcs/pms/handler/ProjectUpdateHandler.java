@@ -2,6 +2,7 @@ package com.eomcs.pms.handler;
 
 import java.sql.Date;
 import java.util.List;
+import org.apache.ibatis.session.SqlSession;
 import com.eomcs.pms.dao.ProjectDao;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.pms.domain.Project;
@@ -11,10 +12,12 @@ public class ProjectUpdateHandler implements Command {
 
   ProjectDao projectDao;
   MemberPrompt memberPrompt;
+  SqlSession sqlSession;
 
-  public ProjectUpdateHandler(ProjectDao projectDao, MemberPrompt memberPrompt) {
+  public ProjectUpdateHandler(ProjectDao projectDao, MemberPrompt memberPrompt, SqlSession sqlSession) {
     this.projectDao = projectDao;
     this.memberPrompt = memberPrompt;
+    this.sqlSession = sqlSession;
   }
 
   @Override
@@ -52,7 +55,19 @@ public class ProjectUpdateHandler implements Command {
     project.setStartDate(startDate);
     project.setEndDate(endDate);
     project.setMembers(members);
-    projectDao.update(project);
+
+    try {
+      projectDao.update(project);
+      projectDao.deleteMember(project.getNo());
+      for (Member m : project.getMembers()) {
+        projectDao.insertMember(project.getNo(), m.getNo());
+      }
+      sqlSession.commit();
+    } catch (Exception e) {
+      // 예외가 발생하기 전에 성공한 작업이 있으면 모두 취소한다.
+      // 그래야 다음 작업에 영향을 끼치지 않는다.
+      sqlSession.rollback();
+    }
 
     System.out.println("프로젝트를 변경하였습니다.");
   }

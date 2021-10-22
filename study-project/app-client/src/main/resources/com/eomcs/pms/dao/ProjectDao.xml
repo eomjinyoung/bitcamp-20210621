@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ProjectMapper">
+<mapper namespace="com.eomcs.pms.dao.ProjectDao">
   
   <resultMap type="project" id="ProjectMap">
     <id column="project_no" property="no"/> 
@@ -74,9 +74,9 @@
     values(#{title},#{content},#{startDate},#{endDate},#{owner.no})
   </insert>
 
-  <insert id="insertMember" parameterType="map">
+  <insert id="insertMember">
     insert into pms_project_member(project_no,member_no) 
-    values(#{projectNo},#{memberNo})
+    values(#{param1},#{param2})
   </insert>
 
   <update id="update" parameterType="project">

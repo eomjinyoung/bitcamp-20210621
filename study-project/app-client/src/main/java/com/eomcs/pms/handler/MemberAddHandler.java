@@ -1,5 +1,6 @@
 package com.eomcs.pms.handler;
 
+import org.apache.ibatis.session.SqlSession;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Member;
 import com.eomcs.util.Prompt;
@@ -7,9 +8,11 @@ import com.eomcs.util.Prompt;
 public class MemberAddHandler implements Command {
 
   MemberDao memberDao;
+  SqlSession sqlSession;
 
-  public MemberAddHandler(MemberDao memberDao) {
+  public MemberAddHandler(MemberDao memberDao, SqlSession sqlSession) {
     this.memberDao = memberDao;
+    this.sqlSession = sqlSession;
   }
 
   @Override
@@ -25,6 +28,7 @@ public class MemberAddHandler implements Command {
     member.setTel(Prompt.inputString("전화? "));
 
     memberDao.insert(member);
+    sqlSession.commit();
 
     System.out.println("회원을 등록했습니다.");
   }
