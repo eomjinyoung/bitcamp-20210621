@@ -44,19 +44,23 @@ public class MemberDetailHandler extends GenericServlet {
       Member member = memberDao.findByNo(no);
 
       if (member == null) {
-        System.out.println("해당 번호의 회원이 없습니다.");
+        out.println("해당 번호의 회원이 없습니다.");
 
       } else {
-        out.printf("이름: %s<br>", member.getName());
-        out.printf("이메일: %s<br>", member.getEmail());
-        out.printf("사진: %s<br>", member.getPhoto());
-        out.printf("전화: %s<br>", member.getTel());
+        out.println("<form action='update'>");
+        out.printf("번호: <input type='text' name='no' value='%d' readonly><br>\n", member.getNo());
+        out.printf("이름: <input type='text' name='name' value='%s'><br>\n", member.getName());
+        out.printf("이메일: <input type='text' name='email' value='%s'><br>\n", member.getEmail());
+        out.printf("암호: <input type='text' name='password'><br>\n");
+        out.printf("사진: <input type='text' name='photo' value='%s'><br>\n", member.getPhoto());
+        out.printf("전화: <input type='text' name='tel' value='%s'><br>\n", member.getTel());
         out.printf("등록일: %s<br>", member.getRegisteredDate());
         out.println();
 
-        out.println(" [변경]");
+        out.println("<button>변경</button>");
         out.printf(" <a href='delete?no=%d'>[삭제]</a>", member.getNo());
         out.println(" <a href='list'>[목록]</a><br>");
+        out.println("</form>");
       }
     } catch (Exception e) {
       throw new ServletException(e);
