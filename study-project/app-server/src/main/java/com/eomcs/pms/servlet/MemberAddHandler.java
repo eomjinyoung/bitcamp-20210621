@@ -2,20 +2,21 @@ package com.eomcs.pms.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Member;
 
-@WebServlet("/member/detail")
-public class MemberDetailHandler extends GenericServlet {
+
+@WebServlet("/member/add")
+public class MemberAddHandler extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   SqlSession sqlSession;
@@ -37,7 +38,7 @@ public class MemberDetailHandler extends GenericServlet {
   }
 
   @Override
-  public void service(ServletRequest request, ServletResponse response)
+  protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     response.setContentType("text/html;charset=UTF-8");
@@ -45,29 +46,25 @@ public class MemberDetailHandler extends GenericServlet {
 
     out.println("<html>");
     out.println("<head>");
-    out.println("  <title>회원상세</title>");
+    out.println("  <title>회원등록</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>회원 상세</h1>");
+    out.println("<h1>회원등록결과</h1>");
 
-    int no = Integer.parseInt(request.getParameter("no"));
+    Member member = new Member();
+
+    member.setName(request.getParameter("name"));
+    member.setEmail(request.getParameter("email"));
+    member.setPassword(request.getParameter("password"));
+    member.setPhoto(request.getParameter("photo"));
+    member.setTel(request.getParameter("tel"));
 
     try {
-      Member member = memberDao.findByNo(no);
+      memberDao.insert(member);
+      sqlSession.commit();
 
-      if (member == null) {
-        System.out.println("해당 번호의 회원이 없습니다.");
+      out.println("회원을 등록했습니다.");
 
-      } else {
-        out.printf("이름: %s<br>", member.getName());
-        out.printf("이메일: %s<br>", member.getEmail());
-        out.printf("사진: %s<br>", member.getPhoto());
-        out.printf("전화: %s<br>", member.getTel());
-        out.printf("등록일: %s<br>", member.getRegisteredDate());
-        out.println();
-
-        out.println("변경(U), 삭제(D), 이전(0) <br>");
-      }
     } catch (Exception e) {
       throw new ServletException(e);
     }

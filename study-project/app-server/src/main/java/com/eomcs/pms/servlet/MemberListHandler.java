@@ -38,11 +38,11 @@ public class MemberListHandler implements Servlet {
   }
 
   @Override
-  public void service(ServletRequest req, ServletResponse res)
+  public void service(ServletRequest request, ServletResponse response)
       throws ServletException, IOException {
 
-    res.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = res.getWriter();
+    response.setContentType("text/html;charset=UTF-8");
+    PrintWriter out = response.getWriter();
 
     out.println("<html>");
     out.println("<head>");
