@@ -50,7 +50,7 @@ public class MemberListHandler implements Servlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>회원 목록</h1>");
-
+    out.println("<a href='form'>새회원</a><br>");
     try {
       Collection<Member> memberList = memberDao.findAll();
 

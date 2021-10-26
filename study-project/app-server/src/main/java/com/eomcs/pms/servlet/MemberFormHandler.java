@@ -12,11 +12,10 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.eomcs.pms.dao.MemberDao;
-import com.eomcs.pms.domain.Member;
 
 
-@WebServlet("/member/add")
-public class MemberAddHandler extends HttpServlet {
+@WebServlet("/member/form")
+public class MemberFormHandler extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   SqlSession sqlSession;
@@ -46,30 +45,19 @@ public class MemberAddHandler extends HttpServlet {
 
     out.println("<html>");
     out.println("<head>");
-    out.println("  <title>회원등록</title>");
+    out.println("  <title>새회원</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>회원등록결과</h1>");
+    out.println("<h1>새회원</h1>");
 
-    Member member = new Member();
-
-    member.setName(request.getParameter("name"));
-    member.setEmail(request.getParameter("email"));
-    member.setPassword(request.getParameter("password"));
-    member.setPhoto(request.getParameter("photo"));
-    member.setTel(request.getParameter("tel"));
-
-    try {
-      memberDao.insert(member);
-      sqlSession.commit();
-
-      out.println("회원을 등록했습니다.<br>");
-
-      out.println("<a href='list'>[목록]</a><br>");
-
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
+    out.println("<form action='add'>");
+    out.println("이름: <input type='text' name='name'><br>");
+    out.println("이메일: <input type='text' name='email'><br>");
+    out.println("암호: <input type='text' name='password'><br>");
+    out.println("사진: <input type='text' name='photo'><br>");
+    out.println("전화: <input type='text' name='tel'><br>");
+    out.println("<button>등록</button><br>");
+    out.println("</form>");
 
     out.println("</body>");
     out.println("</html>");
