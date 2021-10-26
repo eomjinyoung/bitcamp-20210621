@@ -2,39 +2,16 @@ package com.eomcs.pms.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import com.eomcs.pms.dao.MemberDao;
 
 
 @WebServlet("/member/form")
 public class MemberFormHandler extends HttpServlet {
   private static final long serialVersionUID = 1L;
-
-  SqlSession sqlSession;
-  MemberDao memberDao;
-
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    try {
-      // Mybatis의 SqlSession 객체 준비
-      sqlSession = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream(
-          "com/eomcs/pms/conf/mybatis-config.xml")).openSession();
-
-      // SqlSession 객체를 통해 MemberDao 구현체를 자동 생성한다.
-      memberDao = sqlSession.getMapper(MemberDao.class);
-
-    } catch (Exception e) {
-      throw new ServletException(e);
-    }
-  }
 
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -61,11 +38,6 @@ public class MemberFormHandler extends HttpServlet {
 
     out.println("</body>");
     out.println("</html>");
-  }
-
-  @Override
-  public void destroy() {
-    sqlSession.close();
   }
 }
 
