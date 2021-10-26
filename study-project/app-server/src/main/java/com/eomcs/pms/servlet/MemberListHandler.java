@@ -41,16 +41,21 @@ public class MemberListHandler implements Servlet {
   public void service(ServletRequest req, ServletResponse res)
       throws ServletException, IOException {
 
-    res.setContentType("text/plain;charset=UTF-8");
+    res.setContentType("text/html;charset=UTF-8");
     PrintWriter out = res.getWriter();
 
-    out.println("[회원 목록]");
+    out.println("<html>");
+    out.println("<head>");
+    out.println("  <title>회원목록</title>");
+    out.println("</head>");
+    out.println("<body>");
+    out.println("<h1>회원 목록</h1>");
 
     try {
       Collection<Member> memberList = memberDao.findAll();
 
       for (Member member : memberList) {
-        out.printf("%d, %s, %s, %s, %s\n", 
+        out.printf("%d, %s, %s, %s, %s<br>", 
             member.getNo(), 
             member.getName(), 
             member.getEmail(), 
@@ -60,6 +65,8 @@ public class MemberListHandler implements Servlet {
     } catch (Exception e) {
       out.println("회원 목록 조회 오류!");
     }
+    out.println("</body>");
+    out.println("</html>");
   }
 
   @Override
