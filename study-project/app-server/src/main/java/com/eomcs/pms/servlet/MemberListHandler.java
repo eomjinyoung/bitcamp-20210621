@@ -40,7 +40,7 @@ public class MemberListHandler extends GenericServlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>회원 목록</h1>");
-    out.println("<div><a href='form'>새회원</a></div>");
+    out.println("<a href='form'>새회원</a><br>");
     out.println("<table border='1'>");
     out.println("<thead>");
     out.println("  <tr>");
