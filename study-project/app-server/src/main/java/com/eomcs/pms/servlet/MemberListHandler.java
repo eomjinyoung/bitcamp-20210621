@@ -33,18 +33,36 @@ public class MemberListHandler extends GenericServlet {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
 
+    out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
     out.println("  <title>회원목록</title>");
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>회원 목록</h1>");
-    out.println("<a href='form'>새회원</a><br>");
+    out.println("<div><a href='form'>새회원</a></div>");
+    out.println("<table border='1'>");
+    out.println("<thead>");
+    out.println("  <tr>");
+    out.println("    <th>번호</th>");
+    out.println("    <th>이름</th>");
+    out.println("    <th>이메일</th>");
+    out.println("    <th>전화</th>");
+    out.println("    <th>등록일</th>");
+    out.println("  <tr>");
+    out.println("</thread>");
+    out.println("<tbody>");
     try {
       Collection<Member> memberList = memberDao.findAll();
 
       for (Member member : memberList) {
-        out.printf("%d, <a href='detail?no=%1$d'>%s</a>, %s, %s, %s<br>", 
+        out.printf("<tr>"
+            + "<td>%d</td>"
+            + " <td><a href='detail?no=%1$d'>%s</a></td>"
+            + " <td>%s</td>"
+            + " <td>%s</td>"
+            + " <td>%s</td>"
+            + "</tr>", 
             member.getNo(), 
             member.getName(), 
             member.getEmail(), 
@@ -54,6 +72,8 @@ public class MemberListHandler extends GenericServlet {
     } catch (Exception e) {
       throw new ServletException(e);
     }
+    out.println("</tbody>");
+    out.println("</table>");
     out.println("</body>");
     out.println("</html>");
   }
