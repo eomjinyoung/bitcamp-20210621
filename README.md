@@ -908,6 +908,15 @@
 	- 팀별 프로젝트 구현
 		- Mybatis 퍼시스턴스 프레임워크 적용(계속): DAO 구현체를 자동으로 생성하는 방법
 
+
+## 81일차(2021-10-26,화)
+
+- 서블릿 프로그래밍(eomcs-java) : eomcs-servlet
+	- 서블릿 프로그래밍 개요 및 실습
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+		- Mybatis 퍼시스턴스 프레임워크 적용(계속): DAO 구현체를 자동으로 생성하는 방법
+
 # google meet
 https://meet.google.com/shs-ivqm-rvr
 
