@@ -4,13 +4,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true" %>
-<!DOCTYPE html>
-<html>
-<head>
-  <title>회원등록</title>
-</head>
-<body>
-<h1>회원등록결과</h1>
 <%
 Member member = new Member();
 
@@ -22,11 +15,8 @@ member.setTel(request.getParameter("tel"));
 
 memberDao.insert(member);
 sqlSession.commit();
+response.sendRedirect("MemberList.jsp");
 %>
-회원을 등록했습니다.<br>
-<a href='MemberList.jsp'>[목록]</a><br>
-</body>
-</html>
 <%! // <== declaration element(tag)
 // 자바 서블릿 클래스를 만들 때 그 클래스에 들어갈 변수와 메서드를 이 태그 안에 작성한다.
     SqlSession sqlSession;
