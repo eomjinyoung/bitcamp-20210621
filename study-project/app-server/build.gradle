@@ -69,6 +69,9 @@ repositories {
 dependencies {
   // 서블릿 API
   implementation 'javax.servlet:javax.servlet-api:4.0.1'
+  
+  // JSP API
+  implementation 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.3'
 
   // Google JSON 라이브러리
   implementation 'com.google.code.gson:gson:2.8.8'
