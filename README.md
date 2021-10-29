@@ -941,6 +941,19 @@
 	- 팀별 프로젝트 구현
 		- 서블릿 기술 적용(계속)
 
+## 84일차(2021-10-29,금)
+
+- 서블릿 프로그래밍(eomcs-java) : eomcs-servlet
+	- JSP 프로그래밍
+- 실전 프로젝트(eomcs-java-project)
+	- 23-b. 웹 애플리케이션 서버 아키텍처로 전환하기 : MVC 패턴 적용
+	- 23-c. 웹 애플리케이션 서버 아키텍처로 전환하기 : EL, JSTL 적용
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+		- MVC + EL + JSTL 기술 적용
+
+		
+		
 # google meet
 https://meet.google.com/shs-ivqm-rvr
 
