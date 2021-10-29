@@ -15,8 +15,8 @@
   </style>
 </head>
 <body>
-<h1>새회원</h1>
-<form action='MemberAdd.jsp'>
+<h1>새회원(MVC)</h1>
+<form action='add'>
 <label for='f-name'>이름</label> <input id='f-name' type='text' name='name'><br>
 <label for='f-email'>이메일</label> <input id='f-email' type='email' name='email'><br>
 <label for='f-password'>암호</label> <input id='f-password' type='password' name='password'><br>
