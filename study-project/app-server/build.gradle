@@ -67,11 +67,23 @@ repositories {
 //    등록한 라이브러를 자동으로 다운로드 받는다.
 // => 이렇게 다운로드 받은 라이브러리는 컴파일하거나 실행할 때 사용된다.
 dependencies {
+  // 라이브러리 유형
+  // 1) implementation
+  //    => 컴파일할 때 사용하고, 배포할 때 포함한다.
+  // 2) providedCompile
+  //    => 컴파일 할 때 사용하고, 배포에서는 제외한다.
+  // 3) testImplementation
+  //    => 테스트 소스를 컴파일 할 때만 사용, 배포에서 제외한다.
+  
   // 서블릿 API
-  implementation 'javax.servlet:javax.servlet-api:4.0.1'
+  // - 서블릿 컨테이너에 있는 라이브러리다. 따라서 배포할 때 제외해야 한다.
+  // - 프로그램을 개발하는 동안 컴파일할 때 사용해야 하기 때문에 providedCompile 로 설정한다.
+  providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
   
   // JSP API
-  implementation 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.3'
+  // - 서블릿 컨테이너에 있는 라이브러리다. 따라서 배포할 때 제외해야 한다.
+  // - 프로그램을 개발하는 동안 컴파일할 때 사용해야 하기 때문에 providedCompile 로 설정한다.
+  providedCompile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.3'
 
   // JSTL 구현체
   implementation 'javax.servlet:jstl:1.2' // JSTL API + JSTL 구현체
