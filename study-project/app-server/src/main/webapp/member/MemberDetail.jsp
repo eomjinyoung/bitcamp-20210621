@@ -1,5 +1,4 @@
 <%@page import="com.eomcs.pms.domain.Member"%>
-<%@page import="com.eomcs.pms.dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true" %>
@@ -17,17 +16,11 @@
   </style>
 </head>
 <body>
-<h1>회원 상세</h1>
+<h1>회원 상세(MVC)</h1>
 <%
-int no = Integer.parseInt(request.getParameter("no"));
-Member member = memberDao.findByNo(no);
-
-if (member == null) {%>
-    해당 번호의 회원이 없습니다.
-<%
-} else {
+Member member = (Member) request.getAttribute("member");
 %>
-<form action='MemberUpdate.jsp'>
+<form action='update'>
     <label for='f-no'>번호</label> 
     <input id='f-no' type='text' name='no' value='<%=member.getNo()%>' readonly><br>
     
@@ -49,27 +42,8 @@ if (member == null) {%>
     <label for='f-registeredDate'>등록일</label> 
     <span id='f-registeredDate'><%=member.getRegisteredDate()%></span><br>
 <button>변경</button>
- <a href='MemberDelete.jsp?no=<%=member.getNo()%>'>[삭제]</a> <a href='MemberList.jsp'>[목록]</a><br>
+ <a href='delete?no=<%=member.getNo()%>'>[삭제]</a> <a href='list'>[목록]</a><br>
 </form>
-<%}%>
+
 </body>
 </html>
-<%! // <== declaration element(tag)
-// 자바 서블릿 클래스를 만들 때 그 클래스에 들어갈 변수와 메서드를 이 태그 안에 작성한다.
-    MemberDao memberDao;
-
-    public void jspInit() {
-      ServletConfig config = getServletConfig();
-      ServletContext 웹애플리케이션공용저장소 = config.getServletContext();
-      memberDao = (MemberDao) 웹애플리케이션공용저장소.getAttribute("memberDao");
-    }
-%>
-
-
-
-
-
-
-
-
-

@@ -1,7 +1,7 @@
 package com.eomcs.pms.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,7 +15,7 @@ import com.eomcs.pms.domain.Member;
 
 
 @WebServlet("/member/add")
-public class MemberAddHandler extends HttpServlet {
+public class MemberAddController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   SqlSession sqlSession;
@@ -32,16 +32,6 @@ public class MemberAddHandler extends HttpServlet {
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-
-    out.println("<html>");
-    out.println("<head>");
-    out.println("  <title>회원등록</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>회원등록결과</h1>");
-
     Member member = new Member();
 
     member.setName(request.getParameter("name"));
@@ -53,23 +43,17 @@ public class MemberAddHandler extends HttpServlet {
     try {
       memberDao.insert(member);
       sqlSession.commit();
-
-      out.println("회원을 등록했습니다.<br>");
-
-      out.println("<a href='list'>[목록]</a><br>");
+      response.setHeader("Refresh", "1;url=list");
+      request.getRequestDispatcher("MemberAdd.jsp").forward(request, response);
 
     } catch (Exception e) {
-      out.println("목록 조회 오류!");
-      e.printStackTrace();
+      // 오류를 출력할 때 사용할 수 있도록 예외 객체를 저장소에 보관한다.
+      request.setAttribute("error", e);
+
+      // 오류가 발생하면, 오류 내용을 출력할 뷰를 호출한다.
+      RequestDispatcher 요청배달자 = request.getRequestDispatcher("/Error.jsp");
+      요청배달자.forward(request, response);
     }
-
-    out.println("</body>");
-    out.println("</html>");
-
-    // 리프래시(refresh)
-    // 웹브라우저에게 서버가 보내준 HTML을 출력한 후 
-    // 1초가 경과하면 지정한 URL을 다시 요청하도록 명령한다.
-    response.setHeader("Refresh", "1;url=list");
   }
 }
 

@@ -1,6 +1,5 @@
 <%@page import="com.eomcs.pms.domain.Member"%>
 <%@page import="java.util.Collection"%>
-<%@page import="com.eomcs.pms.dao.MemberDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true" %>
@@ -30,7 +29,7 @@ for (Member member : memberList) {
 %>
 <tr>
     <td><%=member.getNo()%></td>
-    <td><a href='MemberDetail.jsp?no=<%=member.getNo()%>'><%=member.getName()%></a></td> 
+    <td><a href='detail?no=<%=member.getNo()%>'><%=member.getName()%></a></td> 
     <td><%=member.getEmail()%></td> 
     <td><%=member.getTel()%></td> 
     <td><%=member.getRegisteredDate()%></td>
