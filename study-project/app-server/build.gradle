@@ -73,6 +73,10 @@ dependencies {
   // JSP API
   implementation 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.3'
 
+  // JSTL 구현체
+  implementation 'javax.servlet:jstl:1.2' // JSTL API + JSTL 구현체
+  //implementation 'javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:1.2.2' // JSTL API 만 있다.
+    
   // Google JSON 라이브러리
   implementation 'com.google.code.gson:gson:2.8.8'
   
