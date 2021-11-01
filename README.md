@@ -952,8 +952,24 @@
 	- 팀별 프로젝트 구현
 		- MVC + EL + JSTL 기술 적용
 
-		
-		
+
+## 85일차(2021-11-01,월)
+
+- CSS(eomcs-java) : eomcs-servlet
+	- CSS 사용법
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+		- MVC + EL + JSTL 기술 적용		
+
+## 86일차(2021-11-02,화)
+
+- CSS(eomcs-java) : eomcs-servlet
+	- CSS 사용법(계속)
+	- Bootstrap CSS 라이브러리 적용
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+		- MVC + EL + JSTL 기술 적용	
+
 # google meet
 https://meet.google.com/shs-ivqm-rvr
 
