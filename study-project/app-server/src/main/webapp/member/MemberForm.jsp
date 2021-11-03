@@ -5,25 +5,55 @@
 <html>
 <head>
   <title>새회원</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+  
+  <script src="../node_modules/@popperjs/core/dist/umd/popper.js"></script>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  
   <style>
-  label {
-    margin-right: 5px;
-    text-align: right;
-    display: inline-block;
-    width: 60px;
-  }
+    .container {
+        xborder: 1px solid red;
+        width: 640px;
+    }
   </style>
 </head>
 <body>
+<div class="container">
 <h1>새회원(MVC)</h1>
 <form action='add'>
-<label for='f-name'>이름</label> <input id='f-name' type='text' name='name'><br>
-<label for='f-email'>이메일</label> <input id='f-email' type='email' name='email'><br>
-<label for='f-password'>암호</label> <input id='f-password' type='password' name='password'><br>
-<label for='f-photo'>사진</label> <input id='f-photo' type='text' name='photo'><br>
-<label for='f-tel'>전화</label> <input id='f-tel' type='tel' name='tel'><br>
-<button>등록</button><br>
+<div class="mb-3 row">
+  <label for='f-name' class="col-sm-2 col-form-label">이름</label>
+  <div class="col-sm-6">
+    <input id='f-name' type='text' name='name' class="form-control">
+  </div>
+</div>
+<div class="mb-3 row">
+  <label for='f-email' class="col-sm-2 col-form-label">이메일</label>
+  <div class="col-sm-10">
+    <input id='f-email' type='email' name='email' class="form-control">
+  </div>
+</div>
+<div class="mb-3 row">
+  <label for='f-password' class="col-sm-2 col-form-label">암호</label>
+  <div class="col-sm-6">
+    <input id='f-password' type='password' name='password' class="form-control">
+  </div>
+</div>
+<div class="mb-3 row">
+  <label for='f-photo' class="col-sm-2 col-form-label">사진</label> 
+  <div class="col-sm-10">
+    <input id='f-photo' type='text' name='photo' class="form-control">
+  </div>
+</div>
+<div class="mb-3 row">
+  <label for='f-tel' class="col-sm-2 col-form-label">전화</label> 
+  <div class="col-sm-10">
+    <input id='f-tel' type='tel' name='tel' class="form-control">
+  </div>
+</div>
+<button class="btn btn-primary btn-sm">등록</button><br>
 </form>
+</div><!-- .container -->
 </body>
 </html>
 
