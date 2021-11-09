@@ -1,7 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true" %>
-<h1>회원 상세(MVC + EL + Bootstrap + 템플릿)</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>회원상세</title>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.css">
+  
+  <script src="../node_modules/@popperjs/core/dist/umd/popper.js"></script>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="../node_modules/sweetalert2/dist/sweetalert2.js"></script>
+  
+  <style>
+    .container {
+        xborder: 1px solid red;
+        width: 640px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+<h1>회원 상세(MVC + EL + Bootstrap)</h1>
 <form id="member-form" action='update' method='post'>
 <div class="mb-3 row">
   <label for='f-no' class="col-sm-2 col-form-label">번호</label>
@@ -49,6 +69,7 @@
 <a href='delete?no=${member.no}' class="btn btn-primary">삭제</a> 
 <a href='list' class="btn btn-primary">목록</a><br>
 </form>
+</div><!-- .container -->
 
 <script>
 document.querySelector("#member-form").onsubmit = () => {
@@ -60,4 +81,21 @@ document.querySelector("#member-form").onsubmit = () => {
 		return false;
 	}
 };
+
 </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
