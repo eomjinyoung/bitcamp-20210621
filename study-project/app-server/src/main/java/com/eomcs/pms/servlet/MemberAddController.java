@@ -32,6 +32,8 @@ public class MemberAddController extends HttpServlet {
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    //request.setCharacterEncoding("UTF-8");
+
     Member member = new Member();
 
     member.setName(request.getParameter("name"));

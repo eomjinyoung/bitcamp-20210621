@@ -20,7 +20,7 @@
 <body>
 <div class="container">
 <h1>새회원(MVC)</h1>
-<form action='add'>
+<form action='add' method='post'>
 <div class="mb-3 row">
   <label for='f-name' class="col-sm-2 col-form-label">이름</label>
   <div class="col-sm-6">

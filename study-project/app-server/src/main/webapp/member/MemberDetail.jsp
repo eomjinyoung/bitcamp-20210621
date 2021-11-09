@@ -22,7 +22,7 @@
 <body>
 <div class="container">
 <h1>회원 상세(MVC + EL + Bootstrap)</h1>
-<form id="member-form" action='update'>
+<form id="member-form" action='update' method='post'>
 <div class="mb-3 row">
   <label for='f-no' class="col-sm-2 col-form-label">번호</label>
   <div class="col-sm-6">
