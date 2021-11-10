@@ -1,1 +1,0 @@
-# 웹 자원(HTML, CSS, JavaScript, Image 파일)을 두는 폴더)

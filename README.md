@@ -1013,6 +1013,15 @@
 	- 팀별 프로젝트 구현
 		- 자바스크립트 기술 적용
 
+## 92일차(2021-11-10,수)
+- javascript(eomcs-java) : eomcs-servlet
+	- 서블릿 프로그래밍
+- 실전 프로젝트(eomcs-java-project)
+	- 23-g. 웹 애플리케이션 서버 아키텍처로 전환하기 : 파일 업로드 적용
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+		- 자바스크립트 기술 적용
+
 # google meet
 https://meet.google.com/shs-ivqm-rvr
 

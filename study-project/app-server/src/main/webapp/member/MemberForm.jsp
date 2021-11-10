@@ -20,7 +20,7 @@
 <body>
 <div class="container">
 <h1>새회원(MVC)</h1>
-<form action='add' method='post'>
+<form action='add' method='post' enctype="multipart/form-data">
 <div class="mb-3 row">
   <label for='f-name' class="col-sm-2 col-form-label">이름</label>
   <div class="col-sm-6">
@@ -42,7 +42,7 @@
 <div class="mb-3 row">
   <label for='f-photo' class="col-sm-2 col-form-label">사진</label> 
   <div class="col-sm-10">
-    <input id='f-photo' type='text' name='photo' class="form-control">
+    <input id='f-photo' type='file' name='photo' class="form-control">
   </div>
 </div>
 <div class="mb-3 row">

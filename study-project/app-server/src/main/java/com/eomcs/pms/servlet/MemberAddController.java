@@ -1,19 +1,21 @@
 package com.eomcs.pms.servlet;
 
 import java.io.IOException;
+import java.util.UUID;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import org.apache.ibatis.session.SqlSession;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Member;
 
-
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 @WebServlet("/member/add")
 public class MemberAddController extends HttpServlet {
   private static final long serialVersionUID = 1L;
@@ -22,8 +24,8 @@ public class MemberAddController extends HttpServlet {
   MemberDao memberDao;
 
   @Override
-  public void init(ServletConfig config) throws ServletException {
-    ServletContext 웹애플리케이션공용저장소 = config.getServletContext();
+  public void init() {
+    ServletContext 웹애플리케이션공용저장소 = getServletContext();
     sqlSession = (SqlSession) 웹애플리케이션공용저장소.getAttribute("sqlSession");
     memberDao = (MemberDao) 웹애플리케이션공용저장소.getAttribute("memberDao");
   }
@@ -31,22 +33,29 @@ public class MemberAddController extends HttpServlet {
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
-    //request.setCharacterEncoding("UTF-8");
-
-    Member member = new Member();
-
-    member.setName(request.getParameter("name"));
-    member.setEmail(request.getParameter("email"));
-    member.setPassword(request.getParameter("password"));
-    member.setPhoto(request.getParameter("photo"));
-    member.setTel(request.getParameter("tel"));
-
     try {
+
+      Member member = new Member();
+
+      member.setName(request.getParameter("name"));
+      member.setEmail(request.getParameter("email"));
+      member.setPassword(request.getParameter("password"));
+      member.setTel(request.getParameter("tel"));
+
+      Part photoPart = request.getPart("photo");
+      if (photoPart.getSize() > 0) {
+        String filename = UUID.randomUUID().toString();
+        photoPart.write(getServletContext().getRealPath("/upload/member") + "/" + filename);
+        member.setPhoto(filename);
+      }
+
       memberDao.insert(member);
       sqlSession.commit();
+
       response.setHeader("Refresh", "1;url=list");
-      request.getRequestDispatcher("MemberAdd.jsp").forward(request, response);
+      request.setAttribute("pageTitle", "회원목록");
+      request.setAttribute("contentUrl", "/member/MemberAdd.jsp");
+      request.getRequestDispatcher("/template1.jsp").forward(request, response);
 
     } catch (Exception e) {
       // 오류를 출력할 때 사용할 수 있도록 예외 객체를 저장소에 보관한다.
