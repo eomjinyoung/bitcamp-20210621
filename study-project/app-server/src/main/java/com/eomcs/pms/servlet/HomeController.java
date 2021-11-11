@@ -8,15 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/member/form")
-public class MemberFormController extends HttpServlet {
+@WebServlet("/home")
+public class HomeController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  protected void service(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    request.setAttribute("pageTitle", "새회원");
-    request.setAttribute("contentUrl", "/member/MemberForm.jsp");
+    request.setAttribute("pageTitle", "메인화면");
+    request.setAttribute("contentUrl", "/home.jsp");
     request.getRequestDispatcher("/template1.jsp").forward(request, response);
   }
 }

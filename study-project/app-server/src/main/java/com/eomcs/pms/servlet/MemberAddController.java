@@ -79,7 +79,7 @@ public class MemberAddController extends HttpServlet {
       sqlSession.commit();
 
       response.setHeader("Refresh", "1;url=list");
-      request.setAttribute("pageTitle", "회원목록");
+      request.setAttribute("pageTitle", "회원등록");
       request.setAttribute("contentUrl", "/member/MemberAdd.jsp");
       request.getRequestDispatcher("/template1.jsp").forward(request, response);
 
