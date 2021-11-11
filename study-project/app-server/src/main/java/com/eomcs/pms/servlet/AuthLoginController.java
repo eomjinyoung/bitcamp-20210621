@@ -12,7 +12,7 @@ import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Member;
 
 @WebServlet("/auth/login")
-public class AuthLoginHandler extends HttpServlet {
+public class AuthLoginController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   MemberDao memberDao;
