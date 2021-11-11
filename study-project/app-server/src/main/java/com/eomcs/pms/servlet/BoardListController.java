@@ -12,13 +12,13 @@ import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.domain.Board;
 
 @WebServlet("/board/list")
-public class BoardListHandler extends HttpServlet {
+public class BoardListController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   BoardDao boardDao;
 
   @Override
-  public void init() throws ServletException {
+  public void init() {
     ServletContext 웹애플리케이션공용저장소 = getServletContext();
     boardDao = (BoardDao) 웹애플리케이션공용저장소.getAttribute("boardDao");
   }
@@ -30,9 +30,9 @@ public class BoardListHandler extends HttpServlet {
       Collection<Board> boardList = boardDao.findAll();
 
       request.setAttribute("boardList", boardList);
+
       request.setAttribute("pageTitle", "게시글목록");
       request.setAttribute("contentUrl", "/board/BoardList.jsp");
-
       request.getRequestDispatcher("/template1.jsp").forward(request, response);
 
     } catch (Exception e) {
