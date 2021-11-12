@@ -16,10 +16,10 @@
           <a class="nav-link active" href="${contextPath}/member/list">회원</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">프로젝트</a>
+          <a class="nav-link active" href="${contextPath}/project/list">프로젝트</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">작업</a>
+          <a class="nav-link active" href="${contextPath}/task/list">작업</a>
         </li>
       </ul>
       <form class="d-flex">

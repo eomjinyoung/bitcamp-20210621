@@ -38,7 +38,7 @@
 </div>
 <div class="mb-3 row">
   <label for='f-tel' class="col-sm-2 col-form-label">전화</label> 
-  <div class="col-sm-10">
+  <div class="col-sm-6">
     <input id='f-tel' type='tel' name='tel' class="form-control" value="${member.tel}">
   </div>
 </div>
