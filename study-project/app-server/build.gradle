@@ -101,6 +101,18 @@ dependencies {
   // Thumbnailator 썸네일 생성 라이브러리
   implementation 'net.coobird:thumbnailator:0.4.14'
   
+  // Spring WebMVC 프레임워크
+  implementation 'org.springframework:spring-webmvc:5.3.13'
+  
+  // Spring JDBC 연동 라이브러리(Spring에서 JDBC를 다룰 때 필요한 클래스들)
+  implementation 'org.springframework:spring-jdbc:5.3.13'
+  
+  // Spring Mybatis 연동 라이브러리(Spring에서 Mybatis를 다룰 때 필요한 클래스들)
+  implementation 'org.mybatis:mybatis-spring:2.0.6'
+  
+  // Log4j 라이브러리
+  implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
+
   implementation 'com.google.guava:guava:30.1-jre'
   testImplementation 'junit:junit:4.13.2'
 }
