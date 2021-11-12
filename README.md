@@ -1031,6 +1031,15 @@
 	- 팀별 프로젝트 구현
 		- 자바스크립트 기술 적용
 
+## 93일차(2021-11-11,목)
+- javascript(eomcs-java) : eomcs-servlet
+	- 서블릿 프로그래밍
+- 실전 프로젝트(eomcs-java-project)
+	- 23-h. 웹 애플리케이션 서버 아키텍처로 전환하기 : 프론트 컨트롤러 도입
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+		- 자바스크립트 기술 적용
+
 # google meet
 https://meet.google.com/shs-ivqm-rvr
 

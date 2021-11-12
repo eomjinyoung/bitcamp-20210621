@@ -30,8 +30,8 @@
 <div class="mb-3 row">
   <label for='f-photo' class="col-sm-2 col-form-label">사진</label> 
   <div class="col-sm-10">
-    <a href="../upload/member/${member.photo}" >
-        <img id="f-photo-image" src="../upload/member/${member.photo}_100x100.jpg">
+    <a href="${contextPath}/upload/member/${member.photo}" >
+        <img id="f-photo-image" src="${contextPath}/upload/member/${member.photo}_100x100.jpg">
     </a>
     <input id='f-photo' type='file' name='photo' class="form-control">
   </div>

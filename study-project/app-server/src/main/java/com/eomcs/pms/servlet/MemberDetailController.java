@@ -2,7 +2,6 @@ package com.eomcs.pms.servlet;
 
 import java.io.IOException;
 import javax.servlet.GenericServlet;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -18,8 +17,8 @@ public class MemberDetailController extends GenericServlet {
   MemberDao memberDao;
 
   @Override
-  public void init(ServletConfig config) throws ServletException {
-    ServletContext 웹애플리케이션공용저장소 = config.getServletContext();
+  public void init() {
+    ServletContext 웹애플리케이션공용저장소 = getServletContext();
     memberDao = (MemberDao) 웹애플리케이션공용저장소.getAttribute("memberDao");
   }
 
@@ -36,14 +35,11 @@ public class MemberDetailController extends GenericServlet {
       }
 
       request.setAttribute("member", member);
-
       request.setAttribute("pageTitle", "회원정보");
       request.setAttribute("contentUrl", "/member/MemberDetail.jsp");
-      request.getRequestDispatcher("/template1.jsp").forward(request, response);
 
     } catch (Exception e) {
       request.setAttribute("error", e);
-      request.getRequestDispatcher("/Error.jsp").forward(request, response);
     }
   }
 }

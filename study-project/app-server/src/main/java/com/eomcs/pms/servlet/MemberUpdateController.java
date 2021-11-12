@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import net.coobird.thumbnailator.name.Rename;
 
-@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
+//@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 @WebServlet("/member/update")
 public class MemberUpdateController extends HttpServlet {
   private static final long serialVersionUID = 1L;
@@ -83,11 +82,10 @@ public class MemberUpdateController extends HttpServlet {
       memberDao.update(member);
       sqlSession.commit();
 
-      response.sendRedirect("list");
+      request.setAttribute("contentUrl", "redirect:list");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
-      request.getRequestDispatcher("/Error.jsp").forward(request, response);
     }
   }
 }

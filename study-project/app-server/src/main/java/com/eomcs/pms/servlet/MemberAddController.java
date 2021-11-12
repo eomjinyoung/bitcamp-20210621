@@ -2,10 +2,8 @@ package com.eomcs.pms.servlet;
 
 import java.io.IOException;
 import java.util.UUID;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +17,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import net.coobird.thumbnailator.name.Rename;
 
-@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
+//@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 @WebServlet("/member/add")
 public class MemberAddController extends HttpServlet {
   private static final long serialVersionUID = 1L;
@@ -78,18 +76,12 @@ public class MemberAddController extends HttpServlet {
       memberDao.insert(member);
       sqlSession.commit();
 
-      response.setHeader("Refresh", "1;url=list");
+      request.setAttribute("refresh", "2;url=list");
       request.setAttribute("pageTitle", "회원등록");
       request.setAttribute("contentUrl", "/member/MemberAdd.jsp");
-      request.getRequestDispatcher("/template1.jsp").forward(request, response);
 
     } catch (Exception e) {
-      // 오류를 출력할 때 사용할 수 있도록 예외 객체를 저장소에 보관한다.
       request.setAttribute("error", e);
-
-      // 오류가 발생하면, 오류 내용을 출력할 뷰를 호출한다.
-      RequestDispatcher 요청배달자 = request.getRequestDispatcher("/Error.jsp");
-      요청배달자.forward(request, response);
     }
   }
 }

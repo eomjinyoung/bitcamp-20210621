@@ -17,7 +17,6 @@ public class MemberFormController extends HttpServlet {
       throws ServletException, IOException {
     request.setAttribute("pageTitle", "새회원");
     request.setAttribute("contentUrl", "/member/MemberForm.jsp");
-    request.getRequestDispatcher("/template1.jsp").forward(request, response);
   }
 }
 
