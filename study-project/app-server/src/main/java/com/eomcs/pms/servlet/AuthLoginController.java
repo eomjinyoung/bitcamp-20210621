@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +32,29 @@ public class AuthLoginController extends HttpServlet {
     String password = request.getParameter("password");
 
     try {
+      Cookie cookie = null;
+      if (request.getParameter("saveEmail") != null) {
+        // 클라이언트에게 맡길 쿠키 준비
+        cookie = new Cookie("email", email);
+
+        // 유효기간 설정
+        // => 해당 기간까지만 클라이언트가 서버로 쿠키를 보내줌
+        // => 유효기간을 설정하지 않으면 웹브라우저가 실행되는 동안만 유지하라는 의미다.
+        cookie.setMaxAge(60 * 60 * 24 * 7);
+
+        // 사용범위 설정
+        // => 해당 URL에 속한 자원을 요청할 때만 클라이언트가 서버에게 쿠기를 보내줌 
+        // => 사용범위를 지정하지 않으면 현재 서블릿 경로가 사용된다.
+        //    예) http://localhost:8080/pms/auth/   <== login 서블릿과 같은 경로에 있는 자원을 요청할 때마다 무조건 보내라는 의미다.
+        cookie.setPath(getServletContext().getContextPath() + "/auth"); // 예) http://localhost:8080/pms/auth
+
+      } else {
+        cookie = new Cookie("email", "");
+        cookie.setMaxAge(0); // 유효기간을 0으로 설정하면 웹브라우저가 받는 즉시 무효한 쿠기가 된다.
+      }
+      response.addCookie(cookie);
+
+
       Member member = memberDao.findByEmailAndPassword(email, password);
 
       if (member != null) {
