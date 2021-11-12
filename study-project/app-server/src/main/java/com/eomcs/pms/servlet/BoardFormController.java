@@ -17,7 +17,6 @@ public class BoardFormController extends HttpServlet {
       throws ServletException, IOException {
     request.setAttribute("pageTitle", "새 글");
     request.setAttribute("contentUrl", "/board/BoardForm.jsp");
-    request.getRequestDispatcher("/template1.jsp").forward(request, response);
   }
 }
 

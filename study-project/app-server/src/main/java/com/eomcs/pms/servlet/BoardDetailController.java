@@ -40,11 +40,9 @@ public class BoardDetailController extends HttpServlet {
 
       request.setAttribute("pageTitle", "게시글");
       request.setAttribute("contentUrl", "/board/BoardDetail.jsp");
-      request.getRequestDispatcher("/template1.jsp").forward(request, response);
 
     } catch (Exception e) {
       request.setAttribute("error", e);
-      request.getRequestDispatcher("/Error.jsp").forward(request, response);
     }
   }
 }

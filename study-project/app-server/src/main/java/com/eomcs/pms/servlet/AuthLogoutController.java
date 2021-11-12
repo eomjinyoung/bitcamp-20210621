@@ -15,7 +15,7 @@ public class AuthLogoutController extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     request.getSession().invalidate();
-    response.sendRedirect("loginForm");
+    request.setAttribute("contentUrl", "redirect:loginForm");
   }
 }
 

@@ -60,19 +60,16 @@ public class AuthLoginController extends HttpServlet {
       if (member != null) {
         HttpSession session = request.getSession();
         session.setAttribute("loginUser", member);
-        response.sendRedirect("../member/list");
+        request.setAttribute("contentUrl", "redirect:../member/list");
 
       } else {
-        response.setHeader("Refresh", "2;url=loginForm");
-
+        request.setAttribute("refresh", "2;url=loginForm");
         request.setAttribute("pageTitle", "로그인오류!");
         request.setAttribute("contentUrl", "/auth/LoginFail.jsp");
-        request.getRequestDispatcher("/template1.jsp").forward(request, response);
 
       }
     } catch (Exception e) {
       request.setAttribute("error", e);
-      request.getRequestDispatcher("/Error.jsp").forward(request, response);
     }
   }
 }

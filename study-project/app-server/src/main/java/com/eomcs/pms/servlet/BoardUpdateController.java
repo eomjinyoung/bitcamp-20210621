@@ -45,11 +45,10 @@ public class BoardUpdateController extends HttpServlet {
       boardDao.update(board);
       sqlSession.commit();
 
-      response.sendRedirect("list");
+      request.setAttribute("contentUrl", "redirect:list");
 
     } catch (Exception e) {
       request.setAttribute("error", e);
-      request.getRequestDispatcher("/Error.jsp").forward(request, response);
     }
   }
 }
