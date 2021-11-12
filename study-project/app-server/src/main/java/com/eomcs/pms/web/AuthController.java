@@ -23,7 +23,7 @@ public class AuthController {
     ModelAndView mv = new ModelAndView();
     mv.addObject("pageTitle", "로그인");
     mv.addObject("contentUrl", "auth/LoginForm.jsp");
-    mv.setViewName("redirect:list");
+    mv.setViewName("template1");
     return mv;
   }
 
@@ -33,7 +33,7 @@ public class AuthController {
     if (saveEmail != null) {
       cookie = new Cookie("email", email);
       cookie.setMaxAge(60 * 60 * 24 * 7);
-      cookie.setPath(sc.getContextPath() + "/auth"); // 예) http://localhost:8080/pms/auth
+      //cookie.setPath(sc.getContextPath() + "/app/auth"); // 예) http://localhost:8080/pms/app/auth
 
     } else {
       cookie = new Cookie("email", "");
@@ -53,12 +53,12 @@ public class AuthController {
       mv.addObject("refresh", "2;url=loginForm");
       mv.addObject("pageTitle", "로그인오류!");
       mv.addObject("contentUrl", "auth/LoginFail.jsp");
-      mv.setViewName("redirect:list");
+      mv.setViewName("template1");
     }
     return mv;
   }
 
-  @PostMapping("/auth/logout")
+  @GetMapping("/auth/logout")
   public ModelAndView logout(HttpSession session) throws Exception {
     session.invalidate();
     ModelAndView mv = new ModelAndView();
