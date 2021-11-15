@@ -40,10 +40,10 @@ public class DispatcherServlet extends HttpServlet {
 
     try {
       // 페이지 컨트롤러가 있는 패키지의 파일 시스템 경로를 알아낸다.
-      String controllerPackageNname = "com.eomcs.pms.web";
-      System.out.println(controllerPackageNname.replace(".", "/"));
+      String controllerPackageName = "com.eomcs.pms.web";
+      System.out.println(controllerPackageName.replace(".", "/"));
 
-      File controllerFilePath = Resources.getResourceAsFile(controllerPackageNname.replace(".", "/"));
+      File controllerFilePath = Resources.getResourceAsFile(controllerPackageName.replace(".", "/"));
       System.out.println(controllerFilePath.getCanonicalPath());
 
       // 해당 디렉토리에서 .class 파일을 찾는다.
@@ -53,7 +53,7 @@ public class DispatcherServlet extends HttpServlet {
           pathname.getName().indexOf("$") == -1); // 조건3) 중첩 클래스가 아니어야 한다.
 
       for (File f : controllerFiles) {
-        System.out.println(controllerPackageNname + "." + f.getName().replace(".class", "")); // FQName(패키지 이름을 포함한 클래스명) 
+        System.out.println(controllerPackageName + "." + f.getName().replace(".class", "")); // FQName(패키지 이름을 포함한 클래스명) 
         // 패키지 폴더에서 찾아낸 클래스 이름을 가지고 파일을 메모리에 로딩한다.
       }
 
