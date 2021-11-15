@@ -1,5 +1,6 @@
 package com.eomcs.pms.web;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.ibatis.io.Resources;
 import com.eomcs.pms.service.MemberService;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
@@ -30,11 +32,34 @@ public class DispatcherServlet extends HttpServlet {
     MemberService memberService = (MemberService) beanContainer.get("memberService");
     //BoardService boardService = (BoardService)  beanContainer.get("boardService");
 
-    controllerMap.put("/member/list", new MemberListController(memberService));
-    controllerMap.put("/member/detail", new MemberDetailController(memberService));
-    controllerMap.put("/member/add", new MemberAddController(memberService));
-    controllerMap.put("/member/update", new MemberUpdateController(memberService));
-    controllerMap.put("/member/delete", new MemberDeleteController(memberService));
+    //    controllerMap.put("/member/list", new MemberListController(memberService));
+    //    controllerMap.put("/member/detail", new MemberDetailController(memberService));
+    //    controllerMap.put("/member/add", new MemberAddController(memberService));
+    //    controllerMap.put("/member/update", new MemberUpdateController(memberService));
+    //    controllerMap.put("/member/delete", new MemberDeleteController(memberService));
+
+    try {
+      // 페이지 컨트롤러가 있는 패키지의 파일 시스템 경로를 알아낸다.
+      String controllerPackageNname = "com.eomcs.pms.web";
+      System.out.println(controllerPackageNname.replace(".", "/"));
+
+      File controllerFilePath = Resources.getResourceAsFile(controllerPackageNname.replace(".", "/"));
+      System.out.println(controllerFilePath.getCanonicalPath());
+
+      // 해당 디렉토리에서 .class 파일을 찾는다.
+      File[] controllerFiles = controllerFilePath.listFiles(
+          pathname -> pathname.isFile() &&  // 조건1) 파일이어야 한다.
+          pathname.getName().endsWith(".class") && // 조건2) 클래스 파일이어야 한다.
+          pathname.getName().indexOf("$") == -1); // 조건3) 중첩 클래스가 아니어야 한다.
+
+      for (File f : controllerFiles) {
+        System.out.println(controllerPackageNname + "." + f.getName().replace(".class", "")); // FQName(패키지 이름을 포함한 클래스명) 
+        // 패키지 폴더에서 찾아낸 클래스 이름을 가지고 파일을 메모리에 로딩한다.
+      }
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
   }
 
