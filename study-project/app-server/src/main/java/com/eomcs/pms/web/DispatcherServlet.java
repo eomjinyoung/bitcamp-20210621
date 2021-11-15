@@ -2,6 +2,8 @@ package com.eomcs.pms.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -53,8 +55,54 @@ public class DispatcherServlet extends HttpServlet {
           pathname.getName().indexOf("$") == -1); // 조건3) 중첩 클래스가 아니어야 한다.
 
       for (File f : controllerFiles) {
-        System.out.println(controllerPackageName + "." + f.getName().replace(".class", "")); // FQName(패키지 이름을 포함한 클래스명) 
         // 패키지 폴더에서 찾아낸 클래스 이름을 가지고 파일을 메모리에 로딩한다.
+        String className = controllerPackageName + "." + f.getName().replace(".class", "");
+        System.out.println(className); // FQName(패키지 이름을 포함한 클래스명) 
+
+        Class<?> cls = Class.forName(className);
+        System.out.println("===> " + cls.getSimpleName());
+
+        // 클래스가 Controller 인터페이스를 구현했는지 검사한다.
+        Class<?>[] interfaces = cls.getInterfaces();
+        for (Class<?> type : interfaces) {
+          if (type == Controller.class) {
+            System.out.println("컨트롤러 맞아요!");
+
+            // Controller 구현체가 맞다면 즉시 인스턴스를 생성한다.
+            // 1) 클래스의 생성자를 알아낸다.
+            Constructor<?> constructor = cls.getConstructors()[0];
+
+            // 2) 생성자의 파라미터 정보를 알아낸다.
+            Parameter[] parameters = constructor.getParameters();
+
+            // 3) 생성자를 호출하기 전에 파라미터 타입에 해당하는 아규먼트를 준비한다.
+            // - 아규먼트를 담을 배열 준비
+            Object[] arguments = new Object[parameters.length];
+
+            // - 각 파라미터 타입에 일치하는 값을 beanContainer에서 찾아서 아규먼트 배열에 담는다.
+            outer: for (int i = 0; i < parameters.length; i++) {
+              System.out.println(parameters[i].getType().getSimpleName());
+              for (Object value : beanContainer.values()) {
+                if (parameters[i].getType().isInstance(value)) {
+                  // beanContainer에 들어 있는 값 중에서 파라미터 타입과 일치하는 값을 찾았으면
+                  // 아규먼트 배열에 저장한다.
+                  arguments[i] = value;
+                  continue outer;
+                }
+              }
+
+              // beanContainer에 들어 있는 값 중에서 파라미터 타입과 일치하는 값이 없으면,
+              // 아규먼트 배열에 그냥 null을 저장한다.
+              arguments[i] = null;
+            }
+
+            // 4) 준비된 아규먼트들을 이용하여 생성자를 호출한다.
+            Controller controller = (Controller) constructor.newInstance(arguments);
+
+            System.out.println(controller);
+            break;
+          }
+        }
       }
 
     } catch (Exception e) {
