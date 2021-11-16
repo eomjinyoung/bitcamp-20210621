@@ -1004,8 +1004,7 @@
 
 ## 91일차(2021-11-09,화)
 
-- javascript(eomcs-java) : eomcs-servlet
-	- 서블릿 프로그래밍
+- 서블릿 프로그래밍(eomcs-java) : eomcs-servlet
 - 실전 프로젝트(eomcs-java-project)
 	- 23-e. 웹 애플리케이션 서버 아키텍처로 전환하기 : JavaScript 적용 + POST + 필터 적용(계속)	
 	- 23-f. 웹 애플리케이션 서버 아키텍처로 전환하기 : 템플릿 적용
@@ -1014,8 +1013,7 @@
 		- 자바스크립트 기술 적용
 
 ## 92일차(2021-11-10,수)
-- javascript(eomcs-java) : eomcs-servlet
-	- 서블릿 프로그래밍
+- 서블릿 프로그래밍(eomcs-java) : eomcs-servlet
 - 실전 프로젝트(eomcs-java-project)
 	- 23-g. 웹 애플리케이션 서버 아키텍처로 전환하기 : get/post, 파일 업로드, 썸네일, 로그인/로그아웃 적용
 - 팀 프로젝트 
@@ -1023,23 +1021,42 @@
 		- 자바스크립트 기술 적용
 
 ## 93일차(2021-11-11,목)
-- javascript(eomcs-java) : eomcs-servlet
-	- 서블릿 프로그래밍
+- 서블릿 프로그래밍(eomcs-java) : eomcs-servlet
 - 실전 프로젝트(eomcs-java-project)
 	- 23-g. 웹 애플리케이션 서버 아키텍처로 전환하기 : get/post, 파일 업로드, 썸네일, 로그인/로그아웃, 쿠키 적용(계속)
 - 팀 프로젝트 
 	- 팀별 프로젝트 구현
 		- 자바스크립트 기술 적용
 
-## 93일차(2021-11-11,목)
-- javascript(eomcs-java) : eomcs-servlet
-	- 서블릿 프로그래밍
+## 94일차(2021-11-12,금)
+- 서블릿 프로그래밍(eomcs-java) : eomcs-servlet
 - 실전 프로젝트(eomcs-java-project)
-	- 23-h. 웹 애플리케이션 서버 아키텍처로 전환하기 : 프론트 컨트롤러 도입
 	- 24-a. Spring WebMVC 프레임워크 도입하기 : 프레임워크 적용
 - 팀 프로젝트 
 	- 팀별 프로젝트 구현
-		- 자바스크립트 기술 적용
+		- 스프링 프레임워크 적용
+
+## 95일차(2021-11-15,월)
+- 스프링 프레임워크(eomcs-java-project) :
+	- 프론트 컨트롤러 만들기
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+		- 스프링 프레임워크 적용
+
+## 96일차(2021-11-16,화)
+- 스프링 프레임워크(eomcs-java) : eomcs-spring-webmvc
+	- 스프링 IoC 컨테이너 사용법
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+		- 스프링 프레임워크 적용
+
+## 97일차(2021-11-17,수)
+- 스프링 프레임워크(eomcs-java) : eomcs-spring-webmvc
+	- 스프링 IoC 컨테이너 사용법(계속)
+	- 스프링 WebMVC 프레임워크 사용법
+- 팀 프로젝트 
+	- 팀별 프로젝트 구현
+		- 스프링 프레임워크 적용
 
 # google meet
 https://meet.google.com/shs-ivqm-rvr
