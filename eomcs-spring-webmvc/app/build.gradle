@@ -1,22 +1,23 @@
 plugins {
-    id 'java'
-    id 'eclipse-wtp'
-    id 'war'
+    id 'java' 
+    id 'eclipse'
 }
 
 tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8';
-} 
+    options.encoding = 'UTF-8' 
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+}
 
-// 이클립스에서 출력할 프로젝트 이름을 설정한다.
 eclipse {
     project {
         name = "eomcs-spring-webmvc"
     }
-}
-
-war {
-  archiveBaseName = "spring"
+    jdt {
+        sourceCompatibility = 11
+        targetCompatibility = 11
+        javaRuntimeName = "JavaSE-11"
+    }
 }
 
 repositories {
@@ -24,6 +25,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.google.guava:guava:28.2-jre'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
+    implementation 'com.google.guava:guava:30.1.1-jre'
 }
