@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Member;
@@ -164,6 +165,17 @@ public class MemberController {
     ModelAndView mv = new ModelAndView();
     mv.setViewName("redirect:list");
     return mv;
+  }
+
+  @GetMapping("/member/checkEmail")
+  @ResponseBody
+  public String checkEmail(String email) throws Exception {
+    Member member = memberDao.findByEmail(email);
+    if (member == null) {
+      return "false";
+    } else {
+      return "true";
+    }
   }
 }
 

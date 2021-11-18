@@ -1,1 +1,0 @@
-# /src/test/resources 폴더

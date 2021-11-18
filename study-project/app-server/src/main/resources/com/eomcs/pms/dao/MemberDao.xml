@@ -42,6 +42,20 @@
       member_no=#{no}
   </select>
 
+  <select id="findByEmail" resultMap="MemberMap" parameterType="string">
+    select 
+      member_no,
+      name,
+      email,
+      photo,
+      tel,
+      created_dt 
+    from 
+      pms_member 
+    where 
+      email=#{email}
+  </select>
+  
   <insert id="insert" parameterType="member">
     insert into pms_member(name,email,password,photo,tel) 
     values(#{name},#{email},password(#{password}),#{photo},#{tel})
