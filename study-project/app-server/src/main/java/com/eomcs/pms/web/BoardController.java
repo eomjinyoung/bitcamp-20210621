@@ -61,6 +61,7 @@ public class BoardController {
     }
 
     boardDao.updateCount(no);
+    sqlSessionFactory.openSession().commit();
 
     ModelAndView mv = new ModelAndView();
     mv.addObject("board", board);
