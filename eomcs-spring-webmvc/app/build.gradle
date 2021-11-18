@@ -1,6 +1,7 @@
 plugins {
     id 'java' 
-    id 'eclipse'
+    id 'eclipse-wtp'
+    id 'war'
 }
 
 tasks.withType(JavaCompile) {
@@ -18,6 +19,16 @@ eclipse {
         targetCompatibility = 11
         javaRuntimeName = "JavaSE-11"
     }
+    wtp {
+        facet {
+            facet name: 'jst.java', version: '11'
+            facet name: 'jst.web', version: '4.0'
+        }
+    }
+}
+
+war {
+    archiveBaseName = "spring"
 }
 
 repositories {
@@ -25,6 +36,17 @@ repositories {
 }
 
 dependencies {
+    providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
+    
+    // Spring WebMVC 프레임워크 라이브러리
+    implementation 'org.springframework:spring-webmvc:5.3.13'
+    
     testImplementation 'junit:junit:4.13.2'
     implementation 'com.google.guava:guava:30.1.1-jre'
 }
+
+
+
+
+
+
