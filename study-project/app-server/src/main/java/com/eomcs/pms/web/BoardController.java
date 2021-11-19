@@ -7,18 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.eomcs.pms.dao.BoardDao;
 import com.eomcs.pms.domain.Board;
 import com.eomcs.pms.domain.Member;
 
 @Controller
+@RequestMapping("/board")
 public class BoardController {
 
   @Autowired SqlSessionFactory sqlSessionFactory;
   @Autowired BoardDao boardDao;
 
-  @GetMapping("/board/form")
+  @GetMapping("form")
   public ModelAndView form() {
     ModelAndView mv = new ModelAndView();
     mv.addObject("pageTitle", "새 글");
@@ -27,7 +29,7 @@ public class BoardController {
     return mv;
   }
 
-  @PostMapping("/board/add")
+  @PostMapping("add")
   public ModelAndView add(Board board, HttpSession session) throws Exception {
 
     board.setWriter((Member) session.getAttribute("loginUser"));
@@ -40,7 +42,7 @@ public class BoardController {
     return mv;
   }
 
-  @GetMapping("/board/list")
+  @GetMapping("list")
   public ModelAndView list() throws Exception {
     Collection<Board> boardList = boardDao.findAll();
 
@@ -52,7 +54,7 @@ public class BoardController {
     return mv;
   }
 
-  @GetMapping("/board/detail")
+  @GetMapping("detail")
   public ModelAndView detail(int no) throws Exception {
     Board board = boardDao.findByNo(no);
 
@@ -71,7 +73,7 @@ public class BoardController {
     return mv;
   }
 
-  @PostMapping("/board/update")
+  @PostMapping("update")
   public ModelAndView update(Board board) throws Exception {
 
     Board oldBoard = boardDao.findByNo(board.getNo());
@@ -87,7 +89,7 @@ public class BoardController {
     return mv;
   }
 
-  @GetMapping("/board/delete")
+  @GetMapping("delete")
   public ModelAndView delete(int no) throws Exception {
 
     Board board = boardDao.findByNo(no);

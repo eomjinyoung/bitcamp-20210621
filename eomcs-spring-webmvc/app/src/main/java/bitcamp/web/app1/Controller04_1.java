@@ -33,7 +33,7 @@ public class Controller04_1 {
   @GetMapping("h1")
   @ResponseBody
   public void handler1(
-      // ServletContext sc,
+      //      ServletContext sc,
       // ServletContext는 파라미터로 받을 수 없다. 예외 발생!
       // 의존 객체로 주입 받아야 한다.
       ServletRequest request,

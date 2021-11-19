@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.eomcs.pms.dao.MemberDao;
@@ -19,13 +20,14 @@ import net.coobird.thumbnailator.geometry.Positions;
 import net.coobird.thumbnailator.name.Rename;
 
 @Controller
+@RequestMapping("/member")
 public class MemberController {
 
   @Autowired SqlSessionFactory sqlSessionFactory;
   @Autowired MemberDao memberDao;
   @Autowired ServletContext sc;
 
-  @GetMapping("/member/form")
+  @GetMapping("form")
   public ModelAndView form() {
     ModelAndView mv = new ModelAndView();
     mv.addObject("pageTitle", "새회원");
@@ -34,7 +36,7 @@ public class MemberController {
     return mv;
   }
 
-  @PostMapping("/member/add")
+  @PostMapping("add")
   public ModelAndView add(Member member, Part photoFile) throws Exception {
     if (photoFile.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
@@ -75,7 +77,7 @@ public class MemberController {
     return mv;
   }
 
-  @GetMapping("/member/list")
+  @GetMapping("list")
   public ModelAndView list() throws Exception {
 
     Collection<Member> memberList = memberDao.findAll();
@@ -88,7 +90,7 @@ public class MemberController {
     return mv;
   }
 
-  @GetMapping("/member/detail")
+  @GetMapping("detail")
   public ModelAndView detail(int no) throws Exception {
     Member member = memberDao.findByNo(no);
     if (member == null) {
@@ -103,7 +105,7 @@ public class MemberController {
     return mv;
   }
 
-  @PostMapping("/member/update")
+  @PostMapping("update")
   public ModelAndView update(Member member, Part photoFile) throws Exception {
 
     Member oldMember = memberDao.findByNo(member.getNo());
@@ -152,7 +154,7 @@ public class MemberController {
     return mv;
   }
 
-  @GetMapping("/member/delete")
+  @GetMapping("delete")
   public ModelAndView delete(int no) throws Exception {
     Member member = memberDao.findByNo(no);
     if (member == null) {
@@ -167,7 +169,7 @@ public class MemberController {
     return mv;
   }
 
-  @GetMapping("/member/checkEmail")
+  @GetMapping("checkEmail")
   @ResponseBody
   public String checkEmail(String email) throws Exception {
     Member member = memberDao.findByEmail(email);
