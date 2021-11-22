@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import com.eomcs.pms.dao.MemberDao;
 import com.eomcs.pms.domain.Member;
+import com.eomcs.pms.service.MemberService;
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
 
-  @Autowired MemberDao memberDao;
+  @Autowired MemberService memberService;
   @Autowired ServletContext sc;
 
   @GetMapping("loginForm")
@@ -43,11 +43,11 @@ public class AuthController {
     }
     response.addCookie(cookie);
 
-    Member member = memberDao.findByEmailAndPassword(email, password);
-
     ModelAndView mv = new ModelAndView();
+    int no = -1;
 
-    if (member != null) {
+    if ((no = memberService.exist(email, password)) != -1) {
+      Member member = memberService.get(no);
       session.setAttribute("loginUser", member);
       mv.setViewName("redirect:../member/list");
 
