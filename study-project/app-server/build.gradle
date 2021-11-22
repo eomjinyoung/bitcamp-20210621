@@ -90,8 +90,12 @@ dependencies {
   //implementation 'javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:1.2.2' // JSTL API 만 있다.
     
   // Google JSON 라이브러리
-  implementation 'com.google.code.gson:gson:2.8.8'
-  
+  //implementation 'com.google.code.gson:gson:2.8.8'
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+    
+  // Apache의 파일업로드 처리 라이브러리
+  implementation 'commons-fileupload:commons-fileupload:1.4'
+    
   // MariaDB JDBC 드라이버
   implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
   

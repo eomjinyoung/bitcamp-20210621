@@ -38,6 +38,8 @@ repositories {
 dependencies {
     providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
     
+    implementation 'jstl:jstl:1.2'
+    
     // Spring WebMVC 프레임워크 라이브러리
     implementation 'org.springframework:spring-webmvc:5.3.13'
     
@@ -49,6 +51,9 @@ dependencies {
     
     // fasterxml의 JSON 라이브러리
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+    
+    // Apache의 파일업로드 처리 라이브러리
+    implementation 'commons-fileupload:commons-fileupload:1.4'
     
     testImplementation 'junit:junit:4.13.2'
     implementation 'com.google.guava:guava:30.1.1-jre'
